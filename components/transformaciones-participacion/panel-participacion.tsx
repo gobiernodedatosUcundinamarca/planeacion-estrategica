@@ -20,6 +20,7 @@ import {
   CAMPOS_FILTRO_UNIFICADO,
   CAMPOS_UNIDAD_REGIONAL,
   estandarizarDependencia,
+  estandarizarUnidadRegional,
 } from "@/lib/reglas/participacion";
 import type { RegistroParticipacion } from "@/types/participacion";
 
@@ -59,19 +60,19 @@ const formatoDiaCorto = new Intl.DateTimeFormat("es-CO", { day: "2-digit", month
 const formatoDiaLargo = new Intl.DateTimeFormat("es-CO", { dateStyle: "long" });
 
 /**
- * La unidad regional del asistente: la primera no vacía entre las columnas de
- * estudiante, docente y trabajador, porque cada rol la trae en la suya.
+ * La unidad regional del asistente: la primera columna (estudiante, docente o
+ * trabajador) que nombre una sede reconocida, ya estandarizada por
+ * `estandarizarUnidadRegional`.
  *
- * Se le quita el prefijo "UNIDAD REGIONAL," con que vienen todas en el Excel:
- * repetirlo en cada fila no distingue nada —el desplegable y el gráfico ya se
- * llaman "Unidad Regional"— y en cambio alarga tanto la etiqueta que el eje
- * del gráfico la recortaba por la izquierda. Se recorta solo si está: un valor
- * que no lo traiga se deja tal cual.
+ * Solo se aceptan las unidades reales de la UCundinamarca (más Bogotá). La
+ * columna del Excel a veces trae el programa o la facultad en su lugar
+ * —"ENFERMERIA", "ADMINISTRACION DEL MEDIO AMBIENTE"—; esas filas caen en
+ * "Sin especificar" en vez de aparecer como una sede inexistente.
  */
 function unidadRegionalDe(r: RegistroParticipacion): string {
   for (const campo of CAMPOS_UNIDAD_REGIONAL) {
-    const valor = r[campo];
-    if (valor && valor.trim()) return valor.trim().replace(/^UNIDAD\s+REGIONAL\s*,?\s*/i, "");
+    const unidad = estandarizarUnidadRegional(r[campo]);
+    if (unidad) return unidad;
   }
   return SIN_ESPECIFICAR;
 }

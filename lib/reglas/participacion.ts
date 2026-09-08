@@ -111,6 +111,45 @@ export const CAMPOS_UNIDAD_REGIONAL: CampoTextoParticipacion[] = [
 ];
 
 /**
+ * Las unidades regionales reales de la UCundinamarca, con la etiqueta con que
+ * se muestran. Se reconocen por la ciudad que contiene el texto, no por
+ * coincidencia exacta: la columna del Excel a veces trae el programa o la
+ * facultad en vez de la sede ("ENFERMERIA", "ADMINISTRACION DEL MEDIO
+ * AMBIENTE", "LICENCIATURA EN LENGUAS MODERNAS"), y esas filas deben quedar
+ * como "Sin especificar" en vez de inventar una sede que no existe.
+ *
+ * "Bogotá" se mantiene como unidad válida aunque no sea una sede en el sentido
+ * estricto: es el único destino externo que sí interesa distinguir.
+ */
+const UNIDADES_REGIONALES: { patron: RegExp; etiqueta: string }[] = [
+  { patron: /GIRARDOT/, etiqueta: "SECCIONAL GIRARDOT" },
+  { patron: /UBATE/, etiqueta: "SECCIONAL UBATÉ" },
+  { patron: /ZIPAQUIRA/, etiqueta: "EXTENSIÓN ZIPAQUIRÁ" },
+  { patron: /FUSAGASUGA/, etiqueta: "SEDE FUSAGASUGÁ" },
+  { patron: /CHIA/, etiqueta: "EXTENSIÓN CHÍA" },
+  { patron: /SOACHA/, etiqueta: "EXTENSIÓN SOACHA" },
+  { patron: /FACATATIVA/, etiqueta: "EXTENSIÓN FACATATIVÁ" },
+  { patron: /BOGOTA/, etiqueta: "BOGOTÁ" },
+];
+
+/**
+ * La unidad regional estandarizada de un valor de columna, o `null` si el
+ * texto no nombra ninguna unidad reconocida (la vista lo muestra como "Sin
+ * especificar"). Antes se compara sin el prefijo "UNIDAD REGIONAL," con que
+ * vienen casi todas.
+ */
+export function estandarizarUnidadRegional(texto: string | null): string | null {
+  const limpio = (texto ?? "").trim().replace(/^UNIDAD\s+REGIONAL\s*,?\s*/i, "").trim();
+  if (!limpio) return null;
+
+  const clave = normalizar(limpio);
+  for (const { patron, etiqueta } of UNIDADES_REGIONALES) {
+    if (patron.test(clave)) return etiqueta;
+  }
+  return null;
+}
+
+/**
  * Los campos que agrupa el desplegable unificado de "programa, facultad,
  * coordinación o área".
  *
