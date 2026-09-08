@@ -38,6 +38,9 @@ launcher-src/portal.zip
 # Backups temporales de los Excel fuente
 data/**/*.backup*.xlsx
 
+# Evidencia de QA de los diagramas archify (se regenera; no se versiona)
+docs/diagramas/*.visual-check.*
+
 # Varios
 .DS_Store
 *.pem

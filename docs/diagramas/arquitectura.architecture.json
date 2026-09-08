@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Planeación Estratégica 2027–2037 — Arquitectura de capas",
+    "output": "arquitectura.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/gobiernodedatosUcundinamarca/planeacion-estrategica",
+      "provider": "github",
+      "revision": "376752dc26aa67ea628520dabb1d18599010585c"
+    },
+    "views": [
+      { "id": "lectura-excel", "label": "Lectura en vivo del Excel", "focus": ["usuarios", "app", "repos", "ds", "excel", "xlsx"], "note": "La ruta por defecto: cada módulo lee su .xlsx en vivo, sin JSON intermedio ni ETL." },
+      { "id": "cargue-admin", "label": "Cargue desde /admin a Postgres", "focus": ["admin", "app", "reglas", "repos", "ds", "neonInfra", "pg"], "note": "Los módulos editables desde el sitio publicado: el .xlsx se valida y se anonimiza antes de persistir." },
+      { "id": "puertas-unicas", "label": "Puertas únicas", "focus": ["excel", "neonInfra", "reglas"], "note": "Un punto para leer XLSX, un punto para abrir Postgres, una sola definición de cada regla." }
+    ]
+  },
+  "layout": { "mode": "grid", "cols": 3, "gapX": 150, "gapY": 86, "cellW": 176, "cellH": 58 },
+  "components": [
+    { "id": "usuarios", "type": "external", "label": "Comunidad universitaria", "sublabel": "Navegador", "col": 1, "row": 0, "size": [180, 64] },
+    { "id": "admin", "type": "security", "label": "/admin", "sublabel": "Cargue .xlsx con PIN", "tag": "ADMIN_PIN", "col": 2, "row": 0, "size": [176, 64], "sources": [{ "path": "app/admin/page.tsx" }] },
+    { "id": "app", "type": "frontend", "label": "Next.js · App Router", "sublabel": "Server Components + componentes", "col": 1, "row": 1, "size": [188, 64], "sources": [{ "path": "app/layout.tsx" }, { "path": "app/(dashboard)/transformaciones/page.tsx" }, { "path": "next.config.ts" }] },
+    { "id": "repos", "type": "backend", "label": "Repositorios", "sublabel": "Única puerta de datos", "col": 1, "row": 2, "size": [176, 64], "sources": [{ "path": "repositories/participacionRepository.ts" }, { "path": "repositories/aportesRepository.ts" }] },
+    { "id": "reglas", "type": "backend", "label": "lib/reglas/*", "sublabel": "Reglas compartidas + validación", "col": 0, "row": 3, "size": [180, 64], "sources": [{ "path": "lib/reglas/momento4.ts" }, { "path": "lib/reglas/participacion.ts" }] },
+    { "id": "ds", "type": "backend", "label": "Orígenes de datos", "sublabel": "Cumplen datasource/types.ts", "col": 1, "row": 3, "size": [188, 64], "sources": [{ "path": "repositories/datasource/index.ts" }, { "path": "repositories/datasource/types.ts" }] },
+    { "id": "excel", "type": "backend", "label": "infrastructure/excel.ts", "sublabel": "Puerta única XLSX · caché mtime", "col": 0, "row": 4, "size": [190, 64], "sources": [{ "path": "repositories/datasource/infrastructure/excel.ts" }, { "path": "repositories/datasource/infrastructure/cache-archivo.ts" }] },
+    { "id": "neonInfra", "type": "backend", "label": "infrastructure/neon.ts", "sublabel": "Puerta única a Postgres", "col": 2, "row": 4, "size": [188, 64], "sources": [{ "path": "repositories/datasource/infrastructure/neon.ts" }] },
+    { "id": "xlsx", "type": "database", "label": "data/source-*/*.xlsx", "sublabel": "Fuente de verdad · en vivo", "tag": "sin ETL", "col": 0, "row": 5, "size": [180, 64] },
+    { "id": "pg", "type": "database", "label": "Neon · Postgres", "sublabel": "Datos editables desde /admin", "tag": "DATABASE_URL", "col": 2, "row": 5, "size": [180, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Runtime idéntico en Vercel (Linux serverless) y en el .exe portable", "wraps": ["app", "repos", "reglas", "ds", "excel", "neonInfra"], "pad": 30 }
+  ],
+  "connections": [
+    { "id": "u-app", "from": "usuarios", "to": "app", "label": "HTTP", "variant": "emphasis", "fromSide": "bottom", "toSide": "top", "labelDy": 24 },
+    { "id": "a-app", "from": "admin", "to": "app", "label": "server action", "variant": "security", "fromSide": "bottom", "toSide": "top", "labelDy": 24 },
+    { "id": "app-repos", "from": "app", "to": "repos", "label": "solo repositorios", "fromSide": "bottom", "toSide": "top", "labelDy": 24 },
+    { "id": "repos-ds", "from": "repos", "to": "ds", "label": "implementa contrato", "fromSide": "bottom", "toSide": "top" },
+    { "id": "reglas-ds", "from": "reglas", "to": "ds", "label": "valida + anonimiza", "variant": "security", "fromSide": "right", "toSide": "left" },
+    { "id": "app-reglas", "from": "app", "to": "reglas", "variant": "dashed", "fromSide": "left", "toSide": "top" },
+    { "id": "ds-excel", "from": "ds", "to": "excel", "label": "lee vía", "fromSide": "bottom", "toSide": "top" },
+    { "id": "ds-neon", "from": "ds", "to": "neonInfra", "label": "lee / escribe", "fromSide": "bottom", "toSide": "top" },
+    { "id": "excel-xlsx", "from": "excel", "to": "xlsx", "label": "fs · mtime", "fromSide": "bottom", "toSide": "top" },
+    { "id": "neon-pg", "from": "neonInfra", "to": "pg", "label": "SQL / HTTP", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "Flujo en una sola dirección", "items": ["Una página o componente nunca importa un datasource, solo repositorios", "Solo excel.ts lee XLSX; solo neon.ts abre Postgres", "Cada origen cumple un contrato de types.ts: migrar un módulo es una línea de index.ts"] },
+    { "dot": "violet", "title": "Excel en vivo, con la excepción de Postgres", "items": ["Editar el .xlsx se ve en la siguiente petición; CacheArchivo invalida por mtime", "Momento 4, Participación y Aportes se editan desde /admin en producción, donde el disco es de solo lectura", "El mismo build corre en Vercel y en el .exe portable (DATABASE_URL en el entorno)"] }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "Cargue desde /admin — del .xlsx a los paneles",
+    "output": "cargue.html",
+    "quality_profile": "showcase",
+    "viewBox": [1080, 560],
+    "views": [
+      { "id": "camino", "label": "Camino principal", "focus": ["src", "reglas", "formato", "almacen", "pg", "repos", "panel"], "note": "El .xlsx se valida, se tipa, se guarda en Postgres y alimenta los paneles." },
+      { "id": "anonimizacion", "label": "Validación y anonimización", "focus": ["reglas", "formato"], "note": "Se valida columna a columna y solo se conservan los campos de la lista: cédula, correo y nombres se descartan al leer." },
+      { "id": "persistencia", "label": "Persistencia", "focus": ["almacen", "pg"], "note": "Los INSERT van dentro de una transacción; en 'reemplazar' el borrado ocurre después de insertar." }
+    ]
+  },
+  "stages": [
+    { "label": "Fuente" },
+    { "label": "Validación" },
+    { "label": "Transformación" },
+    { "label": "Persistencia" },
+    { "label": "Consumo" }
+  ],
+  "nodes": [
+    { "id": "src", "type": "frontend", "label": "Export .xlsx", "sublabel": "subido en /admin", "stage": 0, "row": 1, "width": 150 },
+    { "id": "reglas", "type": "security", "label": "lib/reglas/*", "sublabel": "valida y anonimiza", "stage": 1, "row": 1, "width": 150, "tag": "server action" },
+    { "id": "formato", "type": "backend", "label": "*-formato.ts", "sublabel": "solo campos permitidos", "stage": 2, "row": 1, "width": 156 },
+    { "id": "almacen", "type": "backend", "label": "*-almacen.ts", "sublabel": "INSERT en transacción", "stage": 3, "row": 0, "width": 156 },
+    { "id": "pg", "type": "database", "label": "Neon · Postgres", "sublabel": "datos de /admin", "stage": 3, "row": 1, "width": 156, "tag": "DATABASE_URL" },
+    { "id": "repos", "type": "backend", "label": "Repositorios", "sublabel": "puerta única", "stage": 4, "row": 0, "width": 150 },
+    { "id": "panel", "type": "frontend", "label": "Paneles", "sublabel": "/transformaciones*", "stage": 4, "row": 1, "width": 150 }
+  ],
+  "flows": [
+    { "id": "src-reglas", "from": "src", "to": "reglas", "label": "archivo .xlsx", "classification": "entrada", "variant": "emphasis", "labelDy": 52 },
+    { "id": "reglas-formato", "from": "reglas", "to": "formato", "label": "columnas válidas", "classification": "sin datos personales", "variant": "security", "labelDy": 52 },
+    { "id": "formato-almacen", "from": "formato", "to": "almacen", "label": "filas tipadas", "classification": "tras el corte de fecha", "variant": "emphasis", "labelAt": [638, 316] },
+    { "id": "almacen-pg", "from": "almacen", "to": "pg", "label": "INSERT (txn)", "classification": "persistido", "variant": "emphasis", "labelDy": 24 },
+    { "id": "pg-repos", "from": "pg", "to": "repos", "label": "SELECT", "labelDy": 52 },
+    { "id": "repos-panel", "from": "repos", "to": "panel", "label": "props", "labelDy": 24 }
+  ],
+  "cards": [
+    { "dot": "rose", "title": "Anonimización y reglas del cargue", "items": ["Solo se guardan los campos de lib/reglas/*; cédula, correo y nombres se descartan al leer", "El formato se reconoce por nombre de columna, no por posición; solo entran respuestas tras FECHA_MINIMA_RESPUESTA", "Participación elige anexar o reemplazar; el modo se valida en la server action"] },
+    { "dot": "violet", "title": "Pasos derivados (Momento 4)", "items": ["quitarCorreosRepetidos deja una respuesta por correo y rol dentro de un documento", "Los comentarios se agrupan por tema con TF-IDF + K-Means, 100% local", "La clasificación se recalcula entera en cada cargue y en cada borrado"] }
+  ]
+}
