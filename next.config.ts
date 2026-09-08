@@ -41,6 +41,36 @@ const nextConfig: NextConfig = {
     // así el ?v= de cache-busting también pasa.
     localPatterns: [{ pathname: "/**" }],
   },
+  // Cabeceras de seguridad para todas las respuestas. No se pone
+  // Content-Security-Policy: una CSP estricta chocaría con el
+  // `transform: scale()` de `app/layout.tsx` y con los estilos en línea de
+  // recharts, y afinarla necesita su propia verificación. Estas cinco no
+  // afectan el render:
+  //  · X-Frame-Options — el sitio no se embebe en ningún <iframe>; bloquear el
+  //    encuadre evita clickjacking sobre /admin.
+  //  · nosniff — Next ya sirve cada recurso con su tipo correcto.
+  //  · HSTS — los navegadores lo ignoran sobre http://localhost, así que el
+  //    .exe portable no se ve afectado; en Vercel (siempre https) fuerza https.
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Frame-Options", value: "DENY" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
+          },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=15552000; includeSubDomains",
+          },
+        ],
+      },
+    ];
+  },
   // Asegura que los .xlsx (fuente de datos en vivo, leídos con fs en el
   // servidor) queden incluidos en el bundle serverless — de otra forma el
   // file-tracing automático de Vercel podría omitirlos por no ser código.

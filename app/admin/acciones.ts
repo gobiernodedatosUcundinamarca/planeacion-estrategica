@@ -1,6 +1,7 @@
 "use server";
 
-import { cookies } from "next/headers";
+import { timingSafeEqual } from "node:crypto";
+import { cookies, headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { COOKIE_ADMIN, DURACION_ACCESO_MINUTOS } from "@/constants/admin";
 import type { ResultadoCargue } from "@/types/momento4";
@@ -20,7 +21,7 @@ import { publicarSeccion } from "@/repositories/seccionesRepository";
 import { getMetricasUso } from "@/repositories/metricasRepository";
 import type { MetricasUso } from "@/types/metricas";
 import { RUTA_POR_SECCION, SECCION_PARTICIPACION, SECCION_TRANSFORMACIONES } from "@/constants/secciones";
-import { tieneAccesoAdmin } from "./sesion";
+import { crearTokenSesion, tieneAccesoAdmin } from "./sesion";
 
 /**
  * Comprueba el PIN contra ADMIN_PIN y, si coincide, abre el acceso escribiendo
@@ -33,17 +34,29 @@ export async function validarPin(pin: string): Promise<boolean> {
   // Sin ADMIN_PIN configurado no entra nadie. Falla cerrado a propósito: un
   // despliegue al que se le olvidó la variable debe dejar la puerta trabada,
   // no abierta.
-  if (!esperado || pin.trim() !== esperado) return false;
+  if (!esperado) return false;
+
+  // Comparación en tiempo constante: `!==` corta en la primera letra distinta y
+  // filtra, por el tiempo de respuesta, cuántas coinciden. Longitudes distintas
+  // se descartan antes, sin comparar.
+  const recibido = Buffer.from(pin.trim());
+  const referencia = Buffer.from(esperado);
+  if (recibido.length !== referencia.length || !timingSafeEqual(recibido, referencia)) {
+    return false;
+  }
+
+  // `secure` solo cuando la petición llega por https (Vercel): así la cookie no
+  // viaja en claro en producción, pero el .exe portable —servido por http en
+  // localhost— sigue pudiendo guardarla.
+  const porHttps = (await headers()).get("x-forwarded-proto") === "https";
 
   const galletas = await cookies();
-  galletas.set(COOKIE_ADMIN, "true", {
+  galletas.set(COOKIE_ADMIN, crearTokenSesion(DURACION_ACCESO_MINUTOS), {
     httpOnly: true,
     sameSite: "lax",
+    secure: porHttps,
     path: "/admin",
     maxAge: DURACION_ACCESO_MINUTOS * 60,
-    // Sin `secure`: el .exe portable se sirve por http en localhost, y una
-    // cookie marcada como segura no se guardaría ahí. La cookie no contiene
-    // el PIN ni ningún dato — solo la marca de que ya se validó.
   });
   return true;
 }
@@ -93,10 +106,13 @@ export async function eliminarRegistros(
         : `Se borraron ${eliminadas} respuesta(s) de las cinco transformaciones.`,
     };
   } catch (error) {
+    // El detalle de Postgres (nombres de columnas, fragmentos de consulta) se
+    // deja en el log del servidor, no en la respuesta al navegador.
+    console.error("eliminarRegistros (Momento 4) falló:", error);
     return {
       ok: false,
       eliminadas: 0,
-      motivo: `No se pudo borrar: ${error instanceof Error ? error.message : "error desconocido"}`,
+      motivo: "No se pudo borrar. Revisa la conexión con la base e inténtalo de nuevo.",
     };
   }
 }
@@ -132,10 +148,11 @@ export async function cambiarPublicacionSeccion(
     revalidatePath("/", "layout");
     return { ok: true, publicada: estado };
   } catch (error) {
+    console.error("cambiarPublicacionSeccion falló:", error);
     return {
       ok: false,
       publicada,
-      motivo: `No se pudo guardar el cambio: ${error instanceof Error ? error.message : "error desconocido"}`,
+      motivo: "No se pudo guardar el cambio. Revisa la conexión con la base e inténtalo de nuevo.",
     };
   }
 }
@@ -282,10 +299,11 @@ export async function eliminarRegistrosAportes(): Promise<{
     revalidatePath(RUTA_POR_SECCION[SECCION_TRANSFORMACIONES]);
     return { ok: true, eliminados, motivo: `Se borraron ${eliminados} aporte(s).` };
   } catch (error) {
+    console.error("eliminarRegistrosAportes falló:", error);
     return {
       ok: false,
       eliminados: 0,
-      motivo: `No se pudo borrar: ${error instanceof Error ? error.message : "error desconocido"}`,
+      motivo: "No se pudo borrar. Revisa la conexión con la base e inténtalo de nuevo.",
     };
   }
 }
@@ -314,10 +332,11 @@ export async function eliminarTandaParticipacion(
         : `Se borraron ${eliminados} registro(s) de todas las tandas.`,
     };
   } catch (error) {
+    console.error("eliminarTandaParticipacion falló:", error);
     return {
       ok: false,
       eliminados: 0,
-      motivo: `No se pudo borrar: ${error instanceof Error ? error.message : "error desconocido"}`,
+      motivo: "No se pudo borrar. Revisa la conexión con la base e inténtalo de nuevo.",
     };
   }
 }
