@@ -18,15 +18,15 @@ import { validarPin } from "@/app/admin/acciones";
 export function FormularioPin() {
   const router = useRouter();
   const [codigo, setCodigo] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [validando, iniciarValidacion] = useTransition();
 
   function enviar(evento: FormEvent<HTMLFormElement>) {
     evento.preventDefault();
     iniciarValidacion(async () => {
-      const correcto = await validarPin(codigo);
-      if (!correcto) {
-        setError(true);
+      const resultado = await validarPin(codigo);
+      if (!resultado.ok) {
+        setError(resultado.motivo ?? "PIN incorrecto.");
         setCodigo("");
         return;
       }
@@ -54,13 +54,13 @@ export function FormularioPin() {
             autoComplete="off"
             autoFocus
             aria-label="PIN de acceso"
-            aria-invalid={error || undefined}
+            aria-invalid={error ? true : undefined}
             placeholder="PIN de acceso"
             value={codigo}
             disabled={validando}
             onChange={(evento) => {
               setCodigo(evento.target.value);
-              setError(false);
+              setError(null);
             }}
             // El espaciado ancho solo con texto escrito: sobre el placeholder
             // deja "PIN de acceso" separado letra por letra.
@@ -68,7 +68,7 @@ export function FormularioPin() {
           />
           {error ? (
             <p role="alert" className="text-center text-sm text-destructive">
-              PIN incorrecto.
+              {error}
             </p>
           ) : null}
           <Button type="submit" size="lg" disabled={validando || codigo.trim().length === 0}>

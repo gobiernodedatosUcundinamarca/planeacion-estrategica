@@ -22,28 +22,53 @@ import { getMetricasUso } from "@/repositories/metricasRepository";
 import type { MetricasUso } from "@/types/metricas";
 import { RUTA_POR_SECCION, SECCION_PARTICIPACION, SECCION_TRANSFORMACIONES } from "@/constants/secciones";
 import { crearTokenSesion, tieneAccesoAdmin } from "./sesion";
+import {
+  limpiarFallosPin,
+  registrarFalloPin,
+  revisarLimiteIntentos,
+} from "./limite-intentos";
 
 /**
  * Comprueba el PIN contra ADMIN_PIN y, si coincide, abre el acceso escribiendo
  * la cookie de sesión. Vive en el servidor a propósito: el PIN nunca se envía
  * al navegador, así que no puede leerse inspeccionando la página.
+ *
+ * Devuelve `{ ok, motivo? }` en vez de un booleano para poder decirle a quien
+ * intenta por qué falló (PIN incorrecto vs. demasiados intentos, con la espera).
  */
-export async function validarPin(pin: string): Promise<boolean> {
+export async function validarPin(pin: string): Promise<{ ok: boolean; motivo?: string }> {
   const esperado = process.env.ADMIN_PIN;
 
   // Sin ADMIN_PIN configurado no entra nadie. Falla cerrado a propósito: un
   // despliegue al que se le olvidó la variable debe dejar la puerta trabada,
   // no abierta.
-  if (!esperado) return false;
+  if (!esperado) return { ok: false };
+
+  // Límite de intentos por IP (ver limite-intentos.ts): tras varios fallos
+  // seguidos hay que esperar antes de volver a probar. Se revisa antes de
+  // comparar nada.
+  const limite = await revisarLimiteIntentos();
+  if (!limite.permitido) {
+    return {
+      ok: false,
+      motivo: `Demasiados intentos. Espera ${limite.esperaSegundos} s antes de volver a probar.`,
+    };
+  }
 
   // Comparación en tiempo constante: `!==` corta en la primera letra distinta y
   // filtra, por el tiempo de respuesta, cuántas coinciden. Longitudes distintas
   // se descartan antes, sin comparar.
   const recibido = Buffer.from(pin.trim());
   const referencia = Buffer.from(esperado);
-  if (recibido.length !== referencia.length || !timingSafeEqual(recibido, referencia)) {
-    return false;
+  const coincide =
+    recibido.length === referencia.length && timingSafeEqual(recibido, referencia);
+
+  if (!coincide) {
+    await registrarFalloPin();
+    return { ok: false, motivo: "PIN incorrecto." };
   }
+
+  await limpiarFallosPin();
 
   // `secure` solo cuando la petición llega por https (Vercel): así la cookie no
   // viaja en claro en producción, pero el .exe portable —servido por http en
@@ -58,7 +83,7 @@ export async function validarPin(pin: string): Promise<boolean> {
     path: "/admin",
     maxAge: DURACION_ACCESO_MINUTOS * 60,
   });
-  return true;
+  return { ok: true };
 }
 
 /**
