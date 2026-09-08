@@ -252,48 +252,89 @@ export function clasificarRespaldo(texto: string | null): OpcionRespaldo {
 }
 
 /**
- * Nombre estandarizado del programa del que alguien es graduado.
- *
- * La pregunta del formulario es de texto libre, así que un mismo programa
- * llega escrito de muchas formas: en los documentos reales hay 21 redacciones
- * distintas para 6 programas —"Administración de empresas", "Adm empresas",
- * "Administrador de empresas", "Administración  de Empresas" con doble
- * espacio—. Sin unificarlas, cada variante sería una categoría propia y el
- * gráfico mostraría seis veces el mismo programa con una respuesta cada uno.
- *
- * Se reconoce por las palabras clave que contiene y no con una lista de
- * equivalencias exactas, porque la lista habría que ampliarla con cada export
- * nuevo: mientras alguien escriba "adm" o "contadur", su respuesta cae en el
- * programa correcto aunque lo escriba distinto a como lo escribió nadie antes.
- *
- * Lo que no reconoce se devuelve tal cual (solo con los espacios colapsados):
- * es preferible mostrar un programa suelto sin agrupar a inventar a cuál
- * pertenece.
+ * Programas de graduación reconocidos, en el orden en que se listan y se
+ * pintan. Es una lista cerrada: la pregunta del formulario es de texto libre y
+ * en los documentos reales hay ~130 redacciones distintas —"Administración de
+ * empresas", "Adm empresas", "Ingeniería ambiental", "Ing ambiental",
+ * "Enfermeria", "Wnfermeria"…— para una docena de carreras. Sin unificarlas,
+ * cada variante era una barra propia y el gráfico mostraba la misma carrera
+ * cinco o seis veces con una respuesta cada una.
  */
-export function estandarizarPrograma(texto: string | null): string | null {
-  const original = (texto ?? "").trim().replace(/\s+/g, " ");
-  if (!original) return null;
+export const PROGRAMAS_GRADUADO = [
+  "Administración de Empresas",
+  "Contaduría Pública",
+  "Enfermería",
+  "Ingeniería Ambiental",
+  "Ingeniería de Software",
+  "Ingeniería de Sistemas",
+  "Música",
+  "Zootecnia",
+  "Licenciatura en Educación Básica",
+  "Biología y Química",
+  "Gestión Turística y Hotelera",
+  "Administración del Medio Ambiente",
+  "Gerencia para el Desarrollo Organizacional",
+] as const;
 
-  const clave = normalizar(original);
+/**
+ * Los programas que menciona una respuesta de graduado, ya unificados.
+ *
+ * Devuelve una lista y no un valor único a propósito: hay respuestas que citan
+ * varias carreras ("Administración de Empresas e Ingeniería de Software",
+ * "Administrador de empresas, zootecnia") y cada una debe contar en su barra.
+ *
+ * Se reconoce por palabras clave sobre el texto normalizado (sin tildes, en
+ * mayúsculas), no con una tabla de equivalencias exactas: mientras alguien
+ * escriba "nfermer" o "ambiental", su respuesta cae en la carrera correcta
+ * aunque la escriba distinto a como la escribió nadie antes.
+ *
+ * Devuelve `[]` —que la vista pinta como "Sin especificar"— cuando el texto no
+ * nombra ninguna carrera: no-respuestas ("N/A", "Ninguno", ".", "No me he
+ * graduado"), nombres de sede sueltos ("Girardot"), o párrafos pegados por
+ * error en el campo. El umbral de 90 caracteres descarta esos párrafos sin
+ * tocar el nombre real más largo (la licenciatura, de 78).
+ */
+export function programasDeGraduado(texto: string | null): string[] {
+  const clave = normalizar((texto ?? "").trim().replace(/\s+/g, " "));
+  if (!clave || clave.length > 90) return [];
+
   const tiene = (patron: RegExp) => patron.test(clave);
+  const encontrados: string[] = [];
+  const agregar = (programa: (typeof PROGRAMAS_GRADUADO)[number]) => {
+    if (!encontrados.includes(programa)) encontrados.push(programa);
+  };
 
+  // "medio ambiente" es una carrera distinta de "ingeniería ambiental" y de
+  // "administración de empresas": se resuelve aparte para que "Administración
+  // del Medio Ambiente" no caiga en "Administración de Empresas" por el "adm".
+  const medioAmbiente = tiene(/MEDIO ?AMBIENTE/);
+  if (medioAmbiente) agregar("Administración del Medio Ambiente");
+
+  if (tiene(/EMPRESA/) || tiene(/\bADMON\b|\bADM\b/) || (tiene(/ADMINISTRAC/) && !medioAmbiente)) {
+    agregar("Administración de Empresas");
+  }
+  if (tiene(/CONTADUR/)) agregar("Contaduría Pública");
+  // "NFERMER" cubre "Enfermeria", "Enfermería" y el error "Wnfermeria".
+  if (tiene(/NFERMER|ENFEREMR|ENFERMERA/)) agregar("Enfermería");
+  if (tiene(/AMBIENTAL/)) agregar("Ingeniería Ambiental");
+  if (tiene(/SOFTWARE/)) agregar("Ingeniería de Software");
+  if (tiene(/SISTEMAS/)) agregar("Ingeniería de Sistemas");
+  if (tiene(/MUSICA/)) agregar("Música");
+  if (tiene(/ZOOTECN/)) agregar("Zootecnia");
+  if (tiene(/LICENCIAT|LICENCIAD|EDUCACION BASICA|HUMANIDAD|ANIDADES INGLES/)) {
+    agregar("Licenciatura en Educación Básica");
+  }
+  if (tiene(/BIOLOGIA/) && tiene(/QUIMICA/)) agregar("Biología y Química");
+  if (tiene(/GESTION TURISTICA/) || (tiene(/TURISTIC/) && tiene(/HOTELER/))) {
+    agregar("Gestión Turística y Hotelera");
+  }
   if (tiene(/GERENCIA|DESARROLLO ORGANIZACIONAL/)) {
-    return "Gerencia para el Desarrollo Organizacional";
+    agregar("Gerencia para el Desarrollo Organizacional");
   }
 
-  // "ADM" cubre administración, administrador y la abreviatura "Adm empresas".
-  const administracion = tiene(/\bADM/);
-  const contaduria = tiene(/CONTADUR/);
-  const zootecnia = tiene(/ZOOTECNIA/);
-  const sistemas = tiene(/SISTEMAS/);
-
-  if (administracion && contaduria) return "Administración de Empresas y Contaduría Pública";
-  if (administracion && zootecnia) return "Administración de Empresas y Zootecnia";
-  if (administracion) return "Administración de Empresas";
-  if (contaduria) return "Contaduría Pública";
-  if (sistemas) return "Ingeniería de Sistemas";
-
-  return original;
+  // Se devuelven en el orden canónico, no en el de aparición: así una barra no
+  // cambia de sitio porque alguien escribió las dos carreras al revés.
+  return PROGRAMAS_GRADUADO.filter((p) => encontrados.includes(p));
 }
 
 /**

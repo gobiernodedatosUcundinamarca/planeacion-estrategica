@@ -30,7 +30,7 @@ import {
   TRANSFORMACIONES_MOMENTO4,
   clasificarRespaldo,
   correoIdentifica,
-  estandarizarPrograma,
+  programasDeGraduado,
   normalizar,
   type OpcionRespaldo,
 } from "@/lib/reglas/momento4";
@@ -78,17 +78,19 @@ function valorOSinEspecificar(valor: string | null): string {
 }
 
 /**
- * El programa de una respuesta de graduado, o null si la pregunta no le
- * aplicaba.
+ * Los programas que menciona una respuesta de graduado, ya unificados. Lista
+ * vacía si quien respondió no es graduado: la pregunta solo le aplicaba a
+ * ellos, y marcar como "Sin especificar" a los demás —que hicieron bien en
+ * dejarla vacía— mezclaría "no respondió" con "no le preguntaron".
  *
- * La distinción importa: de las 290 respuestas, solo las de graduados debían
- * contestar el programa. Marcar como "Sin especificar" a las otras 236 —que
- * hicieron bien en dejarlo vacío— mezclaría "no respondió" con "no le
- * preguntaron". Así el gráfico suma el total de graduados y no otra cifra.
+ * Un graduado que sí es graduado pero no nombró ninguna carrera reconocible
+ * cae en "Sin especificar". Un graduado que nombró varias suma en cada una:
+ * por eso las barras pueden sumar más que el número de graduados.
  */
-function programaDeGraduado(respuesta: RespuestaMomento4): string | null {
-  if (!normalizar(respuesta.tipoActor ?? "").includes("GRADUAD")) return null;
-  return estandarizarPrograma(respuesta.programaGraduado) ?? SIN_ESPECIFICAR;
+function programasDeGraduadoDe(respuesta: RespuestaMomento4): string[] {
+  if (!normalizar(respuesta.tipoActor ?? "").includes("GRADUAD")) return [];
+  const programas = programasDeGraduado(respuesta.programaGraduado);
+  return programas.length > 0 ? programas : [SIN_ESPECIFICAR];
 }
 
 /**
@@ -158,7 +160,7 @@ export function PanelTransformaciones({
       // Ya unificados: en el Excel el mismo programa viene escrito de varias
       // formas, y sin estandarizar el desplegable ofrecería la misma carrera
       // repetida tres o cuatro veces.
-      programasGraduado: valoresUnicos(respuestas.map(programaDeGraduado)),
+      programasGraduado: valoresUnicos(respuestas.flatMap(programasDeGraduadoDe)),
       // Las tres opciones del formulario van siempre, aunque alguna tenga cero:
       // son una escala fija y quitarlas haría parecer que no existen. La cuarta
       // ("Sin responder u otra") es un cajón de sastre para valores
@@ -199,7 +201,7 @@ export function PanelTransformaciones({
       }
       if (
         filtros.programaGraduado !== TODAS &&
-        programaDeGraduado(r) !== filtros.programaGraduado
+        !programasDeGraduadoDe(r).includes(filtros.programaGraduado)
       ) {
         return false;
       }
@@ -521,6 +523,7 @@ export function PanelTransformaciones({
                 filtros.programaGraduado === TODAS ? null : filtros.programaGraduado
               }
               truncarEn={54}
+              coberturaColapsada={0.8}
             />
           </CardContent>
         </Card>
@@ -626,9 +629,11 @@ function calcularMetricas(respuestas: RespuestaMomento4[]) {
     const unidad = valorOSinEspecificar(respuesta.unidadRegional);
     porUnidadRegional.set(unidad, (porUnidadRegional.get(unidad) ?? 0) + 1);
     // Solo las respuestas de graduados entran aquí: para el resto la pregunta
-    // no aplicaba (ver programaDeGraduado).
-    const programa = programaDeGraduado(respuesta);
-    if (programa) porProgramaGraduado.set(programa, (porProgramaGraduado.get(programa) ?? 0) + 1);
+    // no aplicaba (ver programasDeGraduadoDe). Un combo suma en cada carrera
+    // que nombra, así que estas barras pueden sumar más que el nº de graduados.
+    for (const programa of programasDeGraduadoDe(respuesta)) {
+      porProgramaGraduado.set(programa, (porProgramaGraduado.get(programa) ?? 0) + 1);
+    }
 
     // Las respuestas anónimas no traen un correo que las distinga (Forms
     // escribe "anonymous" en todas), así que cada una cuenta como un
@@ -661,13 +666,13 @@ function calcularMetricas(respuestas: RespuestaMomento4[]) {
     ).filter((fila) => fila.total > 0),
     porTipoActor: aDatosBarra(porTipoActor, total),
     porUnidadRegional: aDatosBarra(porUnidadRegional, total),
-    // El porcentaje se calcula sobre quienes SÍ respondieron el programa y no
-    // sobre el total: la pregunta es solo para graduados, y dividir entre
-    // todas las respuestas daría porcentajes diminutos que no dicen nada del
-    // peso de cada carrera entre los graduados.
+    // El porcentaje se calcula sobre el nº de graduados que respondieron la
+    // pregunta (uno por respuesta, aunque nombre varias carreras), no sobre el
+    // total ni sobre la suma de menciones: así se lee como "% de graduados que
+    // mencionan esta carrera" y una barra puede pasar de 100% si hubo combos.
     porProgramaGraduado: aDatosBarra(
       porProgramaGraduado,
-      [...porProgramaGraduado.values()].reduce((suma, n) => suma + n, 0)
+      respuestas.filter((r) => programasDeGraduadoDe(r).length > 0).length
     ),
   };
 }

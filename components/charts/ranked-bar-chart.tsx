@@ -22,6 +22,10 @@ interface RankedBarChartProps {
   alturaFila?: number;
   truncarEn?: number;
   ocultarAccion?: boolean;
+  // Si se pasa (0–1), el gráfico muestra solo las barras que cubren esa
+  // fracción del total y esconde la cola tras un botón "Ver todo". La tabla
+  // ("Ver tabla") siempre muestra el 100%.
+  coberturaColapsada?: number;
   // Si se pasa, las barras se vuelven clickeables: click alterna la selección
   // (clickear la barra activa la deselecciona). etiquetaSeleccionada resalta
   // la barra activa y atenúa las demás.
@@ -90,23 +94,50 @@ export function RankedBarChart({
   alturaFila = 32,
   truncarEn = 26,
   ocultarAccion = false,
+  coberturaColapsada,
   onSeleccionarBarra,
   etiquetaSeleccionada,
 }: RankedBarChartProps) {
   const [vistaTabla, setVistaTabla] = useState(false);
+  const [expandido, setExpandido] = useState(false);
   const id = useId();
   const ordenados = [...datos].sort((a, b) => b.conteo - a.conteo);
   const esClickeable = Boolean(onSeleccionarBarra);
 
+  // Cuántas barras hacen falta para cubrir la fracción pedida del total. La
+  // barra activa por un filtro siempre se muestra, aunque quede en la cola.
+  const totalConteo = ordenados.reduce((suma, d) => suma + d.conteo, 0);
+  let cuantasVisibles = ordenados.length;
+  if (
+    coberturaColapsada != null &&
+    coberturaColapsada > 0 &&
+    coberturaColapsada < 1 &&
+    totalConteo > 0
+  ) {
+    let acumulado = 0;
+    cuantasVisibles = 0;
+    for (const d of ordenados) {
+      acumulado += d.conteo;
+      cuantasVisibles += 1;
+      if (acumulado / totalConteo >= coberturaColapsada) break;
+    }
+    const iSeleccionada = etiquetaSeleccionada
+      ? ordenados.findIndex((d) => d.etiqueta === etiquetaSeleccionada)
+      : -1;
+    if (iSeleccionada >= cuantasVisibles) cuantasVisibles = iSeleccionada + 1;
+  }
+  const hayColapso = cuantasVisibles < ordenados.length;
+  const visibles = hayColapso && !expandido ? ordenados.slice(0, cuantasVisibles) : ordenados;
+
   const maxLineas = Math.max(
     1,
-    ...ordenados.map((d) => envolverEtiqueta(d.etiqueta, truncarEn).length)
+    ...visibles.map((d) => envolverEtiqueta(d.etiqueta, truncarEn).length)
   );
   const filaAltura = Math.max(alturaFila, maxLineas * ALTURA_LINEA + 16);
 
   function barraRedondeada(props: BarShapeProps) {
     const { x, y, width, height, index } = props;
-    const etiqueta = ordenados[index ?? -1]?.etiqueta;
+    const etiqueta = visibles[index ?? -1]?.etiqueta;
     const seleccionada = etiquetaSeleccionada === etiqueta;
     const atenuada = esClickeable && etiquetaSeleccionada != null && !seleccionada;
     const fill = colores ? colores[index % colores.length] : "var(--primary)";
@@ -173,10 +204,11 @@ export function RankedBarChart({
           </TableBody>
         </Table>
       ) : (
-        <div style={{ height: Math.max(ordenados.length * filaAltura, 90) }}>
+        <div className="flex flex-col gap-1.5">
+        <div style={{ height: Math.max(visibles.length * filaAltura, 90) }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
-              data={ordenados}
+              data={visibles}
               layout="vertical"
               margin={{ top: 2, right: 40, bottom: 2, left: 2 }}
               barCategoryGap={6}
@@ -219,6 +251,18 @@ export function RankedBarChart({
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+        </div>
+        {hayColapso ? (
+          <button
+            type="button"
+            onClick={() => setExpandido((v) => !v)}
+            className="self-start text-[11px] font-medium text-primary hover:underline"
+          >
+            {expandido
+              ? "Ver menos"
+              : `Ver todo (${ordenados.length})`}
+          </button>
+        ) : null}
         </div>
       )}
     </section>
