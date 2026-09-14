@@ -229,8 +229,10 @@ export function CargueAportes({
         <DialogContent showCloseButton={false} className="max-w-md items-center gap-3 text-center">
           <Loader2 className="size-8 animate-spin text-primary" aria-hidden />
           <DialogTitle>Procesando documento</DialogTitle>
-          <DialogDescription className="flex flex-col gap-1">
-            <span className="truncate font-medium text-foreground">{enCurso?.nombre}</span>
+          <DialogDescription className="flex w-full min-w-0 flex-col gap-1">
+            <span className="block max-w-full truncate font-medium text-foreground">
+              {enCurso?.nombre}
+            </span>
             <span>Subiendo y validando el formato ({enCurso?.mb} MB).</span>
             <span>No cierres esta página.</span>
           </DialogDescription>

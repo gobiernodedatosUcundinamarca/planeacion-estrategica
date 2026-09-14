@@ -464,8 +464,10 @@ function FilaDocumento({
         >
           <Loader2 className="size-8 animate-spin text-primary" aria-hidden />
           <DialogTitle>Procesando documento</DialogTitle>
-          <DialogDescription className="flex flex-col gap-1">
-            <span className="truncate font-medium text-foreground">{enCurso?.nombre}</span>
+          <DialogDescription className="flex w-full min-w-0 flex-col gap-1">
+            <span className="block max-w-full truncate font-medium text-foreground">
+              {enCurso?.nombre}
+            </span>
             <span>
               Subiendo y validando el formato ({enCurso?.mb} MB) para{" "}
               <strong className="font-medium text-foreground">{documento.etiqueta}</strong>.

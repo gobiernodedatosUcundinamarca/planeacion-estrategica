@@ -302,8 +302,10 @@ export function CargueParticipacion({
           <DialogTitle>
             {modo === "reemplazar" ? "Reemplazando la asistencia" : "Anexando tanda de asistencia"}
           </DialogTitle>
-          <DialogDescription className="flex flex-col gap-1">
-            <span className="truncate font-medium text-foreground">{enCurso?.nombre}</span>
+          <DialogDescription className="flex w-full min-w-0 flex-col gap-1">
+            <span className="block max-w-full truncate font-medium text-foreground">
+              {enCurso?.nombre}
+            </span>
             <span>Subiendo y validando el archivo ({enCurso?.mb} MB).</span>
             {modo === "reemplazar" ? (
               <span className="font-medium text-foreground">
