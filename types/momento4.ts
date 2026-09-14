@@ -77,6 +77,8 @@ export interface ResultadoCargue {
   descartadas: number | null;
   /** Filas que quedaron fuera por ser anteriores al corte de fecha. */
   descartadasPorFecha: number | null;
+  /** Filas descartadas por no traer ninguna respuesta (solo correo y fecha). */
+  sinRespuesta: number | null;
   /** Nombre del archivo al que sustituyó, cuando el cargue reemplazó a otro. */
   reemplazo: string | null;
 }

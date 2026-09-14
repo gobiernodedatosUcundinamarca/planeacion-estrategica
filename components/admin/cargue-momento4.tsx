@@ -345,6 +345,7 @@ function FilaDocumento({
         respuestas: null,
         descartadas: null,
         descartadasPorFecha: null,
+        sinRespuesta: null,
         reemplazo: null,
       });
 
@@ -513,6 +514,13 @@ function FilaDocumento({
                   <p className="mt-1 flex w-fit items-center gap-1.5 rounded-md bg-muted px-2 py-1 text-xs text-foreground">
                     <AlertTriangle className="size-3.5 shrink-0" aria-hidden />
                     {resultado.descartadas} respuesta(s) que repetían correo y rol no se cargaron.
+                  </p>
+                ) : null}
+                {resultado.sinRespuesta ? (
+                  <p className="mt-1 flex w-fit items-center gap-1.5 rounded-md bg-muted px-2 py-1 text-xs text-foreground">
+                    <AlertTriangle className="size-3.5 shrink-0" aria-hidden />
+                    {resultado.sinRespuesta} respuesta(s) sin contestar nada (solo correo y fecha) no se
+                    cargaron.
                   </p>
                 ) : null}
                 {resultado.reemplazo ? (

@@ -49,6 +49,8 @@ export type LecturaMomento4 =
       correosRepetidos: string[];
       /** Cuántas quedaron fuera por ser anteriores al corte de fecha. */
       descartadasPorFecha: number;
+      /** Cuántas se descartaron por no traer ninguna respuesta (solo correo/fecha). */
+      sinRespuesta: number;
     }
   | { ok: false; motivo: string };
 
@@ -170,13 +172,20 @@ export function leerDocumentoMomento4(
   // haya —aunque sea nada—, para que subir el export de siempre no obligue a
   // interpretar un rechazo cada vez.
 
+  // Una fila con correo y fecha pero sin ninguna respuesta de contenido es un
+  // formulario que se abrió y no se contestó: no alimenta ninguna cifra de la
+  // sección y solo inflaría el conteo de participantes. Basta con que haya
+  // contestado una pregunta real —"Tipo de actor" en adelante— para conservarla.
+  const conRespuesta = enPlazo.filter(tieneAlgunaRespuesta);
+  const sinRespuesta = enPlazo.length - conRespuesta.length;
+
   // El documento tampoco se rechaza por traer repetidos: se cargan las
   // respuestas únicas y se informa cuántas quedaron fuera.
   // La identidad es correo + rol: la misma persona puede responder una vez por
   // cada rol que tenga (graduada y administrativa, por ejemplo), y esas filas
   // no son duplicados.
   const sinRepetidos = quitarCorreosRepetidos(
-    enPlazo,
+    conRespuesta,
     (r) => r.correo,
     (r) => r.tipoActor
   );
@@ -187,7 +196,27 @@ export function leerDocumentoMomento4(
     descartadas: sinRepetidos.descartadas,
     correosRepetidos: sinRepetidos.correosRepetidos,
     descartadasPorFecha,
+    sinRespuesta,
   };
+}
+
+/**
+ * Campos de contenido de la encuesta, de "Tipo de actor" en adelante. Son las
+ * respuestas propiamente dichas; lo anterior (ID, horas, correo, nombre) es
+ * metadato del envío, no algo que la persona haya contestado.
+ */
+const CAMPOS_RESPUESTA: (keyof FilaExcelMomento4)[] = [
+  "tipoActor",
+  "programaGraduado",
+  "unidadRegional",
+  "transformacionDeclarada",
+  "respondeNecesidad",
+  "ajustes",
+];
+
+/** Si la fila trae al menos una respuesta de contenido llena. */
+function tieneAlgunaRespuesta(fila: FilaExcelMomento4): boolean {
+  return CAMPOS_RESPUESTA.some((campo) => fila[campo] !== null);
 }
 
 /** Celda vacía y celda ausente son lo mismo: null, no la cadena "". */

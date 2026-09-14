@@ -241,6 +241,7 @@ export async function guardarDocumento(
     respuestas: null,
     descartadas: null,
     descartadasPorFecha: null,
+    sinRespuesta: null,
     reemplazo: null,
   });
 
@@ -294,13 +295,17 @@ export async function guardarDocumento(
       lectura.descartadasPorFecha > 0
         ? ` Quedaron fuera ${lectura.descartadasPorFecha} por ser anteriores al ${corte}.`
         : "";
+    const vacias =
+      lectura.sinRespuesta > 0
+        ? ` Se descartaron ${lectura.sinRespuesta} sin ninguna respuesta (solo correo y fecha).`
+        : "";
 
     // Con cero guardadas, "0 respuesta(s) guardadas" suena a fallo cuando en
     // realidad el archivo se procesó bien: solo no traía nada nuevo.
     const resumen =
       lectura.respuestas.length === 0
-        ? `Archivo aceptado en ${transformacion.etiqueta}, sin respuestas nuevas que guardar: las ${lectura.descartadasPorFecha} del archivo son anteriores al ${corte}.`
-        : `Cargado en ${transformacion.etiqueta} · ${lectura.respuestas.length} respuesta(s) guardadas en la base de datos.${anteriores}${repetidas}`;
+        ? `Archivo aceptado en ${transformacion.etiqueta}, sin respuestas nuevas que guardar.${anteriores}${vacias}${repetidas}`
+        : `Cargado en ${transformacion.etiqueta} · ${lectura.respuestas.length} respuesta(s) guardadas en la base de datos.${anteriores}${vacias}${repetidas}`;
 
     return {
       archivo: nombreOriginal,
@@ -311,6 +316,7 @@ export async function guardarDocumento(
       respuestas: lectura.respuestas.length,
       descartadas: lectura.descartadas,
       descartadasPorFecha: lectura.descartadasPorFecha,
+      sinRespuesta: lectura.sinRespuesta,
       reemplazo: anterior !== nombreOriginal ? anterior : null,
     };
   } catch (error) {
