@@ -23,6 +23,16 @@ export interface RegistroParticipacion {
   documentoId: number;
   /** Fecha del evento de asistencia, en ISO (solo fecha, sin hora). */
   fechaInicio: string | null;
+  /**
+   * Ciudad donde se desarrolló el evento (Ubaté, Zipaquirá, Girardot,
+   * Soacha…). Distinta de la unidad regional, que es la sede de origen del
+   * asistente. Se asigna al cargar la tanda; `null` si no se registró.
+   *
+   * La cédula que trae el Excel se guarda en la base pero NO se incluye aquí a
+   * propósito: este tipo es el que llega al cliente, y el dato no debe salir
+   * del servidor. Ver `consultarRegistros`.
+   */
+  lugarDesarrollo: string | null;
   nombreAsistente: string | null;
   edad: number | null;
   rol: string | null;

@@ -111,6 +111,8 @@ export function interpretarFilaParticipacion(fila: FilaExcelParticipacion) {
     facultadDocente: texto(fila.facultadDocente),
     areaTrabajador: texto(fila.areaTrabajador),
     unidadTrabajador: texto(fila.unidadTrabajador),
+    // Se guarda para trazabilidad; nunca se publica (ver consultarRegistros).
+    cedula: texto(fila.cedula),
   };
 }
 

@@ -31,6 +31,8 @@ const COLUMNAS = [
   "facultad_docente",
   "area_trabajador",
   "unidad_trabajador",
+  // Se guarda pero no se publica: `consultarRegistros` no la lee de vuelta.
+  "cedula",
 ] as const;
 
 /** Filas por sentencia INSERT, con el mismo margen que el Momento 4 (ver ahí el porqué). */
@@ -53,8 +55,12 @@ export async function consultarDocumentos(sql: Sql): Promise<DocumentoParticipac
 
 /** Todos los registros de asistencia publicados, de todas las tandas. */
 export async function consultarRegistros(sql: Sql): Promise<RegistroParticipacion[]> {
+  // La cédula (columna `cedula`) NO se selecciona a propósito: este resultado
+  // se publica en el dashboard, y la cédula se guarda solo para trazabilidad
+  // interna, nunca para mostrarse. Dejarla fuera del SELECT es lo que impide
+  // que llegue al cliente.
   const filas = await sql`
-    select id, documento_id, fecha_inicio, nombre_asistente, edad, rol,
+    select id, documento_id, fecha_inicio, lugar_desarrollo, nombre_asistente, edad, rol,
            codigo_estudiante, programa_estudiante, unidad_estudiante,
            coordinacion_docente, unidad_docente, facultad_docente,
            area_trabajador, unidad_trabajador
@@ -65,6 +71,7 @@ export async function consultarRegistros(sql: Sql): Promise<RegistroParticipacio
     id: Number(f.id),
     documentoId: Number(f.documento_id),
     fechaInicio: aFechaISO(f.fecha_inicio),
+    lugarDesarrollo: (f.lugar_desarrollo as string | null) ?? null,
     nombreAsistente: (f.nombre_asistente as string | null) ?? null,
     edad: f.edad === null ? null : Number(f.edad),
     rol: (f.rol as string | null) ?? null,
@@ -222,6 +229,7 @@ function sentenciasDeInsercion(
         registro.facultadDocente,
         registro.areaTrabajador,
         registro.unidadTrabajador,
+        registro.cedula,
       ];
       const marcadores = valores.map((_, i) => `$${parametros.length + i + 1}`);
       parametros.push(...valores);

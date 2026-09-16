@@ -47,9 +47,23 @@ async function main() {
     )
   `;
 
+  // Columnas agregadas después del diseño inicial (idempotente):
+  //  · lugar_desarrollo: la ciudad donde se hizo el evento (Ubaté, Zipaquirá,
+  //    Girardot, Soacha…). Es distinta de la unidad regional del asistente —esa
+  //    es su sede de origen— y se asigna al cargar la tanda, no viene del Excel.
+  //  · cedula: se conserva para trazabilidad, pero NUNCA se publica en el
+  //    dashboard (consultarRegistros no la selecciona y no está en el tipo
+  //    RegistroParticipacion, así que no viaja al cliente).
+  await sql`alter table participacion_registros add column if not exists lugar_desarrollo text`;
+  await sql`alter table participacion_registros add column if not exists cedula text`;
+
   await sql`
     create index if not exists participacion_registros_documento_idx
       on participacion_registros (documento_id)
+  `;
+  await sql`
+    create index if not exists participacion_registros_lugar_idx
+      on participacion_registros (lugar_desarrollo)
   `;
   await sql`
     create index if not exists participacion_registros_fecha_idx

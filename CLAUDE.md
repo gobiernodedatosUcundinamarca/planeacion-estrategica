@@ -82,10 +82,21 @@ las filas.
     porque "reemplazar" borra datos y una server action es un endpoint público.
   · **El formato se reconoce por nombre de columna, no por posición ni orden**
     (`lib/reglas/participacion.ts`), y **solo se guardan los campos de esa
-    lista**. Todo lo demás que traiga el archivo —cédula, correo, nombres y
-    apellidos por separado, creador de la sesión— se descarta al leerlo y nunca
-    llega a la base: esa es la anonimización. Para admitir una columna nueva se
-    agrega su variante ahí, no en el código que lee.
+    lista**. Correo, nombres y apellidos por separado y creador de la sesión se
+    descartan al leerlo y nunca llegan a la base: esa es la anonimización. Para
+    admitir una columna nueva se agrega su variante ahí, no en el código que lee.
+  · **La cédula es la excepción**: sí se conserva en la base (columna `cedula`,
+    variante "Documento") para trazabilidad, pero **nunca se publica en el
+    dashboard**. `consultarRegistros` no la selecciona y no está en
+    `RegistroParticipacion`, así que no viaja al cliente; se guarda pero no se
+    muestra. Cualquier nuevo dato personal que deba conservarse sin publicarse
+    sigue este mismo patrón: se escribe en la tabla, se deja fuera del SELECT
+    público y fuera del tipo que llega al navegador.
+  · **`lugar_desarrollo`** es la ciudad donde se desarrolló el evento (Ubaté,
+    Zipaquirá, Girardot, Soacha…), distinta de la unidad regional —esa es la
+    sede de origen del asistente—. Se asigna al cargar la tanda (no viene del
+    Excel) y alimenta el filtro "Lugar de desarrollo" del dashboard; queda
+    `null` ("Sin especificar") en los cargues que no la definan.
 - **Clasificación de comentarios**: los aportes abiertos se agrupan por tema con
   TF-IDF + K-Means (`lib/reglas/clasificacion.ts`), sin servicios externos ni
   modelos descargados — el `.exe` portable debe seguir siendo autocontenido y

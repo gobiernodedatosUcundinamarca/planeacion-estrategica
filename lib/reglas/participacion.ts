@@ -30,7 +30,11 @@ export type CampoParticipacion =
   | "unidadDocente"
   | "facultadDocente"
   | "areaTrabajador"
-  | "unidadTrabajador";
+  | "unidadTrabajador"
+  // Se conserva en la base para trazabilidad, pero NUNCA se publica: no la
+  // selecciona `consultarRegistros` ni está en `RegistroParticipacion`, así que
+  // no llega al cliente. Es la excepción a la anonimización (ver CLAUDE.md §2).
+  | "cedula";
 
 /**
  * Los únicos datos que se conservan de cada asistente, con las redacciones de
@@ -82,6 +86,20 @@ export const CAMPOS_PARTICIPACION: {
     etiqueta: "Unidad trabajador",
     variantes: ["Unidad trabajador", "Unidad del trabajador"],
   },
+  {
+    campo: "cedula",
+    etiqueta: "Documento",
+    variantes: [
+      "Documento",
+      "Número documento",
+      "Numero documento",
+      "Número de documento",
+      "Cédula",
+      "Cedula",
+      "Identificación",
+      "Identificacion",
+    ],
+  },
 ];
 
 /** Índice encabezado normalizado → campo, construido a partir de las variantes. */
@@ -96,8 +114,13 @@ export function campoDeEncabezado(encabezado: string): CampoParticipacion | null
   return CAMPO_POR_ENCABEZADO.get(normalizar(encabezado)) ?? null;
 }
 
-/** Los campos de `CampoParticipacion` cuyo valor es siempre texto (todos menos edad). */
-export type CampoTextoParticipacion = Exclude<CampoParticipacion, "edad">;
+/**
+ * Los campos de texto que SÍ se publican y se usan en el dashboard (todos menos
+ * `edad`, que es número, y `cedula`, que se guarda pero nunca se muestra). Por
+ * eso este tipo se puede usar para indexar `RegistroParticipacion`, que no
+ * incluye la cédula.
+ */
+export type CampoTextoParticipacion = Exclude<CampoParticipacion, "edad" | "cedula">;
 
 /**
  * De dónde sale la unidad regional (sede, seccional o extensión) de un

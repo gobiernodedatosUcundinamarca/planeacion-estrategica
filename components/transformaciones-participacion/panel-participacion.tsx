@@ -47,6 +47,8 @@ interface Filtros {
   unidadRegional: string;
   /** Programa, facultad, coordinación o área: un solo valor entre los cuatro. */
   adscripcion: string;
+  /** Ciudad donde se hizo el evento (Ubaté, Zipaquirá, Girardot, Soacha…). */
+  lugarDesarrollo: string;
 }
 
 const SIN_FILTROS: Filtros = {
@@ -54,6 +56,7 @@ const SIN_FILTROS: Filtros = {
   rol: TODAS,
   unidadRegional: TODAS,
   adscripcion: TODAS,
+  lugarDesarrollo: TODAS,
 };
 
 const formatoDiaCorto = new Intl.DateTimeFormat("es-CO", { day: "2-digit", month: "short" });
@@ -108,6 +111,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
       roles: valoresUnicos(registros.map((r) => r.rol?.trim() || SIN_ESPECIFICAR)),
       unidadesRegionales: valoresUnicos(registros.map(unidadRegionalDe)),
       adscripciones: valoresUnicos(registros.flatMap(adscripcionesDe)),
+      lugares: valoresUnicos(registros.map((r) => r.lugarDesarrollo?.trim() || SIN_ESPECIFICAR)),
     }),
     [registros]
   );
@@ -125,6 +129,12 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
         return false;
       }
       if (filtros.adscripcion !== TODAS && !adscripcionesDe(r).includes(filtros.adscripcion)) {
+        return false;
+      }
+      if (
+        filtros.lugarDesarrollo !== TODAS &&
+        (r.lugarDesarrollo?.trim() || SIN_ESPECIFICAR) !== filtros.lugarDesarrollo
+      ) {
         return false;
       }
       return true;
@@ -177,6 +187,33 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
                   {opciones.fechas.map((valor) => (
                     <SelectItem key={valor} value={valor}>
                       {formatoDiaLargo.format(new Date(`${valor}T12:00:00`))}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Campo>
+          ) : null}
+
+          {/* Solo si hay más de un lugar: con uno solo el desplegable no
+              recortaría nada. */}
+          {opciones.lugares.length > 1 ? (
+            <Campo etiqueta="Lugar de desarrollo">
+              <Select
+                value={filtros.lugarDesarrollo}
+                onValueChange={(v) => actualizar("lugarDesarrollo", v ?? TODAS)}
+              >
+                <SelectTrigger className="w-52">
+                  <SelectValue placeholder="Todos">
+                    {(v: string | null) => (
+                      <span className="min-w-0 truncate">{textoSeleccion(v, "Todos")}</span>
+                    )}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={TODAS}>Todos</SelectItem>
+                  {opciones.lugares.map((valor) => (
+                    <SelectItem key={valor} value={valor}>
+                      {valor}
                     </SelectItem>
                   ))}
                 </SelectContent>
