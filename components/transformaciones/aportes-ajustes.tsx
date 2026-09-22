@@ -72,7 +72,6 @@ export function AportesAjustes({ respuestas }: { respuestas: RespuestaMomento4[]
                   fechaTexto(respuesta.fechaInicio),
                   respuesta.etiqueta,
                   respuesta.tipoActor,
-                  respuesta.unidadRegional,
                 ]
                   .filter(Boolean)
                   .join(" · ")}
