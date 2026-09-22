@@ -491,6 +491,10 @@ export function PanelTransformaciones({
               datos={metricas.porTipoActor}
               onSeleccionarBarra={(etiqueta) => alternar("tipoActor", etiqueta)}
               etiquetaSeleccionada={filtros.tipoActor === TODAS ? null : filtros.tipoActor}
+              // "Creadores de Oportunidades (estudiantes)" se cortaba: con el
+              // default (26) el eje reserva 156 px y ese nombre ocupa ~169, así
+              // que la "C" quedaba fuera. 30 reserva 180 px y lo deja completo.
+              truncarEn={30}
             />
           </CardContent>
         </Card>
