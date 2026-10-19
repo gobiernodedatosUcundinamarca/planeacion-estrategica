@@ -16,8 +16,10 @@ PlaneacionEstrategica2027-2037.exe
 
 # Documentación: no participa en el build.
 docs/
-CLAUDE.md
 README.md
+
+# Reglas del proyecto, hooks y skills del asistente de código: no participan en el build.
+.claude/
 
 # Área de descarte para revisión manual (también fuera de git).
 Borrar/

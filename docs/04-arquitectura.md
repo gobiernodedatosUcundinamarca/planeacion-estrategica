@@ -2,7 +2,7 @@
 
 Documento de referencia de cómo está montado el proyecto. Acompaña a los dos
 diagramas interactivos de [`docs/diagramas/`](diagramas/) y a las reglas de
-[`CLAUDE.md`](../CLAUDE.md), que mandan sobre cualquier convención genérica.
+[`.claude/CLAUDE.md`](../.claude/CLAUDE.md), que mandan sobre cualquier convención genérica.
 
 | Diagrama | Archivo | Qué muestra |
 |---|---|---|

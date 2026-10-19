@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "bashOutputMaxChars": 15000,
+  "permissions": {
+    "allow": [
+      "PowerShell(git status*)",
+      "PowerShell(git diff*)",
+      "PowerShell(git log*)",
+      "PowerShell(git show*)",
+      "PowerShell(git branch*)",
+      "PowerShell(git remote -v)",
+      "PowerShell(git fetch*)",
+      "PowerShell(git pull --ff-only*)",
+      "PowerShell(pnpm build)",
+      "PowerShell(pnpm lint*)",
+      "PowerShell(pnpm dev)",
+      "PowerShell(pnpm validar:metas)",
+      "PowerShell(pnpm exec tsc --noEmit*)",
+      "PowerShell(pnpm exec eslint *)",
+      "PowerShell(pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts estado)",
+      "PowerShell(pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts revisar *)",
+      "PowerShell(node .claude/skills/publicar-cambios/verificar-vercel.mjs*)",
+      "PowerShell(node .claude/skills/verificar-webkit/captura.mjs *)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(pnpm build)",
+      "Bash(pnpm lint*)",
+      "Bash(pnpm validar:metas)",
+      "Bash(pnpm exec tsc --noEmit*)",
+      "Bash(pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts estado)",
+      "Bash(pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts revisar *)",
+      "Bash(node .claude/skills/publicar-cambios/verificar-vercel.mjs*)",
+      "Bash(node .claude/skills/verificar-webkit/captura.mjs *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.local)",
+      "Read(./pnpm-lock.yaml)",
+      "Read(./.next/**)",
+      "Read(./portal-build-portable/**)",
+      "Read(./portal-portable/**)",
+      "Read(./launcher-src/portal.zip)",
+      "Read(./PlaneacionEstrategica2027-2037.exe)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/guardia-comandos.mjs"],
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/guardia-archivos.mjs"],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/limpieza-al-terminar.mjs"],
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}

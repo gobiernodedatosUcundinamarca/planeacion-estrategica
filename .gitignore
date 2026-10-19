@@ -41,6 +41,9 @@ data/**/*.backup*.xlsx
 # Evidencia de QA de los diagramas archify (se regenera; no se versiona)
 docs/diagramas/*.visual-check.*
 
+# Ajustes personales del asistente de código (los compartidos van en .claude/settings.json)
+.claude/settings.local.json
+
 # Varios
 .DS_Store
 *.pem

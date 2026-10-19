@@ -30,7 +30,7 @@ launcher-src/     Código del lanzador del .exe portable
 ## Requisitos
 
 - Node.js 24+
-- **pnpm 11+** (obligatorio — ver [CLAUDE.md](CLAUDE.md))
+- **pnpm 11+** (obligatorio — ver [.claude/CLAUDE.md](.claude/CLAUDE.md))
 - `DATABASE_URL` en el entorno para los módulos del Momento 4 (ver
   [`.env.example`](.env.example))
 
@@ -102,6 +102,6 @@ script cuando el sitio cambia. El mismo build corre en Vercel y en el `.exe`;
 
 ## Reglas del proyecto
 
-Antes de contribuir, lee [CLAUDE.md](CLAUDE.md): gestor de paquetes, arquitectura de
+Antes de contribuir, lee [.claude/CLAUDE.md](.claude/CLAUDE.md): gestor de paquetes, arquitectura de
 datos, capas y quién puede llamar a quién, la regla de "sin diseño responsivo
 móvil", y las buenas prácticas obligatorias antes de subir cambios.
