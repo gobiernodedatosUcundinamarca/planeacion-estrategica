@@ -14,6 +14,7 @@
  *   --fecha 2026-09-28                   fija fecha_inicio de toda la tanda
  *   --dividir "TRABAJADOR,PLANTA=2026-09-22"  esos roles van a otra fecha (repetible)
  *   --reemplaza a.xlsx,b.xlsx            otras tandas que esta sustituye
+ *   --solo-roles "DOCENTE"               guarda solo esos roles (el resto del archivo se descarta)
  *
  * `revisar` no escribe nada. `aplicar` inserta la tanda nueva ANTES de borrar
  * las que sustituye (las del mismo nombre de archivo + `--reemplaza`): si algo
@@ -49,6 +50,7 @@ interface Opciones {
   fecha: string | null;
   divisiones: Division[];
   reemplaza: string[];
+  soloRoles: Set<string> | null;
 }
 
 function salir(mensaje: string): never {
@@ -67,14 +69,25 @@ function leerOpciones(argumentos: string[]): Opciones {
   const ruta = existsSync(archivo) ? archivo : join(CARPETA, archivo);
   if (!existsSync(ruta)) salir(`No existe ${archivo} (ni en ${CARPETA}).`);
 
-  const opciones: Opciones = { ruta, nombre: basename(ruta), lugar: null, fecha: null, divisiones: [], reemplaza: [] };
+  const opciones: Opciones = {
+    ruta,
+    nombre: basename(ruta),
+    lugar: null,
+    fecha: null,
+    divisiones: [],
+    reemplaza: [],
+    soloRoles: null,
+  };
   for (let i = 0; i < resto.length; i += 2) {
     const [bandera, valor] = [resto[i], resto[i + 1]];
     if (valor === undefined) salir(`${bandera} necesita un valor.`);
     if (bandera === "--lugar") opciones.lugar = valor.trim();
     else if (bandera === "--fecha") opciones.fecha = validarFecha(valor, "--fecha");
     else if (bandera === "--reemplaza") opciones.reemplaza.push(...valor.split(",").map((v) => v.trim()).filter(Boolean));
-    else if (bandera === "--dividir") {
+    else if (bandera === "--solo-roles") {
+      opciones.soloRoles = new Set(valor.split(",").map((r) => normalizar(r)).filter(Boolean));
+      if (!opciones.soloRoles.size) salir('--solo-roles necesita al menos un rol ("DOCENTE").');
+    } else if (bandera === "--dividir") {
       const [roles, fecha] = valor.split("=");
       if (!roles || !fecha) salir('--dividir usa el formato "ROL1,ROL2=AAAA-MM-DD".');
       opciones.divisiones.push({
@@ -98,6 +111,11 @@ function conteo(valores: (string | null)[], limite = 12): string {
 
 /** Las cédulas nunca se imprimen completas: el transcript no es lugar para datos personales. */
 const enmascarar = (cedula: string) => `…${cedula.slice(-3)}`;
+
+/** Si el registro sobrevive a --solo-roles (sin el filtro, todos sobreviven). */
+function seConserva(registro: Registro, opciones: Opciones): boolean {
+  return !opciones.soloRoles || (!!registro.rol && opciones.soloRoles.has(normalizar(registro.rol)));
+}
 
 /** Fecha final de cada registro según --fecha y --dividir, igual que la aplicará `aplicar`. */
 function fechaFinal(registro: Registro, opciones: Opciones): string | null {
@@ -126,7 +144,18 @@ async function estado(sql: Sql) {
 async function revisar(sql: Sql, opciones: Opciones, contenido: Buffer) {
   const lectura = leerParticipacion(opciones.nombre, contenido);
   if (!lectura.ok) salir(`El sitio rechazaría el archivo: ${lectura.motivo}`);
-  const registros = lectura.filas.map(interpretarFilaParticipacion);
+  const todos = lectura.filas.map(interpretarFilaParticipacion);
+  // Todo lo que sigue —cifras, anomalías y plan— se calcula sobre lo que de
+  // verdad quedará guardado, no sobre el archivo completo.
+  const registros = todos.filter((r) => seConserva(r, opciones));
+  if (opciones.soloRoles) {
+    const excluidos = todos.filter((r) => !seConserva(r, opciones));
+    console.log(
+      `Filtro --solo-roles ${[...opciones.soloRoles].join(",")}: quedan ${registros.length} de ${todos.length}` +
+        (excluidos.length ? ` · se descartan ${conteo(excluidos.map((r) => r.rol && normalizar(r.rol)))}` : "")
+    );
+    if (!registros.length) salir("El filtro no deja ninguna fila.");
+  }
 
   const reconocidos = new Set(
     CAMPOS_PARTICIPACION.filter(({ campo }) => lectura.filas.some((f) => f[campo] !== null)).map((c) => c.etiqueta)
@@ -214,7 +243,7 @@ async function revisar(sql: Sql, opciones: Opciones, contenido: Buffer) {
 }
 
 async function aplicar(sql: Sql, opciones: Opciones, contenido: Buffer) {
-  const { sustituidas } = await revisar(sql, opciones, contenido);
+  const { registros, sustituidas } = await revisar(sql, opciones, contenido);
   console.log("\nAplicando…");
 
   const resultado = await guardarDocumento(sql, opciones.nombre, contenido, "anexar");
@@ -225,7 +254,20 @@ async function aplicar(sql: Sql, opciones: Opciones, contenido: Buffer) {
 
   // Fecha de la tanda = la jornada (la última, si se divide), no el momento del cargue.
   const fechas = [opciones.fecha, ...opciones.divisiones.map((d) => d.fecha)].filter((f): f is string => !!f).sort();
+  // `guardarDocumento` guarda el archivo entero (es el mismo camino de /admin);
+  // el filtro de roles se aplica después, en la misma transacción que el resto
+  // de ajustes, y el conteo de la tanda se corrige para que coincida.
+  const filtroRoles = opciones.soloRoles
+    ? [
+        sql`delete from participacion_registros
+            where documento_id = ${id} and not (upper(trim(coalesce(rol, ''))) = any(${[...opciones.soloRoles]}))`,
+        sql`update participacion_documentos
+            set filas = (select count(*) from participacion_registros where documento_id = ${id})
+            where id = ${id}`,
+      ]
+    : [];
   const ajustes = [
+    ...filtroRoles,
     ...(opciones.lugar ? [sql`update participacion_registros set lugar_desarrollo = ${opciones.lugar} where documento_id = ${id}`] : []),
     ...(opciones.fecha ? [sql`update participacion_registros set fecha_inicio = ${opciones.fecha}::date where documento_id = ${id}`] : []),
     ...opciones.divisiones.map(
@@ -239,11 +281,11 @@ async function aplicar(sql: Sql, opciones: Opciones, contenido: Buffer) {
     if (ajustes.length) await sql.transaction(ajustes);
   } catch (error) {
     await eliminarRegistros(sql, id);
-    salir(`Falló al ajustar lugar/fecha; se deshizo la tanda nueva y nada cambió: ${error instanceof Error ? error.message : error}`);
+    salir(`Falló al ajustar roles/lugar/fecha; se deshizo la tanda nueva y nada cambió: ${error instanceof Error ? error.message : error}`);
   }
   for (const vieja of sustituidas) await eliminarRegistros(sql, vieja.id);
 
-  console.log(`✓ Tanda [${id}] = ${resultado.filas} filas.${sustituidas.length ? ` Borradas: ${sustituidas.map((d) => `[${d.id}]`).join(", ")}.` : ""}\n`);
+  console.log(`✓ Tanda [${id}] = ${registros.length} filas.${sustituidas.length ? ` Borradas: ${sustituidas.map((d) => `[${d.id}]`).join(", ")}.` : ""}\n`);
   await estado(sql);
 }
 

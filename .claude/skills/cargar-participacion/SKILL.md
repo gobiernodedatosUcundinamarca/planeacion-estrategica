@@ -25,6 +25,7 @@ pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts aplicar <archivo.xls
 | `--fecha 2026-09-28` | Fija la fecha de toda la tanda (los exports de Forms traen la fecha en que se llenó, no la del evento). |
 | `--dividir "TRABAJADOR,PLANTA=2026-09-22"` | Esos roles van a otra fecha. Repetible. |
 | `--reemplaza viejo.xlsx` | Además de la tanda con el mismo nombre, sustituye estas (cuando el archivo nuevo cambió de nombre). |
+| `--solo-roles "DOCENTE"` | Guarda solo esos roles; el resto del archivo se descarta (el `.xlsx` queda intacto). |
 
 ## Flujo (siempre en este orden)
 
@@ -53,6 +54,9 @@ pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts aplicar <archivo.xls
 - **Dos días en un archivo**: si el usuario indica una regla por rol (p. ej.
   Chía: el 21 todos menos TRABAJADOR y PLANTA; el 22 TRABAJADOR y PLANTA), usa
   `--fecha <día1> --dividir "TRABAJADOR,PLANTA=<día2>"`.
+- **Jornadas filtradas por rol**: al actualizarlas hay que repetir el filtro o
+  vuelven los roles descartados. Hasta hoy: `19_octubre_fusa.xlsx` →
+  `--solo-roles DOCENTE` (jornada de docentes en Fusagasugá).
 - Las anomalías **se reportan, no se corrigen solas**: cédulas repetidas o
   raras, filas sin rol/edad, edades fuera de rango y asistentes que ya figuran
   en otra tanda del mismo día. El usuario decide.
