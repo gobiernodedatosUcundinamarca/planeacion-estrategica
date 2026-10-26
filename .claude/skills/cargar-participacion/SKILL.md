@@ -36,7 +36,10 @@ pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts aplicar <archivo.xls
 3. **Muestra al usuario un resumen corto** con: filas, fechas, roles,
    anomalías y el plan (qué tanda sustituye, total antes → después). Si la
    actualización cambia mucho la composición (p. ej. un rol pasa de 13 a 292),
-   destácalo con una tabla antes/después.
+   destácalo con una tabla antes/después. En una actualización, la línea
+   `personas (por cédula): siguen · nuevas · desaparecen` dice si el archivo
+   nuevo trae a todos los que ya estaban; si `desaparecen` > 0, sustituir los
+   borraría: pregunta antes de aplicar.
 4. **Espera la decisión del usuario** cuando haya anomalías o se vaya a
    sustituir/borrar algo. Si pidió explícitamente "súbelo" y no hay anomalías
    nuevas, sigue.

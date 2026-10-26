@@ -232,6 +232,25 @@ async function revisar(sql: Sql, opciones: Opciones, contenido: Buffer) {
       .filter((e) => idsSustituidos.includes(Number(e.documento_id)))
       .map((e) => (e.rol ? normalizar(e.rol as string) : SIN));
     console.log(`    roles antes: ${conteo(rolesAntes)}`);
+
+    // Una actualización suele ser el mismo export con gente nueva; si alguien
+    // que ya estaba no viene en el archivo, sustituir lo borraría. Se compara
+    // por cédula, que es lo único que identifica a la persona entre cargues.
+    const anteriores = existentes.filter((e) => idsSustituidos.includes(Number(e.documento_id)));
+    const cedulasNuevas = new Set(registros.map((r) => r.cedula).filter((c): c is string => !!c));
+    const cedulasAnteriores = new Set(anteriores.map((e) => e.cedula as string | null).filter((c): c is string => !!c));
+    const siguen = [...cedulasAnteriores].filter((c) => cedulasNuevas.has(c)).length;
+    const desaparecen = anteriores.filter((e) => e.cedula && !cedulasNuevas.has(e.cedula as string));
+    const nuevas = registros.filter((r) => r.cedula && !cedulasAnteriores.has(r.cedula));
+    const rol = (valor: unknown) => (valor ? normalizar(String(valor)) : SIN);
+    console.log(
+      `    personas (por cédula): siguen ${siguen} · nuevas ${nuevas.length}` +
+        (nuevas.length ? ` (${conteo(nuevas.map((r) => rol(r.rol)))})` : "") +
+        ` · desaparecen ${desaparecen.length}` +
+        (desaparecen.length ? ` (${conteo(desaparecen.map((e) => rol(e.rol)))})` : "")
+    );
+    if (desaparecen.length)
+      console.log(`    ⚠ Al sustituir se perderían ${desaparecen.length} persona(s) que ya estaban cargadas y no vienen en este archivo.`);
   } else {
     console.log("  · Tanda nueva (no sustituye ninguna).");
   }
