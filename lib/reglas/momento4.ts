@@ -363,6 +363,26 @@ export function correoIdentifica(correo: string | null): boolean {
 }
 
 /**
+ * Quién es una respuesta: correo + rol. Es la identidad con que se quitan los
+ * repetidos dentro de un documento y con que Actualizar reconoce que una
+ * persona volvió a responder; definirla una sola vez evita que los dos
+ * criterios se separen. `null` si el correo no identifica a nadie.
+ *
+ * Se compara en minúsculas: los correos no distinguen mayúsculas, y el mismo
+ * buzón escrito de dos formas es la misma persona. Los valores que no
+ * identifican a nadie (ver CORREOS_SIN_IDENTIDAD) cuentan como "sin correo".
+ *
+ * El rol entra en la clave normalizado y separado por el carácter nulo, que
+ * no aparece en un correo ni en un rol: sin un separador imposible,
+ * "a@x.com" + "BC" y "a@x.comB" + "C" darían la misma clave.
+ */
+export function identidadRespuesta(correo: string | null, rol: string | null): string | null {
+  const limpio = correo?.trim().toLowerCase() || null;
+  if (!limpio || CORREOS_SIN_IDENTIDAD.has(limpio)) return null;
+  return `${limpio}\u0000${normalizar(rol ?? "")}`;
+}
+
+/**
  * Deja una sola respuesta por correo **y rol** DENTRO de un mismo documento.
  *
  * La identidad no es el correo solo: una misma persona puede tener varios
@@ -392,18 +412,7 @@ export function quitarCorreosRepetidos<T>(
   correoDe: (fila: T) => string | null,
   rolDe: (fila: T) => string | null
 ): { unicas: T[]; descartadas: number; correosRepetidos: string[] } {
-  // Se compara en minúsculas: los correos no distinguen mayúsculas, y el mismo
-  // buzón escrito de dos formas es la misma persona. Los valores que no
-  // identifican a nadie (ver CORREOS_SIN_IDENTIDAD) cuentan como "sin correo".
-  //
-  // El rol entra en la clave normalizado y separado por " ", un carácter
-  // que no aparece en un correo ni en un rol: sin un separador imposible,
-  // "a@x.com" + "BC" y "a@x.comB" + "C" darían la misma clave.
-  const clave = (fila: T) => {
-    const correo = correoDe(fila)?.trim().toLowerCase() || null;
-    if (!correo || CORREOS_SIN_IDENTIDAD.has(correo)) return null;
-    return `${correo} ${normalizar(rolDe(fila) ?? "")}`;
-  };
+  const clave = (fila: T) => identidadRespuesta(correoDe(fila), rolDe(fila));
 
   const ultimaPosicion = new Map<string, number>();
   filas.forEach((fila, indice) => {
@@ -427,6 +436,92 @@ export function quitarCorreosRepetidos<T>(
     descartadas: filas.length - unicas.length,
     correosRepetidos: [...repetidos],
   };
+}
+
+/** Lo mínimo que hace falta de una respuesta para decidir si ya estaba cargada. */
+export interface RespuestaIdentificable {
+  /** El ID que pone Microsoft Forms a cada envío; crece con cada respuesta. */
+  respuestaId: string | null;
+  correo: string | null;
+  rol: string | null;
+}
+
+/** Qué hace "Actualizar" con un export acumulativo frente a lo ya guardado. */
+export interface PlanActualizacion<E, N> {
+  /** Del archivo y no guardadas todavía: se insertan. */
+  nuevas: N[];
+  /** Ya guardadas: no se tocan, aunque en Forms las hayan editado. */
+  sinCambios: number;
+  /** Guardadas que se sustituyen porque la misma persona volvió a responder. */
+  sustituidas: E[];
+  /** Nuevas que se descartan porque esa persona ya tiene una respuesta más reciente guardada. */
+  masAntiguas: number;
+  /** Filas del archivo sin ID de Forms: no se puede saber si ya estaban, así que no se agregan. */
+  sinId: number;
+}
+
+/** El ID de Forms como número, para saber cuál de dos respuestas es la más reciente. */
+function numeroDeRespuesta(respuestaId: string | null): number {
+  const numero = Number(respuestaId);
+  return Number.isFinite(numero) ? numero : -Infinity;
+}
+
+/**
+ * "Actualizar" sin sobrescribir: decide qué agregar de un export acumulativo
+ * de Forms —que trae TODAS las respuestas hasta ese día— comparándolo con lo
+ * ya guardado. Si había 700 y el archivo trae 710, entran las 10 nuevas y las
+ * 700 se quedan como están.
+ *
+ * `delArchivo` debe llegar ya verificado (corte por fecha, sin respuesta y
+ * repetidos dentro del archivo), igual que en Reemplazar.
+ *
+ * - Una respuesta es nueva si su ID de Forms no está guardado.
+ * - Lo guardado no se modifica ni se borra, aunque falte en el archivo: para
+ *   dejar la base exactamente igual al archivo está Reemplazar.
+ * - Única excepción, la misma regla de los repetidos: si una persona (correo +
+ *   rol) que ya estaba volvió a responder, se conserva la respuesta más
+ *   reciente —la de ID mayor— y la otra se sustituye.
+ */
+export function calcularActualizacion<
+  E extends RespuestaIdentificable,
+  N extends RespuestaIdentificable,
+>(existentes: E[], delArchivo: N[]): PlanActualizacion<E, N> {
+  const idsGuardados = new Set(existentes.flatMap((e) => (e.respuestaId ? [e.respuestaId] : [])));
+  const guardadasPorPersona = new Map<string, E[]>();
+  for (const existente of existentes) {
+    const identidad = identidadRespuesta(existente.correo, existente.rol);
+    if (!identidad) continue;
+    guardadasPorPersona.set(identidad, [...(guardadasPorPersona.get(identidad) ?? []), existente]);
+  }
+
+  const nuevas: N[] = [];
+  const sustituidas = new Set<E>();
+  let sinCambios = 0;
+  let masAntiguas = 0;
+  let sinId = 0;
+
+  for (const fila of delArchivo) {
+    if (!fila.respuestaId) {
+      sinId++;
+      continue;
+    }
+    if (idsGuardados.has(fila.respuestaId)) {
+      sinCambios++;
+      continue;
+    }
+
+    const identidad = identidadRespuesta(fila.correo, fila.rol);
+    const previas = identidad ? (guardadasPorPersona.get(identidad) ?? []) : [];
+    const numero = numeroDeRespuesta(fila.respuestaId);
+    if (previas.some((p) => numeroDeRespuesta(p.respuestaId) > numero)) {
+      masAntiguas++;
+      continue;
+    }
+    for (const previa of previas) sustituidas.add(previa);
+    nuevas.push(fila);
+  }
+
+  return { nuevas, sinCambios, sustituidas: [...sustituidas], masAntiguas, sinId };
 }
 
 /**

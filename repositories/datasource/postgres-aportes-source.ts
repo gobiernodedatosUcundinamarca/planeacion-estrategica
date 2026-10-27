@@ -7,6 +7,7 @@ import type {
 import type { AportesDataSource } from "./types";
 import { conexionSql } from "./infrastructure/neon";
 import {
+  actualizarDocumento,
   consultarAportes,
   consultarDocumento,
   eliminarAportes,
@@ -30,6 +31,10 @@ export class PostgresAportesDataSource implements AportesDataSource {
 
   guardar(nombreOriginal: string, contenido: Buffer): Promise<ResultadoCargueAportes> {
     return guardarDocumento(conexionSql(), nombreOriginal, contenido);
+  }
+
+  actualizar(nombreOriginal: string, contenido: Buffer): Promise<ResultadoCargueAportes> {
+    return actualizarDocumento(conexionSql(), nombreOriginal, contenido);
   }
 
   eliminar(): Promise<number> {

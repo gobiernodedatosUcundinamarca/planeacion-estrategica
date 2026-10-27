@@ -7,6 +7,7 @@ import {
   ChevronDown,
   FileSpreadsheet,
   Loader2,
+  RefreshCw,
   Trash2,
   Upload,
   XCircle,
@@ -42,9 +43,15 @@ export function CargueAportes({
   const router = useRouter();
   const entrada = useRef<HTMLInputElement>(null);
   const [subiendo, iniciarSubida] = useTransition();
-  const [enCurso, setEnCurso] = useState<{ nombre: string; mb: string } | null>(null);
+  const [enCurso, setEnCurso] = useState<{
+    nombre: string;
+    mb: string;
+    modo: "reemplazar" | "actualizar";
+  } | null>(null);
   const [resultado, setResultado] = useState<ResultadoCargueAportes | null>(null);
   const [borrando, iniciarBorrado] = useTransition();
+  // Los dos botones abren el mismo selector de archivo; aquí queda cuál se pulsó.
+  const modoPedido = useRef<"reemplazar" | "actualizar">("reemplazar");
 
   if (error) {
     return (
@@ -65,16 +72,23 @@ export function CargueAportes({
     );
   }
 
+  function elegirArchivo(modo: "reemplazar" | "actualizar") {
+    modoPedido.current = modo;
+    entrada.current?.click();
+  }
+
   function alElegirArchivo(evento: ChangeEvent<HTMLInputElement>) {
     const archivo = evento.target.files?.[0];
     evento.target.value = "";
     if (!archivo) return;
 
+    const modo = modoPedido.current;
     const datos = new FormData();
     datos.set("documento", archivo);
+    datos.set("modo", modo);
 
     setResultado(null);
-    setEnCurso({ nombre: archivo.name, mb: (archivo.size / 1024 / 1024).toFixed(1) });
+    setEnCurso({ nombre: archivo.name, mb: (archivo.size / 1024 / 1024).toFixed(1), modo });
 
     iniciarSubida(async () => {
       try {
@@ -130,19 +144,43 @@ export function CargueAportes({
             aria-label="Subir el formulario general del Plan"
             onChange={alElegirArchivo}
           />
+          {/* Actualizar solo tiene sentido si ya hay algo cargado. */}
+          {documento ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="ml-auto"
+              disabled={subiendo || borrando}
+              onClick={() => elegirArchivo("actualizar")}
+              title="Sube el export completo: solo se agregan los aportes nuevos, sin tocar los que ya estaban."
+            >
+              {subiendo && enCurso?.modo === "actualizar" ? (
+                <Loader2 className="size-3.5 animate-spin" aria-hidden />
+              ) : (
+                <RefreshCw className="size-3.5" aria-hidden />
+              )}
+              {subiendo && enCurso?.modo === "actualizar" ? "Procesando…" : "Actualizar"}
+            </Button>
+          ) : null}
           <Button
             type="button"
             size="sm"
-            className="ml-auto"
+            className={documento ? undefined : "ml-auto"}
             disabled={subiendo || borrando}
-            onClick={() => entrada.current?.click()}
+            onClick={() => elegirArchivo("reemplazar")}
+            title="Deja el archivo como único contenido."
           >
-            {subiendo ? (
+            {subiendo && enCurso?.modo === "reemplazar" ? (
               <Loader2 className="size-3.5 animate-spin" aria-hidden />
             ) : (
               <Upload className="size-3.5" aria-hidden />
             )}
-            {subiendo ? "Procesando…" : documento ? "Reemplazar" : "Subir"}
+            {subiendo && enCurso?.modo === "reemplazar"
+              ? "Procesando…"
+              : documento
+                ? "Reemplazar"
+                : "Subir"}
           </Button>
 
           {documento ? (
@@ -228,12 +266,19 @@ export function CargueAportes({
       <Dialog open={subiendo && enCurso !== null} modal>
         <DialogContent showCloseButton={false} className="max-w-md items-center gap-3 text-center">
           <Loader2 className="size-8 animate-spin text-primary" aria-hidden />
-          <DialogTitle>Procesando documento</DialogTitle>
+          <DialogTitle>
+            {enCurso?.modo === "actualizar" ? "Actualizando documento" : "Procesando documento"}
+          </DialogTitle>
           <DialogDescription className="flex w-full min-w-0 flex-col gap-1">
             <span className="block max-w-full truncate font-medium text-foreground">
               {enCurso?.nombre}
             </span>
-            <span>Subiendo y validando el formato ({enCurso?.mb} MB).</span>
+            <span>
+              {enCurso?.modo === "actualizar"
+                ? "Subiendo, validando y buscando los aportes nuevos"
+                : "Subiendo y validando el formato"}{" "}
+              ({enCurso?.mb} MB).
+            </span>
             <span>No cierres esta página.</span>
           </DialogDescription>
           <div className="h-1 w-full overflow-hidden rounded-full bg-primary/15">

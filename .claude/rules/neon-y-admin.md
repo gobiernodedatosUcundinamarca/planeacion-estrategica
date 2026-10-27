@@ -81,11 +81,28 @@ las filas.
     `null` ("Sin especificar") en los cargues que no la definan.
   · Cargar una jornada desde el repo: skill `cargar-participacion` (no scripts
     `__*.ts` sueltos).
+- **Actualizar vs. Reemplazar** (las 5 transformaciones y UCUNDINAMARCA): el
+  export de Forms es acumulativo, así que se sube siempre el archivo completo.
+  · *Reemplazar* deja el archivo como único contenido de esa casilla.
+  · *Actualizar* agrega solo las respuestas cuyo ID de Forms no está guardado
+    (`calcularActualizacion`, `lib/reglas/momento4.ts`): lo ya cargado no se
+    modifica ni se borra, aunque falte en el archivo o lo hayan editado en Forms.
+    Única excepción, la regla de repetidos: si una persona (correo + rol,
+    `identidadRespuesta`) volvió a responder, queda la respuesta de ID mayor.
+    Si el archivo no comparte ningún ID con lo cargado se rechaza (probable
+    export de otra transformación) y se sugiere Reemplazar. Sin nada nuevo no
+    escribe ni reclasifica.
+  · Los dos pasan por la misma lectura y verificación; el modo viaja en el
+    formulario y se valida en la server action.
 - **Clasificación de comentarios**: los aportes abiertos se agrupan por tema con
   TF-IDF + K-Means (`lib/reglas/clasificacion.ts`), sin servicios externos ni
   modelos descargados — el `.exe` portable debe seguir siendo autocontenido y
   los comentarios son de personas identificables. Se recalcula entera en cada
-  cargue y en cada borrado, porque los grupos salen del conjunto.
+  cargue y en cada borrado, porque los grupos salen del conjunto. La silueta
+  (con la que se elige cuántos grupos hay) recorre solo los términos no nulos
+  de cada comentario y calcula cada distancia una vez para todos los k; da el
+  mismo resultado exacto que el cálculo directo en ~1,7 s en vez de 18 s con
+  ~3.400 comentarios. Al tocarla, comparar el JSON de grupos antes/después.
 - **Corte por fecha**: solo se guardan las respuestas a partir de
   `FECHA_MINIMA_RESPUESTA` (`lib/reglas/momento4.ts`). Los exports arrastran
   las respuestas de prueba de la puesta en marcha del formulario, y sumarlas a

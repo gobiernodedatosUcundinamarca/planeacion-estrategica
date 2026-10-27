@@ -226,30 +226,105 @@ function kmeans(vectores: number[][], k: number, semilla = 42) {
   return asignacion;
 }
 
-/** Qué tan bien separado quedó cada punto de su grupo (silueta, −1 a 1). */
-function silueta(vectores: number[][], asignacion: number[], k: number): number {
-  const n = vectores.length;
-  if (k < 2 || n <= k) return -1;
-  const dist = (a: number[], b: number[]) =>
-    Math.sqrt(a.reduce((s, v, i) => s + (v - b[i]) ** 2, 0));
+/** Un vector guardado solo con sus posiciones no nulas, en orden ascendente. */
+interface VectorDisperso {
+  indices: number[];
+  valores: number[];
+}
 
-  let suma = 0;
-  for (let i = 0; i < n; i++) {
-    const propios = vectores.filter((_, j) => j !== i && asignacion[j] === asignacion[i]);
-    if (propios.length === 0) continue;
-    const a = propios.reduce((s, v) => s + dist(vectores[i], v), 0) / propios.length;
-
-    let b = Infinity;
-    for (let c = 0; c < k; c++) {
-      if (c === asignacion[i]) continue;
-      const otros = vectores.filter((_, j) => asignacion[j] === c);
-      if (otros.length === 0) continue;
-      b = Math.min(b, otros.reduce((s, v) => s + dist(vectores[i], v), 0) / otros.length);
+function aDisperso(vector: number[]): VectorDisperso {
+  const indices: number[] = [];
+  const valores: number[] = [];
+  vector.forEach((valor, i) => {
+    if (valor !== 0) {
+      indices.push(i);
+      valores.push(valor);
     }
-    if (b === Infinity) continue;
-    suma += (b - a) / Math.max(a, b);
+  });
+  return { indices, valores };
+}
+
+/**
+ * Distancia euclidiana recorriendo solo las posiciones no nulas de los dos
+ * vectores. Da EXACTAMENTE el mismo número que recorrer las 400 dimensiones:
+ * donde ambos valen 0 el término es +0, y sumar +0 no altera un número de
+ * punto flotante; el resto se suma en el mismo orden ascendente. Un comentario
+ * tiene en promedio unos 6 términos no nulos, así que cada distancia cuesta
+ * ~12 operaciones en vez de 400.
+ */
+function distanciaDispersa(a: VectorDisperso, b: VectorDisperso): number {
+  let suma = 0;
+  let x = 0;
+  let y = 0;
+  while (x < a.indices.length || y < b.indices.length) {
+    const ta = x < a.indices.length ? a.indices[x] : Infinity;
+    const tb = y < b.indices.length ? b.indices[y] : Infinity;
+    if (ta === tb) {
+      suma += (a.valores[x] - b.valores[y]) ** 2;
+      x++;
+      y++;
+    } else if (ta < tb) {
+      suma += (a.valores[x] - 0) ** 2;
+      x++;
+    } else {
+      suma += (0 - b.valores[y]) ** 2;
+      y++;
+    }
   }
-  return suma / n;
+  return Math.sqrt(suma);
+}
+
+/**
+ * Qué tan bien separado quedó cada punto de su grupo (silueta, −1 a 1), para
+ * varias agrupaciones a la vez: `asignaciones[q]` es la partición en `ks[q]`
+ * grupos.
+ *
+ * Se calculan todas en una sola pasada porque la silueta compara cada
+ * comentario con todos los demás, y esas distancias no dependen de cómo se
+ * agrupe: calcularlas una vez por par y repartirlas entre las particiones
+ * evita repetir el trabajo para cada k. Con ~3.000 comentarios, calcular la
+ * silueta por separado para cada k (y en las 400 dimensiones) tomaba 18 s por
+ * cargue. Las sumas se acumulan en el mismo orden que el cálculo directo, así
+ * que el resultado no cambia ni en el último decimal.
+ */
+function siluetas(vectores: number[][], asignaciones: number[][], ks: number[]): number[] {
+  const n = vectores.length;
+  const dispersos = vectores.map(aDisperso);
+  const validas = ks.map((k) => k >= 2 && n > k);
+  const tamanos = asignaciones.map((asignacion, q) => {
+    const conteo = new Array<number>(ks[q]).fill(0);
+    for (const grupo of asignacion) conteo[grupo]++;
+    return conteo;
+  });
+  const sumasPorGrupo = ks.map((k) => new Array<number>(k).fill(0));
+  const totales = ks.map(() => 0);
+
+  for (let i = 0; i < n; i++) {
+    for (const sumas of sumasPorGrupo) sumas.fill(0);
+    for (let j = 0; j < n; j++) {
+      if (j === i) continue;
+      const distancia = distanciaDispersa(dispersos[i], dispersos[j]);
+      for (let q = 0; q < ks.length; q++) sumasPorGrupo[q][asignaciones[q][j]] += distancia;
+    }
+
+    for (let q = 0; q < ks.length; q++) {
+      if (!validas[q]) continue;
+      const propio = asignaciones[q][i];
+      const companeros = tamanos[q][propio] - 1;
+      if (companeros === 0) continue;
+      const a = sumasPorGrupo[q][propio] / companeros;
+
+      let b = Infinity;
+      for (let c = 0; c < ks[q]; c++) {
+        if (c === propio || tamanos[q][c] === 0) continue;
+        b = Math.min(b, sumasPorGrupo[q][c] / tamanos[q][c]);
+      }
+      if (b === Infinity) continue;
+      totales[q] += (b - a) / Math.max(a, b);
+    }
+  }
+
+  return totales.map((total, q) => (validas[q] ? total / n : -1));
 }
 
 /**
@@ -283,15 +358,18 @@ export function clasificarComentarios(documentos: DocumentoTexto[]): GrupoComent
   let mejorK = 1;
   let mejorPuntaje = -Infinity;
 
-  for (let k = 2; k <= Math.max(2, maximo); k++) {
-    const asignacion = kmeans(vectores, k);
-    const puntaje = silueta(vectores, asignacion, k);
-    if (puntaje > mejorPuntaje) {
-      mejorPuntaje = puntaje;
-      mejorAsignacion = asignacion;
+  const ks: number[] = [];
+  for (let k = 2; k <= Math.max(2, maximo); k++) ks.push(k);
+  const asignaciones = ks.map((k) => kmeans(vectores, k));
+  const puntajes = siluetas(vectores, asignaciones, ks);
+
+  ks.forEach((k, q) => {
+    if (puntajes[q] > mejorPuntaje) {
+      mejorPuntaje = puntajes[q];
+      mejorAsignacion = asignaciones[q];
       mejorK = k;
     }
-  }
+  });
 
   const grupos: GrupoComentarios[] = [];
   for (let c = 0; c < mejorK; c++) {

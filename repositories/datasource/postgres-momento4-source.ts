@@ -8,6 +8,7 @@ import type {
 import type { Momento4DataSource } from "./types";
 import { conexionSql } from "./infrastructure/neon";
 import {
+  actualizarDocumento,
   consultarClusters,
   consultarDocumentos,
   consultarRespuestas,
@@ -47,6 +48,14 @@ export class PostgresMomento4DataSource implements Momento4DataSource {
     contenido: Buffer
   ): Promise<ResultadoCargue> {
     return guardarDocumento(conexionSql(), idTransformacion, nombreOriginal, contenido);
+  }
+
+  actualizar(
+    idTransformacion: string,
+    nombreOriginal: string,
+    contenido: Buffer
+  ): Promise<ResultadoCargue> {
+    return actualizarDocumento(conexionSql(), idTransformacion, nombreOriginal, contenido);
   }
 
   eliminar(idTransformacion: string | null): Promise<number> {

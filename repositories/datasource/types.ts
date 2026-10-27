@@ -155,6 +155,15 @@ export interface Momento4DataSource {
     contenido: Buffer
   ): Promise<ResultadoCargue>;
   /**
+   * Agrega a una transformación solo las respuestas del export que todavía no
+   * estaban guardadas, sin sobrescribir las demás.
+   */
+  actualizar(
+    idTransformacion: string,
+    nombreOriginal: string,
+    contenido: Buffer
+  ): Promise<ResultadoCargue>;
+  /**
    * Borra los registros cargados: los de una transformación, o los de todas si
    * se pasa null. Devuelve cuántas respuestas se eliminaron.
    */
@@ -193,6 +202,8 @@ export interface AportesDataSource {
   getDocumento(): Promise<DocumentoAportes | null>;
   getAportes(): Promise<RespuestaAporte[]>;
   guardar(nombreOriginal: string, contenido: Buffer): Promise<ResultadoCargueAportes>;
+  /** Agrega solo los aportes del export que todavía no estaban guardados. */
+  actualizar(nombreOriginal: string, contenido: Buffer): Promise<ResultadoCargueAportes>;
   /** Borra los aportes cargados. Devuelve cuántos se eliminaron. */
   eliminar(): Promise<number>;
 }

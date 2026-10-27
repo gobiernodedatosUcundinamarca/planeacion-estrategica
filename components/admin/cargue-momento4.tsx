@@ -8,6 +8,7 @@ import {
   ChevronDown,
   FileSpreadsheet,
   Loader2,
+  RefreshCw,
   Trash2,
   Upload,
   XCircle,
@@ -93,10 +94,11 @@ export function CargueMomento4({
         <CardDescription>
           Son 5 documentos, uno por transformación. Se suben de a uno, en la fila que le
           corresponde: el archivo debe conservar el formato del export de Microsoft Forms y el que
-          no lo cumpla se rechaza sin guardarse. Cada cargue reemplaza por completo las respuestas
-          de esa transformación en la base de datos. Si una persona figura dos veces en el mismo
-          archivo se guarda solo su respuesta más reciente; el mismo correo sí puede aparecer en
-          documentos de transformaciones distintas.
+          no lo cumpla se rechaza sin guardarse. Actualizar agrega solo las respuestas nuevas del
+          export y deja intactas las que ya estaban; Reemplazar sustituye por completo las
+          respuestas de esa transformación. Si una persona figura dos veces se guarda solo su
+          respuesta más reciente; el mismo correo sí puede aparecer en documentos de
+          transformaciones distintas.
         </CardDescription>
       </CardHeader>
 
@@ -326,7 +328,18 @@ function FilaDocumento({
   // está procesando: con un documento grande el cargue tarda decenas de
   // segundos, y un botón que solo cambia de texto no alcanza para que se note
   // que el sitio está trabajando.
-  const [enCurso, setEnCurso] = useState<{ nombre: string; mb: string } | null>(null);
+  const [enCurso, setEnCurso] = useState<{
+    nombre: string;
+    mb: string;
+    modo: "reemplazar" | "actualizar";
+  } | null>(null);
+  // Los dos botones abren el mismo selector de archivo; aquí queda cuál se pulsó.
+  const modoPedido = useRef<"reemplazar" | "actualizar">("reemplazar");
+
+  function elegirArchivo(modo: "reemplazar" | "actualizar") {
+    modoPedido.current = modo;
+    entrada.current?.click();
+  }
 
   function alElegirArchivo(evento: ChangeEvent<HTMLInputElement>) {
     const archivo = evento.target.files?.[0];
@@ -349,14 +362,16 @@ function FilaDocumento({
         reemplazo: null,
       });
 
+    const modo = modoPedido.current;
     const datos = new FormData();
     datos.set("transformacion", documento.transformacion);
     datos.set("documento", archivo);
+    datos.set("modo", modo);
 
     // El aviso anterior se retira al empezar: dejarlo mientras se procesa el
     // archivo nuevo haría creer que el resultado en pantalla es el de este.
     onResultado(null);
-    setEnCurso({ nombre: archivo.name, mb: (archivo.size / 1024 / 1024).toFixed(1) });
+    setEnCurso({ nombre: archivo.name, mb: (archivo.size / 1024 / 1024).toFixed(1), modo });
 
     iniciarSubida(async () => {
       try {
@@ -389,8 +404,10 @@ function FilaDocumento({
         >
           {/* El ancho va en este contenedor y no en la celda: con table-layout
               automático, un max-width sobre el <td> se ignora y el nombre largo
-              del archivo ensancha la tabla hasta cortar la columna del botón. */}
-          <span className="flex w-72 items-center gap-1.5">
+              del archivo ensancha la tabla hasta cortar la columna del botón. Es
+              más angosto desde que la fila lleva dos botones (Actualizar y
+              Reemplazar): con w-72 la tabla ya no cabía y escondía el de borrar. */}
+          <span className="flex w-48 items-center gap-1.5">
             {documento.archivo ? (
               <>
                 <FileSpreadsheet className="size-3.5 shrink-0" aria-hidden />
@@ -417,19 +434,44 @@ function FilaDocumento({
             onChange={alElegirArchivo}
           />
           <div className="flex items-center justify-end gap-1.5">
+            {/* Actualizar solo tiene sentido si ya hay algo cargado: con la
+                casilla vacía, subir el archivo es lo mismo que reemplazar. */}
+            {documento.archivo ? (
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={subiendo}
+                onClick={() => elegirArchivo("actualizar")}
+                title="Sube el export completo: solo se agregan las respuestas nuevas, sin tocar las que ya estaban."
+              >
+                {subiendo && enCurso?.modo === "actualizar" ? (
+                  <Loader2 className="size-3.5 animate-spin" aria-hidden />
+                ) : (
+                  <RefreshCw className="size-3.5" aria-hidden />
+                )}
+                {subiendo && enCurso?.modo === "actualizar" ? "Procesando…" : "Actualizar"}
+              </Button>
+            ) : null}
+
             <Button
               type="button"
               variant="outline"
               size="sm"
               disabled={subiendo}
-              onClick={() => entrada.current?.click()}
+              onClick={() => elegirArchivo("reemplazar")}
+              title="Deja el archivo como único contenido de esta transformación."
             >
-              {subiendo ? (
+              {subiendo && enCurso?.modo === "reemplazar" ? (
                 <Loader2 className="size-3.5 animate-spin" aria-hidden />
               ) : (
                 <Upload className="size-3.5" aria-hidden />
               )}
-              {subiendo ? "Procesando…" : documento.archivo ? "Reemplazar" : "Subir"}
+              {subiendo && enCurso?.modo === "reemplazar"
+                ? "Procesando…"
+                : documento.archivo
+                  ? "Reemplazar"
+                  : "Subir"}
             </Button>
 
             {/* Solo si esta casilla tiene algo cargado. */}
@@ -463,13 +505,18 @@ function FilaDocumento({
           className="max-w-md items-center gap-3 text-center"
         >
           <Loader2 className="size-8 animate-spin text-primary" aria-hidden />
-          <DialogTitle>Procesando documento</DialogTitle>
+          <DialogTitle>
+            {enCurso?.modo === "actualizar" ? "Actualizando documento" : "Procesando documento"}
+          </DialogTitle>
           <DialogDescription className="flex w-full min-w-0 flex-col gap-1">
             <span className="block max-w-full truncate font-medium text-foreground">
               {enCurso?.nombre}
             </span>
             <span>
-              Subiendo y validando el formato ({enCurso?.mb} MB) para{" "}
+              {enCurso?.modo === "actualizar"
+                ? "Subiendo, validando y buscando las respuestas nuevas"
+                : "Subiendo y validando el formato"}{" "}
+              ({enCurso?.mb} MB) para{" "}
               <strong className="font-medium text-foreground">{documento.etiqueta}</strong>.
             </span>
             <span>

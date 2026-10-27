@@ -8,6 +8,7 @@ import type {
 import {
   FECHA_MINIMA_RESPUESTA,
   TRANSFORMACIONES_MOMENTO4,
+  calcularActualizacion,
   detectarDiaPrimero,
   interpretarFechaExport,
 } from "@/lib/reglas/momento4";
@@ -150,7 +151,8 @@ export async function reclasificarComentarios(sql: Sql): Promise<number> {
     filas.map((f) => ({ id: Number(f.id), texto: f.ajustes as string }))
   );
 
-  const asignaciones = grupos.flatMap((g) => g.ids.map((id) => ({ id, grupo: g.grupo })));
+  const ids = grupos.flatMap((g) => g.ids);
+  const numeros = grupos.flatMap((g) => g.ids.map(() => g.grupo));
 
   await sql.transaction((txn) => [
     // Se limpia primero: un comentario que dejó de existir, o que se quedó sin
@@ -163,9 +165,18 @@ export async function reclasificarComentarios(sql: Sql): Promise<number> {
         values (${g.grupo}, ${g.nombre}, ${g.terminos.join(", ")}, ${g.ids.length}, now())
       `
     ),
-    ...asignaciones.map(
-      (a) => txn`update momento4_respuestas set cluster = ${a.grupo} where id = ${a.id}`
-    ),
+    // Un solo UPDATE con todas las asignaciones, no uno por comentario: con
+    // ~3.000 comentarios eran ~3.000 sentencias en cada cargue.
+    ...(ids.length
+      ? [
+          txn`
+            update momento4_respuestas as r
+            set cluster = v.grupo
+            from unnest(${ids}::bigint[], ${numeros}::int[]) as v(id, grupo)
+            where r.id = v.id
+          `,
+        ]
+      : []),
   ]);
 
   return grupos.length;
@@ -286,26 +297,14 @@ export async function guardarDocumento(
     await reclasificarComentarios(sql);
 
     const anterior = (previo[0]?.archivo as string | undefined) ?? null;
-    const corte = FECHA_MINIMA_RESPUESTA.toLocaleDateString("es-CO");
-    const repetidas =
-      lectura.descartadas > 0
-        ? ` Se descartaron ${lectura.descartadas} por repetir correo y rol dentro del archivo (se conservó la más reciente de cada persona en cada rol; quien tiene varios roles cuenta una vez por cada uno).`
-        : "";
-    const anteriores =
-      lectura.descartadasPorFecha > 0
-        ? ` Quedaron fuera ${lectura.descartadasPorFecha} por ser anteriores al ${corte}.`
-        : "";
-    const vacias =
-      lectura.sinRespuesta > 0
-        ? ` Se descartaron ${lectura.sinRespuesta} sin ninguna respuesta (solo correo y fecha).`
-        : "";
+    const avisos = avisosDeLectura(lectura);
 
     // Con cero guardadas, "0 respuesta(s) guardadas" suena a fallo cuando en
     // realidad el archivo se procesó bien: solo no traía nada nuevo.
     const resumen =
       lectura.respuestas.length === 0
-        ? `Archivo aceptado en ${transformacion.etiqueta}, sin respuestas nuevas que guardar.${anteriores}${vacias}${repetidas}`
-        : `Cargado en ${transformacion.etiqueta} · ${lectura.respuestas.length} respuesta(s) guardadas en la base de datos.${anteriores}${vacias}${repetidas}`;
+        ? `Archivo aceptado en ${transformacion.etiqueta}, sin respuestas nuevas que guardar.${avisos}`
+        : `Cargado en ${transformacion.etiqueta} · ${lectura.respuestas.length} respuesta(s) guardadas en la base de datos.${avisos}`;
 
     return {
       archivo: nombreOriginal,
@@ -319,6 +318,162 @@ export async function guardarDocumento(
       sinRespuesta: lectura.sinRespuesta,
       reemplazo: anterior !== nombreOriginal ? anterior : null,
     };
+  } catch (error) {
+    return rechazo(
+      `El archivo es válido, pero no se pudo guardar en la base de datos: ${error instanceof Error ? error.message : "error desconocido"}`
+    );
+  }
+}
+
+/**
+ * Lo que la verificación del archivo dejó fuera, en el texto que se muestra
+ * tras el cargue. Es igual en Reemplazar y en Actualizar porque las dos pasan
+ * por la misma lectura.
+ */
+function avisosDeLectura(lectura: {
+  descartadas: number;
+  descartadasPorFecha: number;
+  sinRespuesta: number;
+}): string {
+  const corte = FECHA_MINIMA_RESPUESTA.toLocaleDateString("es-CO");
+  const anteriores =
+    lectura.descartadasPorFecha > 0
+      ? ` Quedaron fuera ${lectura.descartadasPorFecha} por ser anteriores al ${corte}.`
+      : "";
+  const vacias =
+    lectura.sinRespuesta > 0
+      ? ` Se descartaron ${lectura.sinRespuesta} sin ninguna respuesta (solo correo y fecha).`
+      : "";
+  const repetidas =
+    lectura.descartadas > 0
+      ? ` Se descartaron ${lectura.descartadas} por repetir correo y rol dentro del archivo (se conservó la más reciente de cada persona en cada rol; quien tiene varios roles cuenta una vez por cada uno).`
+      : "";
+  return `${anteriores}${vacias}${repetidas}`;
+}
+
+/**
+ * Actualiza una transformación con un export nuevo SIN sobrescribir lo que ya
+ * estaba: el export de Forms es acumulativo, así que se agregan solo las
+ * respuestas cuyo ID todavía no está guardado (ver `calcularActualizacion`).
+ * Pasa por la misma lectura y verificación que Reemplazar. Nunca lanza.
+ */
+export async function actualizarDocumento(
+  sql: Sql,
+  idTransformacion: string,
+  nombreOriginal: string,
+  contenido: Buffer
+): Promise<ResultadoCargue> {
+  const transformacion = TRANSFORMACIONES_MOMENTO4.find((t) => t.id === idTransformacion);
+
+  const rechazo = (motivo: string): ResultadoCargue => ({
+    archivo: nombreOriginal,
+    aceptado: false,
+    motivo,
+    transformacion: transformacion?.id ?? null,
+    etiqueta: transformacion?.etiqueta ?? null,
+    respuestas: null,
+    descartadas: null,
+    descartadasPorFecha: null,
+    sinRespuesta: null,
+    reemplazo: null,
+  });
+
+  if (!transformacion) {
+    return rechazo("No se indicó a qué transformación corresponde el documento.");
+  }
+
+  const lectura = leerDocumentoMomento4(nombreOriginal, contenido);
+  if (!lectura.ok) return rechazo(lectura.motivo);
+
+  try {
+    const guardadas = await sql`
+      select id, respuesta_id, correo, tipo_actor
+      from momento4_respuestas
+      where transformacion = ${transformacion.id}
+    `;
+    const existentes = guardadas.map((f) => ({
+      id: Number(f.id),
+      respuestaId: (f.respuesta_id as string | null) ?? null,
+      correo: (f.correo as string | null) ?? null,
+      rol: (f.tipo_actor as string | null) ?? null,
+    }));
+    const delArchivo = lectura.respuestas.map((fila) => ({
+      fila,
+      respuestaId: fila.respuestaId,
+      correo: fila.correo,
+      rol: fila.tipoActor,
+    }));
+    const plan = calcularActualizacion(existentes, delArchivo);
+
+    // Si ya hay respuestas y el archivo no comparte NINGÚN ID con ellas, lo más
+    // probable es que sea el export de otra transformación: agregarlo
+    // mezclaría dos formularios. Si de verdad es el archivo correcto, Reemplazar
+    // lo deja como único contenido.
+    if (existentes.length > 0 && delArchivo.length > 0 && plan.sinCambios === 0) {
+      return rechazo(
+        `Ninguna respuesta del archivo coincide con las ${existentes.length} ya cargadas en ${transformacion.etiqueta}: no parece ser el export de esta transformación. Si es el archivo correcto, usa Reemplazar.`
+      );
+    }
+
+    const total = existentes.length - plan.sustituidas.length + plan.nuevas.length;
+    const avisos = avisosDeLectura(lectura);
+    const detalles = [
+      plan.sustituidas.length > 0
+        ? ` ${plan.sustituidas.length} reemplazaron la respuesta anterior de la misma persona (se conserva la más reciente).`
+        : "",
+      plan.masAntiguas > 0
+        ? ` ${plan.masAntiguas} no se agregaron porque esa persona ya tenía una respuesta más reciente cargada.`
+        : "",
+      plan.sinId > 0 ? ` ${plan.sinId} sin ID de Forms no se agregaron.` : "",
+    ].join("");
+
+    const resultado = (motivo: string): ResultadoCargue => ({
+      archivo: nombreOriginal,
+      aceptado: true,
+      motivo,
+      transformacion: transformacion.id,
+      etiqueta: transformacion.etiqueta,
+      respuestas: total,
+      descartadas: lectura.descartadas,
+      descartadasPorFecha: lectura.descartadasPorFecha,
+      sinRespuesta: lectura.sinRespuesta,
+      reemplazo: null,
+    });
+
+    // Nada nuevo: no se escribe ni se reclasifica. Es el caso de subir dos
+    // veces el mismo export, y debe ser instantáneo.
+    if (plan.nuevas.length === 0 && plan.sustituidas.length === 0) {
+      return resultado(
+        `${transformacion.etiqueta} ya estaba al día: las ${plan.sinCambios} respuesta(s) del archivo ya estaban cargadas y no se cambió nada.${detalles}${avisos}`
+      );
+    }
+
+    const idsSustituidos = plan.sustituidas.map((s) => s.id);
+    await sql.transaction((txn) => [
+      txn`
+        insert into momento4_documentos (transformacion, etiqueta, archivo, respuestas, actualizado)
+        values (${transformacion.id}, ${transformacion.etiqueta}, ${nombreOriginal}, ${total}, now())
+        on conflict (transformacion) do update
+          set etiqueta = excluded.etiqueta,
+              archivo = excluded.archivo,
+              respuestas = excluded.respuestas,
+              actualizado = now()
+      `,
+      ...(idsSustituidos.length
+        ? [txn`delete from momento4_respuestas where id = any(${idsSustituidos}::bigint[])`]
+        : []),
+      ...sentenciasDeInsercion(
+        plan.nuevas.map((n) => n.fila),
+        transformacion.id
+      ).map(({ texto, parametros }) => txn.query(texto, parametros)),
+    ]);
+
+    // Entraron comentarios nuevos: los grupos salen del conjunto completo.
+    await reclasificarComentarios(sql);
+
+    return resultado(
+      `Actualizado ${transformacion.etiqueta} · ${plan.nuevas.length} respuesta(s) nuevas agregadas; ${plan.sinCambios} ya estaban y no se tocaron. Total: ${total}.${detalles}${avisos}`
+    );
   } catch (error) {
     return rechazo(
       `El archivo es válido, pero no se pudo guardar en la base de datos: ${error instanceof Error ? error.message : "error desconocido"}`

@@ -4,6 +4,7 @@ import type {
   RespuestaAporte,
   ResultadoCargueAportes,
 } from "@/types/aportes";
+import { calcularActualizacion } from "@/lib/reglas/momento4";
 import { leerDocumentoAportes, type FilaExcelAporte } from "./aportes-formato";
 
 /**
@@ -123,6 +124,109 @@ export async function guardarDocumento(
       sinAporte: lectura.sinAporte,
       descartadasPorFecha: lectura.descartadasPorFecha,
     };
+  } catch (error) {
+    return rechazo(
+      `El archivo es válido, pero no se pudo guardar en la base de datos: ${error instanceof Error ? error.message : "error desconocido"}`
+    );
+  }
+}
+
+/**
+ * Agrega a los aportes ya guardados solo los que traiga de nuevo el export, sin
+ * sobrescribir lo que ya estaba. Misma regla que las transformaciones del
+ * Momento 4 (ver `calcularActualizacion`) y misma lectura que Reemplazar.
+ */
+export async function actualizarDocumento(
+  sql: Sql,
+  nombreOriginal: string,
+  contenido: Buffer
+): Promise<ResultadoCargueAportes> {
+  const rechazo = (motivo: string): ResultadoCargueAportes => ({
+    archivo: nombreOriginal,
+    aceptado: false,
+    motivo,
+    respuestas: null,
+    sinAporte: null,
+    descartadasPorFecha: null,
+  });
+
+  const lectura = leerDocumentoAportes(nombreOriginal, contenido);
+  if (!lectura.ok) return rechazo(lectura.motivo);
+
+  try {
+    const guardados = await sql`select id, respuesta_id, correo, tipo_actor from aportes_respuestas`;
+    const existentes = guardados.map((f) => ({
+      id: Number(f.id),
+      respuestaId: (f.respuesta_id as string | null) ?? null,
+      correo: (f.correo as string | null) ?? null,
+      rol: (f.tipo_actor as string | null) ?? null,
+    }));
+    const delArchivo = lectura.respuestas.map((fila) => ({
+      fila,
+      respuestaId: fila.respuestaId,
+      correo: fila.correo,
+      rol: fila.tipoActor,
+    }));
+    const plan = calcularActualizacion(existentes, delArchivo);
+
+    if (existentes.length > 0 && delArchivo.length > 0 && plan.sinCambios === 0) {
+      return rechazo(
+        `Ningún aporte del archivo coincide con los ${existentes.length} ya cargados: no parece ser el export del formulario de UCUNDINAMARCA. Si es el archivo correcto, usa Reemplazar.`
+      );
+    }
+
+    const total = existentes.length - plan.sustituidas.length + plan.nuevas.length;
+    const avisos = [
+      plan.sustituidas.length > 0
+        ? ` ${plan.sustituidas.length} reemplazaron el aporte anterior de la misma persona (se conserva el más reciente).`
+        : "",
+      plan.masAntiguas > 0
+        ? ` ${plan.masAntiguas} no se agregaron porque esa persona ya tenía un aporte más reciente cargado.`
+        : "",
+      plan.sinId > 0 ? ` ${plan.sinId} sin ID de Forms no se agregaron.` : "",
+      lectura.descartadasPorFecha > 0
+        ? ` Quedaron fuera ${lectura.descartadasPorFecha} por ser anteriores al corte.`
+        : "",
+      lectura.sinAporte > 0 ? ` Se dejaron fuera ${lectura.sinAporte} sin aporte escrito.` : "",
+      lectura.descartadas > 0 ? ` Se descartaron ${lectura.descartadas} por repetir correo y rol.` : "",
+    ].join("");
+
+    const resultado = (motivo: string): ResultadoCargueAportes => ({
+      archivo: nombreOriginal,
+      aceptado: true,
+      motivo,
+      respuestas: total,
+      sinAporte: lectura.sinAporte,
+      descartadasPorFecha: lectura.descartadasPorFecha,
+    });
+
+    if (plan.nuevas.length === 0 && plan.sustituidas.length === 0) {
+      return resultado(
+        `Ya estaba al día: los ${plan.sinCambios} aporte(s) del archivo ya estaban cargados y no se cambió nada.${avisos}`
+      );
+    }
+
+    const idsSustituidos = plan.sustituidas.map((s) => s.id);
+    await sql.transaction((txn) => [
+      txn`
+        insert into aportes_documento (id, archivo, respuestas, actualizado)
+        values (1, ${nombreOriginal}, ${total}, now())
+        on conflict (id) do update
+          set archivo = excluded.archivo,
+              respuestas = excluded.respuestas,
+              actualizado = now()
+      `,
+      ...(idsSustituidos.length
+        ? [txn`delete from aportes_respuestas where id = any(${idsSustituidos}::bigint[])`]
+        : []),
+      ...sentenciasDeInsercion(plan.nuevas.map((n) => n.fila)).map(({ texto, parametros }) =>
+        txn.query(texto, parametros)
+      ),
+    ]);
+
+    return resultado(
+      `Actualizado · ${plan.nuevas.length} aporte(s) nuevos agregados; ${plan.sinCambios} ya estaban y no se tocaron. Total: ${total}.${avisos}`
+    );
   } catch (error) {
     return rechazo(
       `El archivo es válido, pero no se pudo guardar en la base de datos: ${error instanceof Error ? error.message : "error desconocido"}`

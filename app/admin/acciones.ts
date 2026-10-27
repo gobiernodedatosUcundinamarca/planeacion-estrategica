@@ -7,8 +7,13 @@ import { COOKIE_ADMIN, DURACION_ACCESO_MINUTOS } from "@/constants/admin";
 import type { ResultadoCargue } from "@/types/momento4";
 import type { ResultadoCargueParticipacion } from "@/types/participacion";
 import type { ResultadoCargueAportes } from "@/types/aportes";
-import { eliminarAportes, guardarDocumentoAportes } from "@/repositories/aportesRepository";
 import {
+  actualizarDocumentoAportes,
+  eliminarAportes,
+  guardarDocumentoAportes,
+} from "@/repositories/aportesRepository";
+import {
+  actualizarDocumentoMomento4,
   eliminarRegistrosMomento4,
   guardarDocumentoMomento4,
 } from "@/repositories/momento4Repository";
@@ -183,6 +188,23 @@ export async function cambiarPublicacionSeccion(
 }
 
 /**
+ * Cómo entra un export del Momento 4 o de UCUNDINAMARCA: "reemplazar" deja el
+ * archivo como único contenido; "actualizar" agrega solo lo que todavía no
+ * estaba guardado, sin sobrescribir lo demás.
+ */
+type ModoCargueDocumento = "reemplazar" | "actualizar";
+
+/**
+ * El modo llega del formulario y se valida aquí, como en Participación: una
+ * server action se puede invocar sin pasar por la pantalla, y "reemplazar"
+ * borra lo cargado. Cualquier otro valor se rechaza en vez de adivinarlo.
+ */
+function leerModo(datos: FormData): ModoCargueDocumento | null {
+  const modo = String(datos.get("modo") ?? "");
+  return modo === "reemplazar" || modo === "actualizar" ? modo : null;
+}
+
+/**
  * Carga el documento de UNA transformación del Momento 4. Se sube de a uno y
  * con la casilla de destino explícita porque el nombre del archivo varía entre
  * exports: lo único que se valida del archivo es que cumpla el formato.
@@ -191,6 +213,7 @@ export async function subirDocumentoMomento4(datos: FormData): Promise<Resultado
   const transformacion = String(datos.get("transformacion") ?? "");
   const archivo = datos.get("documento");
   const nombre = archivo instanceof File ? archivo.name : "—";
+  const modo = leerModo(datos);
 
   const fallo = (motivo: string): ResultadoCargue => ({
     archivo: nombre,
@@ -214,9 +237,15 @@ export async function subirDocumentoMomento4(datos: FormData): Promise<Resultado
   if (!(archivo instanceof File)) {
     return fallo("No se recibió ningún archivo.");
   }
+  if (!modo) {
+    return fallo("No se indicó si el archivo reemplaza o actualiza lo ya cargado.");
+  }
 
   const contenido = Buffer.from(await archivo.arrayBuffer());
-  const resultado = await guardarDocumentoMomento4(transformacion, archivo.name, contenido);
+  const resultado =
+    modo === "actualizar"
+      ? await actualizarDocumentoMomento4(transformacion, archivo.name, contenido)
+      : await guardarDocumentoMomento4(transformacion, archivo.name, contenido);
 
   // Solo si algo cambió en disco: revalidar sin necesidad haría recargar la
   // página por gusto tras un cargue rechazado.
@@ -271,12 +300,14 @@ export async function subirDocumentoParticipacion(
 }
 
 /**
- * Carga el Excel del formulario general del Plan. Reemplaza los aportes
- * anteriores: el export de Forms es acumulativo y sumarlos los duplicaría.
+ * Carga el Excel del formulario general del Plan. Reemplazar deja el archivo
+ * como único contenido; Actualizar agrega solo los aportes nuevos. Ninguno de
+ * los dos suma el export entero a lo anterior: es acumulativo y lo duplicaría.
  */
 export async function subirDocumentoAportes(datos: FormData): Promise<ResultadoCargueAportes> {
   const archivo = datos.get("documento");
   const nombre = archivo instanceof File ? archivo.name : "—";
+  const modo = leerModo(datos);
 
   const fallo = (motivo: string): ResultadoCargueAportes => ({
     archivo: nombre,
@@ -293,9 +324,15 @@ export async function subirDocumentoAportes(datos: FormData): Promise<ResultadoC
   if (!(archivo instanceof File)) {
     return fallo("No se recibió ningún archivo.");
   }
+  if (!modo) {
+    return fallo("No se indicó si el archivo reemplaza o actualiza lo ya cargado.");
+  }
 
   const contenido = Buffer.from(await archivo.arrayBuffer());
-  const resultado = await guardarDocumentoAportes(archivo.name, contenido);
+  const resultado =
+    modo === "actualizar"
+      ? await actualizarDocumentoAportes(archivo.name, contenido)
+      : await guardarDocumentoAportes(archivo.name, contenido);
 
   if (resultado.aceptado) {
     revalidatePath("/admin");

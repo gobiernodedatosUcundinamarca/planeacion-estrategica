@@ -27,6 +27,14 @@ export function guardarDocumentoAportes(
   return getAportesDataSource().guardar(nombreOriginal, contenido);
 }
 
+/** Agrega solo los aportes nuevos del export, sin sobrescribir los anteriores. */
+export function actualizarDocumentoAportes(
+  nombreOriginal: string,
+  contenido: Buffer
+): Promise<ResultadoCargueAportes> {
+  return getAportesDataSource().actualizar(nombreOriginal, contenido);
+}
+
 /** Borra los aportes cargados. */
 export function eliminarAportes(): Promise<number> {
   return getAportesDataSource().eliminar();

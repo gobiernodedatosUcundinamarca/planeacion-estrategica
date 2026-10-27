@@ -39,6 +39,18 @@ export function guardarDocumentoMomento4(
 }
 
 /**
+ * Agrega a una transformación solo las respuestas nuevas del export, sin
+ * sobrescribir las que ya estaban.
+ */
+export function actualizarDocumentoMomento4(
+  idTransformacion: string,
+  nombreOriginal: string,
+  contenido: Buffer
+): Promise<ResultadoCargue> {
+  return getMomento4DataSource().actualizar(idTransformacion, nombreOriginal, contenido);
+}
+
+/**
  * Borra los registros cargados: los de una transformación, o los de todas si
  * se pasa null. Devuelve cuántas respuestas se eliminaron.
  */
