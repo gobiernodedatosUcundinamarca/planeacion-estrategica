@@ -57,9 +57,13 @@ pnpm exec tsx .claude/skills/cargar-participacion/cargar.ts aplicar <archivo.xls
 - **Dos días en un archivo**: si el usuario indica una regla por rol (p. ej.
   Chía: el 21 todos menos TRABAJADOR y PLANTA; el 22 TRABAJADOR y PLANTA), usa
   `--fecha <día1> --dividir "TRABAJADOR,PLANTA=<día2>"`.
-- **Jornadas filtradas por rol**: al actualizarlas hay que repetir el filtro o
-  vuelven los roles descartados. Hasta hoy: `19_octubre_fusa.xlsx` →
-  `--solo-roles DOCENTE` (jornada de docentes en Fusagasugá).
+- **Jornadas con filtro o división por rol**: al actualizarlas hay que repetir
+  las mismas opciones o se pierde la regla. Hasta hoy:
+  · `19_octubre_fusa.xlsx` → `--lugar "Fusagasugá" --fecha 2026-10-19 --solo-roles DOCENTE`
+  · `21-22-Septiembre-chia.xlsx` → `--lugar "Chía" --fecha 2026-09-21 --dividir "TRABAJADOR,PLANTA=2026-09-22"`
+  · `26_octubre_faca.xlsx` → `--lugar "Facatativá" --fecha 2026-10-26 --dividir "TRABAJADOR,PLANTA=2026-10-27"`
+    (el Excel trae 27-10 en todas las filas; los administrativos fueron el 27).
+- "Administrativos" = roles TRABAJADOR y PLANTA.
 - Las anomalías **se reportan, no se corrigen solas**: cédulas repetidas o
   raras, filas sin rol/edad, edades fuera de rango y asistentes que ya figuran
   en otra tanda del mismo día. El usuario decide.
