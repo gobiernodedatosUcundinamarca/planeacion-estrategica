@@ -1,11 +1,24 @@
 import {
   CAMPOS_PARTICIPACION,
+  SIN_ESPECIFICAR,
+  adscripcionesDe,
   campoDeEncabezado,
   interpretarEdad,
   interpretarFecha,
+  unidadRegionalDe,
   type CampoParticipacion,
 } from "@/lib/reglas/participacion";
-import { hojaAMatriz, leerLibroDesdeBuffer } from "./infrastructure/excel";
+import { ZONA_HORARIA } from "@/constants/admin";
+import type {
+  DocumentoParticipacion,
+  RegistroParticipacionAdministracion,
+} from "@/types/participacion";
+import {
+  escribirLibro,
+  hojaAMatriz,
+  leerLibroDesdeBuffer,
+  type CeldaSalida,
+} from "./infrastructure/excel";
 
 /**
  * Traducción del Excel de asistencia a filas tipadas. Vive aparte del origen
@@ -114,6 +127,138 @@ export function interpretarFilaParticipacion(fila: FilaExcelParticipacion) {
     // Se guarda para trazabilidad; nunca se publica (ver consultarRegistros).
     cedula: texto(fila.cedula),
   };
+}
+
+const formatoCargue = new Intl.DateTimeFormat("es-CO", {
+  dateStyle: "short",
+  timeStyle: "short",
+  timeZone: ZONA_HORARIA,
+});
+
+/**
+ * El .xlsx que se descarga desde /admin, con tres hojas:
+ *
+ * - **Asistencia**: una fila por asistente con todo lo que se guarda —cédula
+ *   incluida—, el lugar del evento, la tanda de la que salió y la unidad
+ *   regional y la dependencia ya estandarizadas con las mismas reglas del
+ *   dashboard, para que una tabla dinámica sobre el archivo dé sus mismas
+ *   cifras. Va primera y con las etiquetas de `CAMPOS_PARTICIPACION` como
+ *   encabezados, que el cargue reconoce: el archivo se puede volver a subir tal
+ *   cual (el lugar del evento no, porque no se lee del Excel).
+ * - **Tandas**: lo mismo que la tabla del panel, más las fechas y los lugares
+ *   que cubre cada archivo.
+ * - **Resumen por jornada**: asistentes por fecha y lugar, abiertos por rol.
+ *   Los roles salen de los datos y no de una lista fija, así que uno nuevo
+ *   aparece como columna sin tocar código.
+ */
+export function escribirExcelParticipacion(
+  documentos: DocumentoParticipacion[],
+  registros: RegistroParticipacionAdministracion[]
+): Buffer {
+  const archivoPorDocumento = new Map(documentos.map((d) => [d.id, d.archivo]));
+  const camposSinFecha = CAMPOS_PARTICIPACION.filter(({ campo }) => campo !== "fechaInicio");
+  const etiquetaFecha =
+    CAMPOS_PARTICIPACION.find(({ campo }) => campo === "fechaInicio")?.etiqueta ?? "Fecha inicio";
+
+  const asistencia: CeldaSalida[][] = [
+    [
+      etiquetaFecha,
+      "Lugar de desarrollo",
+      ...camposSinFecha.map(({ etiqueta }) => etiqueta),
+      "Unidad regional (estandarizada)",
+      "Dependencia (estandarizada)",
+      "Tanda (archivo)",
+    ],
+    ...registros.map((r) => [
+      r.fechaInicio,
+      r.lugarDesarrollo,
+      ...camposSinFecha.map(({ campo }) => r[campo]),
+      unidadRegionalDe(r),
+      adscripcionesDe(r).join(" / "),
+      archivoPorDocumento.get(r.documentoId) ?? null,
+    ]),
+  ];
+
+  const registrosPorDocumento = agrupar(registros, (r) => String(r.documentoId));
+  const tandas: CeldaSalida[][] = [
+    ["Archivo", "Registros", "Cargado", "Fechas del evento", "Lugar de desarrollo"],
+    ...documentos.map((d) => {
+      const propios = registrosPorDocumento.get(String(d.id)) ?? [];
+      return [
+        d.archivo,
+        d.filas,
+        formatoCargue.format(new Date(d.cargadoEn)),
+        distintos(propios.map((r) => r.fechaInicio))
+          .sort()
+          .map(fechaLegible)
+          .join(", ") || null,
+        distintos(propios.map((r) => r.lugarDesarrollo)).sort().join(", ") || null,
+      ];
+    }),
+  ];
+
+  return escribirLibro([
+    { nombre: "Asistencia", filas: asistencia, columnasFecha: [0] },
+    { nombre: "Tandas", filas: tandas },
+    { nombre: "Resumen por jornada", filas: resumenPorJornada(registros), columnasFecha: [0] },
+  ]);
+}
+
+/** Asistentes por jornada (fecha + lugar), con una columna por rol y una fila de total. */
+function resumenPorJornada(registros: RegistroParticipacionAdministracion[]): CeldaSalida[][] {
+  const rolDe = (r: RegistroParticipacionAdministracion) => r.rol?.trim() || SIN_ESPECIFICAR;
+
+  const totalPorRol = new Map<string, number>();
+  for (const r of registros) totalPorRol.set(rolDe(r), (totalPorRol.get(rolDe(r)) ?? 0) + 1);
+  // Del más numeroso al menos; "Sin especificar" al final, como en el dashboard.
+  const roles = [...totalPorRol.entries()]
+    .sort(([a, x], [b, y]) =>
+      a === SIN_ESPECIFICAR ? 1 : b === SIN_ESPECIFICAR ? -1 : y - x || a.localeCompare(b)
+    )
+    .map(([rol]) => rol);
+
+  const jornadas = [
+    ...agrupar(registros, (r) => `${r.fechaInicio ?? ""}|${r.lugarDesarrollo?.trim() ?? ""}`).values(),
+  ].sort(
+    (a, b) =>
+      (a[0].fechaInicio ?? "9999").localeCompare(b[0].fechaInicio ?? "9999") ||
+      (a[0].lugarDesarrollo ?? "").localeCompare(b[0].lugarDesarrollo ?? "")
+  );
+
+  const conteoPorRol = (grupo: RegistroParticipacionAdministracion[]) =>
+    roles.map((rol) => grupo.filter((r) => rolDe(r) === rol).length);
+
+  return [
+    ["Fecha", "Lugar de desarrollo", "Asistentes", ...roles],
+    ...jornadas.map((grupo) => [
+      grupo[0].fechaInicio,
+      grupo[0].lugarDesarrollo?.trim() || SIN_ESPECIFICAR,
+      grupo.length,
+      ...conteoPorRol(grupo),
+    ]),
+    ["Total", null, registros.length, ...roles.map((rol) => totalPorRol.get(rol) ?? 0)],
+  ];
+}
+
+function agrupar<T>(elementos: T[], clave: (elemento: T) => string): Map<string, T[]> {
+  const grupos = new Map<string, T[]>();
+  for (const elemento of elementos) {
+    const k = clave(elemento);
+    const grupo = grupos.get(k);
+    if (grupo) grupo.push(elemento);
+    else grupos.set(k, [elemento]);
+  }
+  return grupos;
+}
+
+function distintos(valores: (string | null)[]): string[] {
+  return [...new Set(valores.map((v) => v?.trim()).filter((v): v is string => Boolean(v)))];
+}
+
+/** "2026-10-26" → "26/10/2026". */
+function fechaLegible(iso: string): string {
+  const [anio, mes, dia] = iso.split("-");
+  return `${dia}/${mes}/${anio}`;
 }
 
 /** Celda vacía y celda ausente son lo mismo: null, no la cadena "". */

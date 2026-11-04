@@ -11,6 +11,7 @@ import {
   consultarDocumentos,
   consultarRegistros,
   eliminarRegistros,
+  generarExcel,
   guardarDocumento,
 } from "./participacion-almacen";
 
@@ -39,5 +40,9 @@ export class PostgresParticipacionDataSource implements ParticipacionDataSource 
 
   eliminar(documentoId: number | null): Promise<number> {
     return eliminarRegistros(conexionSql(), documentoId);
+  }
+
+  exportar(): Promise<Buffer> {
+    return generarExcel(conexionSql());
   }
 }

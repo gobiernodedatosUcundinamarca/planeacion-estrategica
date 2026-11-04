@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import * as XLSX from "xlsx";
 
 /**
- * Acceso de bajo nivel a los .xlsx: abrir un libro y volcar una hoja a filas.
- * Es la única puerta a la librería XLSX — que ningún origen la use por su
+ * Acceso de bajo nivel a los .xlsx: abrir un libro y volcar una hoja a filas,
+ * o armar uno nuevo para descargar. Es la única puerta a la librería XLSX — que ningún origen la use por su
  * cuenta mantiene idénticas las opciones de lectura (`raw`, `defval`,
  * `cellDates`) en todo el proyecto, que es lo que hace que dos módulos
  * interpreten una misma celda de la misma forma.
@@ -58,6 +58,81 @@ export function hojaAMatriz(
 /** Lee la primera hoja de un .xlsx como matriz de filas crudas. */
 export function leerPrimeraHoja(ruta: string): unknown[][] {
   return hojaAMatriz(leerLibro(ruta), null) ?? [];
+}
+
+/** Valor de una celda al escribir un libro. */
+export type CeldaSalida = string | number | null;
+
+export interface HojaSalida {
+  /** Máximo 31 caracteres: es el límite de Excel para el nombre de una hoja. */
+  nombre: string;
+  /** La primera fila son los encabezados. */
+  filas: CeldaSalida[][];
+  /**
+   * Índices de las columnas que traen fechas "aaaa-mm-dd". Se escriben como
+   * fecha real de Excel —número de serie con formato dd/mm/aaaa— y no como
+   * texto, para que quien abra el archivo pueda ordenarlas y filtrarlas.
+   */
+  columnasFecha?: number[];
+}
+
+/** Tope de ancho de columna, en caracteres: un texto largo no debe empujar el resto fuera de la vista. */
+const ANCHO_MAXIMO_COLUMNA = 50;
+
+/**
+ * Arma un .xlsx en memoria. Cada hoja sale con el filtro puesto en los
+ * encabezados y el ancho de cada columna ajustado a su contenido, para que se
+ * pueda trabajar apenas se abre.
+ */
+export function escribirLibro(hojas: HojaSalida[]): Buffer {
+  const libro = XLSX.utils.book_new();
+
+  for (const { nombre, filas, columnasFecha = [] } of hojas) {
+    const datos = filas.map((fila, indiceFila) =>
+      indiceFila === 0
+        ? fila
+        : fila.map((valor, columna) =>
+            columnasFecha.includes(columna) && typeof valor === "string"
+              ? (isoAExcelSerial(valor) ?? valor)
+              : valor
+          )
+    );
+    const hoja = XLSX.utils.aoa_to_sheet(datos);
+
+    for (let fila = 1; fila < datos.length; fila++) {
+      for (const columna of columnasFecha) {
+        const celda = hoja[XLSX.utils.encode_cell({ r: fila, c: columna })];
+        if (celda?.t === "n") celda.z = "dd/mm/yyyy";
+      }
+    }
+
+    const columnas = Math.max(0, ...filas.map((fila) => fila.length));
+    hoja["!cols"] = Array.from({ length: columnas }, (_, columna) => ({
+      wch: columnasFecha.includes(columna)
+        ? 12
+        : Math.min(
+            ANCHO_MAXIMO_COLUMNA,
+            Math.max(8, ...filas.map((fila) => String(fila[columna] ?? "").length + 2))
+          ),
+    }));
+    if (hoja["!ref"]) hoja["!autofilter"] = { ref: hoja["!ref"] };
+
+    XLSX.utils.book_append_sheet(libro, hoja, nombre);
+  }
+
+  return XLSX.write(libro, { type: "buffer", bookType: "xlsx", compression: true }) as Buffer;
+}
+
+/**
+ * "aaaa-mm-dd" al número de serie de Excel (inverso de `excelSerialToISO`).
+ * Se calcula en UTC a propósito: con la hora local, un servidor al oeste de
+ * UTC correría todas las fechas un día.
+ */
+function isoAExcelSerial(iso: string): number | null {
+  const partes = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!partes) return null;
+  const ms = Date.UTC(Number(partes[1]), Number(partes[2]) - 1, Number(partes[3]));
+  return (ms - Date.UTC(1899, 11, 30)) / 86_400_000;
 }
 
 /**

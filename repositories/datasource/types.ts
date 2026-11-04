@@ -218,4 +218,9 @@ export interface ParticipacionDataSource {
   ): Promise<ResultadoCargueParticipacion>;
   /** Borra una tanda, o todas si se pasa null. Devuelve cuántos registros se eliminaron. */
   eliminar(documentoId: number | null): Promise<number>;
+  /**
+   * Toda la asistencia como .xlsx, cédula incluida. Solo para la descarga de
+   * /admin: quien lo llame debe haber comprobado la sesión antes.
+   */
+  exportar(): Promise<Buffer>;
 }

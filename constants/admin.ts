@@ -12,3 +12,10 @@ export const COOKIE_ADMIN = "admin-validado";
  * desde que se ingresó el PIN: navegar por la vista no lo renueva.
  */
 export const DURACION_ACCESO_MINUTOS = 30;
+
+/**
+ * Zona horaria con que se fechan las descargas de /admin. Hay que decirla:
+ * Vercel corre en UTC, y sin ella un archivo bajado a las 8 p. m. en Colombia
+ * saldría con la fecha y la hora del día siguiente.
+ */
+export const ZONA_HORARIA = "America/Bogota";

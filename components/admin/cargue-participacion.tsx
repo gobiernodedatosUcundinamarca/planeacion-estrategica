@@ -4,6 +4,7 @@ import { useRef, useState, useTransition, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import {
   CheckCircle2,
+  Download,
   FileSpreadsheet,
   Loader2,
   RefreshCw,
@@ -12,7 +13,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
@@ -131,7 +132,10 @@ export function CargueParticipacion({
           como único contenido, que es la salida para corregir un cargue sin duplicar registros. El
           formato de columnas se reconoce por nombre y no por posición, y cualquier otra columna que
           traiga el Excel se descarta sin guardarse, como forma de anonimizar lo que no es relevante
-          para el seguimiento.
+          para el seguimiento.{" "}
+          <strong className="font-medium text-foreground">Descargar Excel</strong> baja toda la
+          asistencia —incluida la cédula, que el dashboard no publica—, las tandas y un resumen por
+          jornada.
         </CardDescription>
       </CardHeader>
 
@@ -155,10 +159,29 @@ export function CargueParticipacion({
               onChange={alElegirArchivo}
             />
 
+            {/* Un enlace y no un botón: la descarga la hace el navegador con
+                su gestor de archivos. Sin el atributo `download` a propósito:
+                si la sesión venció, la ruta redirige a /admin y el navegador
+                debe seguir esa redirección en vez de guardarla como archivo. */}
+            {documentos.length > 0 ? (
+              <a
+                href="/admin/participacion/descargar"
+                aria-disabled={subiendo}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "sm" }),
+                  "ml-auto",
+                  subiendo && "pointer-events-none opacity-50"
+                )}
+              >
+                <Download className="size-3.5" aria-hidden />
+                Descargar Excel
+              </a>
+            ) : null}
+
             <Button
               type="button"
               size="sm"
-              className="ml-auto"
+              className={cn(documentos.length === 0 && "ml-auto")}
               disabled={subiendo}
               onClick={() => abrirSelector("anexar")}
             >

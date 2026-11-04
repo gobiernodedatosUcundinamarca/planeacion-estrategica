@@ -3,10 +3,15 @@ import type {
   DocumentoParticipacion,
   ModoCargueParticipacion,
   RegistroParticipacion,
+  RegistroParticipacionAdministracion,
   ResultadoCargueParticipacion,
 } from "@/types/participacion";
 import { CAMPOS_PARTICIPACION } from "@/lib/reglas/participacion";
-import { leerParticipacion, interpretarFilaParticipacion } from "./participacion-formato";
+import {
+  escribirExcelParticipacion,
+  interpretarFilaParticipacion,
+  leerParticipacion,
+} from "./participacion-formato";
 
 /**
  * Lectura y escritura de las tandas de asistencia en Postgres.
@@ -67,7 +72,39 @@ export async function consultarRegistros(sql: Sql): Promise<RegistroParticipacio
     from participacion_registros
     order by fecha_inicio nulls last, id
   `;
-  return filas.map((f) => ({
+  return filas.map(aRegistro);
+}
+
+/**
+ * Los mismos registros que `consultarRegistros`, más la cédula. Es la única
+ * consulta que la lee de vuelta, y solo la usa la descarga de /admin, que exige
+ * la sesión: su resultado termina dentro del .xlsx y nunca en el dashboard.
+ */
+export async function consultarRegistrosAdministracion(
+  sql: Sql
+): Promise<RegistroParticipacionAdministracion[]> {
+  const filas = await sql`
+    select id, documento_id, fecha_inicio, lugar_desarrollo, nombre_asistente, edad, rol,
+           codigo_estudiante, programa_estudiante, unidad_estudiante,
+           coordinacion_docente, unidad_docente, facultad_docente,
+           area_trabajador, unidad_trabajador, cedula
+    from participacion_registros
+    order by fecha_inicio nulls last, id
+  `;
+  return filas.map((f) => ({ ...aRegistro(f), cedula: (f.cedula as string | null) ?? null }));
+}
+
+/** El .xlsx de la descarga de /admin: todas las tandas y todos sus registros, con la cédula. */
+export async function generarExcel(sql: Sql): Promise<Buffer> {
+  const [documentos, registros] = await Promise.all([
+    consultarDocumentos(sql),
+    consultarRegistrosAdministracion(sql),
+  ]);
+  return escribirExcelParticipacion(documentos, registros);
+}
+
+function aRegistro(f: Record<string, unknown>): RegistroParticipacion {
+  return {
     id: Number(f.id),
     documentoId: Number(f.documento_id),
     fechaInicio: aFechaISO(f.fecha_inicio),
@@ -83,7 +120,7 @@ export async function consultarRegistros(sql: Sql): Promise<RegistroParticipacio
     facultadDocente: (f.facultad_docente as string | null) ?? null,
     areaTrabajador: (f.area_trabajador as string | null) ?? null,
     unidadTrabajador: (f.unidad_trabajador as string | null) ?? null,
-  }));
+  };
 }
 
 /**

@@ -32,6 +32,15 @@ export function guardarDocumentoParticipacion(
   return getParticipacionDataSource().guardar(nombreOriginal, contenido, modo);
 }
 
+/**
+ * El .xlsx con toda la asistencia —cédula incluida—, las tandas y un resumen
+ * por jornada, para la descarga de /admin. Trae datos personales que el
+ * dashboard no publica: quien lo llame debe haber comprobado la sesión.
+ */
+export function generarExcelParticipacion(): Promise<Buffer> {
+  return getParticipacionDataSource().exportar();
+}
+
 /** Borra una tanda de asistencia, o todas si se pasa null. */
 export function eliminarRegistrosParticipacion(documentoId: number | null): Promise<number> {
   return getParticipacionDataSource().eliminar(documentoId);

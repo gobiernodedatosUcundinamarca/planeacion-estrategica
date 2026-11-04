@@ -71,7 +71,12 @@ las filas.
     variante "Documento") para trazabilidad, pero **nunca se publica en el
     dashboard**. `consultarRegistros` no la selecciona y no está en
     `RegistroParticipacion`, así que no viaja al cliente; se guarda pero no se
-    muestra. Cualquier nuevo dato personal que deba conservarse sin publicarse
+    muestra. **Única salida**: el botón *Descargar Excel* de /admin
+    (`app/admin/participacion/descargar/route.ts`), que comprueba la sesión en
+    la propia ruta y arma el .xlsx en el servidor con
+    `consultarRegistrosAdministracion` y el tipo aparte
+    `RegistroParticipacionAdministracion`, que nunca se pasa a un componente.
+    Cualquier nuevo dato personal que deba conservarse sin publicarse
     sigue este mismo patrón: se escribe en la tabla, se deja fuera del SELECT
     público y fuera del tipo que llega al navegador.
   · **`lugar_desarrollo`** es la ciudad donde se desarrolló el evento (Ubaté,

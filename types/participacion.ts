@@ -47,6 +47,17 @@ export interface RegistroParticipacion {
 }
 
 /**
+ * Un registro tal como lo descarga la administración: lo publicado más la
+ * cédula. Es un tipo aparte, y no un campo opcional de `RegistroParticipacion`,
+ * para que la cédula no pueda colarse en el dashboard por descuido: solo lo
+ * produce la consulta de la descarga de /admin —que exige la sesión— y termina
+ * dentro del .xlsx en el servidor; nunca se pasa como prop a un componente.
+ */
+export interface RegistroParticipacionAdministracion extends RegistroParticipacion {
+  cedula: string | null;
+}
+
+/**
  * Qué hacer con lo que ya está cargado al subir un archivo nuevo. Lo elige
  * quien sube y no el código, porque las dos operaciones son legítimas y solo
  * esa persona sabe cuál necesita: "anexar" agrega el evento a los que ya hay,

@@ -13,6 +13,7 @@
  * anonimización. Los nombres de columna se comparan normalizados (sin
  * tildes, en mayúsculas) para admitir variantes de escritura razonables.
  */
+import type { RegistroParticipacion } from "@/types/participacion";
 import { normalizar } from "./momento4";
 
 export const TITULO_PARTICIPACION =
@@ -225,6 +226,53 @@ export function estandarizarDependencia(texto: string | null): string | null {
     .trim();
 
   return normalizado || normalizar(limpio);
+}
+
+/**
+ * Etiqueta para las filas que no traen rol, unidad o dependencia.
+ *
+ * Sin ella esas filas desaparecían de los gráficos y de los desplegables: las
+ * barras de unidad regional sumaban 470 sobre 478 asistentes, sin nada que
+ * explicara los 8 que faltaban. Es el mismo criterio que sigue la sección de
+ * resultados de encuestas.
+ */
+export const SIN_ESPECIFICAR = "Sin especificar";
+
+/**
+ * La unidad regional del asistente: la primera columna (estudiante, docente o
+ * trabajador) que nombre una sede reconocida, ya estandarizada por
+ * `estandarizarUnidadRegional`.
+ *
+ * Solo se aceptan las unidades reales de la UCundinamarca (más Bogotá). La
+ * columna del Excel a veces trae el programa o la facultad en su lugar
+ * —"ENFERMERIA", "ADMINISTRACION DEL MEDIO AMBIENTE"—; esas filas caen en
+ * "Sin especificar" en vez de aparecer como una sede inexistente.
+ *
+ * Vive aquí y no en el dashboard porque la descarga de /admin la necesita
+ * igual: si cada lado la calculara a su manera, el Excel y el gráfico de
+ * unidades regionales podrían no cuadrar.
+ */
+export function unidadRegionalDe(r: RegistroParticipacion): string {
+  for (const campo of CAMPOS_UNIDAD_REGIONAL) {
+    const unidad = estandarizarUnidadRegional(r[campo]);
+    if (unidad) return unidad;
+  }
+  return SIN_ESPECIFICAR;
+}
+
+/**
+ * A qué dependencia pertenece el asistente (programa, facultad, coordinación o
+ * área), ya estandarizada: sin la promoción ni la sede pegadas al nombre, que
+ * es lo que hacía aparecer un mismo programa como varias entradas distintas.
+ */
+export function adscripcionesDe(r: RegistroParticipacion): string[] {
+  const valores = CAMPOS_FILTRO_UNIFICADO.map((campo) => estandarizarDependencia(r[campo]));
+  // Un docente puede traer facultad y coordinación con el mismo nombre; sin
+  // quitar repetidos, esa fila contaría dos veces en su propia barra.
+  const unicas = [...new Set(valores.filter((v): v is string => Boolean(v)))];
+  // Quien no trae ninguna sigue siendo un asistente: se le agrupa en vez de
+  // dejarlo fuera de todo filtro.
+  return unicas.length > 0 ? unicas : [SIN_ESPECIFICAR];
 }
 
 /**
