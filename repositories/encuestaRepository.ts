@@ -1,6 +1,7 @@
 import "server-only";
-import type { AnalisisOtro, Persona, FiltrosEncuesta, PreguntaId, RolAsignado } from "@/types/encuesta";
+import type { AnalisisOtro, Persona, FiltrosEncuesta, PreguntaId, Rol, RolAsignado } from "@/types/encuesta";
 import { PREGUNTAS } from "@/constants/preguntas";
+import { ETIQUETA_ROL } from "@/constants/marca";
 import {
   ASIGNACION_OTRO,
   CATEGORIAS_OTRO,
@@ -250,7 +251,12 @@ export function getCombinacionesRolPreagregadas(): { combinacion: string; conteo
   const combinaciones = new Map<string, number>();
   for (const roles of rolesPorPersona.values()) {
     if (roles.length < 2) continue;
-    const key = [...roles].sort().join(" + ");
+    // Se ordena por el valor del Excel (así se agrupan igual que siempre) y se
+    // muestra con el nombre visible de cada rol: este texto llega tal cual a la tabla.
+    const key = [...roles]
+      .sort()
+      .map((rol) => ETIQUETA_ROL[rol as Rol] ?? rol)
+      .join(" + ");
     combinaciones.set(key, (combinaciones.get(key) ?? 0) + 1);
   }
   return [...combinaciones.entries()]

@@ -19,6 +19,7 @@ import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import {
   SIN_ESPECIFICAR,
   adscripcionesDe,
+  etiquetaRol,
   unidadRegionalDe,
 } from "@/lib/reglas/participacion";
 import type { RegistroParticipacion } from "@/types/participacion";
@@ -64,7 +65,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
       fechas: [
         ...new Set(registros.map((r) => r.fechaInicio).filter((f): f is string => Boolean(f))),
       ].sort((a, b) => b.localeCompare(a)),
-      roles: valoresUnicos(registros.map((r) => r.rol?.trim() || SIN_ESPECIFICAR)),
+      roles: valoresUnicos(registros.map((r) => etiquetaRol(r.rol))),
       unidadesRegionales: valoresUnicos(registros.map(unidadRegionalDe)),
       adscripciones: valoresUnicos(registros.flatMap(adscripcionesDe)),
       lugares: valoresUnicos(registros.map((r) => r.lugarDesarrollo?.trim() || SIN_ESPECIFICAR)),
@@ -80,7 +81,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
       ) {
         return false;
       }
-      if (filtros.rol !== TODAS && (r.rol?.trim() || SIN_ESPECIFICAR) !== filtros.rol) return false;
+      if (filtros.rol !== TODAS && etiquetaRol(r.rol) !== filtros.rol) return false;
       if (filtros.unidadRegional !== TODAS && unidadRegionalDe(r) !== filtros.unidadRegional) {
         return false;
       }
@@ -334,6 +335,11 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
               datos={metricas.porRol}
               onSeleccionarBarra={(etiqueta) => alternar("rol", etiqueta)}
               etiquetaSeleccionada={filtros.rol === TODAS ? null : filtros.rol}
+              // Con el default (26) el eje reserva 156 px y "CREADORES DE
+              // OPORTUNIDADES" en mayúsculas ocupa ~185: se cortaba por la
+              // izquierda. 38 reserva 228 px y deja "GESTORES DEL CONOCIMIENTO
+              // Y EL" (la línea más larga de su nombre) completa.
+              truncarEn={38}
             />
           </CardContent>
         </Card>
@@ -438,7 +444,7 @@ function calcularMetricas(registros: RegistroParticipacion[]) {
     // Se cuentan TODAS las filas, también las que no traen el dato: si se
     // saltaran, las barras sumarían menos que los asistentes registrados y
     // nadie sabría a qué se debe la diferencia.
-    const rol = r.rol?.trim() || SIN_ESPECIFICAR;
+    const rol = etiquetaRol(r.rol);
     porRolMapa.set(rol, (porRolMapa.get(rol) ?? 0) + 1);
 
     const unidad = unidadRegionalDe(r);

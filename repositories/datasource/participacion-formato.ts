@@ -3,6 +3,7 @@ import {
   SIN_ESPECIFICAR,
   adscripcionesDe,
   campoDeEncabezado,
+  etiquetaRol,
   interpretarEdad,
   interpretarFecha,
   unidadRegionalDe,
@@ -172,7 +173,8 @@ export function escribirExcelParticipacion(
     ...registros.map((r) => [
       r.fechaInicio,
       r.lugarDesarrollo,
-      ...camposSinFecha.map(({ campo }) => r[campo]),
+      // El rol con el nombre que ve el usuario en el dashboard; vacío sigue vacío.
+      ...camposSinFecha.map(({ campo }) => (campo === "rol" && r.rol ? etiquetaRol(r.rol) : r[campo])),
       unidadRegionalDe(r),
       adscripcionesDe(r).join(" / "),
       archivoPorDocumento.get(r.documentoId) ?? null,
@@ -206,7 +208,7 @@ export function escribirExcelParticipacion(
 
 /** Asistentes por jornada (fecha + lugar), con una columna por rol y una fila de total. */
 function resumenPorJornada(registros: RegistroParticipacionAdministracion[]): CeldaSalida[][] {
-  const rolDe = (r: RegistroParticipacionAdministracion) => r.rol?.trim() || SIN_ESPECIFICAR;
+  const rolDe = (r: RegistroParticipacionAdministracion) => etiquetaRol(r.rol);
 
   const totalPorRol = new Map<string, number>();
   for (const r of registros) totalPorRol.set(rolDe(r), (totalPorRol.get(rolDe(r)) ?? 0) + 1);

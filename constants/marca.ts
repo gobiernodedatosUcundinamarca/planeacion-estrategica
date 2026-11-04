@@ -29,12 +29,24 @@ export const COLOR_POR_ROL: Record<Rol, string> = {
   Administrativo: "var(--chart-5)",
 };
 
-export const ETIQUETA_ROL_CORTA: Record<Rol, string> = {
-  Estudiante: "Estudiante",
+/**
+ * Cómo se le muestra cada rol al usuario. La clave es el valor del Excel de la
+ * encuesta, que no cambia; aquí solo se decide el nombre visible. Estudiantes y
+ * docentes van con el nombre que les da la universidad: Creadores de
+ * Oportunidades y Gestores del Conocimiento y el Aprendizaje.
+ */
+export const ETIQUETA_ROL: Record<Rol, string> = {
+  Estudiante: "Creadores de Oportunidades",
   Graduado: "Graduado",
-  "Gestores del Conocimiento y el Aprendizaje": "GCA",
+  "Gestores del Conocimiento y el Aprendizaje": "Gestores del Conocimiento y el Aprendizaje",
   "Ops-Apa": "Ops-Apa",
   Administrativo: "Administrativo",
+};
+
+/** La misma etiqueta, abreviada donde el espacio es poco (filtros, ejes). */
+export const ETIQUETA_ROL_CORTA: Record<Rol, string> = {
+  ...ETIQUETA_ROL,
+  "Gestores del Conocimiento y el Aprendizaje": "GCA",
 };
 
 export const SEDES_ORDENADAS: Sede[] = [

@@ -276,6 +276,28 @@ export function adscripcionesDe(r: RegistroParticipacion): string[] {
 }
 
 /**
+ * Cómo se le muestra cada rol al usuario. Solo cambia lo que se ve: en la base
+ * y en los archivos que se suben el rol sigue siendo el de la planilla
+ * (ESTUDIANTE, DOCENTE…), que es con el que trabajan las reglas de cargue
+ * (`--solo-roles`, "administrativos = TRABAJADOR + PLANTA").
+ *
+ * Estudiantes y docentes se nombran como los nombra la universidad, igual que
+ * el formulario de las transformaciones. Van en mayúsculas como el resto de
+ * roles de la planilla, para que no desentonen en el mismo gráfico.
+ */
+const NOMBRE_VISIBLE_ROL: Record<string, string> = {
+  ESTUDIANTE: "CREADORES DE OPORTUNIDADES",
+  DOCENTE: "GESTORES DEL CONOCIMIENTO Y EL APRENDIZAJE",
+};
+
+/** El rol tal como se muestra; "Sin especificar" si la fila no lo trae. */
+export function etiquetaRol(rol: string | null): string {
+  const limpio = rol?.trim();
+  if (!limpio) return SIN_ESPECIFICAR;
+  return NOMBRE_VISIBLE_ROL[normalizar(limpio)] ?? limpio;
+}
+
+/**
  * Interpreta una fecha del Excel, que puede llegar como número de serie de
  * Excel, como texto "dd/mm/aaaa" o como texto "aaaa-mm-dd". Devuelve solo la
  * parte de fecha en ISO ("aaaa-mm-dd"); null si no se puede interpretar.
