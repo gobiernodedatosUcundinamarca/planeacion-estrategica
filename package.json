@@ -17,6 +17,7 @@
     "migrar:aportes": "tsx scripts/migrar-aportes.ts",
     "migrar:valoracion-territorio": "tsx scripts/migrar-valoracion-territorio.ts",
     "migrar:ia-administrativos": "tsx scripts/migrar-ia-administrativos.ts",
+    "migrar:descargas": "tsx scripts/migrar-descargas.ts",
     "cargar:momento4": "tsx scripts/cargar-momento4.ts"
   },
   "dependencies": {
@@ -29,6 +30,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
+    "exceljs": "4.4.0",
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.24.0",
     "next": "16.2.11",

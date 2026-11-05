@@ -16,7 +16,12 @@ import {
   DEFINICION_IA_ADMINISTRATIVOS,
   DEFINICION_VALORACION_TERRITORIO,
 } from "./formularios-definicion";
-import type { IaAdministrativosDataSource, ValoracionTerritorioDataSource } from "./types";
+import { PostgresDescargasDataSource } from "./postgres-descargas-source";
+import type {
+  DescargasDataSource,
+  IaAdministrativosDataSource,
+  ValoracionTerritorioDataSource,
+} from "./types";
 import { crearSingleton } from "./infrastructure/singleton";
 
 export type {
@@ -95,6 +100,10 @@ export const getIaAdministrativosDataSource = crearSingleton(
       fechaRespuesta,
       ...valores,
     }))
+);
+
+export const getDescargasDataSource = crearSingleton(
+  (): DescargasDataSource => new PostgresDescargasDataSource()
 );
 
 export const getSeccionesDataSource = crearSingleton(() => new PostgresSeccionesDataSource());

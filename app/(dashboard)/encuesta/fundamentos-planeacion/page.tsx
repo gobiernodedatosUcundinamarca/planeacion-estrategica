@@ -1,3 +1,4 @@
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import type { Metadata } from "next";
 import { PreguntasEstrategicasClient } from "@/components/dashboard/preguntas-estrategicas-client";
 import {
@@ -21,12 +22,15 @@ export default function FundamentosPlaneacionPage() {
   };
 
   return (
-    <PreguntasEstrategicasClient
-      titulo="Fundamentos de planeación — Diagnóstico: Tu Voz Fundamental"
-      descripcion="Qué debe definir un Plan Estratégico y cómo debe construirse la planeación institucional"
-      preguntasIds={["P1", "P2"]}
-      inicial={inicial}
-      respuestasOtro={getRespuestasOtroPreagregadas()}
-    />
+    <div className="flex flex-col gap-6">
+      <PreguntasEstrategicasClient
+        titulo="Fundamentos de planeación — Diagnóstico: Tu Voz Fundamental"
+        descripcion="Qué debe definir un Plan Estratégico y cómo debe construirse la planeación institucional"
+        preguntasIds={["P1", "P2"]}
+        inicial={inicial}
+        respuestasOtro={getRespuestasOtroPreagregadas()}
+      />
+      <DescargaExcel ruta="/encuesta/fundamentos-planeacion" />
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import type { Metadata } from "next";
 import { ConferencistasExplorador } from "@/components/conferencistas/conferencistas-explorador";
 import { getConferencias } from "@/repositories/conferencistasRepository";
@@ -28,6 +29,8 @@ export default function ConferencistasPage() {
           Aún no hay conferencistas publicados.
         </p>
       )}
+
+      <DescargaExcel ruta="/conferencistas" />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import type { Metadata } from "next";
 import { TablaMetaCard } from "@/components/metas/tabla-meta";
 import { GraficoMetas } from "@/components/metas/grafico-metas";
@@ -35,6 +36,8 @@ export default function MetasPage() {
       </div>
 
       <GraficoMetas tablas={tablas} />
+
+      <DescargaExcel ruta="/metas" />
     </div>
   );
 }

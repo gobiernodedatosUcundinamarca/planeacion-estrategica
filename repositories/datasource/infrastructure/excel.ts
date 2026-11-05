@@ -1,9 +1,11 @@
 import { readFileSync } from "node:fs";
 import * as XLSX from "xlsx";
+import ExcelJS from "exceljs";
 
 /**
  * Acceso de bajo nivel a los .xlsx: abrir un libro y volcar una hoja a filas,
- * o armar uno nuevo para descargar. Es la única puerta a la librería XLSX — que ningún origen la use por su
+ * o armar uno nuevo con estilo para descargar. Es la única puerta a las
+ * librerías de Excel (XLSX para leer, exceljs para escribir) — que ningún origen la use por su
  * cuenta mantiene idénticas las opciones de lectura (`raw`, `defval`,
  * `cellDates`) en todo el proyecto, que es lo que hace que dos módulos
  * interpreten una misma celda de la misma forma.
@@ -66,6 +68,10 @@ export type CeldaSalida = string | number | null;
 export interface HojaSalida {
   /** Máximo 31 caracteres: es el límite de Excel para el nombre de una hoja. */
   nombre: string;
+  /** Título grande sobre la tabla. */
+  titulo?: string;
+  /** Líneas de contexto bajo el título: fuente, fecha de descarga, aviso de anonimato. */
+  notas?: string[];
   /** La primera fila son los encabezados. */
   filas: CeldaSalida[][];
   /**
@@ -76,51 +82,114 @@ export interface HojaSalida {
   columnasFecha?: number[];
 }
 
-/** Tope de ancho de columna, en caracteres: un texto largo no debe empujar el resto fuera de la vista. */
-const ANCHO_MAXIMO_COLUMNA = 50;
+/** Tope de ancho de columna, en caracteres: más allá, el texto se parte en líneas. */
+const ANCHO_MAXIMO_COLUMNA = 60;
+
+/** Colores del sitio en ARGB: el verde institucional (`--valoracion-5`) y sus derivados. */
+const COLOR_MARCA = "FF00612F";
+const COLOR_FRANJA = "FFF1F7F3";
+const COLOR_BORDE = "FFD5E3D9";
+const COLOR_TEXTO_SUAVE = "FF5B6B61";
+
+const BORDE: Partial<ExcelJS.Borders> = {
+  top: { style: "thin", color: { argb: COLOR_BORDE } },
+  bottom: { style: "thin", color: { argb: COLOR_BORDE } },
+  left: { style: "thin", color: { argb: COLOR_BORDE } },
+  right: { style: "thin", color: { argb: COLOR_BORDE } },
+};
 
 /**
- * Arma un .xlsx en memoria. Cada hoja sale con el filtro puesto en los
- * encabezados y el ancho de cada columna ajustado a su contenido, para que se
- * pueda trabajar apenas se abre.
+ * Arma un .xlsx con estilo, en memoria (en Vercel el disco es de solo
+ * lectura). Cada hoja lleva título, notas de contexto, encabezado con el verde
+ * del sitio, filas alternadas, el encabezado fijo al desplazarse, filtro en
+ * cada columna, anchos ajustados al contenido y fechas reales de Excel: que se
+ * pueda leer e imprimir apenas se abre.
+ *
+ * Escribe con `exceljs` y no con la librería XLSX de lectura porque la edición
+ * gratuita de esa no guarda estilos. Las dos viven solo en este archivo.
  */
-export function escribirLibro(hojas: HojaSalida[]): Buffer {
-  const libro = XLSX.utils.book_new();
+export async function escribirLibro(hojas: HojaSalida[]): Promise<Buffer> {
+  const libro = new ExcelJS.Workbook();
+  libro.creator = "Universidad de Cundinamarca · Planeación Estratégica 2027-2037";
+  libro.created = new Date();
 
-  for (const { nombre, filas, columnasFecha = [] } of hojas) {
-    const datos = filas.map((fila, indiceFila) =>
-      indiceFila === 0
-        ? fila
-        : fila.map((valor, columna) =>
-            columnasFecha.includes(columna) && typeof valor === "string"
-              ? (isoAExcelSerial(valor) ?? valor)
-              : valor
-          )
-    );
-    const hoja = XLSX.utils.aoa_to_sheet(datos);
+  for (const hoja of hojas) {
+    const [encabezados = [], ...datos] = hoja.filas;
+    const totalColumnas = Math.max(1, encabezados.length, ...datos.map((f) => f.length));
+    const fechas = new Set(hoja.columnasFecha ?? []);
+    const ws = libro.addWorksheet(hoja.nombre.slice(0, 31));
 
-    for (let fila = 1; fila < datos.length; fila++) {
-      for (const columna of columnasFecha) {
-        const celda = hoja[XLSX.utils.encode_cell({ r: fila, c: columna })];
-        if (celda?.t === "n") celda.z = "dd/mm/yyyy";
-      }
+    let fila = 1;
+    if (hoja.titulo) {
+      ws.mergeCells(fila, 1, fila, totalColumnas);
+      const celda = ws.getCell(fila, 1);
+      celda.value = hoja.titulo;
+      celda.font = { bold: true, size: 14, color: { argb: COLOR_MARCA } };
+      celda.alignment = { vertical: "middle" };
+      ws.getRow(fila).height = 26;
+      fila++;
     }
+    for (const nota of hoja.notas ?? []) {
+      ws.mergeCells(fila, 1, fila, totalColumnas);
+      const celda = ws.getCell(fila, 1);
+      celda.value = nota;
+      celda.font = { italic: true, size: 9, color: { argb: COLOR_TEXTO_SUAVE } };
+      fila++;
+    }
+    // Una fila en blanco separa el encabezado del documento de la tabla.
+    if (fila > 1) fila++;
 
-    const columnas = Math.max(0, ...filas.map((fila) => fila.length));
-    hoja["!cols"] = Array.from({ length: columnas }, (_, columna) => ({
-      wch: columnasFecha.includes(columna)
+    const anchos = Array.from({ length: totalColumnas }, (_, c) =>
+      fechas.has(c)
         ? 12
         : Math.min(
             ANCHO_MAXIMO_COLUMNA,
-            Math.max(8, ...filas.map((fila) => String(fila[columna] ?? "").length + 2))
-          ),
-    }));
-    if (hoja["!ref"]) hoja["!autofilter"] = { ref: hoja["!ref"] };
+            Math.max(10, ...hoja.filas.map((f) => String(f[c] ?? "").length + 2))
+          )
+    );
+    ws.columns = anchos.map((width) => ({ width }));
 
-    XLSX.utils.book_append_sheet(libro, hoja, nombre);
+    const filaEncabezado = fila;
+    const encabezado = ws.getRow(filaEncabezado);
+    for (let c = 0; c < totalColumnas; c++) {
+      const celda = encabezado.getCell(c + 1);
+      celda.value = encabezados[c] ?? "";
+      celda.font = { bold: true, color: { argb: "FFFFFFFF" } };
+      celda.fill = { type: "pattern", pattern: "solid", fgColor: { argb: COLOR_MARCA } };
+      celda.alignment = { vertical: "middle", wrapText: true };
+      celda.border = BORDE;
+    }
+    encabezado.height = 32;
+
+    datos.forEach((valores, indice) => {
+      const r = ws.getRow(filaEncabezado + 1 + indice);
+      for (let c = 0; c < totalColumnas; c++) {
+        const valor = valores[c] ?? null;
+        const celda = r.getCell(c + 1);
+        const serial = fechas.has(c) && typeof valor === "string" ? isoAExcelSerial(valor) : null;
+        celda.value = serial ?? valor;
+        if (serial !== null) celda.numFmt = "dd/mm/yyyy";
+        celda.alignment = {
+          vertical: "top",
+          // Solo se parte en líneas lo que no cabe en el ancho máximo.
+          wrapText: typeof valor === "string" && valor.length + 2 > anchos[c],
+        };
+        celda.border = BORDE;
+        if (indice % 2 === 1) {
+          celda.fill = { type: "pattern", pattern: "solid", fgColor: { argb: COLOR_FRANJA } };
+        }
+      }
+    });
+
+    ws.views = [{ state: "frozen", ySplit: filaEncabezado }];
+    ws.autoFilter = {
+      from: { row: filaEncabezado, column: 1 },
+      to: { row: filaEncabezado + Math.max(datos.length, 1), column: totalColumnas },
+    };
+    ws.pageSetup = { orientation: "landscape", fitToPage: true, fitToWidth: 1, fitToHeight: 0 };
   }
 
-  return XLSX.write(libro, { type: "buffer", bookType: "xlsx", compression: true }) as Buffer;
+  return Buffer.from(await libro.xlsx.writeBuffer());
 }
 
 /**

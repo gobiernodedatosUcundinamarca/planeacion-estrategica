@@ -1,3 +1,4 @@
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BookOpen, ClipboardCheck, MessagesSquare, type LucideIcon } from "lucide-react";
@@ -38,6 +39,8 @@ export default function AnaliticaMomentosPage() {
           ))}
         </div>
       </section>
+
+      <DescargaExcel ruta="/analitica-momentos" />
     </div>
   );
 }

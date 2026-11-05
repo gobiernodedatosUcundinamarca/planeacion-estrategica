@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AlertTriangle, ArrowLeft, Lock } from "lucide-react";
 import { PanelTransformaciones } from "@/components/transformaciones/panel-transformaciones";
 import { AportesGenerales } from "@/components/transformaciones/aportes-generales";
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { getClustersMomento4, getRespuestasMomento4 } from "@/repositories/momento4Repository";
 import { getAportes } from "@/repositories/aportesRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
@@ -96,6 +97,8 @@ export default async function TransformacionesPage() {
       {/* Fuera del bloque anterior a propósito: si no hay respuestas de las
           transformaciones pero sí aportes generales, estos deben verse igual. */}
       {aportes.length > 0 ? <AportesGenerales aportes={aportes} /> : null}
+
+      <DescargaExcel ruta="/transformaciones" />
     </div>
   );
 }

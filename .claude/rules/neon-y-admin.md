@@ -25,6 +25,10 @@ paths:
   - "types/formularios.ts"
   - "types/valoracion-territorio.ts"
   - "types/ia-administrativos.ts"
+  - "types/descargas.ts"
+  - "app/api/descargas/**"
+  - "repositories/descargasRepository.ts"
+  - "components/layout/descarga-excel.tsx"
   - "scripts/**"
   - "data/source-momento4-planeacion-territorial/**"
   - "data/source-participacon-momoento4-planeacion-teritorial/**"
@@ -51,7 +55,8 @@ las filas.
   `pnpm migrar:clusters` (clasificación temática de comentarios),
   `pnpm migrar:participacion` (asistencia en territorio),
   `pnpm migrar:aportes` (formulario general del Plan),
-  `pnpm migrar:valoracion-territorio` y `pnpm migrar:ia-administrativos`.
+  `pnpm migrar:valoracion-territorio`, `pnpm migrar:ia-administrativos` y
+  `pnpm migrar:descargas` (registro de descargas en Excel).
 - **Aportes generales** (`aportes_documento` / `aportes_respuestas`) son las
   respuestas al formulario abierto de UCUNDINAMARCA. Tiene **tabla y módulo
   propios, no una sexta casilla del Momento 4**, porque es otro cuestionario:
@@ -125,6 +130,34 @@ las filas.
     enunciado (`PALABRAS_SIN_TEMA_*`). Si la agrupación no separa de verdad
     (`sonTemasUtiles`: ≥ 3 temas y ninguno con más del 75 %), la sección lo dice
     y muestra solo nube y lista. Hoy pasa con las sugerencias de la valoración.
+- **Descargas en Excel** (botón al final de cada sección del menú →
+  `/api/descargas/<seccion>`, `descargasRepository.ts`). Son **públicas**, así
+  que todo sale **anónimo**: sin nombres, correos, documentos, códigos de
+  estudiante ni autores; donde hace falta distinguir personas (Seguimiento,
+  Accesos CAI) va un seudónimo estable ("Participante 001") ordenado por hash,
+  no por correo, y cualquier correo escrito en un texto libre se tapa
+  ("[correo omitido]"). La única descarga con datos personales sigue siendo la
+  de Participación en /admin. Una sección nueva del menú necesita su
+  constructor en `CONSTRUCTORES` (si no, responde 404).
+  · **Protección de recursos**: límite por visitante (10 cada 10 min) y global
+    (300 por hora), contados en `descargas_registro` para que valgan entre
+    todas las instancias de Vercel (el límite del PIN, en memoria, no lo haría);
+    copia en memoria del último archivo de cada sección, válida mientras no
+    cambie la huella de sus datos (en las de Neon, un md5 calculado en la base
+    —`huellaTablas`— para no traer miles de filas: ~0,5 s en vez de 12-16 s);
+    una sola generación a la vez por sección; tope de 4 MB por archivo
+    (Vercel corta en ~4,5 MB). `no-store` a propósito: con caché de CDN las
+    descargas no pasarían por el límite ni por el registro. Si el registro no
+    responde, no se entrega (sin conteo no hay límite).
+  · **Auditoría**: cada petición, entregada o rechazada, queda en
+    `descargas_registro` (`pnpm migrar:descargas`) con un HMAC de la IP —nunca
+    la dirección—, y /admin muestra el resumen por sección, los visitantes con
+    más peticiones y las últimas 25. Se conserva 180 días (se poda al abrir
+    /admin, no en la petición pública). Una sección inexistente se guarda como
+    "(no existe)", no con el texto que mandó el visitante.
+  · El Excel se escribe con `exceljs` (estilos) dentro de
+    `infrastructure/excel.ts`, que sigue siendo la única puerta a las librerías
+    de Excel; la de lectura (XLSX) no guarda estilos en su edición gratuita.
 - **Actualizar vs. Reemplazar** (las 5 transformaciones y UCUNDINAMARCA): el
   export de Forms es acumulativo, así que se sube siempre el archivo completo.
   · *Reemplazar* deja el archivo como único contenido de esa casilla.

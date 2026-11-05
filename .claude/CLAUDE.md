@@ -65,7 +65,7 @@ El flujo de datos va **siempre en una dirección** y sin saltarse escalones:
   data/source-*/*.xlsx          Fuente de verdad (única)
           ↓
   datasource/infrastructure/    Cómo se lee y se cachea un archivo
-          ↓                       · excel.ts        — única puerta a la librería XLSX
+          ↓                       · excel.ts        — única puerta a las librerías de Excel (leer y escribir)
           ↓                       · cache-archivo.ts — caché invalidada por mtime
           ↓                       · singleton.ts     — una instancia por proceso
   datasource/excel-*-source.ts  Qué significan las celdas de UN Excel

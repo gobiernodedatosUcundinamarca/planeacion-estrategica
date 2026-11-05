@@ -1,4 +1,5 @@
 import { ResumenEjecutivoClient } from "@/components/dashboard/resumen-ejecutivo-client";
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import {
   getKpisEjecutivos,
   getDistribucionRolPreagregada,
@@ -16,5 +17,10 @@ export default function ResumenEjecutivoPage() {
     serieTiempo: getSerieTiempoPreagregada(),
   };
 
-  return <ResumenEjecutivoClient inicial={inicial} />;
+  return (
+    <div className="flex flex-col gap-6">
+      <ResumenEjecutivoClient inicial={inicial} />
+      <DescargaExcel ruta="/encuesta" />
+    </div>
+  );
 }

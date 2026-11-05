@@ -1,3 +1,4 @@
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import type { Metadata } from "next";
 import { PanelAccesosCai } from "@/components/accesos/panel-accesos-cai";
 import { getAccesosCaiData } from "@/repositories/accesosCaiRepository";
@@ -17,6 +18,7 @@ export default function AccesosCaiPage() {
         </h1>
       </header>
       <PanelAccesosCai datos={datos} />
+      <DescargaExcel ruta="/accesos-cai" />
     </div>
   );
 }

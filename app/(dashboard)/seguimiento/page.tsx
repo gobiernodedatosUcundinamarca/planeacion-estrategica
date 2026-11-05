@@ -1,3 +1,4 @@
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { PanelSeguimiento } from "@/components/seguimiento/panel-seguimiento";
 import { getCaiData } from "@/repositories/caiRepository";
 
@@ -12,6 +13,7 @@ export default function SeguimientoActividadesPage() {
         </h1>
       </div>
       <PanelSeguimiento datos={datos} />
+      <DescargaExcel ruta="/seguimiento" />
     </div>
   );
 }

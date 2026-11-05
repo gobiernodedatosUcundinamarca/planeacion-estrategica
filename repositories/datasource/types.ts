@@ -29,6 +29,7 @@ import type {
   ResultadoCargueAportes,
 } from "@/types/aportes";
 import type { DocumentoFormulario, ResultadoCargueFormulario } from "@/types/formularios";
+import type { EventoDescarga, HojaDescarga, RegistroDescargas } from "@/types/descargas";
 import type { RespuestaValoracionTerritorio } from "@/types/valoracion-territorio";
 import type { RespuestaIaAdministrativos } from "@/types/ia-administrativos";
 
@@ -244,6 +245,24 @@ export interface FormularioDataSource<R> {
   actualizar(nombreOriginal: string, contenido: Buffer): Promise<ResultadoCargueFormulario>;
   /** Devuelve cuántas respuestas se eliminaron. */
   eliminar(): Promise<number>;
+}
+
+/**
+ * Contrato de las descargas en Excel: escribir el archivo y llevar el registro
+ * con que se aplican los límites y se audita el uso.
+ */
+export interface DescargasDataSource {
+  escribirExcel(hojas: HojaDescarga[]): Promise<Buffer>;
+  /** Descargas entregadas por el visitante y por todo el sitio en sus ventanas. */
+  contarRecientes(
+    ipHash: string,
+    minutosVisitante: number,
+    minutosGlobal: number
+  ): Promise<{ visitante: number; global: number }>;
+  /** Huella del contenido de esas tablas, para saber si un Excel guardado sigue vigente. */
+  huellaTablas(tablas: readonly string[]): Promise<string>;
+  registrar(evento: EventoDescarga): Promise<void>;
+  getRegistro(dias: number, diasConservacion: number): Promise<RegistroDescargas>;
 }
 
 /**

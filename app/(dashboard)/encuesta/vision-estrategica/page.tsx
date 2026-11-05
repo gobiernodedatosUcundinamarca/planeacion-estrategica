@@ -1,3 +1,4 @@
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import type { Metadata } from "next";
 import { PreguntasEstrategicasClient } from "@/components/dashboard/preguntas-estrategicas-client";
 import {
@@ -22,13 +23,16 @@ export default function VisionEstrategicaPage() {
   };
 
   return (
-    <PreguntasEstrategicasClient
-      titulo="Visión estratégica — Diagnóstico: Tu Voz Fundamental"
-      descripcion="Decisiones estratégicas a futuro y la visión de la UCundinamarca a 10 años"
-      preguntasIds={["P3", "P4"]}
-      inicial={inicial}
-      respuestasOtro={getRespuestasOtroPreagregadas()}
-      analisisOtro={getAnalisisOtroPreagregado()}
-    />
+    <div className="flex flex-col gap-6">
+      <PreguntasEstrategicasClient
+        titulo="Visión estratégica — Diagnóstico: Tu Voz Fundamental"
+        descripcion="Decisiones estratégicas a futuro y la visión de la UCundinamarca a 10 años"
+        preguntasIds={["P3", "P4"]}
+        inicial={inicial}
+        respuestasOtro={getRespuestasOtroPreagregadas()}
+        analisisOtro={getAnalisisOtroPreagregado()}
+      />
+      <DescargaExcel ruta="/encuesta/vision-estrategica" />
+    </div>
   );
 }

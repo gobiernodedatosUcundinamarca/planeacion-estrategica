@@ -155,7 +155,7 @@ const formatoCargue = new Intl.DateTimeFormat("es-CO", {
 export function escribirExcelParticipacion(
   documentos: DocumentoParticipacion[],
   registros: RegistroParticipacionAdministracion[]
-): Buffer {
+): Promise<Buffer> {
   const archivoPorDocumento = new Map(documentos.map((d) => [d.id, d.archivo]));
   const camposSinFecha = CAMPOS_PARTICIPACION.filter(({ campo }) => campo !== "fechaInicio");
   const etiquetaFecha =
@@ -199,10 +199,23 @@ export function escribirExcelParticipacion(
     }),
   ];
 
+  // Uso interno de /admin: lleva la cédula, y el aviso lo dice en cada hoja.
+  const notas = [
+    `Descargado el ${formatoCargue.format(new Date())} desde la administración del sitio.`,
+    "Uso interno: incluye nombre y documento de los asistentes. No compartir fuera de la administración.",
+  ];
   return escribirLibro([
+    // Sin título ni notas a propósito: el cargue lee los encabezados en la
+    // primera fila, y así el archivo se puede volver a subir tal cual.
     { nombre: "Asistencia", filas: asistencia, columnasFecha: [0] },
-    { nombre: "Tandas", filas: tandas },
-    { nombre: "Resumen por jornada", filas: resumenPorJornada(registros), columnasFecha: [0] },
+    { nombre: "Tandas", titulo: "Participación en territorio · Tandas cargadas", notas, filas: tandas },
+    {
+      nombre: "Resumen por jornada",
+      titulo: "Participación en territorio · Resumen por jornada",
+      notas,
+      filas: resumenPorJornada(registros),
+      columnasFecha: [0],
+    },
   ]);
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ParticipacionClient } from "@/components/dashboard/participacion-client";
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import {
   getKpisEjecutivos,
   getDistribucionRolPreagregada,
@@ -25,5 +26,10 @@ export default function ParticipacionPage() {
     conteoFacultad: getConteoPorFacultad(),
   };
 
-  return <ParticipacionClient inicial={inicial} estatico={estatico} />;
+  return (
+    <div className="flex flex-col gap-6">
+      <ParticipacionClient inicial={inicial} estatico={estatico} />
+      <DescargaExcel ruta="/encuesta/participacion" />
+    </div>
+  );
 }

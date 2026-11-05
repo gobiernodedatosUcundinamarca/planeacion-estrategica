@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
 import { PanelIaAdministrativos } from "@/components/ia-administrativos/panel-ia-administrativos";
 import { SeccionNoDisponible } from "@/components/layout/seccion-no-disponible";
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { getVistaIaAdministrativos } from "@/repositories/iaAdministrativosRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_IA_ADMINISTRATIVOS } from "@/constants/secciones";
@@ -56,6 +57,8 @@ export default async function IaAdministrativosPage() {
       ) : (
         <PanelIaAdministrativos respuestas={vista.respuestas} temas={vista.temas} />
       )}
+
+      <DescargaExcel ruta="/ia-administrativos" />
     </div>
   );
 }

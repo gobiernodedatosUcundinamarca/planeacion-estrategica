@@ -18,6 +18,9 @@ import type { DocumentoParticipacion } from "@/types/participacion";
 import type { DocumentoAportes } from "@/types/aportes";
 import { tieneAccesoAdmin } from "./sesion";
 import { CargueFormulario } from "@/components/admin/cargue-formulario";
+import { RegistroDescargasPanel } from "@/components/admin/registro-descargas";
+import { getRegistroDescargas } from "@/repositories/descargasRepository";
+import type { RegistroDescargas } from "@/types/descargas";
 import { getDocumentoValoracionTerritorio } from "@/repositories/valoracionTerritorioRepository";
 import { getDocumentoIaAdministrativos } from "@/repositories/iaAdministrativosRepository";
 import { SECCION_IA_ADMINISTRATIVOS, SECCION_VALORACION_TERRITORIO } from "@/constants/secciones";
@@ -109,6 +112,18 @@ export default async function AdminPage() {
     consultarDocumento(getDocumentoIaAdministrativos),
   ]);
 
+  // Con su propio try, como el tablero de uso: un fallo del registro no debe
+  // impedir administrar lo demás.
+  let registroDescargas: { registro: RegistroDescargas | null; error: string | null };
+  try {
+    registroDescargas = { registro: await getRegistroDescargas(7), error: null };
+  } catch (fallo) {
+    registroDescargas = {
+      registro: null,
+      error: fallo instanceof Error ? fallo.message : "No se pudo consultar la base de datos.",
+    };
+  }
+
   // El tablero se resuelve aparte y con su propio try: un fallo midiendo el uso
   // no debe impedir administrar los documentos, que es lo importante.
   let metricas = null;
@@ -171,6 +186,8 @@ export default async function AdminPage() {
       />
 
       {metricas ? <PanelUso metricasIniciales={metricas} diasIniciales={DIAS_INICIALES} /> : null}
+
+      <RegistroDescargasPanel registro={registroDescargas.registro} error={registroDescargas.error} />
     </main>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
 import { PanelValoracionTerritorio } from "@/components/valoracion-territorio/panel-valoracion-territorio";
 import { SeccionNoDisponible } from "@/components/layout/seccion-no-disponible";
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { getVistaValoracionTerritorio } from "@/repositories/valoracionTerritorioRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_VALORACION_TERRITORIO } from "@/constants/secciones";
@@ -59,6 +60,8 @@ export default async function ValoracionTerritorioPage() {
       ) : (
         <PanelValoracionTerritorio respuestas={vista.respuestas} temas={vista.temas} />
       )}
+
+      <DescargaExcel ruta="/valoracion-territorio" />
     </div>
   );
 }

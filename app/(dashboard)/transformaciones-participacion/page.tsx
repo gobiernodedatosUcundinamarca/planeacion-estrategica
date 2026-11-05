@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft, Lock } from "lucide-react";
 import { PanelParticipacion } from "@/components/transformaciones-participacion/panel-participacion";
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { getRegistrosParticipacion } from "@/repositories/participacionRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_PARTICIPACION } from "@/constants/secciones";
@@ -59,6 +60,8 @@ export default async function TransformacionesParticipacionPage() {
       ) : (
         <PanelParticipacion registros={registros} />
       )}
+
+      <DescargaExcel ruta="/transformaciones-participacion" />
     </div>
   );
 }

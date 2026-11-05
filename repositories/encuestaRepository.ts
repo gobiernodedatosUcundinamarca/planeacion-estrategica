@@ -1,5 +1,13 @@
 import "server-only";
-import type { AnalisisOtro, Persona, FiltrosEncuesta, PreguntaId, Rol, RolAsignado } from "@/types/encuesta";
+import type {
+  AnalisisOtro,
+  Persona,
+  FiltrosEncuesta,
+  PreguntaId,
+  RespuestaPregunta,
+  Rol,
+  RolAsignado,
+} from "@/types/encuesta";
 import { PREGUNTAS } from "@/constants/preguntas";
 import { ETIQUETA_ROL } from "@/constants/marca";
 import {
@@ -63,6 +71,16 @@ function construirMapaRolesPorPersona(): Map<number, Set<string>> {
   }
   mapaRolesPorFuente.set(rolesAsignados, mapa);
   return mapa;
+}
+
+/** Cada opción marcada por cada persona, tal como está en el Excel (para la descarga). */
+export function getRespuestasEncuesta(): RespuestaPregunta[] {
+  return getEncuestaDataSource().getRespuestas();
+}
+
+/** Todos los roles de cada persona, no solo el principal (para la descarga). */
+export function getRolesAsignadosEncuesta(): RolAsignado[] {
+  return getEncuestaDataSource().getRolesAsignados();
 }
 
 export function getPersonasFiltradas(filtros: FiltrosEncuesta = FILTROS_VACIOS): Persona[] {
