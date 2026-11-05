@@ -1,6 +1,7 @@
 import "server-only";
 import type {
   DocumentoParticipacion,
+  JornadaParticipacion,
   ModoCargueParticipacion,
   RegistroParticipacion,
   ResultadoCargueParticipacion,
@@ -9,6 +10,7 @@ import type { ParticipacionDataSource } from "./types";
 import { conexionSql } from "./infrastructure/neon";
 import {
   consultarDocumentos,
+  consultarJornadas,
   consultarRegistros,
   eliminarRegistros,
   generarExcel,
@@ -28,6 +30,10 @@ export class PostgresParticipacionDataSource implements ParticipacionDataSource 
 
   getRegistros(): Promise<RegistroParticipacion[]> {
     return consultarRegistros(conexionSql());
+  }
+
+  getJornadas(): Promise<JornadaParticipacion[]> {
+    return consultarJornadas(conexionSql());
   }
 
   guardar(

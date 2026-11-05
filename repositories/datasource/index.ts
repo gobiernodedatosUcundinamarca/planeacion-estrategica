@@ -11,6 +11,12 @@ import { PostgresParticipacionDataSource } from "./postgres-participacion-source
 import { PostgresAportesDataSource } from "./postgres-aportes-source";
 import { PostgresSeccionesDataSource } from "./postgres-secciones-source";
 import { PostgresMetricasDataSource } from "./postgres-metricas-source";
+import { PostgresFormularioDataSource } from "./postgres-formulario-source";
+import {
+  DEFINICION_IA_ADMINISTRATIVOS,
+  DEFINICION_VALORACION_TERRITORIO,
+} from "./formularios-definicion";
+import type { IaAdministrativosDataSource, ValoracionTerritorioDataSource } from "./types";
 import { crearSingleton } from "./infrastructure/singleton";
 
 export type {
@@ -26,6 +32,8 @@ export type {
   AportesDataSource,
   SeccionesDataSource,
   MetricasDataSource,
+  ValoracionTerritorioDataSource,
+  IaAdministrativosDataSource,
 } from "./types";
 
 /**
@@ -68,6 +76,26 @@ export const getParticipacionDataSource = crearSingleton(
 );
 
 export const getAportesDataSource = crearSingleton(() => new PostgresAportesDataSource());
+
+// Los dos formularios que se cargan como un solo documento comparten el
+// almacén; cada uno solo dice dónde se guarda y cómo se ve su respuesta.
+export const getValoracionTerritorioDataSource = crearSingleton(
+  (): ValoracionTerritorioDataSource =>
+    new PostgresFormularioDataSource(DEFINICION_VALORACION_TERRITORIO, ({ id, fechaRespuesta, valores }) => ({
+      id,
+      fechaRespuesta,
+      ...valores,
+    }))
+);
+
+export const getIaAdministrativosDataSource = crearSingleton(
+  (): IaAdministrativosDataSource =>
+    new PostgresFormularioDataSource(DEFINICION_IA_ADMINISTRATIVOS, ({ id, fechaRespuesta, valores }) => ({
+      id,
+      fechaRespuesta,
+      ...valores,
+    }))
+);
 
 export const getSeccionesDataSource = crearSingleton(() => new PostgresSeccionesDataSource());
 

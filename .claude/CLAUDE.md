@@ -44,7 +44,9 @@ build portable — ver más abajo).
 ### Única excepción: lo que se sube desde `/admin` vive en Postgres (Neon)
 
 Las respuestas del Momento 4 ("Transformaciones que nos conectan"), su
-**Participación** (asistencia en territorio) y los **aportes generales** se
+**Participación** (asistencia en territorio), los **aportes generales**, la
+**valoración de la experiencia en territorio** y la **encuesta de IA a
+administrativos** se
 guardan en Postgres porque se actualizan desde el sitio publicado y en Vercel
 el disco es de solo lectura. El `.xlsx` sigue siendo el formato de entrada y se
 valida contra `lib/reglas/` antes de guardar; la conexión sale solo de

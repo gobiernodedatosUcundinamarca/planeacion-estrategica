@@ -15,6 +15,8 @@
     "migrar:clusters": "tsx scripts/migrar-clusters.ts",
     "migrar:participacion": "tsx scripts/migrar-participacion.ts",
     "migrar:aportes": "tsx scripts/migrar-aportes.ts",
+    "migrar:valoracion-territorio": "tsx scripts/migrar-valoracion-territorio.ts",
+    "migrar:ia-administrativos": "tsx scripts/migrar-ia-administrativos.ts",
     "cargar:momento4": "tsx scripts/cargar-momento4.ts"
   },
   "dependencies": {

@@ -18,6 +18,7 @@ import type {
 import type { MetricasUso } from "@/types/metricas";
 import type {
   DocumentoParticipacion,
+  JornadaParticipacion,
   ModoCargueParticipacion,
   RegistroParticipacion,
   ResultadoCargueParticipacion,
@@ -27,6 +28,9 @@ import type {
   RespuestaAporte,
   ResultadoCargueAportes,
 } from "@/types/aportes";
+import type { DocumentoFormulario, ResultadoCargueFormulario } from "@/types/formularios";
+import type { RespuestaValoracionTerritorio } from "@/types/valoracion-territorio";
+import type { RespuestaIaAdministrativos } from "@/types/ia-administrativos";
 
 /**
  * Contrato que debe cumplir cualquier origen de datos de la encuesta.
@@ -211,6 +215,8 @@ export interface AportesDataSource {
 export interface ParticipacionDataSource {
   getDocumentos(): Promise<DocumentoParticipacion[]>;
   getRegistros(): Promise<RegistroParticipacion[]>;
+  /** Cada día con asistencia y su lugar de desarrollo. */
+  getJornadas(): Promise<JornadaParticipacion[]>;
   guardar(
     nombreOriginal: string,
     contenido: Buffer,
@@ -224,3 +230,31 @@ export interface ParticipacionDataSource {
    */
   exportar(): Promise<Buffer>;
 }
+
+/**
+ * Contrato de un formulario de Forms que se carga desde /admin como un solo
+ * documento: Reemplazar lo deja como único contenido, Actualizar suma solo las
+ * respuestas nuevas y Borrar lo vacía. Lo cumplen la valoración de la
+ * experiencia en territorio y la encuesta de IA a administrativos.
+ */
+export interface FormularioDataSource<R> {
+  getDocumento(): Promise<DocumentoFormulario | null>;
+  getRespuestas(): Promise<R[]>;
+  guardar(nombreOriginal: string, contenido: Buffer): Promise<ResultadoCargueFormulario>;
+  actualizar(nombreOriginal: string, contenido: Buffer): Promise<ResultadoCargueFormulario>;
+  /** Devuelve cuántas respuestas se eliminaron. */
+  eliminar(): Promise<number>;
+}
+
+/**
+ * Respuestas sin el tema ni la unidad regional: los dos se calculan en el
+ * repositorio, el tema sobre el conjunto y la unidad cruzando la fecha con las
+ * jornadas de Participación.
+ */
+export type ValoracionTerritorioDataSource = FormularioDataSource<
+  Omit<RespuestaValoracionTerritorio, "tema" | "unidadRegional">
+>;
+
+export type IaAdministrativosDataSource = FormularioDataSource<
+  Omit<RespuestaIaAdministrativos, "tema" | "unidadRegional">
+>;

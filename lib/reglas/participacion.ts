@@ -13,7 +13,7 @@
  * anonimización. Los nombres de columna se comparan normalizados (sin
  * tildes, en mayúsculas) para admitir variantes de escritura razonables.
  */
-import type { RegistroParticipacion } from "@/types/participacion";
+import type { JornadaParticipacion, RegistroParticipacion } from "@/types/participacion";
 import { normalizar } from "./momento4";
 
 export const TITULO_PARTICIPACION =
@@ -273,6 +273,27 @@ export function adscripcionesDe(r: RegistroParticipacion): string[] {
   // Quien no trae ninguna sigue siendo un asistente: se le agrupa en vez de
   // dejarlo fuera de todo filtro.
   return unicas.length > 0 ? unicas : [SIN_ESPECIFICAR];
+}
+
+/**
+ * La unidad regional de cada día de jornada en territorio, con las mismas
+ * etiquetas del resto de la sección ("SEDE FUSAGASUGÁ"…).
+ *
+ * La usan los formularios que se respondieron al cierre de las jornadas
+ * (valoración de la experiencia, IA a administrativos): no preguntan la unidad,
+ * pero cada respuesta tiene fecha, y ese día hubo una jornada en un lugar
+ * conocido. Si un mismo día hubiera asistencia registrada en dos lugares, se
+ * toma el que más asistentes tuvo (con los datos cargados no ocurre).
+ */
+export function unidadRegionalPorFecha(jornadas: JornadaParticipacion[]): Map<string, string> {
+  const principal = new Map<string, JornadaParticipacion>();
+  for (const jornada of jornadas) {
+    const actual = principal.get(jornada.fecha);
+    if (!actual || jornada.registros > actual.registros) principal.set(jornada.fecha, jornada);
+  }
+  return new Map(
+    [...principal].map(([fecha, j]) => [fecha, estandarizarUnidadRegional(j.lugarDesarrollo) ?? j.lugarDesarrollo])
+  );
 }
 
 /**

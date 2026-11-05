@@ -13,10 +13,18 @@ paths:
   - "repositories/aportesRepository.ts"
   - "repositories/seccionesRepository.ts"
   - "repositories/metricasRepository.ts"
+  - "repositories/valoracionTerritorioRepository.ts"
+  - "repositories/iaAdministrativosRepository.ts"
+  - "repositories/datasource/formularios-definicion.ts"
+  - "components/valoracion-territorio/**"
+  - "components/ia-administrativos/**"
   - "lib/reglas/**"
   - "types/momento4.ts"
   - "types/participacion.ts"
   - "types/aportes.ts"
+  - "types/formularios.ts"
+  - "types/valoracion-territorio.ts"
+  - "types/ia-administrativos.ts"
   - "scripts/**"
   - "data/source-momento4-planeacion-territorial/**"
   - "data/source-participacon-momoento4-planeacion-teritorial/**"
@@ -41,8 +49,9 @@ las filas.
   Otras migraciones, todas idempotentes: `pnpm migrar:secciones` (publicar o
   retirar una sección), `pnpm migrar:metricas` (tablero de uso),
   `pnpm migrar:clusters` (clasificación temática de comentarios),
-  `pnpm migrar:participacion` (asistencia en territorio) y
-  `pnpm migrar:aportes` (formulario general del Plan).
+  `pnpm migrar:participacion` (asistencia en territorio),
+  `pnpm migrar:aportes` (formulario general del Plan),
+  `pnpm migrar:valoracion-territorio` y `pnpm migrar:ia-administrativos`.
 - **Aportes generales** (`aportes_documento` / `aportes_respuestas`) son las
   respuestas al formulario abierto de UCUNDINAMARCA. Tiene **tabla y módulo
   propios, no una sexta casilla del Momento 4**, porque es otro cuestionario:
@@ -86,6 +95,36 @@ las filas.
     `null` ("Sin especificar") en los cargues que no la definan.
   · Cargar una jornada desde el repo: skill `cargar-participacion` (no scripts
     `__*.ts` sueltos).
+- **Formularios de un solo documento**: la *valoración de la experiencia en
+  territorio* (`/valoracion-territorio`, tablas `valoracion_territorio_*`) y la
+  *encuesta de IA a administrativos* (`/ia-administrativos`, tablas
+  `ia_administrativos_*`). Cada una tiene sus dos tablas (documento + respuestas)
+  pero comparten un solo ciclo de carga: `formularios-definicion.ts` dice qué
+  pregunta va a qué columna, `formulario-formato.ts` lee el export (columnas por
+  el **inicio** del encabezado, porque Forms recorta los largos) y
+  `formulario-almacen.ts` hace Reemplazar / Actualizar / Borrar. Las tablas se
+  crean desde esa misma definición (`pnpm migrar:valoracion-territorio`,
+  `pnpm migrar:ia-administrativos`), así que una pregunta nueva se agrega ahí y
+  se vuelve a migrar. Un formulario nuevo de este tipo es una definición más,
+  no otra copia del almacén ni de la tarjeta de /admin (`cargue-formulario.tsx`).
+  · Son **anónimos**: el export trae "anonymous" y sin nombre, y correo, nombre,
+    puntos y comentarios no se leen.
+  · **Unidad regional**: ninguno la pregunta. Se deduce de la **fecha** de la
+    respuesta cruzándola con las jornadas de Participación
+    (`unidadRegionalPorFecha`): se respondieron al cierre de cada jornada. Se
+    calcula al consultar, no se guarda, así que corregir una jornada en
+    Participación corrige también estas secciones. Sin jornada ese día →
+    "Sin especificar". IA solo tiene dos fechas (28 sep Fusagasugá, 27 oct
+    Facatativá); la valoración, diez (seis unidades).
+  · **Filtros**: valoración por unidad regional y rol (tipo de actor, con los
+    nombres visibles en plural); IA solo por unidad regional, porque todos son
+    administrativos (el tipo de funciones va como gráfico, no como filtro).
+  · **Temas de las respuestas abiertas**: la misma `clasificarComentarios`, pero
+    calculada al consultar (milisegundos con cientos de textos) y sin tocar sus
+    palabras vacías: cada formulario pasa su lista de palabras que repite el
+    enunciado (`PALABRAS_SIN_TEMA_*`). Si la agrupación no separa de verdad
+    (`sonTemasUtiles`: ≥ 3 temas y ninguno con más del 75 %), la sección lo dice
+    y muestra solo nube y lista. Hoy pasa con las sugerencias de la valoración.
 - **Actualizar vs. Reemplazar** (las 5 transformaciones y UCUNDINAMARCA): el
   export de Forms es acumulativo, así que se sube siempre el archivo completo.
   · *Reemplazar* deja el archivo como único contenido de esa casilla.

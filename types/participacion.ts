@@ -47,6 +47,19 @@ export interface RegistroParticipacion {
 }
 
 /**
+ * Un día de jornada en territorio y dónde se hizo, según la asistencia
+ * cargada. Lo usan los formularios que se respondieron al cierre de las
+ * jornadas (valoración de la experiencia, IA a administrativos) para saber en
+ * qué unidad regional se respondió cada uno: no lo preguntan.
+ */
+export interface JornadaParticipacion {
+  /** "aaaa-mm-dd". */
+  fecha: string;
+  lugarDesarrollo: string;
+  registros: number;
+}
+
+/**
  * Un registro tal como lo descarga la administración: lo publicado más la
  * cédula. Es un tipo aparte, y no un campo opcional de `RegistroParticipacion`,
  * para que la cédula no pueda colarse en el dashboard por descuido: solo lo

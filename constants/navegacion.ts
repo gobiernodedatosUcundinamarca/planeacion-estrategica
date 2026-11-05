@@ -1,6 +1,11 @@
 import type { LucideIcon } from "lucide-react";
-import { Activity, BarChart3, Blocks, LayoutDashboard, MapPinned, Network, Users, UserCheck, Compass, Target, Mic2 } from "lucide-react";
-import { SECCION_PARTICIPACION, SECCION_TRANSFORMACIONES } from "@/constants/secciones";
+import { Activity, BarChart3, Blocks, LayoutDashboard, MapPinned, Network, Users, UserCheck, Compass, Target, Mic2, ThumbsUp, Sparkles } from "lucide-react";
+import {
+  SECCION_IA_ADMINISTRATIVOS,
+  SECCION_PARTICIPACION,
+  SECCION_TRANSFORMACIONES,
+  SECCION_VALORACION_TERRITORIO,
+} from "@/constants/secciones";
 
 export interface ItemNavegacion {
   href: string;
@@ -83,5 +88,19 @@ export const NAVEGACION: ItemNavegacion[] = [
     descripcion: "Experiencia “Transformaciones que nos conectan” - Participación",
     icono: UserCheck,
     seccion: SECCION_PARTICIPACION,
+  },
+  {
+    href: "/valoracion-territorio",
+    etiqueta: "Valoración de la experiencia en territorio",
+    descripcion: "Qué tanto ayudó la experiencia y qué mejorar",
+    icono: ThumbsUp,
+    seccion: SECCION_VALORACION_TERRITORIO,
+  },
+  {
+    href: "/ia-administrativos",
+    etiqueta: "Uso de IA en procesos administrativos",
+    descripcion: "Diagnóstico del uso de inteligencia artificial",
+    icono: Sparkles,
+    seccion: SECCION_IA_ADMINISTRATIVOS,
   },
 ];

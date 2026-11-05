@@ -25,7 +25,24 @@ import { TRANSFORMACIONES_MOMENTO4 } from "@/lib/reglas/momento4";
 import { publicarSeccion } from "@/repositories/seccionesRepository";
 import { getMetricasUso } from "@/repositories/metricasRepository";
 import type { MetricasUso } from "@/types/metricas";
-import { RUTA_POR_SECCION, SECCION_PARTICIPACION, SECCION_TRANSFORMACIONES } from "@/constants/secciones";
+import {
+  RUTA_POR_SECCION,
+  SECCION_IA_ADMINISTRATIVOS,
+  SECCION_PARTICIPACION,
+  SECCION_TRANSFORMACIONES,
+  SECCION_VALORACION_TERRITORIO,
+} from "@/constants/secciones";
+import type { ResultadoCargueFormulario } from "@/types/formularios";
+import {
+  actualizarDocumentoValoracionTerritorio,
+  eliminarValoracionTerritorio,
+  guardarDocumentoValoracionTerritorio,
+} from "@/repositories/valoracionTerritorioRepository";
+import {
+  actualizarDocumentoIaAdministrativos,
+  eliminarIaAdministrativos,
+  guardarDocumentoIaAdministrativos,
+} from "@/repositories/iaAdministrativosRepository";
 import { crearTokenSesion, tieneAccesoAdmin } from "./sesion";
 import {
   limpiarFallosPin,
@@ -363,6 +380,107 @@ export async function eliminarRegistrosAportes(): Promise<{
     return { ok: true, eliminados, motivo: `Se borraron ${eliminados} aporte(s).` };
   } catch (error) {
     console.error("eliminarRegistrosAportes falló:", error);
+    return {
+      ok: false,
+      eliminados: 0,
+      motivo: "No se pudo borrar. Revisa la conexión con la base e inténtalo de nuevo.",
+    };
+  }
+}
+
+/** Carga el Excel de la valoración de la experiencia en territorio. */
+export async function subirDocumentoValoracionTerritorio(
+  datos: FormData
+): Promise<ResultadoCargueFormulario> {
+  return cargarFormulario(
+    datos,
+    guardarDocumentoValoracionTerritorio,
+    actualizarDocumentoValoracionTerritorio,
+    SECCION_VALORACION_TERRITORIO
+  );
+}
+
+export async function eliminarRegistrosValoracionTerritorio(): Promise<ResultadoBorrado> {
+  return borrarFormulario(eliminarValoracionTerritorio, SECCION_VALORACION_TERRITORIO);
+}
+
+/** Carga el Excel de la encuesta de IA a administrativos. */
+export async function subirDocumentoIaAdministrativos(
+  datos: FormData
+): Promise<ResultadoCargueFormulario> {
+  return cargarFormulario(
+    datos,
+    guardarDocumentoIaAdministrativos,
+    actualizarDocumentoIaAdministrativos,
+    SECCION_IA_ADMINISTRATIVOS
+  );
+}
+
+export async function eliminarRegistrosIaAdministrativos(): Promise<ResultadoBorrado> {
+  return borrarFormulario(eliminarIaAdministrativos, SECCION_IA_ADMINISTRATIVOS);
+}
+
+type ResultadoBorrado = { ok: boolean; eliminados: number; motivo: string };
+
+/**
+ * El ciclo de carga de un formulario de un solo documento: sesión, archivo y
+ * modo se verifican aquí —una server action se puede invocar sin pasar por la
+ * pantalla— y después Reemplazar o Actualizar según lo que eligió quien sube.
+ * No se exporta: solo las acciones de cada formulario son invocables.
+ */
+async function cargarFormulario(
+  datos: FormData,
+  guardar: (nombre: string, contenido: Buffer) => Promise<ResultadoCargueFormulario>,
+  actualizar: (nombre: string, contenido: Buffer) => Promise<ResultadoCargueFormulario>,
+  seccion: string
+): Promise<ResultadoCargueFormulario> {
+  const archivo = datos.get("documento");
+  const nombre = archivo instanceof File ? archivo.name : "—";
+  const modo = leerModo(datos);
+  const fallo = (motivo: string): ResultadoCargueFormulario => ({
+    archivo: nombre,
+    aceptado: false,
+    motivo,
+    respuestas: null,
+  });
+
+  if (!(await tieneAccesoAdmin())) {
+    return fallo("La sesión venció. Vuelve a ingresar el PIN para cargar documentos.");
+  }
+  if (!(archivo instanceof File)) return fallo("No se recibió ningún archivo.");
+  if (!modo) return fallo("No se indicó si el archivo reemplaza o actualiza lo ya cargado.");
+
+  const contenido = Buffer.from(await archivo.arrayBuffer());
+  const resultado =
+    modo === "actualizar"
+      ? await actualizar(archivo.name, contenido)
+      : await guardar(archivo.name, contenido);
+
+  if (resultado.aceptado) {
+    revalidatePath("/admin");
+    revalidatePath(RUTA_POR_SECCION[seccion]);
+  }
+  return resultado;
+}
+
+async function borrarFormulario(
+  eliminar: () => Promise<number>,
+  seccion: string
+): Promise<ResultadoBorrado> {
+  if (!(await tieneAccesoAdmin())) {
+    return {
+      ok: false,
+      eliminados: 0,
+      motivo: "La sesión venció. Vuelve a ingresar el PIN para borrar registros.",
+    };
+  }
+  try {
+    const eliminados = await eliminar();
+    revalidatePath("/admin");
+    revalidatePath(RUTA_POR_SECCION[seccion]);
+    return { ok: true, eliminados, motivo: `Se borraron ${eliminados} respuesta(s).` };
+  } catch (error) {
+    console.error(`borrarFormulario (${seccion}) falló:`, error);
     return {
       ok: false,
       eliminados: 0,

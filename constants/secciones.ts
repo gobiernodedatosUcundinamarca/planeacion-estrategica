@@ -8,6 +8,12 @@ export const SECCION_TRANSFORMACIONES = "transformaciones";
 /** Participación (asistencia a las actividades en territorio) — sección aparte del Momento 4. */
 export const SECCION_PARTICIPACION = "transformaciones-participacion";
 
+/** Valoración de la experiencia en territorio (instrumento al cierre de cada jornada). */
+export const SECCION_VALORACION_TERRITORIO = "valoracion-territorio";
+
+/** Encuesta diagnóstica sobre uso de IA en procesos administrativos. */
+export const SECCION_IA_ADMINISTRATIVOS = "ia-administrativos";
+
 /**
  * Rutas que solo se muestran si su sección está publicada. El menú lateral las
  * oculta y la propia página responde 404 cuando están desactivadas — ocultar el
@@ -16,4 +22,6 @@ export const SECCION_PARTICIPACION = "transformaciones-participacion";
 export const RUTA_POR_SECCION: Record<string, string> = {
   [SECCION_TRANSFORMACIONES]: "/transformaciones",
   [SECCION_PARTICIPACION]: "/transformaciones-participacion",
+  [SECCION_VALORACION_TERRITORIO]: "/valoracion-territorio",
+  [SECCION_IA_ADMINISTRATIVOS]: "/ia-administrativos",
 };

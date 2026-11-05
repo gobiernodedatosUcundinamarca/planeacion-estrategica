@@ -2,6 +2,7 @@ import type { NeonQueryFunction } from "@neondatabase/serverless";
 import type {
   DocumentoParticipacion,
   ModoCargueParticipacion,
+  JornadaParticipacion,
   RegistroParticipacion,
   RegistroParticipacionAdministracion,
   ResultadoCargueParticipacion,
@@ -73,6 +74,23 @@ export async function consultarRegistros(sql: Sql): Promise<RegistroParticipacio
     order by fecha_inicio nulls last, id
   `;
   return filas.map(aRegistro);
+}
+
+/** Cada día con asistencia registrada y su lugar de desarrollo, con cuántos asistieron. */
+export async function consultarJornadas(sql: Sql): Promise<JornadaParticipacion[]> {
+  const filas = await sql`
+    select fecha_inicio, lugar_desarrollo, count(*) as registros
+    from participacion_registros
+    where fecha_inicio is not null and lugar_desarrollo is not null
+    group by fecha_inicio, lugar_desarrollo
+    order by fecha_inicio
+  `;
+  return filas.flatMap((f) => {
+    const fecha = aFechaISO(f.fecha_inicio);
+    return fecha
+      ? [{ fecha, lugarDesarrollo: f.lugar_desarrollo as string, registros: Number(f.registros) }]
+      : [];
+  });
 }
 
 /**

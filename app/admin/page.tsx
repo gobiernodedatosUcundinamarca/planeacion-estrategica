@@ -17,6 +17,36 @@ import type { DocumentoMomento4 } from "@/types/momento4";
 import type { DocumentoParticipacion } from "@/types/participacion";
 import type { DocumentoAportes } from "@/types/aportes";
 import { tieneAccesoAdmin } from "./sesion";
+import { CargueFormulario } from "@/components/admin/cargue-formulario";
+import { getDocumentoValoracionTerritorio } from "@/repositories/valoracionTerritorioRepository";
+import { getDocumentoIaAdministrativos } from "@/repositories/iaAdministrativosRepository";
+import { SECCION_IA_ADMINISTRATIVOS, SECCION_VALORACION_TERRITORIO } from "@/constants/secciones";
+import {
+  COLUMNAS_VALORACION_TERRITORIO,
+  TITULO_VALORACION_TERRITORIO,
+} from "@/lib/reglas/valoracion-territorio";
+import { COLUMNAS_IA_ADMINISTRATIVOS, TITULO_IA_ADMINISTRATIVOS } from "@/lib/reglas/ia-administrativos";
+import type { DocumentoFormulario } from "@/types/formularios";
+import {
+  eliminarRegistrosIaAdministrativos,
+  eliminarRegistrosValoracionTerritorio,
+  subirDocumentoIaAdministrativos,
+  subirDocumentoValoracionTerritorio,
+} from "./acciones";
+
+/** El documento de un formulario, o el motivo por el que no se pudo consultar. */
+async function consultarDocumento(
+  consulta: () => Promise<DocumentoFormulario | null>
+): Promise<{ documento: DocumentoFormulario | null; error: string | null }> {
+  try {
+    return { documento: await consulta(), error: null };
+  } catch (fallo) {
+    return {
+      documento: null,
+      error: fallo instanceof Error ? fallo.message : "No se pudo consultar la base de datos.",
+    };
+  }
+}
 
 export const metadata: Metadata = {
   title: "Administración",
@@ -69,6 +99,15 @@ export default async function AdminPage() {
   // interruptor de publicación sigue siendo utilizable.
   const publicada = await estaSeccionPublicada(SECCION_TRANSFORMACIONES);
   const publicadaParticipacion = await estaSeccionPublicada(SECCION_PARTICIPACION);
+  const publicadaValoracion = await estaSeccionPublicada(SECCION_VALORACION_TERRITORIO);
+  const publicadaIa = await estaSeccionPublicada(SECCION_IA_ADMINISTRATIVOS);
+
+  // Cada formulario con su propio try, como los demás bloques: si la base no
+  // responde, el aviso sale en su tarjeta y el resto de la vista sigue usable.
+  const [valoracion, ia] = await Promise.all([
+    consultarDocumento(getDocumentoValoracionTerritorio),
+    consultarDocumento(getDocumentoIaAdministrativos),
+  ]);
 
   // El tablero se resuelve aparte y con su propio try: un fallo midiendo el uso
   // no debe impedir administrar los documentos, que es lo importante.
@@ -98,6 +137,38 @@ export default async function AdminPage() {
         publicada={publicadaParticipacion}
       />
       <CargueParticipacion documentos={documentosParticipacion} error={errorParticipacion} />
+
+      <PublicacionSeccion
+        seccion={SECCION_VALORACION_TERRITORIO}
+        titulo={TITULO_VALORACION_TERRITORIO}
+        descripcion="Sección con la valoración de la experiencia que se respondió al cierre de cada jornada."
+        publicada={publicadaValoracion}
+      />
+      <CargueFormulario
+        titulo={TITULO_VALORACION_TERRITORIO}
+        descripcion="Instrumento de valoración de la experiencia “Transformaciones que nos conectan”. Es anónimo: se guardan el tipo de actor, las tres afirmaciones y la sugerencia de mejora."
+        documento={valoracion.documento}
+        error={valoracion.error}
+        columnas={COLUMNAS_VALORACION_TERRITORIO}
+        subir={subirDocumentoValoracionTerritorio}
+        eliminar={eliminarRegistrosValoracionTerritorio}
+      />
+
+      <PublicacionSeccion
+        seccion={SECCION_IA_ADMINISTRATIVOS}
+        titulo={TITULO_IA_ADMINISTRATIVOS}
+        descripcion="Sección con el diagnóstico del uso de inteligencia artificial en procesos administrativos."
+        publicada={publicadaIa}
+      />
+      <CargueFormulario
+        titulo={TITULO_IA_ADMINISTRATIVOS}
+        descripcion="Encuesta diagnóstica sobre uso de Inteligencia Artificial en procesos administrativos. Es anónima: no se guarda correo ni nombre."
+        documento={ia.documento}
+        error={ia.error}
+        columnas={COLUMNAS_IA_ADMINISTRATIVOS}
+        subir={subirDocumentoIaAdministrativos}
+        eliminar={eliminarRegistrosIaAdministrativos}
+      />
 
       {metricas ? <PanelUso metricasIniciales={metricas} diasIniciales={DIAS_INICIALES} /> : null}
     </main>

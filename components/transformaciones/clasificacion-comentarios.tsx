@@ -18,11 +18,14 @@ export function ClasificacionComentarios({
   seleccionado,
   onSeleccionar,
   totalComentarios,
+  ayuda = "Elige uno para filtrar la sección.",
 }: {
   clusters: ClusterComentarios[];
   seleccionado: number | null;
   onSeleccionar: (cluster: number | null) => void;
   totalComentarios: number;
+  /** Qué pasa al elegir un tema; cambia según la sección que lo use. */
+  ayuda?: string;
 }) {
   if (clusters.length === 0) {
     return (
@@ -40,7 +43,7 @@ export function ClasificacionComentarios({
         <span>
           Los {formatNumero(totalComentarios)} comentarios se agrupan solos en{" "}
           <strong className="font-medium text-foreground">{clusters.length} temas</strong> según las
-          palabras que comparten. Elige uno para filtrar la sección.
+          palabras que comparten. {ayuda}
         </span>
       </div>
 
