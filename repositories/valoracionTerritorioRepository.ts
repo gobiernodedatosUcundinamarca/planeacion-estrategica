@@ -2,7 +2,7 @@ import "server-only";
 import type { DocumentoFormulario, ResultadoCargueFormulario } from "@/types/formularios";
 import type { VistaValoracionTerritorio } from "@/types/valoracion-territorio";
 import { agruparPorTema } from "@/lib/reglas/agrupar-temas";
-import { PALABRAS_SIN_TEMA_MEJORA } from "@/lib/reglas/valoracion-territorio";
+import { PALABRAS_SIN_TEMA_MEJORA, entraEnValoracion } from "@/lib/reglas/valoracion-territorio";
 import { getValoracionTerritorioDataSource } from "./datasource";
 import { getUnidadRegionalPorFecha } from "./participacionRepository";
 
@@ -25,14 +25,21 @@ export async function getVistaValoracionTerritorio(): Promise<VistaValoracionTer
     // sin unidad regional: no es motivo para dejarla en blanco.
     getUnidadRegionalPorFecha().catch(() => new Map<string, string>()),
   ]);
-  const { temas, temaDe } = agruparPorTema(respuestas, (r) => r.mejora, PALABRAS_SIN_TEMA_MEJORA);
+  const conUnidad = respuestas.map((r) => ({
+    ...r,
+    unidadRegional: r.fechaRespuesta ? (unidadDe.get(r.fechaRespuesta) ?? null) : null,
+  }));
+  const incluidas = conUnidad.filter(entraEnValoracion);
+  // Los temas se calculan sobre las que entran, no sobre todas: si no, las
+  // cifras de cada tema contarían sugerencias que la sección no muestra.
+  const { temas, temaDe } = agruparPorTema(incluidas, (r) => r.mejora, PALABRAS_SIN_TEMA_MEJORA);
   return {
-    respuestas: respuestas.map((r) => ({
-      ...r,
-      unidadRegional: r.fechaRespuesta ? (unidadDe.get(r.fechaRespuesta) ?? null) : null,
-      tema: temaDe.get(r.id) ?? null,
-    })),
+    respuestas: incluidas.map((r) => ({ ...r, tema: temaDe.get(r.id) ?? null })),
     temas,
+    excluidas: {
+      sinUnidadRegional: conUnidad.filter((r) => !r.unidadRegional).length,
+      sinRol: conUnidad.filter((r) => r.unidadRegional && !r.tipoActor?.trim()).length,
+    },
   };
 }
 

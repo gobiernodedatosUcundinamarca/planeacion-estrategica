@@ -95,10 +95,14 @@ function extremos(grupos: Grupo[]): { alto: Grupo; bajo: Grupo } | null {
 export function PanelValoracionTerritorio({
   respuestas,
   temas,
+  excluidas,
 }: {
   respuestas: Respuesta[];
   temas: TemaComentarios[];
+  /** Respuestas que no entran por no tener unidad regional o tipo de actor (`entraEnValoracion`). */
+  excluidas: { sinUnidadRegional: number; sinRol: number };
 }) {
+  const totalExcluidas = excluidas.sinUnidadRegional + excluidas.sinRol;
   const [rol, setRol] = useState(TODOS);
   const [unidad, setUnidad] = useState(TODOS);
 
@@ -221,6 +225,23 @@ export function PanelValoracionTerritorio({
           <Badge variant="secondary" className="ml-auto">
             {formatNumero(filtradas.length)} de {formatNumero(respuestas.length)} respuestas
           </Badge>
+          {/* Se dice en vez de esconderlo: quien compare con el total del
+              formulario debe saber por qué la cifra es menor. */}
+          {totalExcluidas > 0 ? (
+            <p className="basis-full text-[11px] text-muted-foreground">
+              No se incluyen {formatNumero(totalExcluidas)} respuesta(s) para que todas las cifras cuadren
+              entre sí:{" "}
+              {[
+                excluidas.sinUnidadRegional > 0
+                  ? `${formatNumero(excluidas.sinUnidadRegional)} de un día sin jornada registrada (sin unidad regional)`
+                  : null,
+                excluidas.sinRol > 0 ? `${formatNumero(excluidas.sinRol)} sin tipo de actor` : null,
+              ]
+                .filter(Boolean)
+                .join(" y ")}
+              .
+            </p>
+          ) : null}
         </CardContent>
       </Card>
 

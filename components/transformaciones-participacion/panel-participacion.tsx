@@ -432,11 +432,43 @@ const RANGOS_EDAD: { etiqueta: string; min: number; max: number }[] = [
 /** Cuántas entradas se pintan en el gráfico de adscripción. */
 const TOPE_ADSCRIPCIONES = 15;
 
+/** Cuántas unidades se listan en el tooltip antes de agrupar el resto. */
+const TOPE_UNIDADES_TOOLTIP = 4;
+
+function sumar(mapa: Map<string, Map<string, number>>, fecha: string, clave: string) {
+  const conteo = mapa.get(fecha) ?? new Map<string, number>();
+  conteo.set(clave, (conteo.get(clave) ?? 0) + 1);
+  mapa.set(fecha, conteo);
+}
+
+/**
+ * Las líneas de un bloque del tooltip, de mayor a menor. Si hay más de
+ * `TOPE_UNIDADES_TOOLTIP`, el resto se suma en "N más": el tooltip debe caber
+ * junto al punto, y las primeras ya dicen de dónde vino casi toda la gente.
+ */
+function lineasConteo(conteo: Map<string, number> | undefined, total: number, siempreConCifra: boolean): string[] {
+  const ordenado = [...(conteo ?? new Map<string, number>()).entries()].sort((a, b) => b[1] - a[1]);
+  if (ordenado.length === 1 && !siempreConCifra) return [ordenado[0][0]];
+  const linea = ([etiqueta, n]: [string, number]) =>
+    `${etiqueta}: ${formatNumero(n)} (${formatPorcentaje((n / total) * 100)})`;
+  const visibles = ordenado.slice(0, TOPE_UNIDADES_TOOLTIP).map(linea);
+  const resto = ordenado.slice(TOPE_UNIDADES_TOOLTIP);
+  if (resto.length > 0) {
+    const n = resto.reduce((suma, [, v]) => suma + v, 0);
+    visibles.push(`${resto.length} más: ${formatNumero(n)} (${formatPorcentaje((n / total) * 100)})`);
+  }
+  return visibles;
+}
+
 function calcularMetricas(registros: RegistroParticipacion[]) {
   const porRolMapa = new Map<string, number>();
   const porUnidadMapa = new Map<string, number>();
   const porAdscripcionMapa = new Map<string, number>();
   const porFechaMapa = new Map<string, number>();
+  // Por cada día de jornada: dónde se hizo y de qué unidades venía la gente,
+  // para el tooltip de "Asistencia en el tiempo".
+  const lugaresPorFecha = new Map<string, Map<string, number>>();
+  const unidadesPorFecha = new Map<string, Map<string, number>>();
   const porRangoEdadMapa = new Map<string, number>();
   let conEdad = 0;
 
@@ -457,7 +489,11 @@ function calcularMetricas(registros: RegistroParticipacion[]) {
       porAdscripcionMapa.set(adscripcion, (porAdscripcionMapa.get(adscripcion) ?? 0) + 1);
     }
 
-    if (r.fechaInicio) porFechaMapa.set(r.fechaInicio, (porFechaMapa.get(r.fechaInicio) ?? 0) + 1);
+    if (r.fechaInicio) {
+      porFechaMapa.set(r.fechaInicio, (porFechaMapa.get(r.fechaInicio) ?? 0) + 1);
+      sumar(lugaresPorFecha, r.fechaInicio, r.lugarDesarrollo?.trim() || SIN_ESPECIFICAR);
+      sumar(unidadesPorFecha, r.fechaInicio, unidad);
+    }
 
     if (r.edad !== null) {
       conEdad += 1;
@@ -477,6 +513,12 @@ function calcularMetricas(registros: RegistroParticipacion[]) {
       fecha,
       etiqueta: formatoDiaCorto.format(new Date(`${fecha}T12:00:00`)),
       valor,
+      detalles: [
+        // Un solo lugar se muestra sin cifra: es la ciudad de la jornada, y
+        // "Facatativá (397)" repetiría el total de arriba.
+        { titulo: "Lugar de desarrollo", lineas: lineasConteo(lugaresPorFecha.get(fecha), valor, false) },
+        { titulo: "Unidad regional de los asistentes", lineas: lineasConteo(unidadesPorFecha.get(fecha), valor, true) },
+      ],
     }));
 
   // Las tarjetas cuentan solo lo que existe de verdad: "Sin especificar"

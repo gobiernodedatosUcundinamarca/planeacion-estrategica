@@ -25,6 +25,9 @@ export type RespuestaValoracionTerritorio = Record<CampoAfirmacion, string | nul
 
 /** Lo que recibe la sección: las respuestas y los temas de las sugerencias. */
 export interface VistaValoracionTerritorio {
+  /** Solo las que tienen tipo de actor y unidad regional (`entraEnValoracion`). */
   respuestas: RespuestaValoracionTerritorio[];
   temas: TemaComentarios[];
+  /** Las que quedaron fuera, por motivo, para decirlo en la sección. */
+  excluidas: { sinUnidadRegional: number; sinRol: number };
 }

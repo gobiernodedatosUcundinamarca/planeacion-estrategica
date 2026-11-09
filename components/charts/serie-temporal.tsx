@@ -9,6 +9,12 @@ export interface PuntoSerie {
   /** Texto ya formateado para el eje y el tooltip. */
   etiqueta: string;
   valor: number;
+  /**
+   * Contexto del punto para el tooltip (dónde fue la jornada, de qué unidades
+   * venían…). Cada bloque es un título y sus líneas, ya formateadas: el
+   * gráfico no sabe de qué sección viene, solo las pinta.
+   */
+  detalles?: { titulo: string; lineas: string[] }[];
 }
 
 const formatoFechaLarga = new Intl.DateTimeFormat("es-CO", { dateStyle: "long" });
@@ -60,13 +66,23 @@ export function SerieTemporal({
               if (!active || !payload?.length) return null;
               const d = payload[0].payload as PuntoSerie;
               return (
-                <div className="rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-md">
+                <div className="max-w-xs rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-md">
                   <p className="font-medium text-popover-foreground">
                     {formatoFechaLarga.format(new Date(`${d.fecha}T12:00:00`))}
                   </p>
                   <p className="mt-1 text-muted-foreground">
                     {formatNumero(d.valor)} {nombreValor}
                   </p>
+                  {d.detalles?.map((bloque) => (
+                    <div key={bloque.titulo} className="mt-2 border-t border-border pt-1.5">
+                      <p className="font-medium text-popover-foreground">{bloque.titulo}</p>
+                      {bloque.lineas.map((linea) => (
+                        <p key={linea} className="text-muted-foreground">
+                          {linea}
+                        </p>
+                      ))}
+                    </div>
+                  ))}
                 </div>
               );
             }}

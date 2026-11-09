@@ -29,7 +29,11 @@ export default async function ValoracionTerritorioPage() {
     return <SeccionNoDisponible titulo={TITULO_VALORACION_TERRITORIO} />;
   }
 
-  let vista: VistaValoracionTerritorio = { respuestas: [], temas: [] };
+  let vista: VistaValoracionTerritorio = {
+    respuestas: [],
+    temas: [],
+    excluidas: { sinUnidadRegional: 0, sinRol: 0 },
+  };
   let error: string | null = null;
   try {
     vista = await getVistaValoracionTerritorio();
@@ -58,7 +62,7 @@ export default async function ValoracionTerritorioPage() {
           administración.
         </p>
       ) : (
-        <PanelValoracionTerritorio respuestas={vista.respuestas} temas={vista.temas} />
+        <PanelValoracionTerritorio respuestas={vista.respuestas} temas={vista.temas} excluidas={vista.excluidas} />
       )}
 
       <DescargaExcel ruta="/valoracion-territorio" />

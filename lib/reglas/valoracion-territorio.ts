@@ -120,6 +120,17 @@ export const PALABRAS_SIN_TEMA_MEJORA = [
   "más",
 ] as const;
 
+/**
+ * Si una respuesta entra en la sección: debe tener tipo de actor y unidad
+ * regional (la de su jornada). Las que no, se dejan fuera de TODA la sección
+ * —cifras, gráficos, tablas y descarga— y no solo de los desgloses: si se
+ * escondieran solo ahí, las barras por rol y por unidad no sumarían el total
+ * de arriba. La sección dice cuántas quedaron fuera y por qué.
+ */
+export function entraEnValoracion(r: { tipoActor: string | null; unidadRegional: string | null }): boolean {
+  return Boolean(r.tipoActor?.trim()) && Boolean(r.unidadRegional);
+}
+
 export function etiquetaActor(tipoActor: string | null): string {
   const limpio = tipoActor?.trim();
   if (!limpio) return ACTOR_SIN_ESPECIFICAR;

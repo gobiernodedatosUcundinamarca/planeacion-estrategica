@@ -118,9 +118,15 @@ las filas.
     respuesta cruzándola con las jornadas de Participación
     (`unidadRegionalPorFecha`): se respondieron al cierre de cada jornada. Se
     calcula al consultar, no se guarda, así que corregir una jornada en
-    Participación corrige también estas secciones. Sin jornada ese día →
-    "Sin especificar". IA solo tiene dos fechas (28 sep Fusagasugá, 27 oct
-    Facatativá); la valoración, diez (seis unidades).
+    Participación corrige también estas secciones. IA solo tiene dos fechas
+    (28 sep Fusagasugá, 27 oct Facatativá); la valoración, diez (cinco
+    unidades).
+  · **Valoración sin "Sin especificar"**: las respuestas sin unidad regional
+    (día sin jornada) o sin tipo de actor se dejan fuera de TODA la sección y
+    de su descarga (`entraEnValoracion`), no solo de los desgloses, para que
+    rol, unidad y total cuadren; la sección dice cuántas y por qué (hoy 4 de
+    519: 1 del 6 de oct y 3 sin rol). Si después se registra la jornada de ese
+    día, la respuesta vuelve a entrar sola.
   · **Filtros**: valoración por unidad regional y rol (tipo de actor, con los
     nombres visibles en plural); IA solo por unidad regional, porque todos son
     administrativos (el tipo de funciones va como gráfico, no como filtro).
