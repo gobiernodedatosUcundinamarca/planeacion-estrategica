@@ -1,4 +1,5 @@
 import type { Persona, RolAsignado, RespuestaPregunta } from "@/types/encuesta";
+import type { ResultadoClasificacionDocumental, MetodoClasificacion, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
 import type { FilaMeta } from "@/types/metas";
 import type { ConferenciaCard } from "@/types/conferencistas";
 import type { ValoracionConferencista } from "@/types/valoraciones";
@@ -149,6 +150,8 @@ export interface SeccionesDataSource {
  * filas es cosa de la implementación.
  */
 export interface Momento4DataSource {
+  getClasificacionDocumental(metodo?: MetodoClasificacion): Promise<ResultadoClasificacionDocumental>;
+  getResumenFuentesClasificacion(): Promise<ResumenFuentesClasificacion>;
   getDocumentos(): Promise<DocumentoMomento4[]>;
   /** Las respuestas publicadas, que alimentan la sección del Momento 4. */
   getRespuestas(): Promise<RespuestaMomento4[]>;

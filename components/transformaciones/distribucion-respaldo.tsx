@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import { OPCIONES_RESPALDO, type OpcionRespaldo } from "@/lib/reglas/momento4";
@@ -27,8 +28,7 @@ export function DistribucionRespaldo({ conteos }: { conteos: Record<OpcionRespal
   if (total === 0) {
     return (
       <p className="py-8 text-center text-sm text-muted-foreground">
-        No hay respuestas con los filtros aplicados.
-      </p>
+        <TextoEditorial id="eb7d9df66df71a240c95" original={"No hay respuestas con los filtros aplicados."}/></p>
     );
   }
 
@@ -65,7 +65,7 @@ export function DistribucionRespaldo({ conteos }: { conteos: Record<OpcionRespal
                   <div className="rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-lg">
                     <p className="font-medium text-popover-foreground">{d.etiqueta}</p>
                     <p className="mt-1 text-muted-foreground">
-                      {formatNumero(d.valor)} respuestas ·{" "}
+                      {formatNumero(d.valor)} <TextoEditorial id="9a976d24d71085db6ddc" original={"respuestas ·"}/>{" "}
                       {formatPorcentaje((d.valor / total) * 100)}
                     </p>
                   </div>
@@ -78,7 +78,7 @@ export function DistribucionRespaldo({ conteos }: { conteos: Record<OpcionRespal
           <span className="font-heading text-xl font-bold tabular-nums text-foreground">
             {formatNumero(total)}
           </span>
-          <span className="text-[10px] text-muted-foreground">respuestas</span>
+          <span className="text-[10px] text-muted-foreground"><TextoEditorial id="efe9dcada51b4f1c46c6" original={"respuestas"}/></span>
         </div>
       </div>
 

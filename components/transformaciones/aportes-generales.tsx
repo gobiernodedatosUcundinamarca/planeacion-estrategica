@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { MessageSquareQuote, Users2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -234,8 +235,7 @@ export function AportesGenerales({ aportes }: { aportes: RespuestaAporte[] }) {
 
         {filtrados.length === 0 ? (
           <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-            Ningún aporte coincide con los filtros elegidos.
-          </p>
+            <TextoEditorial id="4df15467a7bd576bbbde" original={"Ningún aporte coincide con los filtros elegidos."}/></p>
         ) : (
           <>
             <div className="grid grid-cols-2 gap-4">
@@ -306,8 +306,7 @@ function ListaAportes({ aportes }: { aportes: RespuestaAporte[] }) {
 
       <div className="flex items-center justify-between gap-3">
         <p className="text-xs text-muted-foreground">
-          Mostrando {formatNumero(mostrados.length)} de {formatNumero(aportes.length)} aportes
-        </p>
+          <TextoEditorial id="007ea5bf776758965150" original={"Mostrando"}/>{formatNumero(mostrados.length)} de {formatNumero(aportes.length)} <TextoEditorial id="7cdbc961c88ac5fc6d6b" original={"aportes"}/></p>
         {visibles < aportes.length ? (
           <Button variant="outline" size="sm" onClick={() => setVisibles((v) => v + PASO * 2)}>
             Ver más aportes

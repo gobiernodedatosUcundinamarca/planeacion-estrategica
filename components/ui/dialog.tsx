@@ -1,5 +1,6 @@
 "use client"
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import * as React from "react"
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
 
@@ -134,7 +135,7 @@ function DialogContent({
           >
             <XIcon
             />
-            <span className="sr-only">Close</span>
+            <span className="sr-only"><TextoEditorial id="266cad4dcc2d0f11d99f" original={"Close"}/></span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Popup>

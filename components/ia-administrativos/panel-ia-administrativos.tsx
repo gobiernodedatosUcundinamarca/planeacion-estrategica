@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { BookCheck, CalendarClock, Sparkles, Users, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -198,7 +199,7 @@ export function PanelIaAdministrativos({
               Limpiar
             </Button>
           ) : null}
-          <span className="text-[11px] text-muted-foreground">Unidad de la jornada del día en que se respondió.</span>
+          <span className="text-[11px] text-muted-foreground"><TextoEditorial id="762f7a5abedc7ec54b6e" original={"Unidad de la jornada del día en que se respondió."}/></span>
           <Badge variant="secondary" className="ml-auto">
             {formatNumero(filtradas.length)} de {formatNumero(respuestas.length)} respuestas
           </Badge>
@@ -219,8 +220,7 @@ export function PanelIaAdministrativos({
 
       {m.total === 0 ? (
         <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          Ninguna respuesta coincide con el filtro elegido.
-        </p>
+          <TextoEditorial id="b21f1021ae6c8f449df9" original={"Ninguna respuesta coincide con el filtro elegido."}/></p>
       ) : (
         <>
           <div className="grid grid-cols-2 gap-4">
@@ -243,7 +243,7 @@ export function PanelIaAdministrativos({
 
           <Card className="border-border/70">
             <CardHeader>
-              <CardTitle>Competencias para usar IA (autoevaluación)</CardTitle>
+              <CardTitle><TextoEditorial id="ad2f0bb29ffa915236c9" original={"Competencias para usar IA (autoevaluación)"}/></CardTitle>
             </CardHeader>
             <CardContent>
               <DistribucionEscala etiquetaResumen="Alta o muy alta" filas={m.competencias} />
@@ -297,7 +297,7 @@ export function PanelIaAdministrativos({
 
           <Card className="border-border/70">
             <CardHeader>
-              <CardTitle>Tareas que la IA podría mejorar</CardTitle>
+              <CardTitle><TextoEditorial id="415311f84702c69ad2fc" original={"Tareas que la IA podría mejorar"}/></CardTitle>
             </CardHeader>
             <CardContent>
               <ComentariosPorTema

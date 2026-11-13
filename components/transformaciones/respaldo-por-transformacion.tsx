@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import { OPCIONES_RESPALDO, type OpcionRespaldo } from "@/lib/reglas/momento4";
@@ -43,8 +44,7 @@ export function RespaldoPorTransformacion({ filas }: { filas: FilaRespaldo[] }) 
   if (opciones.length === 0) {
     return (
       <p className="py-8 text-center text-sm text-muted-foreground">
-        No hay respuestas con los filtros aplicados.
-      </p>
+        <TextoEditorial id="248f1ee9324cc28494bb" original={"No hay respuestas con los filtros aplicados."}/></p>
     );
   }
 
@@ -74,8 +74,7 @@ export function RespaldoPorTransformacion({ filas }: { filas: FilaRespaldo[] }) 
                   <div className="rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-md">
                     <p className="font-medium text-popover-foreground">{String(label)}</p>
                     <p className="mb-1.5 text-muted-foreground">
-                      {formatNumero(fila.total)} respuestas
-                    </p>
+                      {formatNumero(fila.total)} <TextoEditorial id="e021b284144193fecf48" original={"respuestas"}/></p>
                     {opciones.map((opcion) => {
                       const valor = Number(fila[opcion.id] ?? 0);
                       if (valor === 0) return null;

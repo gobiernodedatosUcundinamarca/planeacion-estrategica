@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Layers, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
@@ -30,9 +31,7 @@ export function ClasificacionComentarios({
   if (clusters.length === 0) {
     return (
       <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-        Todavía no hay comentarios suficientes para agrupar por tema. La clasificación se rehace
-        sola cada vez que se cargan documentos nuevos.
-      </p>
+        <TextoEditorial id="a7ae36c9ba6676e87a7b" original={"Todavía no hay comentarios suficientes para agrupar por tema. La clasificación se rehace sola cada vez que se cargan documentos nuevos."}/></p>
     );
   }
 
@@ -41,9 +40,8 @@ export function ClasificacionComentarios({
       <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
         <Layers className="size-4 shrink-0 text-primary" aria-hidden />
         <span>
-          Los {formatNumero(totalComentarios)} comentarios se agrupan solos en{" "}
-          <strong className="font-medium text-foreground">{clusters.length} temas</strong> según las
-          palabras que comparten. {ayuda}
+          <TextoEditorial id="f6ec7c00909f85616c35" original={"Los"}/> {formatNumero(totalComentarios)} <TextoEditorial id="292906f3df9b7f20aeb4" original={"comentarios se agrupan solos en"}/>{" "}
+          <strong className="font-medium text-foreground">{clusters.length} <TextoEditorial id="b85b36eab3831604a610" original={"temas"}/></strong> <TextoEditorial id="c837b8ab30885afc1ec6" original={"según las palabras que comparten."}/>{ayuda}
         </span>
       </div>
 

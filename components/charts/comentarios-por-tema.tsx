@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { Info } from "lucide-react";
 import { ClasificacionComentarios } from "@/components/transformaciones/clasificacion-comentarios";
@@ -25,6 +26,7 @@ export function ComentariosPorTema({
   tituloLista,
   tituloNube,
   palabrasIgnoradas = [],
+  listaDelimitada = false,
 }: {
   temas: TemaComentarios[];
   comentarios: (Comentario & { tema: number | null })[];
@@ -36,6 +38,7 @@ export function ComentariosPorTema({
    * lista con que se agrupan los temas.
    */
   palabrasIgnoradas?: readonly string[];
+  listaDelimitada?: boolean;
 }) {
   const [tema, setTema] = useState<number | null>(null);
 
@@ -79,9 +82,7 @@ export function ComentariosPorTema({
           <Info className="mt-0.5 size-3.5 shrink-0" aria-hidden />
           {/* Se dice en vez de esconderlo en silencio: quien eligió ver temas
               debe saber por qué no aparecen. */}
-          Estas respuestas no se separan en temas claros: la agrupación automática deja casi todas en
-          un mismo grupo. Se resumen con las palabras que más se repiten y la lista completa.
-        </p>
+          <TextoEditorial id="c870ff2e22d612664b96" original={"Estas respuestas no se separan en temas claros: la agrupación automática deja casi todas en un mismo grupo. Se resumen con las palabras que más se repiten y la lista completa."}/></p>
       ) : null}
 
       {palabras.length > 0 ? (
@@ -93,7 +94,7 @@ export function ComentariosPorTema({
         />
       ) : null}
 
-      <ListaComentarios titulo={tituloLista} comentarios={visibles} />
+      <ListaComentarios titulo={tituloLista} comentarios={visibles} delimitada={listaDelimitada} />
     </div>
   );
 }

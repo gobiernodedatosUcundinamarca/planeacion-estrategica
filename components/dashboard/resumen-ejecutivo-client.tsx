@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Users, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { KpiCard } from "@/components/kpi/kpi-card";
@@ -31,8 +32,7 @@ export function ResumenEjecutivoClient({ inicial }: { inicial: ResumenFiltrado }
       <div className="flex flex-row items-end justify-between gap-3">
         <div>
           <h1 className="font-heading text-2xl font-bold text-foreground">
-            Diagnóstico: Tu Voz Fundamental
-          </h1>
+            <TextoEditorial id="9a9d3cda193d19d811b7" original={"Diagnóstico: Tu Voz Fundamental"}/></h1>
           <p className="mt-0.5 text-xs text-muted-foreground">
             {hayFiltros ? "Filtrado" : "Todos los registros"}
             {isFetching ? (
@@ -52,7 +52,7 @@ export function ResumenEjecutivoClient({ inicial }: { inicial: ResumenFiltrado }
       <div className="grid grid-cols-2 gap-3">
         <Card className="py-3">
           <CardHeader className="px-3.5 pb-1">
-            <CardTitle className="text-[13px]">Tipos de participantes</CardTitle>
+            <CardTitle className="text-[13px]"><TextoEditorial id="a499dbfffa91047f7648" original={"Tipos de participantes"}/></CardTitle>
           </CardHeader>
           <CardContent className="px-3.5">
             <RankedBarChart titulo="" datos={rolDatos} alturaFila={30} truncarEn={20} ocultarAccion />
@@ -61,7 +61,7 @@ export function ResumenEjecutivoClient({ inicial }: { inicial: ResumenFiltrado }
 
         <Card className="py-3">
           <CardHeader className="px-3.5 pb-1">
-            <CardTitle className="text-[13px]">Participantes por sede</CardTitle>
+            <CardTitle className="text-[13px]"><TextoEditorial id="68d9f1ed52d6fe74f6ca" original={"Participantes por sede"}/></CardTitle>
           </CardHeader>
           <CardContent className="px-3.5">
             <SedeBarList distribucion={distribucionSede} compacto />

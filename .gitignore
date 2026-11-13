@@ -38,11 +38,9 @@ launcher-src/portal.zip
 # Backups temporales de los Excel fuente
 data/**/*.backup*.xlsx
 
-# Evidencia de QA de los diagramas archify (se regenera; no se versiona)
+# Evidencias visuales temporales
 docs/diagramas/*.visual-check.*
 
-# Ajustes personales del asistente de código (los compartidos van en .claude/settings.json)
-.claude/settings.local.json
 
 # Varios
 .DS_Store

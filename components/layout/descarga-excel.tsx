@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useState } from "react";
 import { AlertTriangle, Download, FileSpreadsheet, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -60,9 +61,9 @@ export function DescargaExcel({ ruta }: { ruta: string }) {
             <FileSpreadsheet className="size-5" aria-hidden />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="font-heading text-sm font-semibold text-foreground">Descargar los datos de esta sección</p>
+            <p className="font-heading text-sm font-semibold text-foreground"><TextoEditorial id="236a3b86da88daad9b8b" original={"Descargar los datos de esta sección"}/></p>
             <p className="text-xs text-muted-foreground">
-              Excel con las respuestas de «{titulo}». {AVISO_ANONIMATO}
+              <TextoEditorial id="8465b7ad7f5f774de865" original={"Excel con las respuestas de «"}/>{titulo}». {AVISO_ANONIMATO}
             </p>
           </div>
           <Button type="button" onClick={descargar} disabled={descargando} className="shrink-0">

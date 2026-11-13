@@ -86,10 +86,12 @@ export async function consultarDocumentos(sql: Sql): Promise<DocumentoMomento4[]
  */
 export async function consultarRespuestas(sql: Sql): Promise<RespuestaMomento4[]> {
   const filas = await sql`
-    select id, transformacion, correo, nombre, hora_inicio, tipo_actor,
-           programa_graduado, unidad_regional, responde_necesidad, ajustes, cluster
-    from momento4_respuestas
-    order by transformacion, id
+    select r.id, r.transformacion, r.respuesta_id, r.correo, r.nombre, r.hora_inicio, r.tipo_actor,
+           r.programa_graduado, r.unidad_regional, r.responde_necesidad, r.ajustes, r.cluster,
+           d.archivo as archivo_origen
+    from momento4_respuestas r
+    left join momento4_documentos d on d.transformacion = r.transformacion
+    order by r.transformacion, r.id
   `;
 
   const etiquetas = new Map(TRANSFORMACIONES_MOMENTO4.map((t) => [t.id as string, t.etiqueta]));
@@ -102,6 +104,8 @@ export async function consultarRespuestas(sql: Sql): Promise<RespuestaMomento4[]
 
   return filas.map((fila) => ({
     id: Number(fila.id),
+    respuestaId: String(fila.respuesta_id),
+    archivoOrigen: (fila.archivo_origen as string | null) ?? null,
     transformacion: fila.transformacion as string,
     etiqueta: etiquetas.get(fila.transformacion as string) ?? (fila.transformacion as string),
     correo: (fila.correo as string | null) ?? null,

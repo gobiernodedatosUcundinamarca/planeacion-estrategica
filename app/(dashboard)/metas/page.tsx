@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { DescargaExcel } from "@/components/layout/descarga-excel";
 import type { Metadata } from "next";
 import { TablaMetaCard } from "@/components/metas/tabla-meta";
@@ -15,12 +16,9 @@ export default function MetasPage() {
       <div>
         <div>
           <h1 className="font-heading text-2xl font-bold text-foreground">
-            Metas — Diagnóstico: Tu Voz Fundamental
-          </h1>
+            <TextoEditorial id="f436aaba4441388c5cf3" original={"Metas — Diagnóstico: Tu Voz Fundamental"}/></h1>
           <p className="mt-0.5 text-xs text-muted-foreground">
-            Cumplimiento de metas por categoría — Sí: completó el diagnóstico; No: no registra participación
-            en el diagnóstico.
-          </p>
+            <TextoEditorial id="4f63651bf570766ab698" original={"Cumplimiento de metas por categoría — Sí: completó el diagnóstico; No: no registra participación en el diagnóstico."}/></p>
         </div>
       </div>
 

@@ -1,6 +1,8 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
   AlertTriangle,
   CalendarDays,
@@ -69,25 +71,27 @@ export function PanelAccesosCai({ datos }: { datos: AccesosCaiData }) {
     <div className="flex flex-col gap-5">
       <div className="flex flex-row items-center justify-between gap-3 rounded-xl border border-border/70 bg-card px-4 py-3">
         <div>
-          <p className="text-sm font-semibold text-foreground">Corte de información</p>
-          <p className="text-xs text-muted-foreground">Selecciona una fecha para explorar sus accesos.</p>
+          <p className="text-sm font-semibold text-foreground"><TextoEditorial id="e0acebd865af49dc3ca1" original={"Corte de información"}/></p>
+          <p className="text-xs text-muted-foreground"><TextoEditorial id="7730e1f80fe05e27991b" original={"Selecciona una fecha para explorar sus accesos."}/></p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <label className="flex items-center gap-2 text-sm font-medium">
             <CalendarDays className="size-4 text-primary" aria-hidden />
-            <span className="sr-only">Fecha de acceso</span>
-            <select
+            <span className="sr-only"><TextoEditorial id="c0aece8db5b7e83432a8" original={"Fecha de acceso"}/></span>
+            <Select
               value={fechaSeleccionada}
-              onChange={(evento) => setFechaSeleccionada(evento.target.value)}
-              className="h-9 rounded-lg border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              onValueChange={(valor) => setFechaSeleccionada(valor ?? TODOS_LOS_CORTES)}
             >
-              <option value={TODOS_LOS_CORTES}>Todas</option>
+              <SelectTrigger aria-label="Fecha de acceso" className="min-w-48"><SelectValue>{() => fechaSeleccionada === TODOS_LOS_CORTES ? 'Todas' : fechaLarga(fechaSeleccionada)}</SelectValue></SelectTrigger>
+              <SelectContent>
+              <SelectItem value={TODOS_LOS_CORTES}>Todas</SelectItem>
               {datos.cortes.map((item) => (
-                <option key={item.fecha} value={item.fecha}>
+                <SelectItem key={item.fecha} value={item.fecha}>
                   {fechaLarga(item.fecha)}
-                </option>
+                </SelectItem>
               ))}
-            </select>
+              </SelectContent>
+            </Select>
           </label>
           <Button
             type="button"
@@ -132,10 +136,9 @@ export function PanelAccesosCai({ datos }: { datos: AccesosCaiData }) {
       <section className="grid grid-cols-[1.45fr_1fr] gap-5">
         <Card>
           <CardHeader>
-            <CardTitle>Evolución del promedio por fecha de acceso</CardTitle>
+            <CardTitle><TextoEditorial id="9c7ddfad45667571940b" original={"Evolución del promedio por fecha de acceso"}/></CardTitle>
             <p className="text-xs text-muted-foreground">
-              Menos días indican una participación más reciente. Referencia global: {formatoDecimal.format(datos.promedioGlobal)} días.
-              {mostrandoTodos ? " Clic en una barra para filtrar por esa fecha." : " Clic en la barra activa para quitar el filtro."}
+              <TextoEditorial id="6ccfe68d3e4ee392d301" original={"Menos días indican una participación más reciente. Referencia global:"}/>{formatoDecimal.format(datos.promedioGlobal)} <TextoEditorial id="2faf25b473cfe00f000f" original={"días."}/>{mostrandoTodos ? " Clic en una barra para filtrar por esa fecha." : " Clic en la barra activa para quitar el filtro."}
             </p>
           </CardHeader>
           <CardContent>
@@ -192,8 +195,8 @@ export function PanelAccesosCai({ datos }: { datos: AccesosCaiData }) {
 
         <Card>
           <CardHeader>
-            <CardTitle>Tiempo desde el último acceso</CardTitle>
-            <p className="text-xs text-muted-foreground">Personas únicas agrupadas por días desde su último acceso.</p>
+            <CardTitle><TextoEditorial id="89b905a5c8543f0775c6" original={"Tiempo desde el último acceso"}/></CardTitle>
+            <p className="text-xs text-muted-foreground"><TextoEditorial id="3b49628c77c9392168ce" original={"Personas únicas agrupadas por días desde su último acceso."}/></p>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             {corte.rangos.map((rango, indice) => (
@@ -302,14 +305,14 @@ function TarjetaCorte({
       <CardContent className="px-4 py-4 text-center">
         <p className="text-xs font-bold uppercase tracking-wide text-primary">{fechaCorta(corte.fecha)}</p>
         <p className="mt-3 font-heading text-3xl font-bold tabular-nums">{formatoDecimal.format(corte.promedioDias)}</p>
-        <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground">días promedio</p>
+        <p className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground"><TextoEditorial id="d348c4a2a4337b6cc7f9" original={"días promedio"}/></p>
         <div className="mt-3 border-t border-dashed pt-2 text-xs">
           {corte.variacionDias == null ? (
-            <span className="text-muted-foreground">Primera medición</span>
+            <span className="text-muted-foreground"><TextoEditorial id="41482cf888c6bf8f581d" original={"Primera medición"}/></span>
           ) : (
             <span className={cn("inline-flex items-center gap-1 font-semibold", mejora ? "text-primary" : "text-amber-700")}>
               <Icono className="size-3.5" aria-hidden />
-              {corte.variacionDias > 0 ? "+" : ""}{formatoDecimal.format(corte.variacionDias)} días
+              {corte.variacionDias > 0 ? "+" : ""}{formatoDecimal.format(corte.variacionDias)} <TextoEditorial id="ac20320a51233f2e0898" original={"días"}/>
             </span>
           )}
         </div>

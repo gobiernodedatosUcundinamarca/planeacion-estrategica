@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Bar, BarChart, CartesianGrid, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatNumero, formatPorcentajeMetas } from "@/lib/formatters";
@@ -100,10 +101,9 @@ export function GraficoMetas({ tablas }: { tablas: TablaMeta[] }) {
   return (
     <Card className="py-3">
       <CardHeader className="px-3.5 pb-1">
-        <CardTitle className="text-[13px]">Participación por grupo</CardTitle>
+        <CardTitle className="text-[13px]"><TextoEditorial id="737b24c92bba858b371a" original={"Participación por grupo"}/></CardTitle>
         <CardDescription className="text-[11px]">
-          Total de personas de cada grupo y cuántas completaron el diagnóstico.
-        </CardDescription>
+          <TextoEditorial id="b6084dd0d073bb198d69" original={"Total de personas de cada grupo y cuántas completaron el diagnóstico."}/></CardDescription>
       </CardHeader>
       <CardContent className="px-3.5">
         <div style={{ height: datos.length * 56 + 16 }}>
@@ -136,7 +136,7 @@ export function GraficoMetas({ tablas }: { tablas: TablaMeta[] }) {
                     <div className="max-w-55 rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-md">
                       <p className="font-medium wrap-break-word text-popover-foreground">{d.titulo}</p>
                       <p className="mt-1 text-muted-foreground">
-                        Total: <span className="font-semibold text-popover-foreground">{formatNumero(d.total)}</span>
+                        <TextoEditorial id="d93e38fe92665beaea21" original={"Total:"}/><span className="font-semibold text-popover-foreground">{formatNumero(d.total)}</span>
                       </p>
                       <p style={{ color: "var(--estado-finalizado)" }}>
                         Sí: {formatNumero(d.si)} ({formatPorcentajeMetas(d.porcentaje)})
@@ -174,12 +174,10 @@ export function GraficoMetas({ tablas }: { tablas: TablaMeta[] }) {
         <div className="mt-2 flex items-center gap-4 text-[11px] text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <span className="size-2.5 shrink-0 rounded-full" style={{ background: "var(--estado-finalizado)" }} aria-hidden />
-            Sí — completó el diagnóstico
-          </span>
+            <TextoEditorial id="4e48fbe54aadb8ed9168" original={"Sí — completó el diagnóstico"}/></span>
           <span className="flex items-center gap-1.5">
             <span className="size-2.5 shrink-0 rounded-full" style={{ background: "var(--estado-pendiente)" }} aria-hidden />
-            No — sin participación
-          </span>
+            <TextoEditorial id="e65c994b7934b2d1871e" original={"No — sin participación"}/></span>
         </div>
       </CardContent>
     </Card>

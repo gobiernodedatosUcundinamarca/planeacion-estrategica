@@ -1,5 +1,7 @@
 "use client";
+import {TextoDeCatalogo} from "@/components/editorial/texto-editorial";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useId, useState } from "react";
 import type { BarShapeProps } from "recharts";
 import { Bar, BarChart, CartesianGrid, LabelList, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -163,7 +165,7 @@ export function RankedBarChart({
         <div className="flex items-start justify-between gap-2">
           {titulo ? (
             <h3 id={`${id}-titulo`} className="text-[13px] font-semibold leading-tight text-foreground">
-              {titulo}
+              <TextoDeCatalogo texto={titulo}/>
             </h3>
           ) : (
             <span />
@@ -188,8 +190,8 @@ export function RankedBarChart({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Opción</TableHead>
-              <TableHead className="text-right">Respuestas</TableHead>
+              <TableHead><TextoEditorial id="7506b0651bd59ef13c16" original={"Opción"}/></TableHead>
+              <TableHead className="text-right"><TextoEditorial id="96ae3f9e5d5c3b6b5188" original={"Respuestas"}/></TableHead>
               <TableHead className="text-right">%</TableHead>
             </TableRow>
           </TableHeader>
@@ -235,7 +237,7 @@ export function RankedBarChart({
                     <div className="max-w-[200px] rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-md">
                       <p className="font-medium break-words text-popover-foreground">{d.etiqueta}</p>
                       <p className="mt-1 text-muted-foreground">
-                        {formatNumero(d.conteo)} respuestas · {formatPorcentaje(d.porcentaje)}
+                        {formatNumero(d.conteo)} <TextoEditorial id="3dc67e1232a85db2a5f5" original={"respuestas ·"}/>{formatPorcentaje(d.porcentaje)}
                       </p>
                     </div>
                   );

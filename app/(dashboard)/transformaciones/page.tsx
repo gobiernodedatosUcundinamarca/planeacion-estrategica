@@ -1,10 +1,14 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft, Lock } from "lucide-react";
 import { PanelTransformaciones } from "@/components/transformaciones/panel-transformaciones";
+import { ExploradorComentarios } from "@/components/transformaciones/explorador-comentarios";
 import { AportesGenerales } from "@/components/transformaciones/aportes-generales";
 import { DescargaExcel } from "@/components/layout/descarga-excel";
-import { getClustersMomento4, getRespuestasMomento4 } from "@/repositories/momento4Repository";
+import { getClustersMomento4, getRespuestasMomento4, getClasificacionDocumental, getResumenFuentesClasificacion } from "@/repositories/momento4Repository";
+import { compactarClasificacion } from "@/lib/reglas/navegacion-comentarios";
+import type { ResultadoClasificacionDocumental, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
 import { getAportes } from "@/repositories/aportesRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_TRANSFORMACIONES } from "@/constants/secciones";
@@ -48,6 +52,9 @@ export default async function TransformacionesPage() {
   let respuestas: RespuestaMomento4[] = [];
   let clusters: ClusterComentarios[] = [];
   let error: string | null = null;
+  let clasificacion: ResultadoClasificacionDocumental = { disponible: false, comentarios: [] };
+  let errorClasificacion = false;
+  let resumenFuentes: ResumenFuentesClasificacion = { disponibles: [], porComentario: {} };
   try {
     [respuestas, clusters] = await Promise.all([
       getRespuestasMomento4(),
@@ -55,6 +62,13 @@ export default async function TransformacionesPage() {
     ]);
   } catch (fallo) {
     error = fallo instanceof Error ? fallo.message : "No se pudo consultar la base de datos.";
+  }
+
+  try {
+    clasificacion = await getClasificacionDocumental();
+    resumenFuentes = await getResumenFuentesClasificacion();
+  } catch {
+    errorClasificacion = true;
   }
 
   // En su propio try: los aportes generales son otro cuestionario y otra tabla,
@@ -70,33 +84,39 @@ export default async function TransformacionesPage() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-bold text-foreground">{TITULO_MOMENTO4}</h1>
+        <h1 className="font-heading text-2xl font-bold text-foreground"><TextoEditorial id="8b29420b7bee492f88cf" original={"Trabajo en territorio con la comunidad universitaria: Experiencia \"Transformaciones que nos conectan\" — Resultados de encuestas"}/></h1>
         <p className="text-sm text-muted-foreground">
-          Valoración de las cinco transformaciones por parte de la comunidad universitaria: quién
-          participó, qué tanto respalda cada transformación y qué ajustes propone.
-        </p>
+          <TextoEditorial id="f7751788a98e7bcc4f6a" original={"Valoración de las cinco transformaciones por parte de la comunidad universitaria: quién participó, qué tanto respalda cada transformación y qué ajustes propone."}/></p>
       </header>
 
       {error ? (
         <div className="flex items-start gap-2.5 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm">
           <AlertTriangle className="mt-0.5 size-4 shrink-0 text-destructive" aria-hidden />
           <div>
-            <p className="font-medium text-foreground">No se pudieron cargar las respuestas.</p>
+            <p className="font-medium text-foreground"><TextoEditorial id="c642ffc95e6f5596e74b" original={"No se pudieron cargar las respuestas."}/></p>
             <p className="text-muted-foreground">{error}</p>
           </div>
         </div>
       ) : respuestas.length === 0 ? (
         <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          Todavía no hay respuestas cargadas. Se publican subiendo los documentos de las cinco
-          transformaciones desde la vista de administración.
-        </p>
+          <TextoEditorial id="c9856c2398f96629ebcf" original={"Todavía no hay respuestas cargadas. Se publican subiendo los documentos de las cinco transformaciones desde la vista de administración."}/></p>
       ) : (
-        <PanelTransformaciones respuestas={respuestas} clusters={clusters} />
+        <>
+          <section aria-labelledby="titulo-indicadores-encuestas" className="rounded-xl border border-border/70 px-4 py-3">
+            <h2 id="titulo-indicadores-encuestas" className="font-medium text-primary"><TextoEditorial id="ed437bd63626e626732c" original={"Indicadores y gráficos originales de las encuestas"}/></h2>
+            <p className="mt-2 text-xs text-muted-foreground"><TextoEditorial id="b9d73f7204ae6b7c6c53" original={"Incluyen todas las respuestas del formulario, también las que no tienen un comentario. Sus filtros se consultan dentro de este apartado."}/></p>
+            <div className="mt-4"><PanelTransformaciones respuestas={respuestas} clusters={clusters} mostrarComentarios={false} /></div>
+          </section>
+          <ExploradorComentarios respuestas={respuestas} clasificacion={compactarClasificacion(clasificacion)} errorClasificacion={errorClasificacion} resumenFuentes={resumenFuentes} />
+        </>
       )}
 
       {/* Fuera del bloque anterior a propósito: si no hay respuestas de las
           transformaciones pero sí aportes generales, estos deben verse igual. */}
-      {aportes.length > 0 ? <AportesGenerales aportes={aportes} /> : null}
+      {aportes.length > 0 ? <details className="rounded-xl border border-border/70 px-4 py-3">
+        <summary className="cursor-pointer font-medium text-primary"><TextoEditorial id="b846cb38d3fd8d95d8d1" original={"Aportes generales al Plan — formulario independiente"}/></summary>
+        <div className="mt-4"><AportesGenerales aportes={aportes} /></div>
+      </details> : null}
 
       <DescargaExcel ruta="/transformaciones" />
     </div>
@@ -113,7 +133,7 @@ function SeccionNoDisponible() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-bold text-foreground">{TITULO_MOMENTO4}</h1>
+        <h1 className="font-heading text-2xl font-bold text-foreground"><TextoEditorial id="8b29420b7bee492f88cf" original={"Trabajo en territorio con la comunidad universitaria: Experiencia \"Transformaciones que nos conectan\" — Resultados de encuestas"}/></h1>
       </header>
 
       <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-muted/40 px-6 py-12 text-center">
@@ -121,12 +141,9 @@ function SeccionNoDisponible() {
           <Lock className="size-5" aria-hidden />
         </span>
         <p className="font-heading text-base font-medium text-foreground">
-          Esta sección no está disponible por ahora
-        </p>
+          <TextoEditorial id="f13572e21ee4b66c9345" original={"Esta sección no está disponible por ahora"}/></p>
         <p className="max-w-md text-sm text-muted-foreground">
-          Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse
-          cuando se publique de nuevo.
-        </p>
+          <TextoEditorial id="2b95aa2c5180b7db73c4" original={"Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se publique de nuevo."}/></p>
         <Link
           href="/encuesta"
           className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"

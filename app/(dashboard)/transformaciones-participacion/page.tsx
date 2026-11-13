@@ -1,3 +1,8 @@
+import {Vista} from "@/components/participacion-narrativa/vista";
+import {crearNarrativa} from "@/components/participacion-narrativa/modelo";
+import {getConvocatoriaDocumental} from "@/repositories/convocatoriaRepository";
+import "@/components/participacion-narrativa/integrada.css";
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft, Lock } from "lucide-react";
@@ -36,29 +41,19 @@ export default async function TransformacionesParticipacionPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-bold text-foreground">{TITULO_PARTICIPACION}</h1>
-        <p className="text-sm text-muted-foreground">
-          Seguimiento de la asistencia a las actividades en territorio: quién participó, con qué
-          rol y desde qué unidad, a través de las distintas tandas cargadas.
-        </p>
-      </header>
-
       {error ? (
         <div className="flex items-start gap-2.5 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm">
           <AlertTriangle className="mt-0.5 size-4 shrink-0 text-destructive" aria-hidden />
           <div>
-            <p className="font-medium text-foreground">No se pudieron cargar los registros.</p>
+            <p className="font-medium text-foreground"><TextoEditorial id="d1135eda5eef64db5238" original={"No se pudieron cargar los registros."}/></p>
             <p className="text-muted-foreground">{error}</p>
           </div>
         </div>
       ) : registros.length === 0 ? (
         <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          Todavía no hay tandas de asistencia cargadas. Se publican subiendo el Excel de
-          participación desde la vista de administración.
-        </p>
+          <TextoEditorial id="6e0e3936f5f9f5cff480" original={"Todavía no hay tandas de asistencia cargadas. Se publican subiendo el Excel de participación desde la vista de administración."}/></p>
       ) : (
-        <PanelParticipacion registros={registros} />
+        <div className="participacion-integrada"><Vista datosNarrativos={crearNarrativa(registros,getConvocatoriaDocumental())}><PanelParticipacion registros={registros} /></Vista></div>
       )}
 
       <DescargaExcel ruta="/transformaciones-participacion" />
@@ -71,7 +66,7 @@ function SeccionNoDisponible() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-bold text-foreground">{TITULO_PARTICIPACION}</h1>
+        <h1 className="font-heading text-2xl font-bold text-foreground"><TextoEditorial id="7492ba524981089ee25b" original={"Trabajo en territorio con la comunidad universitaria: Experiencia \"Transformaciones que nos conectan\" - Participación"}/></h1>
       </header>
 
       <div className="flex flex-col items-center gap-3 rounded-xl border border-border bg-muted/40 px-6 py-12 text-center">
@@ -79,12 +74,9 @@ function SeccionNoDisponible() {
           <Lock className="size-5" aria-hidden />
         </span>
         <p className="font-heading text-base font-medium text-foreground">
-          Esta sección no está disponible por ahora
-        </p>
+          <TextoEditorial id="c3ebcb41ef889c3d2bf2" original={"Esta sección no está disponible por ahora"}/></p>
         <p className="max-w-md text-sm text-muted-foreground">
-          Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse
-          cuando se publique de nuevo.
-        </p>
+          <TextoEditorial id="050f07009e055fd05eac" original={"Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se publique de nuevo."}/></p>
         <Link
           href="/encuesta"
           className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"

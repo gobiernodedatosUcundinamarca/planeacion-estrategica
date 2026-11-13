@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import { coloresEscala, type ConteoOpcion } from "@/lib/reglas/formularios";
 
@@ -30,7 +31,7 @@ export function BarrasEscala({
       </div>
 
       {total === 0 ? (
-        <p className="py-6 text-center text-sm text-muted-foreground">Sin respuestas.</p>
+        <p className="py-6 text-center text-sm text-muted-foreground"><TextoEditorial id="4a999d88d110da178184" original={"Sin respuestas."}/></p>
       ) : (
         <ul className="flex flex-col gap-2">
           {niveles.map((nivel, i) => (

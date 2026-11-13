@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RankedBarChart } from "@/components/charts/ranked-bar-chart";
 import { formatNumero } from "@/lib/formatters";
@@ -35,7 +36,7 @@ export function FrecuenciaPorTipo({
   return (
     <Card className="py-3">
       <CardHeader className="px-3.5 pb-1">
-        <CardTitle className="text-[13px]">Frecuencia de palabras por tipo de pregunta</CardTitle>
+        <CardTitle className="text-[13px]"><TextoEditorial id="00fa77eeec147501d4ce" original={"Frecuencia de palabras por tipo de pregunta"}/></CardTitle>
       </CardHeader>
       <CardContent className="px-3.5">
         <div className="grid grid-cols-2 gap-6">

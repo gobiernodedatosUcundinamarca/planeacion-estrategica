@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { ArrowLeft, ChevronRight, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -38,9 +39,7 @@ export function ListaActividades({
           Volver al resumen
         </Button>
         <p className="text-sm text-muted-foreground">
-          {formatNumero(actividades.length)} actividades · haz click en una actividad para ver quién la
-          finalizó y quién no
-        </p>
+          {formatNumero(actividades.length)} <TextoEditorial id="2b697af65f4e48e7c6f2" original={"actividades · haz click en una actividad para ver quién la finalizó y quién no"}/></p>
       </div>
 
       {[...grupos.entries()].map(([momento, items]) => (

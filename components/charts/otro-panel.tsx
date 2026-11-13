@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -96,7 +97,7 @@ export function OtroPanel({
 
       <div className="flex flex-wrap items-center gap-2">
         <p className="text-xs text-muted-foreground">
-          {filtradas.length} de {respuestas.length} respuestas de texto libre ({"“Otro”"})
+          {filtradas.length} de {respuestas.length} <TextoEditorial id="ed8d73074efc7d433027" original={"respuestas de texto libre ("}/><TextoEditorial id="2bbe99a2f9098374edc3" original={"“Otro”"}/>)
         </p>
         {nombreCategoriaActiva ? (
           <Badge variant="secondary" className="gap-1 pr-1 text-[11px]">
@@ -126,8 +127,7 @@ export function OtroPanel({
           ))}
           {filtradas.length === 0 ? (
             <li className="px-4 py-8 text-center text-sm text-muted-foreground">
-              No hay respuestas que coincidan con la búsqueda.
-            </li>
+              <TextoEditorial id="be5a399aacd87a7fc559" original={"No hay respuestas que coincidan con la búsqueda."}/></li>
           ) : null}
         </ul>
       </ScrollArea>

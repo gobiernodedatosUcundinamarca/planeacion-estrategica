@@ -30,7 +30,7 @@ launcher-src/     Código del lanzador del .exe portable
 ## Requisitos
 
 - Node.js 24+
-- **pnpm 11+** (obligatorio — ver [.claude/CLAUDE.md](.claude/CLAUDE.md))
+- **pnpm 11+** (obligatorio)
 - `DATABASE_URL` en el entorno para los módulos del Momento 4 (ver
   [`.env.example`](.env.example))
 
@@ -95,13 +95,11 @@ script cuando el sitio cambia. El mismo build corre en Vercel y en el `.exe`;
   de datos, el cargue desde `/admin`, rendimiento y despliegue.
 - [`docs/diagramas/arquitectura.html`](docs/diagramas/arquitectura.html) y
   [`docs/diagramas/cargue.html`](docs/diagramas/cargue.html) — diagramas
-  interactivos autocontenidos (se regeneran con `archify`).
+  interactivos autocontenidos.
 - [`docs/01-analisis-funcional.md`](docs/01-analisis-funcional.md),
   [`docs/02-investigacion-arquitectura.md`](docs/02-investigacion-arquitectura.md),
   [`docs/03-design-system-dashboards.md`](docs/03-design-system-dashboards.md).
 
 ## Reglas del proyecto
 
-Antes de contribuir, lee [.claude/CLAUDE.md](.claude/CLAUDE.md): gestor de paquetes, arquitectura de
-datos, capas y quién puede llamar a quién, la regla de "sin diseño responsivo
-móvil", y las buenas prácticas obligatorias antes de subir cambios.
+Las contribuciones deben conservar la separaci?n de capas, utilizar pnpm y verificar compilaci?n, datos e interfaz antes de publicar. La vista m?vil mantiene el escritorio escalado del sitio.

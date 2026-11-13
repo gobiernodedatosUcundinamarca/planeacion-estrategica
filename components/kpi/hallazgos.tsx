@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Lightbulb } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -13,8 +14,7 @@ export function Hallazgos({ frases }: { frases: string[] }) {
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center gap-2 text-sm">
           <Lightbulb className="size-4 text-primary" aria-hidden />
-          Lo que muestran los datos
-        </CardTitle>
+          <TextoEditorial id="fe360fe539cd06140f54" original={"Lo que muestran los datos"}/></CardTitle>
       </CardHeader>
       <CardContent>
         <ul className="flex list-disc flex-col gap-1.5 pl-5 text-sm text-foreground marker:text-primary">

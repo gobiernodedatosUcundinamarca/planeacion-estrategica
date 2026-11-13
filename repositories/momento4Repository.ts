@@ -1,4 +1,5 @@
 import "server-only";
+import type { ResultadoClasificacionDocumental, MetodoClasificacion, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
 import type {
   ClusterComentarios,
   DocumentoMomento4,
@@ -19,6 +20,14 @@ export function getDocumentosMomento4(): Promise<DocumentoMomento4[]> {
 /** Todas las respuestas publicadas, para la sección del Momento 4. */
 export function getRespuestasMomento4(): Promise<RespuestaMomento4[]> {
   return getMomento4DataSource().getRespuestas();
+}
+
+export function getClasificacionDocumental(metodo?: MetodoClasificacion): Promise<ResultadoClasificacionDocumental> {
+  return getMomento4DataSource().getClasificacionDocumental(metodo);
+}
+
+export function getResumenFuentesClasificacion(): Promise<ResumenFuentesClasificacion> {
+  return getMomento4DataSource().getResumenFuentesClasificacion();
 }
 
 /** Grupos temáticos vigentes de los comentarios abiertos. */

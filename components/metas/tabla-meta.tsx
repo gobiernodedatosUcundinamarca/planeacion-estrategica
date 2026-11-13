@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { Search, BookOpen, Building2, MapPin, Users, GraduationCap, type LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -136,8 +137,8 @@ export function TablaMetaCard({ tabla }: { tabla: TablaMeta }) {
                     <TooltipContent>{DESCRIPCION_PARTICIPACION[segundaCol]}</TooltipContent>
                   </Tooltip>
                 </TableHead>
-                <TableHead className="text-right text-[11px] text-primary-foreground">Total</TableHead>
-                <TableHead className="text-right text-[11px] text-primary-foreground">Porcentaje</TableHead>
+                <TableHead className="text-right text-[11px] text-primary-foreground"><TextoEditorial id="3b58b5f5756812f7857f" original={"Total"}/></TableHead>
+                <TableHead className="text-right text-[11px] text-primary-foreground"><TextoEditorial id="c1cd15d5a464b55dd82c" original={"Porcentaje"}/></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -202,8 +203,7 @@ export function TablaMetaCard({ tabla }: { tabla: TablaMeta }) {
         </div>
         {conBuscador ? (
           <p className="mt-1.5 text-[11px] text-muted-foreground">
-            {filtradas.length} de {tabla.filas.length} filas
-          </p>
+            {filtradas.length} de {tabla.filas.length} <TextoEditorial id="b8fea8092b6a4484d05b" original={"filas"}/></p>
         ) : null}
       </CardContent>
     </Card>

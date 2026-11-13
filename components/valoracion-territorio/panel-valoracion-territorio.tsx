@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial,EtiquetaEditorial,LapizDeCatalogo} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { MessageSquareText, Star, ThumbsUp, Users, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +28,9 @@ import {
 import type { TemaComentarios } from "@/types/formularios";
 import type { RespuestaValoracionTerritorio } from "@/types/valoracion-territorio";
 
+import {Evidencia,type FiltroRespuesta} from "./evidencia";
+import {VentanaRespuestas} from "./ventana-respuestas";
+import {Lectura} from "./lectura";
 const TODOS = TODAS_LAS_OPCIONES;
 
 /** Por debajo de cuántas respuestas un grupo no entra en las comparaciones de los hallazgos. */
@@ -102,6 +106,7 @@ export function PanelValoracionTerritorio({
   /** Respuestas que no entran por no tener unidad regional o tipo de actor (`entraEnValoracion`). */
   excluidas: { sinUnidadRegional: number; sinRol: number };
 }) {
+  const [filtroDetalle,setFiltroDetalle]=useState<FiltroRespuesta|null>(null);
   const totalExcluidas = excluidas.sinUnidadRegional + excluidas.sinRol;
   const [rol, setRol] = useState(TODOS);
   const [unidad, setUnidad] = useState(TODOS);
@@ -170,7 +175,7 @@ export function PanelValoracionTerritorio({
     );
     if (peor.campo !== mejor.campo) {
       frases.push(
-        `La que menos acuerdo reúne es «${peor.corta}» (${formatPorcentaje(peor.favorable)}): el ${formatPorcentaje(100 - peor.favorable)} se declara neutral o en desacuerdo.`
+        `La que menos acuerdo reúne es «${peor.corta}» (${formatPorcentaje(peor.favorable)}): el ${formatPorcentaje(100 - peor.favorable)} no seleccionó los niveles favorables.`
       );
     }
     frases.push(`El ${formatPorcentaje(metricas.todoMaximo)} marcó «Totalmente de acuerdo» en las tres afirmaciones.`);
@@ -194,7 +199,7 @@ export function PanelValoracionTerritorio({
           ? `; lo que más se repite: ${metricas.palabrasClave.map((p) => `«${p}»`).join(", ")}`
           : "";
       frases.push(
-        `${formatNumero(metricas.sugerencias.length)} personas (${formatPorcentaje((metricas.sugerencias.length / metricas.total) * 100)}) dejaron una sugerencia de mejora con contenido${palabras}.`
+        `${formatNumero(metricas.sugerencias.length)} respuestas (${formatPorcentaje((metricas.sugerencias.length / metricas.total) * 100)}) dejaron una sugerencia de mejora con contenido${palabras}.`
       );
     }
     return frases;
@@ -204,7 +209,7 @@ export function PanelValoracionTerritorio({
   const alternar = (actual: string, etiqueta: string) => (actual === etiqueta ? TODOS : etiqueta);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="valoracion flex flex-col gap-6"><section className="apertura" id="inicio"><p className="folio"><TextoEditorial id="8817fb3860788451cc74" original={"TRABAJO EN TERRITORIO / VALORACIÓN DE LA EXPERIENCIA"}/></p><h1><TextoEditorial id="c4e6d5bfee8f56bc5ee8" original={"VALORACIÓN"}/><br/><em><TextoEditorial id="baff78efcd1cbb86e1e8" original={"DE LA EXPERIENCIA"}/></em></h1><div className="contexto"><p><TextoEditorial id="48e50deda62eea7c834f" original={"Experiencia «Transformaciones que nos conectan». Cómo ayudó a comprender el rumbo de la universidad, cómo se vivió la participación y qué proponen mejorar."}/></p><div><strong>{respuestas.length}</strong><span><TextoEditorial id="e9ecb737751a06036611" original={"respuestas incluidas en la valoración"}/></span></div></div><nav aria-label="Apartados"><span className="navegacion-editorial"><a href="#resultados"><EtiquetaEditorial texto="Principales resultados"/></a><LapizDeCatalogo texto="Principales resultados"/></span><span className="navegacion-editorial"><a href="#lectura"><EtiquetaEditorial texto="Logros"/></a><LapizDeCatalogo texto="Logros"/></span><span className="navegacion-editorial"><a href="#dificultades"><EtiquetaEditorial texto="Dificultades"/></a><LapizDeCatalogo texto="Dificultades"/></span><span className="navegacion-editorial"><a href="#comparaciones"><EtiquetaEditorial texto="Regionales y grupos"/></a><LapizDeCatalogo texto="Regionales y grupos"/></span><span className="navegacion-editorial"><a href="#mejoras"><EtiquetaEditorial texto="Propuestas de mejora"/></a><LapizDeCatalogo texto="Propuestas de mejora"/></span><span className="navegacion-editorial"><a href="#evidencia"><EtiquetaEditorial texto="Respuestas originales"/></a><LapizDeCatalogo texto="Respuestas originales"/></span></nav></section>
       <Card className="border-border/70">
         <CardContent className="flex flex-wrap items-end gap-3">
           <FiltroOpciones etiqueta="Unidad regional" valor={unidad} opciones={opciones.unidades} siTodas="Todas" ancho="w-60" onCambiar={setUnidad} />
@@ -229,8 +234,7 @@ export function PanelValoracionTerritorio({
               formulario debe saber por qué la cifra es menor. */}
           {totalExcluidas > 0 ? (
             <p className="basis-full text-[11px] text-muted-foreground">
-              No se incluyen {formatNumero(totalExcluidas)} respuesta(s) para que todas las cifras cuadren
-              entre sí:{" "}
+              <TextoEditorial id="0ff9790a633838c959d0" original={"Fuera del análisis:"}/>{formatNumero(totalExcluidas)} <TextoEditorial id="04e2694754ae00b7d57e" original={"respuestas sin datos suficientes para la identificación de su jornada o grupo:"}/>{" "}
               {[
                 excluidas.sinUnidadRegional > 0
                   ? `${formatNumero(excluidas.sinUnidadRegional)} de un día sin jornada registrada (sin unidad regional)`
@@ -245,8 +249,8 @@ export function PanelValoracionTerritorio({
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-4 gap-4">
-        <KpiCard etiqueta="Respuestas" valor={formatNumero(metricas.total)} detalle="Personas que valoraron la experiencia" icono={Users} />
+      <div className="indicadores grid grid-cols-4 gap-4">
+        <KpiCard etiqueta="Respuestas" valor={formatNumero(metricas.total)} detalle="Cuestionarios con jornada y grupo identificados" icono={Users} />
         <KpiCard
           etiqueta="Valoración favorable"
           valor={formatPorcentaje(metricas.promedio)}
@@ -260,22 +264,21 @@ export function PanelValoracionTerritorio({
           icono={Star}
         />
         <KpiCard
-          etiqueta="Sugerencias de mejora"
+          etiqueta="Textos sobre qué mejorar"
           valor={formatNumero(metricas.sugerencias.length)}
-          detalle="Respuestas abiertas con contenido"
+          detalle="Según el criterio de contenido del módulo actual"
           icono={MessageSquareText}
         />
       </div>
 
       {metricas.total === 0 ? (
         <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          Ninguna respuesta coincide con los filtros elegidos.
-        </p>
+          <TextoEditorial id="262aa0f43696684850f8" original={"Ninguna respuesta coincide con los filtros elegidos."}/></p>
       ) : (
         <>
-          <Card className="border-border/70">
+          <Lectura respuestas={filtradas} onSeleccionar={setFiltroDetalle}/><div id="comparaciones"><p className="folio"><TextoEditorial id="1840732ee62e1893904e" original={"03 / EL DETALLE DE LA VALORACIÓN"}/></p><h2><TextoEditorial id="871ff68860b81c820f92" original={"Todos los niveles."}/><br/><TextoEditorial id="fd0f81ee64ea28eff86d" original={"Regionales y grupos de interés."}/></h2><p><TextoEditorial id="385d97765c4195df317d" original={"La regional corresponde a la jornada de la fecha de respuesta, no necesariamente al origen del participante."}/></p></div><Card className="border-border/70">
             <CardHeader>
-              <CardTitle>Nivel de acuerdo con cada afirmación</CardTitle>
+              <CardTitle><TextoEditorial id="3d3d5a7fb6c7070d1ec1" original={"Nivel de acuerdo con cada afirmación"}/></CardTitle>
             </CardHeader>
             <CardContent>
               <DistribucionEscala
@@ -329,9 +332,9 @@ export function PanelValoracionTerritorio({
             <TablaFavorable titulo="Valoración favorable por rol" columna="Rol" grupos={metricas.porRol} />
           </div>
 
-          <Card className="border-border/70">
+          <section id="mejoras"><p className="folio"><TextoEditorial id="3ef2a997ad7fd9011ac8" original={"04 / PROPUESTAS Y OPORTUNIDADES DE MEJORA"}/></p><h2><TextoEditorial id="19c336307d926d1e0309" original={"Propuestas de mejora"}/><br/><TextoEditorial id="a30cee04523ef4abc68a" original={"para próximos encuentros."}/></h2><p><TextoEditorial id="535615f99cd42c0059b1" original={"Respuestas a la pregunta abierta. Las palabras y los temas son agrupaciones automáticas; no representan una clasificación manual de dificultades o propuestas."}/></p></section><Card className="border-border/70">
             <CardHeader>
-              <CardTitle>¿Qué aspecto de la experiencia podríamos mejorar?</CardTitle>
+              <CardTitle><TextoEditorial id="ba083e2aae266e8c4979" original={"¿Qué aspecto de la experiencia podríamos mejorar?"}/></CardTitle>
             </CardHeader>
             <CardContent>
               <ComentariosPorTema
@@ -339,6 +342,7 @@ export function PanelValoracionTerritorio({
                 palabrasIgnoradas={PALABRAS_SIN_TEMA_MEJORA}
                 tituloNube="Lo que más se repite en las sugerencias"
                 tituloLista="Sugerencias"
+                listaDelimitada
                 comentarios={metricas.sugerencias.map((r) => ({
                   id: r.id,
                   texto: r.mejora ?? "",
@@ -359,7 +363,7 @@ export function PanelValoracionTerritorio({
 
       {/* Al final, como cierre: primero se ven los datos y después la lectura
           que se hace de ellos. */}
-      <Hallazgos frases={hallazgos} />
+      <Evidencia respuestas={filtradas} filtro={null} onLimpiar={()=>{}}/><VentanaRespuestas respuestas={filtradas} filtro={filtroDetalle} onCerrar={()=>setFiltroDetalle(null)}/><details className="balance"><summary><TextoEditorial id="2247121cb8d9d14ff81e" original={"Resumen de la selección"}/></summary><Hallazgos frases={hallazgos}/></details><section className="metodo"><h2><TextoEditorial id="dd28bf9383444d83d7be" original={"Fuentes y criterios de lectura"}/></h2><p><TextoEditorial id="8397c1544c4620df13c3" original={"Instrumento de valoración de la experiencia: tres afirmaciones y una pregunta abierta. Corte de copia: 12 de noviembre de 2026. La valoración global es el promedio de los porcentajes favorables de las tres afirmaciones, no un porcentaje de personas únicas."}/></p><p><TextoEditorial id="d57e9c9b6f0c6e3a1561" original={"Excel original: 519 filas; análisis actual: 515. Se mantienen las exclusiones de la sección original. Los porcentajes por pregunta consideran únicamente sus respuestas disponibles."}/></p><p><TextoEditorial id="14204152d19c9b5a66cb" original={"Las presentaciones se consultaron como contexto documental; sus cifras y clasificaciones no se incorporaron a las respuestas actuales sin correspondencia verificable."}/></p><a className="boton" href="/api/descargas/valoracion-territorio">Descargar todas las respuestas de la valoración</a></section>
     </div>
   );
 }
@@ -407,7 +411,7 @@ function TablaFavorable({ titulo, columna, grupos }: { titulo: string; columna: 
                 <TableRow key={g.etiqueta} className={pequeno ? "text-muted-foreground" : undefined}>
                   <TableCell className="text-xs whitespace-normal">
                     {g.etiqueta}
-                    <span className="block text-[11px] text-muted-foreground">{formatNumero(g.total)} resp.</span>
+                    <span className="block text-[11px] text-muted-foreground">{formatNumero(g.total)} <TextoEditorial id="1c3956ccf694d5349915" original={"resp."}/></span>
                   </TableCell>
                   {g.afirmaciones.map((valor, i) => (
                     <TableCell
@@ -424,8 +428,7 @@ function TablaFavorable({ titulo, columna, grupos }: { titulo: string; columna: 
           </TableBody>
         </Table>
         <p className="mt-2 text-[11px] text-muted-foreground">
-          % de acuerdo o totalmente de acuerdo. El tono resalta los valores más altos de la tabla.
-          {hayPequenos
+          <TextoEditorial id="9a4473c04dfa1822d14d" original={"% de acuerdo o totalmente de acuerdo. El tono resalta los valores más altos de la tabla."}/>{hayPequenos
             ? ` En gris, los grupos con menos de ${MINIMO_POR_GRUPO} respuestas: ahí una sola persona mueve mucho el porcentaje.`
             : ""}
         </p>

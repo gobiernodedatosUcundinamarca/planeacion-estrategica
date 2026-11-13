@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RankedBarChart } from "@/components/charts/ranked-bar-chart";
 import { cn } from "@/lib/utils";
@@ -37,11 +38,9 @@ export function AnalisisOtroCards({
     <>
       <Card className="py-3">
         <CardHeader className="px-3.5 pb-1">
-          <CardTitle className="text-[13px]">Categorización de las respuestas abiertas</CardTitle>
+          <CardTitle className="text-[13px]"><TextoEditorial id="6e9543a5ebcf97fc4d1a" original={"Categorización de las respuestas abiertas"}/></CardTitle>
           <p className="text-[11px] text-muted-foreground">
-            Los {formatNumero(analisis.total)} aportes de texto libre, agrupados en {conCitas.length} temas. Clic en
-            un tema para filtrar las respuestas de abajo.
-          </p>
+            <TextoEditorial id="0252d25b954eac2ba17b" original={"Los"}/> {formatNumero(analisis.total)} <TextoEditorial id="7e03044df58b9f948e5a" original={"aportes de texto libre, agrupados en"}/>{conCitas.length} <TextoEditorial id="facfa4130d3324686d9b" original={"temas. Clic en un tema para filtrar las respuestas de abajo."}/></p>
         </CardHeader>
         <CardContent className="px-3.5">
           <div className="grid grid-cols-2 gap-6">
@@ -98,10 +97,9 @@ export function AnalisisOtroCards({
 
       <Card className="py-3">
         <CardHeader className="px-3.5 pb-1">
-          <CardTitle className="text-[13px]">Conclusión</CardTitle>
+          <CardTitle className="text-[13px]"><TextoEditorial id="c9425fe582987aee0c26" original={"Conclusión"}/></CardTitle>
           <p className="text-[11px] text-muted-foreground">
-            Lectura general de los aportes abiertos y su implicación para el Plan Estratégico 2027–2037.
-          </p>
+            <TextoEditorial id="61078df34507bd7580af" original={"Lectura general de los aportes abiertos y su implicación para el Plan Estratégico 2027–2037."}/></p>
         </CardHeader>
         <CardContent className="px-3.5">
           <p className="border-l-2 border-primary pl-3 text-sm leading-relaxed text-foreground">

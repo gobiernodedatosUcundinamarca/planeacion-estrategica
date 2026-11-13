@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import { coloresEscala, type ConteoOpcion } from "@/lib/reglas/formularios";
 
@@ -46,7 +47,7 @@ export function DistribucionEscala({
             <li key={fila.etiqueta} className="grid grid-cols-[minmax(0,16rem)_1fr_4.5rem] items-center gap-3">
               <span className="text-xs leading-snug text-foreground" title={fila.detalle ?? fila.etiqueta}>
                 {fila.etiqueta}
-                <span className="block text-[11px] text-muted-foreground">{formatNumero(total)} respuestas</span>
+                <span className="block text-[11px] text-muted-foreground">{formatNumero(total)} <TextoEditorial id="729a715a96ebba7dadb5" original={"respuestas"}/></span>
               </span>
               <span className="flex h-6 w-full overflow-hidden rounded-md bg-muted">
                 {fila.niveles.map((nivel, i) =>

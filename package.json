@@ -4,8 +4,10 @@
   "private": true,
   "packageManager": "pnpm@11.10.0",
   "scripts": {
+    "editorial:preparar": "tsx scripts/preparar-editorial.ts",
+    "editorial:migrar": "tsx scripts/migrar-editorial.ts",
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "validar:metas": "tsx scripts/validar-metas.ts",

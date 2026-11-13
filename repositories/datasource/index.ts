@@ -1,4 +1,6 @@
 import "server-only";
+import { ExcelConvocatoriaDataSource } from './excel-convocatoria-source';
+export const getConvocatoriaDataSource = crearSingleton(() => new ExcelConvocatoriaDataSource());
 import { ExcelEncuestaDataSource } from "./excel-data-source";
 import { ExcelMetasDataSource } from "./excel-metas-source";
 import { ExcelConferencistasDataSource } from "./excel-conferencistas-source";

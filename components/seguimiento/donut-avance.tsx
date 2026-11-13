@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { ArrowRight, MousePointerClick } from "lucide-react";
 import { formatPorcentaje } from "@/lib/formatters";
@@ -99,11 +100,11 @@ export function DonutAvance({
       <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">
         <span className="inline-flex items-center gap-2">
           <span className="size-3 rounded-full" style={{ background: COLOR_FINALIZADO }} aria-hidden />
-          <span className="text-muted-foreground">Finalizado</span>
+          <span className="text-muted-foreground"><TextoEditorial id="3bac99a0ccd02a77f583" original={"Finalizado"}/></span>
         </span>
         <span className="inline-flex items-center gap-2">
           <span className="size-3 rounded-full" style={{ background: COLOR_PENDIENTE }} aria-hidden />
-          <span className="text-muted-foreground">No finalizado</span>
+          <span className="text-muted-foreground"><TextoEditorial id="a248220c0aef6d7df5c2" original={"No finalizado"}/></span>
         </span>
       </div>
     </div>

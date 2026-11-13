@@ -17,6 +17,9 @@ export interface DocumentoMomento4 {
  */
 export interface RespuestaMomento4 {
   id: number;
+  /** Identificador estable dentro del formulario de Forms y archivo cargado. */
+  respuestaId?: string;
+  archivoOrigen?: string | null;
   /** Id de la casilla (uc-digital…), útil como clave de filtrado. */
   transformacion: string;
   /**

@@ -1,17 +1,13 @@
 # 04 · Arquitectura
 
-Documento de referencia de cómo está montado el proyecto. Acompaña a los dos
-diagramas interactivos de [`docs/diagramas/`](diagramas/) y a las reglas de
-[`.claude/CLAUDE.md`](../.claude/CLAUDE.md), que mandan sobre cualquier convención genérica.
+Referencia de la organizaci?n del proyecto y sus diagramas interactivos.
 
 | Diagrama | Archivo | Qué muestra |
 |---|---|---|
 | Arquitectura de capas | [`diagramas/arquitectura.html`](diagramas/arquitectura.html) | El flujo de datos en una sola dirección, de la fuente a la vista, y los dos destinos de despliegue. |
 | Cargue desde `/admin` | [`diagramas/cargue.html`](diagramas/cargue.html) | El recorrido de un `.xlsx` subido en producción: validación, anonimización, persistencia en Postgres y consumo. |
 
-Los `.html` son autocontenidos (se abren con doble clic, sin servidor). Se
-regeneran con `archify` a partir de los `.json` que están al lado — ver la
-última sección.
+Los diagramas HTML son autocontenidos y pueden abrirse sin servidor.
 
 ---
 
@@ -233,25 +229,6 @@ desde el principio.
 
 ---
 
-## 8. Cómo se generan los diagramas
+## 8. Diagramas
 
-Los diagramas se autoran como una especificación JSON tipada y `archify` los
-compila a HTML interactivo autocontenido (temas claro/oscuro, zoom, búsqueda,
-exportar a PNG/SVG).
-
-```bash
-# Instalar la skill una vez (usa pnpm dlx, no npx)
-pnpm dlx skills add tt-a1i/archify -g
-
-# Regenerar tras editar un .json  (desde la carpeta de la skill)
-node bin/archify.mjs validate architecture <ruta>/arquitectura.architecture.json \
-  --quality showcase --repo-root <raíz-del-repo>
-node bin/archify.mjs deliver  architecture <ruta>/arquitectura.architecture.json \
-  <ruta>/arquitectura.html --quality showcase --repo-root <raíz-del-repo>
-```
-
-- `arquitectura.architecture.json` fija `meta.repository.revision` al commit
-  con el que se verificaron las rutas de `sources`. Al mover archivos
-  referenciados, actualizar ese SHA y volver a `deliver`.
-- Los ficheros `*.visual-check.*` que produce `visual-check` son evidencia de
-  QA y no se versionan.
+Actualizar las especificaciones y verificar sus rutas al modificar la arquitectura.

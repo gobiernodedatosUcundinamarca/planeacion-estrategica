@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { motion, type Variants } from "framer-motion";
 import { MessageSquareQuote, Star, Users2 } from "lucide-react";
 import type { ValoracionConferencista } from "@/types/valoraciones";
@@ -30,7 +31,7 @@ export function ValoracionesConferencista({
   if (totalRespuestas === 0) {
     return (
       <motion.p variants={variants} className="py-10 text-center text-sm text-muted-foreground">
-        Aún no hay valoraciones registradas para esta jornada.
+        <TextoEditorial id="6a07a51d9a2473126b86" original={"Aún no hay valoraciones registradas para esta jornada."}/>
       </motion.p>
     );
   }
@@ -43,27 +44,26 @@ export function ValoracionesConferencista({
             <Star className="size-5 fill-amber-500 text-amber-500" aria-hidden />
             {promedio.toFixed(1)}
           </span>
-          <span className="text-[11px] text-muted-foreground">Calificación promedio</span>
+          <span className="text-[11px] text-muted-foreground"><TextoEditorial id="f1041cac75297504bcb4" original={"Calificación promedio"}/></span>
         </div>
         <div className="flex flex-col items-center gap-1 rounded-xl bg-muted/60 py-4 text-center">
           <span className="flex items-center gap-1 text-2xl font-bold text-foreground">
             <Users2 className="size-5" style={{ color: acento }} aria-hidden />
             {formatNumero(totalRespuestas)}
           </span>
-          <span className="text-[11px] text-muted-foreground">Valoraciones recibidas</span>
+          <span className="text-[11px] text-muted-foreground"><TextoEditorial id="6ca5bf3e36677b66ad2d" original={"Valoraciones recibidas"}/></span>
         </div>
       </motion.div>
 
       {calificacionCompartidaCon.length > 0 ? (
         <motion.p variants={variants} className="text-xs text-muted-foreground italic">
-          Calificación de una jornada conjunta con {formatearLista(calificacionCompartidaCon)}.
+          <TextoEditorial id="d9e7ae0fcb941d09a923" original={"Calificación de una jornada conjunta con"}/> {formatearLista(calificacionCompartidaCon)}.
         </motion.p>
       ) : null}
 
       <motion.div variants={variants}>
         <h3 className="mb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-          Distribución de calificaciones
-        </h3>
+          <TextoEditorial id="03dc2dfb745907aa29ba" original={"Distribución de calificaciones"}/></h3>
         <div className="flex flex-col gap-1.5">
           {([5, 4, 3, 2, 1] as const).map((estrella) => {
             const conteo = distribucion[estrella];
@@ -96,13 +96,11 @@ export function ValoracionesConferencista({
         <motion.div variants={variants}>
           <h3 className="mb-2 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
             <MessageSquareQuote className="size-3.5" style={{ color: acento }} aria-hidden />
-            Comentarios ({formatNumero(comentarios.length)})
+            <TextoEditorial id="d0d6de834fc5cdd9a515" original={"Comentarios ("}/>{formatNumero(comentarios.length)})
           </h3>
           {comentariosCompartidosCon.length > 0 ? (
             <p className="mb-2 text-xs text-muted-foreground italic">
-              Comentarios generales de una jornada conjunta con {formatearLista(comentariosCompartidosCon)}, no
-              exclusivos de esta charla.
-            </p>
+              <TextoEditorial id="ea878501dd4783c7490a" original={"Comentarios generales de una jornada conjunta con"}/>{formatearLista(comentariosCompartidosCon)}<TextoEditorial id="031d3f795fbd8e0db359" original={", no exclusivos de esta charla."}/></p>
           ) : null}
           <ul className="flex flex-col gap-2.5">
             {comentarios.map((c, i) => (

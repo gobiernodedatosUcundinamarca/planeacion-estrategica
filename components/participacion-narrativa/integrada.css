@@ -1,0 +1,1300 @@
+.participacion-integrada {
+  --paper:#f6f5ef;
+  --ink:#14281f;
+  --green:#007b3e;
+  --pine:#00482b;
+  --line:#ccd3c9;
+  --quiet:#4e6257
+}
+.participacion-integrada {
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Montserrat,Arial,sans-serif
+}
+:where(.participacion-integrada) * {
+  box-sizing:border-box
+}
+.participacion-integrada {
+  scroll-behavior:smooth
+}
+:where(.participacion-integrada) button,:where(.participacion-integrada) select,:where(.participacion-integrada) a {
+  touch-action:manipulation
+}
+:where(.participacion-integrada) a,:where(.participacion-integrada) button,:where(.participacion-integrada) select,:where(.participacion-integrada) input,:where(.participacion-integrada) summary {
+  outline-offset:5px
+}
+:where(.participacion-integrada) a:focus-visible,:where(.participacion-integrada) button:focus-visible,:where(.participacion-integrada) select:focus-visible,:where(.participacion-integrada) input:focus-visible,:where(.participacion-integrada) summary:focus-visible {
+  outline:3px solid #007b3e
+}
+:where(.participacion-integrada) button {
+  cursor:pointer
+}
+:where(.participacion-integrada) button:disabled {
+  opacity:.55;
+  cursor:default
+}
+:where(.participacion-integrada) .saltar {
+  position:fixed;
+  z-index:100;
+  left:20px;
+  top:-100px;
+  background:white;
+  padding:16px;
+  color:var(--pine)
+}
+:where(.participacion-integrada) .saltar:focus {
+  top:10px
+}
+:where(.participacion-integrada) .masthead {
+  height:90px;
+  position:sticky;
+  top:0;
+  z-index:30;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:24px;
+  padding:0 4vw;
+  background:var(--paper);
+  border-bottom:1px solid var(--line)
+}
+:where(.participacion-integrada) .marca {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  font-size:10px;
+  letter-spacing:1px;
+  font-weight:700;
+  line-height:1.6
+}
+:where(.participacion-integrada) .marca img {
+  height:44px;
+  width:auto
+}
+:where(.participacion-integrada) .marca small {
+  display:block;
+  letter-spacing:.5px;
+  font-weight:400
+}
+:where(.participacion-integrada) .modos {
+  display:flex;
+  gap:3px;
+  border:1px solid var(--line);
+  padding:4px
+}
+:where(.participacion-integrada) .modos button {
+  padding:9px 14px;
+  font-size:11px;
+  min-height:36px;
+  color:var(--quiet)
+}
+:where(.participacion-integrada) .modos button[aria-pressed=true] {
+  background:var(--pine);
+  color:#fff
+}
+:where(.participacion-integrada) .enlace-original {
+  font-size:11px;
+  color:var(--pine);
+  text-decoration:underline;
+  text-underline-offset:5px
+}
+:where(.participacion-integrada) .indice {
+  position:fixed;
+  top:145px;
+  left:28px;
+  z-index:15;
+  width:110px;
+  display:grid;
+  gap:15px
+}
+:where(.participacion-integrada) .indice a {
+  display:grid;
+  gap:4px;
+  font-size:10px;
+  line-height:1.55;
+  color:var(--quiet);
+  padding:4px
+}
+:where(.participacion-integrada) .indice a:hover {
+  color:var(--green)
+}
+:where(.participacion-integrada) .indice a span {
+  font-size:12px;
+  font-weight:700;
+  color:var(--green)
+}
+:where(.participacion-integrada) main {
+  margin-left:150px;
+  padding:0 5vw;
+  max-width:2000px
+}
+:where(.participacion-integrada) section {
+  scroll-margin-top:115px
+}
+:where(.participacion-integrada) .folio {
+  font-size:10px;
+  font-weight:650;
+  line-height:1.8;
+  letter-spacing:1.5px;
+  color:var(--green);
+  margin:0 0 30px
+}
+:where(.participacion-integrada) h1,:where(.participacion-integrada) h2,:where(.participacion-integrada) h3,:where(.participacion-integrada) p {
+  margin-top:0
+}
+:where(.participacion-integrada) h1 {
+  font-size:clamp(54px,6.6vw,116px);
+  font-weight:600;
+  line-height:1.03;
+  letter-spacing:-.065em
+}
+:where(.participacion-integrada) h2 {
+  font-size:clamp(30px,3.5vw,62px);
+  font-weight:550;
+  letter-spacing:-.045em;
+  line-height:1.12
+}
+:where(.participacion-integrada) h3 {
+  font-size:19px;
+  font-weight:600;
+  letter-spacing:-.02em
+}
+:where(.participacion-integrada) em {
+  font-style:normal;
+  color:var(--green)
+}
+:where(.participacion-integrada) .apertura {
+  min-height:calc(100svh - 90px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:55px 0 25px
+}
+:where(.participacion-integrada) .portada-composicion {
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:5vw;
+  align-items:end
+}
+:where(.participacion-integrada) .bajada {
+  font-size:13px;
+  line-height:1.9;
+  color:var(--quiet);
+  margin:28px 0
+}
+:where(.participacion-integrada) .pregunta {
+  font-size:17px;
+  line-height:1.7;
+  max-width:420px
+}
+:where(.participacion-integrada) .cifra-portada {
+  border-left:1px solid var(--line);
+  padding-left:3vw;
+  padding-bottom:10px
+}
+:where(.participacion-integrada) .numero-portada {
+  font-size:clamp(70px,8vw,140px);
+  font-weight:500;
+  letter-spacing:-.08em;
+  line-height:1;
+  display:block;
+  color:var(--green);
+  margin-bottom:18px
+}
+:where(.participacion-integrada) .cifra-portada>span:not(.numero-portada) {
+  font-size:12px;
+  line-height:1.7;
+  display:block
+}
+:where(.participacion-integrada) .cifra-portada p {
+  font-size:13px;
+  margin-top:35px
+}
+:where(.participacion-integrada) .cifra-portada b {
+  font-size:22px;
+  font-weight:550
+}
+:where(.participacion-integrada) .separador {
+  padding:0 14px;
+  color:var(--line)
+}
+:where(.participacion-integrada) .cifra-portada small {
+  font-size:11px;
+  line-height:1.8;
+  display:block;
+  color:var(--quiet);
+  max-width:290px
+}
+:where(.participacion-integrada) .pie-portada {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  border-top:1px solid var(--line);
+  padding:24px 0 0;
+  margin-top:70px;
+  font-size:11px;
+  color:var(--quiet)
+}
+:where(.participacion-integrada) .pie-portada a {
+  color:var(--green)
+}
+:where(.participacion-integrada) .escena-atlas {
+  position:relative;
+  display:grid;
+  grid-template-columns:.85fr 1.35fr;
+  gap:3vw;
+  border-top:1px solid var(--line);
+  view-timeline-name:--atlas;
+  view-timeline-axis:block;
+  timeline-scope:--atlas;
+  --p:1;
+  --m:clamp(0,calc((var(--p) - .12)/.6),1)
+}
+:where(.participacion-integrada) .paso-narrativo {
+  min-height:88svh;
+  padding:90px 0 80px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+:where(.participacion-integrada) .paso-narrativo p:not(.folio) {
+  font-size:15px;
+  line-height:1.95;
+  max-width:390px;
+  margin-top:20px
+}
+:where(.participacion-integrada) .paso-narrativo .margen {
+  font-size:12px!important;
+  color:var(--quiet);
+  border-left:2px solid var(--line);
+  padding-left:16px
+}
+:where(.participacion-integrada) .paso-narrativo a {
+  font-size:12px;
+  color:var(--green);
+  text-decoration:underline;
+  text-underline-offset:5px
+}
+:where(.participacion-integrada) .paso-activo>.folio {
+  color:var(--pine)
+}
+:where(.participacion-integrada) .plano-analitico {
+  position:sticky;
+  top:130px;
+  align-self:start;
+  height:calc(100svh - 170px);
+  min-height:430px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+:where(.participacion-integrada) .cabecera-plano {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid var(--line);
+  padding:0 0 16px;
+  color:var(--quiet);
+  font-size:10px;
+  letter-spacing:1px
+}
+:where(.participacion-integrada) .cabecera-plano button {
+  font-size:11px;
+  letter-spacing:0;
+  min-height:36px;
+  border:1px solid var(--line);
+  padding:8px 12px
+}
+:where(.participacion-integrada) .atlas-svg {
+  width:100%;
+  height:auto;
+  max-height:calc(100svh - 300px);
+  overflow:visible
+}
+:where(.participacion-integrada) .atlas-svg text {
+  font-family:Montserrat,Arial,sans-serif;
+  fill:var(--ink)
+}
+:where(.participacion-integrada) .sello-valor {
+  font-size:26px;
+  font-weight:600
+}
+:where(.participacion-integrada) .sello-etiqueta {
+  font-size:12px
+}
+:where(.participacion-integrada) .sello-nombre {
+  font-size:13px
+}
+:where(.participacion-integrada) .barra-nombre {
+  font-size:17px;
+  font-weight:550
+}
+:where(.participacion-integrada) .barra-valor {
+  font-size:19px;
+  font-weight:600
+}
+:where(.participacion-integrada) .barra-porcentaje {
+  font-size:21px;
+  fill:var(--green)!important;
+  font-weight:650
+}
+:where(.participacion-integrada) .escala-atlas {
+  font-size:12px;
+  fill:var(--quiet)!important
+}
+:where(.participacion-integrada) .unidad-morph {
+  transform-box:view-box;
+  transform-origin:0 0;
+  transform:translate(90px,var(--row));
+  cursor:pointer
+}
+:where(.participacion-integrada) .sello {
+  opacity:0
+}
+:where(.participacion-integrada) .registro-barra {
+  opacity:1
+}
+:where(.participacion-integrada) .conexiones {
+  color:var(--line);
+  opacity:0
+}
+:where(.participacion-integrada) .inspeccionada .registro-barra rect:last-of-type {
+  fill:var(--pine);
+  stroke:var(--ink);
+  stroke-width:2
+}
+:where(.participacion-integrada) .leyenda {
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+  align-items:center;
+  font-size:10px;
+  color:var(--quiet);
+  padding-top:16px;
+  border-top:1px solid var(--line)
+}
+:where(.participacion-integrada) .leyenda>span {
+  display:flex;
+  align-items:center;
+  gap:7px
+}
+:where(.participacion-integrada) .leyenda>span:last-child {
+  margin-left:auto
+}
+:where(.participacion-integrada) .leyenda i {
+  display:inline-block;
+  width:20px;
+  height:6px
+}
+:where(.participacion-integrada) .muestra-conv {
+  background:#c8d4c7
+}
+:where(.participacion-integrada) .muestra-asist {
+  background:var(--green)
+}
+:where(.participacion-integrada) .pie-fuente {
+  font-size:10px;
+  color:var(--quiet);
+  margin-top:15px;
+  line-height:1.6
+}
+:where(.participacion-integrada) .atlas-mobile {
+  display:none
+}
+:where(.participacion-integrada) .en-pausa * {
+  animation-play-state:paused!important
+}
+
+
+
+
+
+
+
+
+
+:where(.participacion-integrada) .escena-atlas[data-motor=esencial] .paso-narrativo {
+  min-height:0;
+  padding:35px 0
+}
+:where(.participacion-integrada) .escena-atlas[data-motor=esencial] .plano-analitico {
+  position:relative;
+  top:auto;
+  height:auto;
+  align-self:center
+}
+:where(.participacion-integrada) .inspeccion,:where(.participacion-integrada) .pulso,:where(.participacion-integrada) .laboratorio,:where(.participacion-integrada) .fuentes-editoriales {
+  padding:90px 0;
+  border-top:1px solid var(--line)
+}
+:where(.participacion-integrada) .cabecera-editorial {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:50px;
+  margin-bottom:50px
+}
+:where(.participacion-integrada) .cabecera-editorial>p,:where(.participacion-integrada) .cabecera-editorial>div>p:not(.folio) {
+  font-size:13px;
+  line-height:1.9;
+  color:var(--quiet);
+  max-width:370px
+}
+:where(.participacion-integrada) .cabecera-editorial label {
+  font-size:12px;
+  display:grid;
+  gap:10px;
+  min-width:230px
+}
+:where(.participacion-integrada) .cabecera-editorial select {
+  padding:13px;
+  background:var(--paper);
+  border:1px solid var(--quiet);
+  max-width:100%;
+  font-size:13px
+}
+:where(.participacion-integrada) .ecuacion {
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:35px;
+  margin-bottom:25px
+}
+:where(.participacion-integrada) .ecuacion dt {
+  font-size:11px;
+  color:var(--quiet);
+  margin-bottom:15px
+}
+:where(.participacion-integrada) .ecuacion dd {
+  font-size:clamp(25px,3vw,44px);
+  font-weight:500;
+  letter-spacing:-.05em;
+  color:var(--green);
+  margin:0
+}
+:where(.participacion-integrada) .tabla-scroll {
+  overflow:auto
+}
+:where(.participacion-integrada) table {
+  border-collapse:collapse;
+  width:100%;
+  font-size:12px
+}
+:where(.participacion-integrada) caption {
+  text-align:left;
+  font-size:11px;
+  line-height:1.8;
+  color:var(--quiet);
+  padding:14px 0
+}
+:where(.participacion-integrada) th,:where(.participacion-integrada) td {
+  padding:17px 12px;
+  text-align:right;
+  border-bottom:1px solid var(--line);
+  font-variant-numeric:tabular-nums
+}
+:where(.participacion-integrada) th:first-child,:where(.participacion-integrada) td:first-child {
+  text-align:left
+}
+:where(.participacion-integrada) thead th {
+  font-weight:650;
+  font-size:10px;
+  letter-spacing:.4px;
+  text-transform:uppercase
+}
+:where(.participacion-integrada) tbody th {
+  font-weight:500
+}
+:where(.participacion-integrada) .nota-evidencia {
+  font-size:12px;
+  line-height:1.9;
+  border-left:2px solid var(--green);
+  padding-left:18px;
+  margin-top:25px;
+  color:var(--quiet)
+}
+:where(.participacion-integrada) .cortes {
+  margin:20px -5vw;
+  padding:80px 5vw;
+  background:var(--pine);
+  color:white
+}
+:where(.participacion-integrada) .cortes .folio {
+  color:#c4e4cf
+}
+:where(.participacion-integrada) .revelacion {
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:45px;
+  align-items:center
+}
+:where(.participacion-integrada) .numero-diferencia {
+  font-size:clamp(110px,16vw,240px);
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.07em;
+  color:#d5e9d8
+}
+:where(.participacion-integrada) .revelacion p {
+  font-size:15px;
+  line-height:1.9;
+  max-width:600px;
+  color:#e0ece1;
+  margin-top:28px
+}
+:where(.participacion-integrada) .dos-cortes {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  border-top:1px solid #ffffff40;
+  border-bottom:1px solid #ffffff40;
+  padding:35px 0;
+  margin:50px 0 30px
+}
+:where(.participacion-integrada) .dos-cortes p {
+  display:grid;
+  gap:12px;
+  margin:0
+}
+:where(.participacion-integrada) .dos-cortes strong {
+  font-size:55px;
+  letter-spacing:-.05em;
+  font-weight:500
+}
+:where(.participacion-integrada) .dos-cortes p span {
+  font-size:12px;
+  color:#e0ece1
+}
+:where(.participacion-integrada) .vinculo-cortes {
+  display:grid;
+  text-align:center;
+  font-size:40px;
+  color:#e0ece1
+}
+:where(.participacion-integrada) .vinculo-cortes small {
+  font-size:10px;
+  max-width:160px;
+  line-height:1.8
+}
+:where(.participacion-integrada) .conclusion {
+  font-size:15px;
+  line-height:1.9;
+  max-width:900px;
+  margin:25px 0 0
+}
+:where(.participacion-integrada) .cortes .conclusion {
+  color:#e0ece1
+}
+:where(.participacion-integrada) .partitura {
+  display:flex;
+  gap:12px;
+  align-items:end;
+  border-bottom:1px solid var(--line);
+  padding:30px 0;
+  overflow:auto
+}
+:where(.participacion-integrada) .jornada {
+  display:flex;
+  flex:1;
+  min-width:50px;
+  flex-direction:column;
+  align-items:center;
+  gap:10px
+}
+:where(.participacion-integrada) .jornada-trazo {
+  width:4px;
+  background:var(--green)
+}
+:where(.participacion-integrada) .jornada strong {
+  font-size:13px;
+  font-weight:600
+}
+:where(.participacion-integrada) .jornada time {
+  font-size:10px;
+  color:var(--quiet);
+  white-space:nowrap
+}
+:where(.participacion-integrada) .descarga {
+  display:inline-block;
+  color:var(--pine);
+  font-size:12px;
+  padding:12px 0;
+  text-decoration:underline;
+  text-underline-offset:6px
+}
+:where(.participacion-integrada) .laboratorio>div.flex {
+  gap:45px
+}
+:where(.participacion-integrada) .laboratorio [data-slot=card] {
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  border:0;
+  border-top:1px solid var(--line);
+  padding-top:25px
+}
+:where(.participacion-integrada) .laboratorio [data-slot=card-content] {
+  padding-left:0;
+  padding-right:0
+}
+:where(.participacion-integrada) .laboratorio [data-slot=card-header] {
+  padding-left:0;
+  padding-right:0
+}
+:where(.participacion-integrada) .laboratorio [data-slot=card-title] {
+  font-size:17px;
+  font-weight:550
+}
+:where(.participacion-integrada) .laboratorio .grid-cols-3>[data-slot=card] {
+  border-top:0;
+  border-bottom:1px solid var(--line);
+  padding-bottom:20px
+}
+:where(.participacion-integrada) .laboratorio .grid-cols-3 [data-slot=card-content]>span {
+  background:transparent
+}
+:where(.participacion-integrada) .laboratorio .grid-cols-3 .font-bold {
+  font-weight:500
+}
+:where(.participacion-integrada) .laboratorio .titulo-seccion {
+  margin-top:25px
+}
+:where(.participacion-integrada) .laboratorio .titulo-seccion .eyebrow {
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--green)
+}
+:where(.participacion-integrada) .laboratorio .titulo-seccion h2 {
+  font-size:28px;
+  margin-top:12px
+}
+:where(.participacion-integrada) .laboratorio .flex-wrap>label {
+  max-width:100%
+}
+:where(.participacion-integrada) .laboratorio [data-slot=select-trigger] {
+  max-width:100%
+}
+:where(.participacion-integrada) .laboratorio input {
+  background:transparent
+}
+:where(.participacion-integrada) .sintesis {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
+  margin:55px 0
+}
+:where(.participacion-integrada) .sintesis article {
+  border-top:2px solid var(--green);
+  padding-top:24px
+}
+:where(.participacion-integrada) .sintesis p,:where(.participacion-integrada) .fuentes-editoriales details p {
+  font-size:13px;
+  line-height:1.9;
+  color:var(--quiet)
+}
+:where(.participacion-integrada) summary {
+  cursor:pointer;
+  color:var(--pine);
+  font-size:14px;
+  padding:16px 0
+}
+:where(.participacion-integrada) .hash {
+  overflow-wrap:anywhere
+}
+:where(.participacion-integrada) footer {
+  border-top:1px solid var(--line);
+  margin-top:55px;
+  padding-top:25px;
+  font-size:11px;
+  color:var(--quiet)
+}
+:where(.participacion-integrada) .controles-reunion {
+  position:sticky;
+  top:90px;
+  z-index:29;
+  background:#fff;
+  padding:10px 4vw;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  border-bottom:1px solid var(--line);
+  font-size:12px
+}
+:where(.participacion-integrada) .controles-reunion button {
+  padding:12px;
+  border:1px solid var(--line)
+}
+:where(.participacion-integrada) .modo-reunion .indice {
+  display:none
+}
+:where(.participacion-integrada) .modo-reunion main {
+  margin-left:0;
+  max-width:1800px;
+  margin-right:auto;
+  margin-left:auto
+}
+:where(.participacion-integrada) .modo-reunion p {
+  font-size:17px!important
+}
+:where(.participacion-integrada) .modo-reunion section {
+  scroll-margin-top:170px
+}
+@media(max-width:1100px) {
+  :where(.participacion-integrada) .indice {
+    display:none
+  }
+  :where(.participacion-integrada) main {
+    margin-left:0
+  }
+  :where(.participacion-integrada) .masthead {
+    gap:12px
+  }
+  :where(.participacion-integrada) .enlace-original {
+    display:none
+  }
+  :where(.participacion-integrada) .escena-atlas {
+    grid-template-columns:1fr 1.3fr;
+    gap:20px
+  }
+  :where(.participacion-integrada) h2 {
+    font-size:36px
+  }
+  :where(.participacion-integrada) .numero-portada {
+    font-size:90px
+  }
+  :where(.participacion-integrada) .portada-composicion {
+    gap:35px
+  }
+}
+@media(max-width:760px) {
+  :where(.participacion-integrada) .masthead {
+    height:auto;
+    min-height:100px;
+    padding:12px 18px;
+    align-items:start;
+    flex-direction:column;
+    gap:10px
+  }
+  :where(.participacion-integrada) .marca img {
+    height:32px
+  }
+  :where(.participacion-integrada) .marca {
+    font-size:9px
+  }
+  :where(.participacion-integrada) .modos {
+    align-self:stretch;
+    justify-content:space-between
+  }
+  :where(.participacion-integrada) .modos button {
+    font-size:11px;
+    flex:1;
+    padding:7px 9px
+  }
+  :where(.participacion-integrada) .indice {
+    position:relative;
+    display:flex;
+    top:auto;
+    left:auto;
+    width:auto;
+    overflow:auto;
+    padding:10px 18px;
+    gap:22px;
+    border-bottom:1px solid var(--line)
+  }
+  :where(.participacion-integrada) .indice a {
+    white-space:nowrap;
+    font-size:10px;
+    display:flex;
+    gap:8px;
+    align-items:center
+  }
+  :where(.participacion-integrada) .indice a span {
+    font-size:11px
+  }
+  :where(.participacion-integrada) main {
+    padding:0 22px
+  }
+  :where(.participacion-integrada) .apertura {
+    min-height:auto;
+    padding:50px 0 35px
+  }
+  :where(.participacion-integrada) .folio {
+    font-size:9px;
+    margin-bottom:24px
+  }
+  :where(.participacion-integrada) .portada-composicion {
+    display:block
+  }
+  :where(.participacion-integrada) h1 {
+    font-size:58px;
+    letter-spacing:-.065em
+  }
+  :where(.participacion-integrada) h2 {
+    font-size:34px
+  }
+  :where(.participacion-integrada) .bajada {
+    font-size:12px;
+    margin:22px 0
+  }
+  :where(.participacion-integrada) .pregunta {
+    font-size:16px
+  }
+  :where(.participacion-integrada) .cifra-portada {
+    border-left:0;
+    border-top:1px solid var(--line);
+    padding:25px 0 0;
+    margin-top:32px
+  }
+  :where(.participacion-integrada) .numero-portada {
+    font-size:90px
+  }
+  :where(.participacion-integrada) .cifra-portada p {
+    margin-top:20px
+  }
+  :where(.participacion-integrada) .pie-portada {
+    margin-top:35px;
+    flex-wrap:wrap;
+    font-size:10px
+  }
+  :where(.participacion-integrada) .pie-portada>span {
+    width:100%
+  }
+  :where(.participacion-integrada) .escena-atlas {
+    display:flex;
+    flex-direction:column;
+    gap:0
+  }
+  :where(.participacion-integrada) .paso-narrativo {
+    min-height:0!important;
+    padding:35px 0!important
+  }
+  :where(.participacion-integrada) .paso-narrativo p:not(.folio) {
+    font-size:14px;
+    line-height:1.9
+  }
+  :where(.participacion-integrada) .plano-analitico {
+    position:relative!important;
+    top:0;
+    height:auto;
+    min-height:0;
+    width:100%;
+    padding:20px 0
+  }
+  :where(.participacion-integrada) .atlas-svg {
+    display:none
+  }
+  :where(.participacion-integrada) .atlas-mobile {
+    display:grid;
+    gap:12px;
+    margin-top:25px
+  }
+  :where(.participacion-integrada) .atlas-mobile button {
+    text-align:left;
+    display:grid;
+    gap:8px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    min-height:80px
+  }
+  :where(.participacion-integrada) .atlas-mobile button[aria-pressed=true] {
+    border-bottom:2px dashed var(--green)
+  }
+  :where(.participacion-integrada) .atlas-mobile strong {
+    font-size:13px;
+    font-weight:600
+  }
+  :where(.participacion-integrada) .atlas-mobile span {
+    font-size:12px;
+    color:var(--quiet)
+  }
+  :where(.participacion-integrada) .barra-mobile {
+    height:8px;
+    background:#c8d4c7;
+    display:block
+  }
+  :where(.participacion-integrada) .barra-mobile i {
+    height:100%;
+    display:block;
+    background:var(--green)
+  }
+  :where(.participacion-integrada) .leyenda {
+    font-size:10px;
+    gap:10px
+  }
+  :where(.participacion-integrada) .leyenda>span:last-child {
+    width:100%;
+    margin-left:0
+  }
+  :where(.participacion-integrada) .cabecera-editorial {
+    display:block;
+    margin-bottom:28px
+  }
+  :where(.participacion-integrada) .cabecera-editorial label {
+    margin-top:25px;
+    min-width:0
+  }
+  :where(.participacion-integrada) .cabecera-editorial>p {
+    margin-top:20px
+  }
+  :where(.participacion-integrada) .inspeccion,:where(.participacion-integrada) .pulso,:where(.participacion-integrada) .laboratorio,:where(.participacion-integrada) .fuentes-editoriales {
+    padding:50px 0
+  }
+  :where(.participacion-integrada) .ecuacion {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px 15px
+  }
+  :where(.participacion-integrada) .ecuacion dt {
+    font-size:10px
+  }
+  :where(.participacion-integrada) .ecuacion dd {
+    font-size:30px
+  }
+  :where(.participacion-integrada) .tabla-scroll {
+    max-width:100%
+  }
+  :where(.participacion-integrada) .tabla-scroll table {
+    min-width:650px
+  }
+  :where(.participacion-integrada) .nota-evidencia {
+    font-size:12px
+  }
+  :where(.participacion-integrada) .cortes {
+    margin:0 -22px;
+    padding:50px 22px
+  }
+  :where(.participacion-integrada) .revelacion {
+    display:block
+  }
+  :where(.participacion-integrada) .numero-diferencia {
+    font-size:140px;
+    display:block;
+    margin-bottom:30px
+  }
+  :where(.participacion-integrada) .revelacion p {
+    font-size:14px
+  }
+  :where(.participacion-integrada) .dos-cortes {
+    gap:15px;
+    flex-wrap:wrap;
+    margin:35px 0 20px
+  }
+  :where(.participacion-integrada) .dos-cortes strong {
+    font-size:40px
+  }
+  :where(.participacion-integrada) .dos-cortes p span {
+    font-size:11px
+  }
+  :where(.participacion-integrada) .vinculo-cortes {
+    font-size:28px
+  }
+  :where(.participacion-integrada) .vinculo-cortes small {
+    font-size:9px;
+    max-width:100px
+  }
+  :where(.participacion-integrada) .conclusion {
+    font-size:14px
+  }
+  :where(.participacion-integrada) .partitura {
+    gap:16px
+  }
+  :where(.participacion-integrada) .jornada {
+    min-width:55px
+  }
+  :where(.participacion-integrada) .laboratorio .grid {
+    grid-template-columns:minmax(0,1fr)!important
+  }
+  :where(.participacion-integrada) .laboratorio [data-slot=card] {
+    min-width:0;
+    max-width:100%
+  }
+  :where(.participacion-integrada) .laboratorio [data-slot=card-content] {
+    padding:15px 0
+  }
+  :where(.participacion-integrada) .laboratorio .flex-wrap>label {
+    flex:1 1 230px;
+    min-width:0
+  }
+  :where(.participacion-integrada) .laboratorio .flex-wrap>label [data-slot=select-trigger] {
+    width:100%
+  }
+  :where(.participacion-integrada) .sintesis {
+    grid-template-columns:1fr;
+    gap:25px;
+    margin:35px 0
+  }
+  :where(.participacion-integrada) .controles-reunion {
+    top:104px;
+    flex-wrap:wrap;
+    gap:8px;
+    font-size:10px;
+    padding:8px
+  }
+  :where(.participacion-integrada) .modo-reunion p {
+    font-size:14px!important
+  }
+  :where(.participacion-integrada) section {
+    scroll-margin-top:130px
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .participacion-integrada {
+    scroll-behavior:auto!important
+  }
+  :where(.participacion-integrada) *,:where(.participacion-integrada) *::before,:where(.participacion-integrada) *::after {
+    animation:none!important;
+    transition:none!important
+  }
+  :where(.participacion-integrada) .unidad-morph {
+    transform:translate(90px,var(--row))!important
+  }
+  :where(.participacion-integrada) .sello,:where(.participacion-integrada) .conexiones {
+    opacity:0!important
+  }
+  :where(.participacion-integrada) .registro-barra {
+    opacity:1!important
+  }
+  :where(.participacion-integrada) .paso-narrativo {
+    min-height:0!important;
+    padding:30px 0!important
+  }
+  :where(.participacion-integrada) .plano-analitico {
+    position:relative!important;
+    top:auto!important;
+    height:auto!important
+  }
+}
+@media print {
+  :where(.participacion-integrada) .masthead,:where(.participacion-integrada) .indice,:where(.participacion-integrada) .modos,:where(.participacion-integrada) .controles-reunion,:where(.participacion-integrada) .saltar,:where(.participacion-integrada) .descarga {
+    display:none!important
+  }
+  :where(.participacion-integrada) main {
+    margin:0;
+    padding:0
+  }
+  :where(.participacion-integrada) .apertura {
+    min-height:0
+  }
+  :where(.participacion-integrada) .escena-atlas {
+    display:block
+  }
+  :where(.participacion-integrada) .paso-narrativo {
+    min-height:0;
+    padding:20px 0
+  }
+  :where(.participacion-integrada) .plano-analitico {
+    position:static;
+    height:auto
+  }
+  :where(.participacion-integrada) .unidad-morph {
+    animation:none!important;
+    transform:translate(90px,var(--row))!important
+  }
+  :where(.participacion-integrada) .sello,:where(.participacion-integrada) .conexiones {
+    display:none
+  }
+  :where(.participacion-integrada) .registro-barra {
+    opacity:1!important
+  }
+  :where(.participacion-integrada) .cortes {
+    margin:0;
+    color:#14281f;
+    background:white
+  }
+  :where(.participacion-integrada) .cortes p,:where(.participacion-integrada) .cortes .folio,:where(.participacion-integrada) .cortes span {
+    color:#14281f!important
+  }
+  :where(.participacion-integrada) .sintesis {
+    display:block
+  }
+  :where(.participacion-integrada) details>div,:where(.participacion-integrada) details>p {
+    display:block
+  }
+  :where(.participacion-integrada) section {
+    break-inside:auto
+  }
+  :where(.participacion-integrada) .cabecera-editorial h2 {
+    font-size:28px
+  }
+}
+/* Legibilidad institucional y contraste del explorador heredado. */
+.participacion-integrada {
+  --muted-foreground:#4e6257
+}
+:where(.participacion-integrada) .indice a {
+  font-size:12px
+}
+:where(.participacion-integrada) .marca {
+  font-size:11px
+}
+:where(.participacion-integrada) .modos button,:where(.participacion-integrada) .enlace-original {
+  font-size:12px
+}
+:where(.participacion-integrada) .folio {
+  font-size:11px
+}
+:where(.participacion-integrada) .cabecera-plano,:where(.participacion-integrada) .leyenda,:where(.participacion-integrada) .pie-fuente {
+  font-size:11px
+}
+:where(.participacion-integrada) .laboratorio .text-muted-foreground {
+  color:var(--quiet)
+}
+@media(max-width:760px) {
+  :where(.participacion-integrada) .indice a,:where(.participacion-integrada) .folio {
+    font-size:10px
+  }
+  :where(.participacion-integrada) .marca {
+    font-size:9px
+  }
+  :where(.participacion-integrada) .modos button {
+    font-size:11px
+  }
+  :where(.participacion-integrada) .leyenda {
+    font-size:10px
+  }
+}
+/* Los valores aparecen a contraste completo cuando finaliza su alineación. */
+
+
+
+
+
+@media(prefers-reduced-motion:reduce) {
+  :where(.participacion-integrada) .registro-barra {
+    visibility:visible!important
+  }
+  :where(.participacion-integrada) .sello {
+    visibility:hidden!important
+  }
+}
+
+
+
+:where(.participacion-integrada) [tabindex]:focus-visible {outline:3px solid var(--green);outline-offset:5px}
+@media(max-width:760px){:where(.participacion-integrada) h1{font-size:clamp(42px,13vw,58px)}:where(.participacion-integrada) .controles-reunion{top:113px}}
+@media(max-width:360px){:where(.participacion-integrada) .controles-reunion{top:124px}}
+@media(max-height:620px) and (min-width:761px){:where(.participacion-integrada) .paso-narrativo{min-height:0;padding:35px 0}:where(.participacion-integrada) .plano-analitico{position:relative;top:auto;height:auto;min-height:0;align-self:center}:where(.participacion-integrada) .atlas-svg{max-height:none}}
+/* Contorno legible de los convocados: no depende del gris de relleno. */
+:where(.participacion-integrada) .registro-barra rect:first-of-type{stroke:var(--quiet);stroke-width:1.5}
+:where(.participacion-integrada) .muestra-conv{border:1px solid var(--quiet)}
+:where(.participacion-integrada) .barra-mobile{outline:1px solid var(--quiet)}
+/* Ajuste V2.1: lectura, selección y transiciones continuas. */
+:where(.participacion-integrada) .marca{font-size:12px}:where(.participacion-integrada) .marca small{font-size:11px}:where(.participacion-integrada) .modos button,:where(.participacion-integrada) .enlace-original,:where(.participacion-integrada) .indice a{font-size:13px}
+:where(.participacion-integrada) .folio{font-size:12px}:where(.participacion-integrada) .bajada{font-size:15px}:where(.participacion-integrada) .pregunta{font-size:18px}
+:where(.participacion-integrada) .cifra-portada>span:not(.numero-portada),:where(.participacion-integrada) .cifra-portada small,:where(.participacion-integrada) .pie-portada{font-size:13px}
+:where(.participacion-integrada) .paso-narrativo p:not(.folio){font-size:16px}:where(.participacion-integrada) .paso-narrativo .margen{font-size:14px!important}:where(.participacion-integrada) .paso-narrativo a{font-size:14px}
+:where(.participacion-integrada) .cabecera-plano,:where(.participacion-integrada) .leyenda,:where(.participacion-integrada) .pie-fuente{font-size:12px}:where(.participacion-integrada) .cabecera-plano button{font-size:13px}
+:where(.participacion-integrada) .sello-nombre{font-size:17px}:where(.participacion-integrada) .sello-etiqueta{font-size:14px}:where(.participacion-integrada) .barra-nombre{font-size:20px}:where(.participacion-integrada) .barra-valor{font-size:22px}:where(.participacion-integrada) .barra-porcentaje{font-size:24px}:where(.participacion-integrada) .escala-atlas{font-size:14px}
+:where(.participacion-integrada) .cabecera-editorial>p,:where(.participacion-integrada) .cabecera-editorial>div>p:not(.folio){font-size:15px}:where(.participacion-integrada) .cabecera-editorial label{font-size:14px;min-width:290px}
+:where(.participacion-integrada) .ecuacion dt,:where(.participacion-integrada) caption{font-size:13px}:where(.participacion-integrada) table{font-size:14px}:where(.participacion-integrada) thead th{font-size:12px;letter-spacing:.25px}:where(.participacion-integrada) .nota-evidencia{font-size:14px}
+:where(.participacion-integrada) .sintesis p,:where(.participacion-integrada) .fuentes-editoriales details p{font-size:15px}:where(.participacion-integrada) .descarga,:where(.participacion-integrada) footer{font-size:13px}
+:where(.participacion-integrada) .laboratorio label>span{font-size:13px}:where(.participacion-integrada) .laboratorio .text-xs{font-size:13px}:where(.participacion-integrada) .laboratorio [data-slot=card-title]{font-size:19px}
+:where(.participacion-integrada) .experiencia [data-slot=select-trigger]{min-height:44px;font-size:14px;padding:10px 13px;border:1px solid #9aaa9b;border-radius:10px;background:#fbfbf7;box-shadow:0 1px 2px #14281f08;transition:border-color .18s,background-color .18s,box-shadow .18s}
+:where(.participacion-integrada) .experiencia [data-slot=select-trigger]:hover{border-color:var(--green);background:white}
+:where(.participacion-integrada) .experiencia [data-slot=select-trigger][aria-expanded=true]{border-color:var(--green);box-shadow:0 0 0 3px #007b3e18}
+:where(.participacion-integrada) .experiencia [data-slot=select-trigger]>svg{color:var(--pine);transition:transform .18s}
+:where(.participacion-integrada) .experiencia [data-slot=select-trigger][aria-expanded=true]>svg{transform:rotate(180deg)}
+:where(.participacion-integrada) .selector-documental{width:100%!important;margin-top:2px}
+:where(.participacion-integrada) .menu-institucional{padding:7px;background:#fbfbf7;color:var(--ink);border:1px solid #a6b5a7;border-radius:13px;box-shadow:0 12px 36px #14281f1c,0 2px 6px #14281f0b;max-width:min(30rem,calc(100vw - 24px));max-height:min(360px,var(--available-height));scrollbar-width:thin;scrollbar-color:#9aaa9b #f6f5ef}
+:where(.participacion-integrada) .menu-institucional [data-slot=select-item]{min-height:40px;padding:10px 34px 10px 12px;font-size:14px;line-height:1.5;border-radius:7px;color:var(--ink);cursor:pointer;transition:background-color .12s}
+:where(.participacion-integrada) .menu-institucional [data-slot=select-item][data-highlighted],:where(.participacion-integrada) .menu-institucional [data-slot=select-item]:focus{background:#e8efe7;color:var(--pine)}
+:where(.participacion-integrada) .menu-institucional [data-slot=select-item][aria-selected=true],:where(.participacion-integrada) .menu-institucional [data-slot=select-item][data-selected]{background:var(--pine);color:white;font-weight:550}
+:where(.participacion-integrada) .menu-institucional [data-slot^=select-scroll-]{background:#fbfbf7;color:var(--pine)}
+/* Los nodos viajan a su rango; el gráfico se descubre de izquierda a derecha. */
+@keyframes atlas-posicion{0%,12%{transform:translate(var(--x),var(--y))}55%,100%{transform:translate(90px,var(--row))}}
+@keyframes atlas-sello{0%,12%{transform:scale(1);clip-path:inset(0 0 0 0)}25%{clip-path:inset(0 0 0 0)}55%,100%{transform:scale(.45);clip-path:inset(0 0 100% 0)}}
+@keyframes atlas-registro{0%,35%{clip-path:inset(0 100% 0 0)}78%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes atlas-conexiones{0%{opacity:1}40%,100%{opacity:0}}
+@supports (animation-timeline:--atlas) and (animation-range:contain 0% contain 100%) and (timeline-scope:--atlas){
+:where(.participacion-integrada) .escena-atlas[data-motor=nativo] .unidad-morph{animation:atlas-posicion 1s cubic-bezier(.333333,0,.666667,1) both;animation-timeline:--atlas;animation-range:contain 0% contain 100%}
+:where(.participacion-integrada) .escena-atlas[data-motor=nativo] .sello{opacity:1;visibility:visible;animation:atlas-sello 1s linear both;animation-timeline:--atlas;animation-range:contain 0% contain 100%}
+:where(.participacion-integrada) .escena-atlas[data-motor=nativo] .registro-barra{opacity:1;visibility:visible;animation:atlas-registro 1s linear both;animation-timeline:--atlas;animation-range:contain 0% contain 100%}
+:where(.participacion-integrada) .escena-atlas[data-motor=nativo] .conexiones{animation:atlas-conexiones 1s linear both;animation-timeline:--atlas;animation-range:contain 0% contain 100%}
+}
+:where(.participacion-integrada) .escena-atlas[data-motor=compatible] .unidad-morph{transform:translate(calc(var(--x) * (1 - var(--movimiento,0)) + 90px * var(--movimiento,0)),calc(var(--y) * (1 - var(--movimiento,0)) + var(--row) * var(--movimiento,0)))}
+:where(.participacion-integrada) .escena-atlas[data-motor=compatible] .sello{opacity:1;visibility:visible;transform:scale(var(--escala-nodo,1));clip-path:inset(0 0 var(--corte-nodo,0%) 0)}
+:where(.participacion-integrada) .escena-atlas[data-motor=compatible] .registro-barra{opacity:1;visibility:visible;clip-path:inset(0 var(--corte-barra,100%) 0 0)}
+:where(.participacion-integrada) .escena-atlas[data-motor=compatible] .conexiones{opacity:var(--conexiones,1)}
+/* Jornadas: área común, barras de mayor ancho y cifras legibles. */
+:where(.participacion-integrada) .leyenda-jornadas{display:flex;justify-content:space-between;gap:20px;font-size:13px;line-height:1.7;color:var(--quiet);padding-bottom:18px;border-bottom:1px solid var(--line)}
+:where(.participacion-integrada) .partitura{padding:28px 0 25px;gap:16px;align-items:end}
+:where(.participacion-integrada) .jornada{gap:13px;min-width:64px}:where(.participacion-integrada) .jornada-area{height:260px;width:100%;display:flex;align-items:end;justify-content:center;border-bottom:1px solid #9aaa9b}
+:where(.participacion-integrada) .jornada-trazo{width:clamp(20px,2.8vw,42px);background:var(--green);border-radius:5px 5px 0 0;transform-origin:50% 100%}
+:where(.participacion-integrada) .jornada strong{font-size:17px}:where(.participacion-integrada) .jornada time{font-size:12px;white-space:nowrap}
+@keyframes jornada-entrada{from{transform:scaleY(.7)}to{transform:scaleY(1)}}
+@supports (animation-timeline:view()){
+:where(.participacion-integrada) .experiencia[data-motion=nativo] .jornada-trazo{animation:jornada-entrada 1s linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
+}
+@media(max-width:1100px){:where(.participacion-integrada) .marca{font-size:11px}:where(.participacion-integrada) .cabecera-editorial label{min-width:250px}}
+@media(max-width:760px){:where(.participacion-integrada) .marca{font-size:10px}:where(.participacion-integrada) .marca small{font-size:10px}:where(.participacion-integrada) .modos button,:where(.participacion-integrada) .indice a,:where(.participacion-integrada) .folio{font-size:12px}:where(.participacion-integrada) .cabecera-editorial label{min-width:0}:where(.participacion-integrada) .bajada{font-size:14px}:where(.participacion-integrada) .cifra-portada small,:where(.participacion-integrada) .pie-portada{font-size:12px}:where(.participacion-integrada) .paso-narrativo p:not(.folio){font-size:15px}:where(.participacion-integrada) .leyenda{font-size:12px}:where(.participacion-integrada) .atlas-mobile strong,:where(.participacion-integrada) .atlas-mobile span{font-size:14px}:where(.participacion-integrada) .cabecera-editorial>p{font-size:14px}:where(.participacion-integrada) .leyenda-jornadas{flex-wrap:wrap;gap:4px}:where(.participacion-integrada) .jornada{min-width:70px}:where(.participacion-integrada) .jornada-area{height:230px}:where(.participacion-integrada) .jornada-trazo{width:30px}:where(.participacion-integrada) .partitura{gap:15px}:where(.participacion-integrada) .jornada strong{font-size:16px}:where(.participacion-integrada) .jornada time{font-size:12px}:where(.participacion-integrada) .controles-reunion{position:relative;top:auto}:where(.participacion-integrada) .tabla-scroll table{min-width:720px}}
+@media(prefers-reduced-motion:reduce){:where(.participacion-integrada) .registro-barra{clip-path:none!important}:where(.participacion-integrada) .sello{clip-path:inset(0 0 100% 0)!important}:where(.participacion-integrada) .jornada-trazo{transform:none!important}}
+@media print{:where(.participacion-integrada) .registro-barra{clip-path:none!important}:where(.participacion-integrada) .jornada-trazo{transform:none!important}}
+/* La opción elegida conserva contraste también al recibir foco por teclado. */
+:where(.participacion-integrada) .menu-institucional [data-slot=select-item][aria-selected=true] *,
+:where(.participacion-integrada) .menu-institucional [data-slot=select-item][data-selected] *{color:#fff!important}
+:where(.participacion-integrada) .menu-institucional [data-slot=select-item]:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+:where(.participacion-integrada) .menu-institucional [data-slot=select-item][aria-selected=true]:focus-visible{outline-color:#d3e4d3}
+:where(.participacion-integrada) .leyenda>span:last-child{margin-left:0}
+:where(.participacion-integrada) .jornada-button{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;padding:0 2px 8px;border-radius:6px;color:var(--ink)}
+:where(.participacion-integrada) .jornada-button:hover .jornada-trazo,:where(.participacion-integrada) .jornada-button[aria-expanded=true] .jornada-trazo{background:var(--pine);outline:2px solid var(--green);outline-offset:3px}
+:where(.participacion-integrada) .unidad-jornada{font-size:11px;color:var(--quiet);margin-top:-7px}:where(.participacion-integrada) .jornada-button time{margin-top:3px}
+:where(.participacion-integrada) .detalle-jornada-tooltip{display:block!important;width:min(410px,calc(100vw - 28px));max-width:410px!important;max-height:min(650px,calc(100dvh - 150px));overflow-y:auto;background:#fbfbf7!important;color:var(--ink)!important;border:1px solid #9aaa9b;padding:20px!important;border-radius:12px;box-shadow:0 12px 32px #14281f26;font-size:13px}
+:where(.participacion-integrada) .detalle-jornada-tooltip>svg{display:none}:where(.participacion-integrada) .contenido-jornada h3{font-size:17px;margin:0 0 12px}:where(.participacion-integrada) .contenido-jornada .total-jornada{font-size:14px;line-height:1.6;margin:0 0 16px}:where(.participacion-integrada) .total-jornada strong{color:var(--green);font-size:22px}:where(.participacion-integrada) .contenido-jornada section{margin:0 0 15px;scroll-margin:0}:where(.participacion-integrada) .contenido-jornada h4{font-size:12px;color:var(--quiet);font-weight:600;margin:0 0 6px}:where(.participacion-integrada) .contenido-jornada ul{padding:0;list-style:none;margin:0}:where(.participacion-integrada) .contenido-jornada li{display:flex;justify-content:space-between;gap:20px;padding:5px 0;line-height:1.45;border-bottom:1px solid var(--line);font-size:12px}:where(.participacion-integrada) .contenido-jornada li span{overflow-wrap:anywhere}:where(.participacion-integrada) .contenido-jornada li strong{font-variant-numeric:tabular-nums;white-space:nowrap}:where(.participacion-integrada) .contenido-jornada .nota-jornada{font-size:12px;line-height:1.6;color:var(--quiet);margin:10px 0 0}
+:where(.participacion-integrada) .detalle-jornada-panel{border:1px solid var(--line);border-radius:10px;padding:25px;margin-top:24px;background:#fbfbf7;max-width:750px}:where(.participacion-integrada) .cerrar-jornada{float:right;padding:6px 10px;color:var(--pine);font-size:13px;text-decoration:underline}:where(.participacion-integrada) .detalle-jornada-panel .contenido-jornada li{font-size:14px}:where(.participacion-integrada) .detalle-jornada-panel .contenido-jornada h4{font-size:13px}
+@media(max-width:760px){:where(.participacion-integrada) .detalle-jornada-panel{padding:18px}:where(.participacion-integrada) .cerrar-jornada{float:none;margin-bottom:15px}:where(.participacion-integrada) .detalle-jornada-tooltip{max-height:65dvh}:where(.participacion-integrada) .jornada{min-width:76px}}
+/* Legibilidad: únicamente textos auxiliares y controles; títulos y cifras intactos. */
+.participacion-integrada{--texto-auxiliar:14px;--texto-control:15px}
+:where(.participacion-integrada) .marca small{font-size:12px}:where(.participacion-integrada) .modos button,:where(.participacion-integrada) .enlace-original,:where(.participacion-integrada) .indice a{font-size:var(--texto-auxiliar)}
+:where(.participacion-integrada) .folio{font-size:13px}:where(.participacion-integrada) .cabecera-plano,:where(.participacion-integrada) .leyenda,:where(.participacion-integrada) .pie-fuente,:where(.participacion-integrada) .pie-portada,:where(.participacion-integrada) .cifra-portada small,:where(.participacion-integrada) .cifra-portada>span:not(.numero-portada){font-size:var(--texto-auxiliar);line-height:1.65}
+:where(.participacion-integrada) .ecuacion dt,:where(.participacion-integrada) caption,:where(.participacion-integrada) thead th,:where(.participacion-integrada) .leyenda-jornadas,:where(.participacion-integrada) .descarga,:where(.participacion-integrada) footer,:where(.participacion-integrada) .dos-cortes p span,:where(.participacion-integrada) .vinculo-cortes small{font-size:var(--texto-auxiliar);line-height:1.65}
+:where(.participacion-integrada) .vinculo-cortes small{max-width:190px}:where(.participacion-integrada) .nota-evidencia{font-size:15px}:where(.participacion-integrada) .cabecera-editorial label{font-size:15px}
+:where(.participacion-integrada) .experiencia [data-slot=select-trigger],:where(.participacion-integrada) .menu-institucional [data-slot=select-item]{font-size:var(--texto-control)}
+:where(.participacion-integrada) .laboratorio label>span,:where(.participacion-integrada) .laboratorio .text-xs,:where(.participacion-integrada) .laboratorio .text-\[11px\],:where(.participacion-integrada) .laboratorio [data-slot=badge],:where(.participacion-integrada) .laboratorio [data-slot=card-description]{font-size:var(--texto-auxiliar);line-height:1.6}
+:where(.participacion-integrada) .laboratorio [data-slot=badge]{height:auto;min-height:25px}:where(.participacion-integrada) .laboratorio .recharts-text{font-size:13px}
+:where(.participacion-integrada) .jornada time{font-size:14px}:where(.participacion-integrada) .unidad-jornada{font-size:13px}:where(.participacion-integrada) .jornada{min-width:82px}:where(.participacion-integrada) .contenido-jornada h4,:where(.participacion-integrada) .contenido-jornada li,:where(.participacion-integrada) .contenido-jornada .nota-jornada,:where(.participacion-integrada) .detalle-jornada-panel .contenido-jornada h4{font-size:14px;line-height:1.6}
+:where(.participacion-integrada) .contenido-jornada .total-jornada,:where(.participacion-integrada) .detalle-jornada-panel .contenido-jornada li,:where(.participacion-integrada) .cerrar-jornada{font-size:15px}
+:where(.participacion-integrada) .detalle-jornada-tooltip{width:min(450px,calc(100vw - 28px));max-width:450px!important}
+/* El SVG se escala con su contenedor: ampliar sus rótulos menores compensa esa reducción. */
+:where(.participacion-integrada) .sello-etiqueta{font-size:18px}:where(.participacion-integrada) .sello-nombre{font-size:19px}:where(.participacion-integrada) .escala-atlas{font-size:17px}
+@media(max-width:760px){
+ :where(.participacion-integrada) .marca{font-size:11px}:where(.participacion-integrada) .marca small{font-size:12px}:where(.participacion-integrada) .modos button,:where(.participacion-integrada) .indice a,:where(.participacion-integrada) .folio{font-size:13px}
+ :where(.participacion-integrada) .pie-portada,:where(.participacion-integrada) .cifra-portada small,:where(.participacion-integrada) .leyenda,:where(.participacion-integrada) .pie-fuente,:where(.participacion-integrada) .cabecera-plano{font-size:14px}
+ :where(.participacion-integrada) .jornada{min-width:86px}:where(.participacion-integrada) .jornada time{font-size:14px}:where(.participacion-integrada) .unidad-jornada{font-size:13px}
+ :where(.participacion-integrada) .contenido-jornada li{gap:12px}:where(.participacion-integrada) .detalle-jornada-tooltip{padding:16px!important}
+ :where(.participacion-integrada) .controles-reunion{font-size:13px}:where(.participacion-integrada) .controles-reunion button{font-size:14px}
+ :where(.participacion-integrada) .dos-cortes p span,:where(.participacion-integrada) .vinculo-cortes small{font-size:13px}
+}
+:where(.participacion-integrada) .procedencia-porcentajes{margin-top:22px;border-top:1px solid var(--line)}:where(.participacion-integrada) .procedencia-porcentajes p{font-size:14px;line-height:1.8;color:var(--quiet);max-width:1000px}:where(.participacion-integrada) .procedencia-porcentajes summary{font-size:14px}
+:where(.participacion-integrada) .accion-editorial{display:inline-flex;align-items:center;gap:3px}:where(.participacion-integrada) .masthead>.control-edicion{order:4}:where(.participacion-integrada) .masthead .lapiz-editorial{flex-shrink:0}
+/* Una barra por lugar del encuentro; todas sus fechas permanecen visibles. */
+:where(.participacion-integrada) .partitura{grid-template-columns:repeat(7,minmax(120px,1fr));align-items:stretch}:where(.participacion-integrada) .jornada{min-width:120px}:where(.participacion-integrada) .jornada-button{height:100%}:where(.participacion-integrada) .fechas-jornada{display:flex;flex-wrap:wrap;justify-content:center;gap:3px 8px;min-height:42px;align-content:start}:where(.participacion-integrada) .jornada .fechas-jornada time{font-size:13px}:where(.participacion-integrada) .nombre-regional-jornada{font-size:14px;font-weight:600;line-height:1.5;min-height:44px;text-align:center}:where(.participacion-integrada) .jornada-trazo{width:clamp(30px,3.6vw,58px)}:where(.participacion-integrada) .nota-agrupacion{font-size:14px;line-height:1.8;color:var(--quiet)}:where(.participacion-integrada) .fechas-detalle{font-size:13px;line-height:1.7}:where(.participacion-integrada) .contenido-jornada .lapiz-editorial{vertical-align:middle}
+/* Mayor legibilidad de textos auxiliares, sin modificar títulos ni cifras. */
+.participacion-integrada{--texto-auxiliar:15px;--texto-control:16px}
+:where(.participacion-integrada) .marca small{font-size:14px}:where(.participacion-integrada) .marca{flex-shrink:0}:where(.participacion-integrada) .masthead{gap:16px;flex-wrap:wrap}:where(.participacion-integrada) .modos button,:where(.participacion-integrada) .enlace-original,:where(.participacion-integrada) .indice a{font-size:15px}:where(.participacion-integrada) .indice a{line-height:1.65}
+:where(.participacion-integrada) .cabecera-plano button,:where(.participacion-integrada) .controles-reunion,:where(.participacion-integrada) .controles-reunion button{font-size:15px}:where(.participacion-integrada) .nota-evidencia,:where(.participacion-integrada) .nota-agrupacion,:where(.participacion-integrada) .procedencia-porcentajes p,:where(.participacion-integrada) .procedencia-porcentajes summary,:where(.participacion-integrada) .fechas-detalle{font-size:15px;line-height:1.75}
+:where(.participacion-integrada) .jornada time,:where(.participacion-integrada) .jornada .fechas-jornada time{font-size:15px}:where(.participacion-integrada) .unidad-jornada{font-size:15px}:where(.participacion-integrada) .fechas-jornada{min-height:50px;gap:4px 10px}:where(.participacion-integrada) .nombre-regional-jornada{font-size:15px;min-height:48px}:where(.participacion-integrada) .jornada{min-width:132px}
+:where(.participacion-integrada) .contenido-jornada li,:where(.participacion-integrada) .contenido-jornada .nota-jornada{font-size:15px;line-height:1.7}:where(.participacion-integrada) .detalle-jornada-panel .contenido-jornada li{font-size:15px}:where(.participacion-integrada) .contenido-jornada .total-jornada{font-size:16px}:where(.participacion-integrada) .cerrar-jornada{font-size:15px}
+:where(.participacion-integrada) .procedencia-porcentajes table,:where(.participacion-integrada) .tabla-scroll table{font-size:15px}:where(.participacion-integrada) .laboratorio .text-sm{font-size:16px}:where(.participacion-integrada) .laboratorio .recharts-text{font-size:14px}:where(.participacion-integrada) .sello-etiqueta{font-size:20px}:where(.participacion-integrada) .escala-atlas{font-size:19px}
+@media(max-width:760px){:where(.participacion-integrada) .marca small{font-size:14px}:where(.participacion-integrada) .modos button,:where(.participacion-integrada) .indice a{font-size:15px}:where(.participacion-integrada) .pie-portada,:where(.participacion-integrada) .cifra-portada small,:where(.participacion-integrada) .leyenda,:where(.participacion-integrada) .pie-fuente,:where(.participacion-integrada) .cabecera-plano{font-size:15px}:where(.participacion-integrada) .dos-cortes p span,:where(.participacion-integrada) .vinculo-cortes small{font-size:15px}:where(.participacion-integrada) .controles-reunion,:where(.participacion-integrada) .controles-reunion button{font-size:15px}:where(.participacion-integrada) .jornada{min-width:132px}}
+/* Integración en el marco institucional: un solo menú y una sola cabecera global. */
+.participacion-integrada{--paper:var(--background);font-family:inherit}.participacion-integrada .masthead .marca{display:none}.participacion-integrada .masthead{position:relative;padding:14px 0;background:transparent}.participacion-integrada .indice{position:sticky;top:64px;left:auto;display:flex;flex-wrap:wrap;width:auto;gap:14px;border-bottom:1px solid var(--line);padding:12px 0;background:var(--background);z-index:25}.participacion-integrada .indice a{width:auto;display:flex;gap:7px}.participacion-integrada .contenido-narrativo{margin-left:0;padding:0;max-width:none}.participacion-integrada .experiencia{padding:0}.participacion-integrada .apertura{padding-top:40px}.participacion-integrada .sintesis{grid-template-columns:repeat(2,minmax(0,1fr))}.participacion-integrada .escena-atlas{gap:24px}.participacion-integrada .paso-narrativo h2{font-size:clamp(32px,3.2vw,52px)}.participacion-integrada .cabecera-editorial h2{font-size:clamp(32px,3.2vw,52px)}
+.participacion-integrada .apertura{min-height:0;padding:54px 0 30px}.participacion-integrada .pie-portada{margin-top:38px}
+html:has(.valoracion-integrada .ventana-respuestas[open]){overflow:hidden;scrollbar-gutter:stable}
+/* Barra única de navegación: el modo de presentación se abre cuando se necesita. */
+.participacion-integrada .barra-participacion{position:sticky;top:64px;z-index:30;background:var(--background);border-bottom:1px solid var(--line);isolation:isolate;margin:0 0 20px}
+.participacion-integrada .fila-navegacion-participacion{display:flex;align-items:center;gap:12px;min-height:52px}
+.participacion-integrada .indice{position:static;flex:1;min-width:0;margin:0;padding:10px 0;border:0;background:transparent;gap:8px 18px}
+.participacion-integrada .indice a{font-size:14px;line-height:1.6}.participacion-integrada .preferencias-presentacion{position:relative;flex-shrink:0}.participacion-integrada .preferencias-presentacion>summary{display:flex;align-items:center;gap:7px;list-style:none;border:1px solid var(--line);border-radius:8px;padding:8px 11px;font-size:14px;cursor:pointer;background:var(--background);color:var(--ink)}.participacion-integrada .preferencias-presentacion>summary::-webkit-details-marker{display:none}
+.participacion-integrada .preferencias-presentacion[open]>summary{background:#e8f1e9;border-color:#007b3e}.participacion-integrada .menu-presentacion{position:absolute;right:0;top:calc(100% + 8px);width:330px;max-width:calc(100vw - 32px);padding:16px;background:#fff;border:1px solid #cbd6cb;border-radius:12px;box-shadow:0 10px 28px #17372a26;color:#17372a}.participacion-integrada .menu-presentacion>p{margin:0 0 12px;font-size:14px;font-weight:600}
+.participacion-integrada .modos{display:flex;flex-direction:column;align-items:stretch;gap:5px;padding:0;border:0;background:transparent}.participacion-integrada .modos .accion-editorial{display:flex}.participacion-integrada .modos button{flex:1;text-align:left;padding:10px 12px;border-radius:7px;font-size:15px;background:#f7f9f6;border:1px solid transparent;color:#17372a}.participacion-integrada .modos button[aria-pressed=true]{background:#e6f1e8;border-color:#007b3e;color:#005b34;font-weight:600}
+.participacion-integrada .controles-reunion{position:static;margin:0;padding:10px 0;display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:10px;border-top:1px solid var(--line);background:transparent}.participacion-integrada .controles-reunion button{padding:7px 11px;border:1px solid var(--line);border-radius:7px;font-size:14px;background:#fff}.participacion-integrada .controles-reunion>span{font-size:14px}.participacion-integrada section{scroll-margin-top:200px}
+/* El portal del tooltip está fuera del módulo; sus estilos deben ser autónomos. */
+.detalle-jornada-tooltip{--ink:#17372a;--quiet:#4e6257;--line:#cbd6cb;--green:#007b3e;width:min(450px,calc(100vw - 32px));max-width:450px!important;max-height:min(620px,calc(100dvh - 130px));overflow-y:auto;padding:20px!important;border:1px solid #b8cbbb;border-radius:12px;background:#fbfcf8!important;color:#17372a!important;box-shadow:0 12px 32px #17372a26;font-family:var(--font-sans),Arial,sans-serif;font-size:15px;line-height:1.6}
+.detalle-jornada-tooltip>svg{display:none}.detalle-jornada-tooltip .contenido-jornada h3{font-size:17px;font-weight:600;margin:0 0 8px;color:#17372a}.detalle-jornada-tooltip .fechas-detalle{font-size:14px;margin:0 0 12px;color:#4e6257}.detalle-jornada-tooltip .total-jornada{font-size:15px;margin:0 0 16px}.detalle-jornada-tooltip .total-jornada strong{font-size:22px;color:#007b3e}.detalle-jornada-tooltip .contenido-jornada section{margin:0 0 16px}.detalle-jornada-tooltip .contenido-jornada h4{font-size:14px;font-weight:600;color:#4e6257;margin:0 0 6px}.detalle-jornada-tooltip .contenido-jornada ul{list-style:none;padding:0;margin:0}.detalle-jornada-tooltip .contenido-jornada li{display:flex;justify-content:space-between;align-items:start;gap:18px;padding:6px 0;border-bottom:1px solid #dce5dc;font-size:14px;line-height:1.6}.detalle-jornada-tooltip .contenido-jornada li span{min-width:0;overflow-wrap:anywhere}.detalle-jornada-tooltip .contenido-jornada li strong{flex-shrink:0;font-variant-numeric:tabular-nums}.detalle-jornada-tooltip .nota-jornada{font-size:14px;line-height:1.7;color:#4e6257;margin:12px 0 0}.detalle-jornada-tooltip .lapiz-editorial{vertical-align:middle}
+.detalle-jornada-tooltip{display:block!important}
+.detalle-jornada-tooltip>:not(.contenido-jornada){display:none!important}
+@media print{.participacion-integrada .barra-participacion{display:none!important}}

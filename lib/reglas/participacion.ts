@@ -34,7 +34,7 @@ export type CampoParticipacion =
   | "unidadTrabajador"
   // Se conserva en la base para trazabilidad, pero NUNCA se publica: no la
   // selecciona `consultarRegistros` ni está en `RegistroParticipacion`, así que
-  // no llega al cliente. Es la excepción a la anonimización (ver CLAUDE.md §2).
+  // no llega al cliente. Es la excepción a la anonimización.
   | "cedula";
 
 /**

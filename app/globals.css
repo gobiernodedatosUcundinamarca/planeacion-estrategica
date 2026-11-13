@@ -11,8 +11,8 @@
   media query de ancho, y por qué `transform` en vez de `zoom`). Sin esa clase
   (pantallas >= 1280, o navegadores de escritorio que ignoran el <meta
   viewport>), #app-frame-outer/#app-frame quedan sin estilos: el sitio se
-  comporta exactamente igual que hoy (fluido, hasta max-w-[1600px] en
-  AppShell).
+  comporta de forma fluida. AppShell aprovecha el ancho disponible con
+  márgenes exteriores simétricos.
 
   #app-frame-outer recorta el "hueco" que dejaría #app-frame al escalarse
   hacia adentro con transform (que no reduce el espacio reservado en el
@@ -28,6 +28,12 @@
   del contenido real. Se anula ese alto en % aquí para que html/body midan
   según su contenido real (el de #app-frame-outer, ya correcto).
 */
+/* Recupera el espacio antes reservado por el tope de 1600 px sin comprimir
+   el escritorio de 1280 px que también se utiliza en teléfonos. */
+.app-shell {
+  padding-inline: clamp(0px, calc((100vw - 1600px) / 16), 24px);
+}
+
 html.forzar-escritorio,
 html.forzar-escritorio body {
   height: auto;

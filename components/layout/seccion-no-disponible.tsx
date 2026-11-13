@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import Link from "next/link";
 import { ArrowLeft, Lock } from "lucide-react";
 
@@ -18,11 +19,9 @@ export function SeccionNoDisponible({ titulo }: { titulo: string }) {
         <span className="flex size-11 items-center justify-center rounded-xl bg-background text-muted-foreground">
           <Lock className="size-5" aria-hidden />
         </span>
-        <p className="font-heading text-base font-medium text-foreground">Esta sección no está disponible por ahora</p>
+        <p className="font-heading text-base font-medium text-foreground"><TextoEditorial id="4c4b71657bc53d969446" original={"Esta sección no está disponible por ahora"}/></p>
         <p className="max-w-md text-sm text-muted-foreground">
-          Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se
-          publique de nuevo.
-        </p>
+          <TextoEditorial id="a56930bd07cad3ed2795" original={"Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se publique de nuevo."}/></p>
         <Link
           href="/encuesta"
           className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"

@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import { esDistribucionLikert } from "@/lib/valoracion";
@@ -91,7 +92,7 @@ export function DistribucionValoracion({ pregunta }: { pregunta: PreguntaValorac
                         {d.nombre} de {ESCALA_MAX}
                       </p>
                       <p className="mt-1 text-muted-foreground">
-                        {formatNumero(d.valor)} personas · {formatPorcentaje(d.porcentaje)}
+                        {formatNumero(d.valor)} <TextoEditorial id="82107f44e4caf9215606" original={"personas ·"}/>{formatPorcentaje(d.porcentaje)}
                       </p>
                     </div>
                   );
@@ -101,7 +102,7 @@ export function DistribucionValoracion({ pregunta }: { pregunta: PreguntaValorac
           </ResponsiveContainer>
           <div className="pointer-events-none absolute inset-0 z-0 flex flex-col items-center justify-center">
             <span className="font-heading text-xl font-bold tabular-nums text-foreground">{formatNumero(total)}</span>
-            <span className="text-[10px] text-muted-foreground">respuestas</span>
+            <span className="text-[10px] text-muted-foreground"><TextoEditorial id="1f50c619b6a0b48adfe8" original={"respuestas"}/></span>
           </div>
         </div>
 

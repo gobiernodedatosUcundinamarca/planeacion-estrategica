@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -51,8 +52,7 @@ export function AportesAjustes({ respuestas }: { respuestas: RespuestaMomento4[]
   if (conAporte.length === 0) {
     return (
       <p className="py-8 text-center text-sm text-muted-foreground">
-        Ninguna respuesta con los filtros aplicados incluye un ajuste propuesto.
-      </p>
+        <TextoEditorial id="7827f80959df6c5acde3" original={"Ninguna respuesta con los filtros aplicados incluye un ajuste propuesto."}/></p>
     );
   }
 
@@ -83,8 +83,7 @@ export function AportesAjustes({ respuestas }: { respuestas: RespuestaMomento4[]
 
       <div className="flex items-center justify-between gap-3">
         <p className="text-xs text-muted-foreground">
-          {formatNumero(mostrados.length)} de {formatNumero(conAporte.length)} aportes
-        </p>
+          {formatNumero(mostrados.length)} de {formatNumero(conAporte.length)} <TextoEditorial id="d0226e169c1cbfb91848" original={"aportes"}/></p>
         {visibles < conAporte.length ? (
           <Button variant="outline" size="sm" onClick={() => setVisibles((v) => v + PASO * 2)}>
             Ver más aportes

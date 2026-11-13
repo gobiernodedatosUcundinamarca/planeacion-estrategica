@@ -1,7 +1,9 @@
 "use client";
 
+
+import {TextoEditorial,TextoDeCatalogo} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
-import { Building2, GraduationCap, MapPinned, UserCheck, X } from "lucide-react";
+import { GraduationCap, MapPinned, UserCheck, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -99,6 +101,9 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
   }, [registros, filtros]);
 
   const metricas = useMemo(() => calcularMetricas(filtrados), [filtrados]);
+  const [consulta, setConsulta] = useState("");
+  const [limite, setLimite] = useState(25);
+  const detalle = filtrados.filter(r => JSON.stringify([r.fechaInicio,r.lugarDesarrollo,etiquetaRol(r.rol),unidadRegionalDe(r),...adscripcionesDe(r)]).toLocaleLowerCase().includes(consulta.toLocaleLowerCase()));
   const hayFiltros = JSON.stringify(filtros) !== JSON.stringify(SIN_FILTROS);
 
   // Los filtros de un solo valor. `fechas` queda fuera a propósito: guarda una
@@ -257,7 +262,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         <KpiCard
           etiqueta="Asistentes registrados"
           valor={formatNumero(filtrados.length)}
@@ -276,12 +281,6 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
           detalle="Sedes, seccionales y extensiones"
           icono={MapPinned}
         />
-        <KpiCard
-          etiqueta="Programas, facultades y áreas"
-          valor={formatNumero(metricas.adscripciones)}
-          detalle="Dependencias representadas"
-          icono={Building2}
-        />
         {/* El número grande es el porcentaje y no el nombre del rol: la tarjeta
             usa tipografía de cifra, y un rol largo ("SIN VINCULACION ACTIVA")
             se desbordaría. El nombre va en el detalle, donde cabe. */}
@@ -299,10 +298,11 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
         />
       </div>
 
+      <div className="titulo-seccion"><div><p className="eyebrow"><TextoEditorial id="971c530ca34fc252c6ce" original={"DISTRIBUCIÓN Y EVOLUCIÓN"}/></p><h2><TextoEditorial id="124dc9df5124dc9841d5" original={"Las voces que estuvieron presentes"}/></h2></div></div>
       <div className="grid grid-cols-2 gap-4">
         <Card className="border-border/70">
           <CardHeader>
-            <CardTitle>Asistencia en el tiempo</CardTitle>
+            <CardTitle><TextoDeCatalogo texto="Asistencia en el tiempo"/></CardTitle>
           </CardHeader>
           <CardContent>
             {/* Con una sola fecha no hay evolución que dibujar: una curva de un
@@ -316,13 +316,13 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
                   {formatNumero(metricas.serieFechas[0].valor)}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  asistentes el{" "}
+                  <TextoEditorial id="029cbe1c8c4dd03b7eb9" original={"asistentes el"}/>{" "}
                   {formatoDiaLargo.format(new Date(`${metricas.serieFechas[0].fecha}T12:00:00`))}
                 </p>
               </div>
             ) : (
               <p className="py-8 text-center text-sm text-muted-foreground">
-                Ninguno de los registros del recorte trae una fecha de inicio reconocible.
+                <TextoEditorial id="6fde8adb2d92f9b64ed5" original={"No hay fechas de inicio disponibles para los registros seleccionados."}/>
               </p>
             )}
           </CardContent>
@@ -362,7 +362,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
 
         <Card className="border-border/70">
           <CardContent>
-            <RankedBarChart titulo="Distribución por edad" datos={metricas.porRangoEdad} ocultarAccion />
+            <RankedBarChart titulo="Distribución por edad" datos={metricas.porRangoEdad} />
           </CardContent>
         </Card>
       </div>
@@ -386,6 +386,12 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
           />
         </CardContent>
       </Card>
+      <Card><CardHeader><CardTitle><TextoDeCatalogo texto="Detalle de los registros de asistencia"/></CardTitle></CardHeader><CardContent>
+        <label><TextoEditorial id="e66ed419a50cc1e2f98d" original={"Buscar por fecha, lugar, rol, unidad o dependencia"}/><input value={consulta} onChange={e=>{setConsulta(e.target.value);setLimite(25)}} placeholder="Buscar en los registros seleccionados" className="my-3 w-full rounded-lg border p-3"/></label>
+        <p className="text-xs text-muted-foreground">{detalle.length.toLocaleString('es-CO')} <TextoEditorial id="cd8ea56d370f1c9ed70b" original={"registros coincidentes. Una persona puede registrar asistencia en varias jornadas."}/></p>
+        <div className="overflow-auto" tabIndex={0} role="region" aria-label="Registros de asistencia con desplazamiento horizontal"><table><thead><tr><th><TextoEditorial id="597e92baa6160630e71d" original={"Registro"}/></th><th><TextoEditorial id="9a73d3b22d84337c1a10" original={"Fecha"}/></th><th><TextoEditorial id="cf2816548472b9eacdab" original={"Lugar"}/></th><th><TextoEditorial id="f9940728b543cca2165d" original={"Rol"}/></th><th><TextoEditorial id="6248800ec7813ceac6e3" original={"Edad"}/></th><th><TextoEditorial id="875a9acc40b6ae440ef5" original={"Unidad regional"}/></th><th><TextoEditorial id="f553b4b8e5394a40059e" original={"Programa / facultad / coordinación / área"}/></th></tr></thead><tbody>{detalle.slice(0,limite).map(r=><tr key={r.id}><td>{r.id}</td><td>{r.fechaInicio||'Sin especificar'}</td><td>{r.lugarDesarrollo||'Sin especificar'}</td><td>{etiquetaRol(r.rol)}</td><td>{r.edad??'Sin especificar'}</td><td>{unidadRegionalDe(r)}</td><td>{adscripcionesDe(r).join('; ')}</td></tr>)}</tbody></table></div>
+        {limite<detalle.length?<Button className="mt-4" onClick={()=>setLimite(n=>n+100)}>Mostrar más registros</Button>:null}
+      </CardContent></Card>
     </div>
   );
 }

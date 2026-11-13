@@ -1,0 +1,28 @@
+/* Se conservan todos los textos en el DOM, la búsqueda del navegador y el árbol
+   accesible. Solo se difiere el dibujo/layout de tarjetas alejadas de la pantalla.
+   Sin soporte, el navegador presenta la lista completa de forma convencional. */
+.comentarios-originales-optimizados {
+  contain: layout style;
+}
+
+.comentarios-originales-optimizados > li {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 160px;
+}
+
+/* El marco de escritorio escalado cambia las coordenadas de visibilidad en
+   WebKit móvil. Allí se conserva el dibujo normal para no dejar tarjetas vacías. */
+html.forzar-escritorio .comentarios-originales-optimizados > li {
+  content-visibility: visible;
+  contain-intrinsic-block-size: none;
+  contain: layout style;
+}
+
+@media print {
+  .comentarios-originales-optimizados,
+  .comentarios-originales-optimizados > li {
+    content-visibility: visible;
+    contain-intrinsic-block-size: none;
+    contain: none;
+  }
+}

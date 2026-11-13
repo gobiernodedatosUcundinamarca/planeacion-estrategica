@@ -1,4 +1,7 @@
 import "server-only";
+import type { ResultadoClasificacionDocumental, MetodoClasificacion, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
+import { consultarReferenciasDocumentales, consultarResumenFuentes } from "./referencias-documentales-almacen";
+import { consultarClasificacionDocumental } from "./clasificacion-documental-almacen";
 import type {
   ClusterComentarios,
   DocumentoMomento4,
@@ -30,6 +33,12 @@ import {
  * sobre "server-only" allí).
  */
 export class PostgresMomento4DataSource implements Momento4DataSource {
+  getClasificacionDocumental(metodo: MetodoClasificacion = "aportes-plan"): Promise<ResultadoClasificacionDocumental> {
+    return metodo === "aportes-plan" ? consultarClasificacionDocumental(conexionSql()) : consultarReferenciasDocumentales(conexionSql(), metodo);
+  }
+  getResumenFuentesClasificacion(): Promise<ResumenFuentesClasificacion> {
+    return consultarResumenFuentes(conexionSql());
+  }
   getDocumentos(): Promise<DocumentoMomento4[]> {
     return consultarDocumentos(conexionSql());
   }

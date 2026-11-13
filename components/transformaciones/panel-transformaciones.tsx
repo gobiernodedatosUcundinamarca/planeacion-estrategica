@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { MessageSquareQuote, ThumbsUp, Users2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -135,9 +136,11 @@ const SIN_FILTROS: Filtros = {
 export function PanelTransformaciones({
   respuestas,
   clusters,
+  mostrarComentarios = true,
 }: {
   respuestas: RespuestaMomento4[];
   clusters: ClusterComentarios[];
+  mostrarComentarios?: boolean;
 }) {
   const [filtros, setFiltros] = useState<Filtros>(SIN_FILTROS);
 
@@ -225,6 +228,7 @@ export function PanelTransformaciones({
   // transformación, la nube muestra el vocabulario de ese recorte y no el del
   // total, que es lo que hace útil mirarla junto a los filtros.
   const nube = useMemo(() => {
+    if (!mostrarComentarios) return { palabras: [], total: 0 };
     const textos = filtradas
       .map((r) => r.ajustes)
       .filter((t): t is string => Boolean(t && t.trim()));
@@ -237,7 +241,7 @@ export function PanelTransformaciones({
       }),
       total: textos.length,
     };
-  }, [filtradas]);
+  }, [filtradas, mostrarComentarios]);
   const hayFiltros = JSON.stringify(filtros) !== JSON.stringify(SIN_FILTROS);
 
   function actualizar(campo: keyof Filtros, valor: string) {
@@ -262,8 +266,11 @@ export function PanelTransformaciones({
           qué recorte se está mirando. */}
       <Card className="gap-0 border-border/70 py-3">
         <CardContent className="flex flex-wrap items-end gap-3">
+          {/* Son filtros de la página, no diálogos: mantener el fondo disponible
+              evita bloquear y recalcular miles de comentarios en cada apertura. */}
           <Campo etiqueta="Transformación">
             <Select
+              modal={false}
               value={filtros.transformacion}
               onValueChange={(v) => actualizar("transformacion", v ?? TODAS)}
             >
@@ -294,6 +301,7 @@ export function PanelTransformaciones({
               {/* Admite varias: es normal querer ver dos jornadas juntas sin
                   tener que mirarlas de a una o pasar al total. */}
               <Select
+                modal={false}
                 multiple
                 value={filtros.fechas}
                 onValueChange={(v) => setFiltros((previos) => ({ ...previos, fechas: v ?? [] }))}
@@ -318,6 +326,7 @@ export function PanelTransformaciones({
 
           <Campo etiqueta="Tipo de actor">
             <Select
+              modal={false}
               value={filtros.tipoActor}
               onValueChange={(v) => actualizar("tipoActor", v ?? TODAS)}
             >
@@ -341,6 +350,7 @@ export function PanelTransformaciones({
 
           <Campo etiqueta="Unidad Regional">
             <Select
+              modal={false}
               value={filtros.unidadRegional}
               onValueChange={(v) => actualizar("unidadRegional", v ?? TODAS)}
             >
@@ -368,6 +378,7 @@ export function PanelTransformaciones({
           {opciones.programasGraduado.length > 0 ? (
             <Campo etiqueta="Programa del graduado">
               <Select
+                modal={false}
                 value={filtros.programaGraduado}
                 onValueChange={(v) => actualizar("programaGraduado", v ?? TODAS)}
               >
@@ -392,6 +403,7 @@ export function PanelTransformaciones({
 
           <Campo etiqueta="¿Responde a lo que se necesita?">
             <Select
+              modal={false}
               value={filtros.respaldo}
               onValueChange={(v) => actualizar("respaldo", v ?? TODAS)}
             >
@@ -466,7 +478,7 @@ export function PanelTransformaciones({
       <div className="grid grid-cols-2 gap-4">
         <Card className="border-border/70">
           <CardHeader>
-            <CardTitle>¿La transformación responde a lo que se necesita?</CardTitle>
+            <CardTitle><TextoEditorial id="126eb722fbb369ac03e3" original={"¿La transformación responde a lo que se necesita?"}/></CardTitle>
           </CardHeader>
           <CardContent>
             <DistribucionRespaldo conteos={metricas.conteos} />
@@ -475,7 +487,7 @@ export function PanelTransformaciones({
 
         <Card className="border-border/70">
           <CardHeader>
-            <CardTitle>Respaldo por transformación</CardTitle>
+            <CardTitle><TextoEditorial id="37fa0b8182148eee4457" original={"Respaldo por transformación"}/></CardTitle>
           </CardHeader>
           <CardContent>
             <RespaldoPorTransformacion filas={metricas.porTransformacion} />
@@ -533,9 +545,9 @@ export function PanelTransformaciones({
         </Card>
       ) : null}
 
-      <Card className="border-border/70">
+      {mostrarComentarios ? <Card className="border-border/70">
         <CardHeader>
-          <CardTitle>¿Qué ajustarían en esta transformación?</CardTitle>
+          <CardTitle><TextoEditorial id="438ca5274849bb05119b" original={"¿Qué ajustarían en esta transformación?"}/></CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-5">
           {MOSTRAR_CLASIFICACION_TEMAS ? (
@@ -557,7 +569,7 @@ export function PanelTransformaciones({
 
           <AportesAjustes respuestas={filtradas} />
         </CardContent>
-      </Card>
+      </Card> : null}
 
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useRef, useState } from "react";
 import { Check, Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -59,11 +60,9 @@ export function MatrizParticipantes({ datos }: { datos: CaiData }) {
       <CardHeader>
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <CardTitle className="text-base">Detalle por participante</CardTitle>
+            <CardTitle className="text-base"><TextoEditorial id="8f959dd56dd431ba3d57" original={"Detalle por participante"}/></CardTitle>
             <p className="mt-1 text-xs text-muted-foreground">
-              ✓ actividad finalizada · ✗ no finalizada · reincidente = {UMBRAL_REINCIDENCIA} o más
-              actividades sin finalizar
-            </p>
+              <TextoEditorial id="4ca46e4848c8bc6ab44e" original={"✓ actividad finalizada · ✗ no finalizada · reincidente ="}/>{UMBRAL_REINCIDENCIA} <TextoEditorial id="bf9c6ddb130f7690508e" original={"o más actividades sin finalizar"}/></p>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-xs">
             <span
@@ -73,13 +72,13 @@ export function MatrizParticipantes({ datos }: { datos: CaiData }) {
                 background: "color-mix(in srgb, var(--estado-pendiente) 10%, transparent)",
               }}
             >
-              Reincidentes:{" "}
+              <TextoEditorial id="845f9c45ec07cfd43b47" original={"Reincidentes:"}/>{" "}
               <span className="tabular-nums">
                 {formatNumero(resumen.reincidentes)} ({formatPorcentaje(resumen.porcentajeReincidentes)})
               </span>
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-secondary px-3 py-1 font-medium text-secondary-foreground">
-              No reincidentes:{" "}
+              <TextoEditorial id="a44258e62028bf71dec6" original={"No reincidentes:"}/>{" "}
               <span className="tabular-nums">
                 {formatNumero(resumen.noReincidentes)} ({formatPorcentaje(resumen.porcentajeNoReincidentes)})
               </span>
@@ -120,8 +119,7 @@ export function MatrizParticipantes({ datos }: { datos: CaiData }) {
                   rowSpan={2}
                   className="sticky left-0 z-10 bg-muted px-3 py-2 text-left font-semibold"
                 >
-                  Participante
-                </th>
+                  <TextoEditorial id="ef4ae3e0cb75975b0068" original={"Participante"}/></th>
                 {grupos.map((g) => (
                   <th
                     key={g.etiqueta}
@@ -133,8 +131,7 @@ export function MatrizParticipantes({ datos }: { datos: CaiData }) {
                   </th>
                 ))}
                 <th scope="col" rowSpan={2} className="border-l border-border px-3 py-2 text-right font-semibold">
-                  % finalización
-                </th>
+                  <TextoEditorial id="2e0a3f38f58ae2b75b73" original={"% finalización"}/></th>
               </tr>
               <tr className="border-b border-border bg-muted/60 text-xs text-muted-foreground">
                 {datos.actividades.map((a) => {

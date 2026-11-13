@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -82,14 +83,13 @@ export default async function AnaliticaMomentoDetallePage({ params }: PageProps)
           <p className="text-xs text-muted-foreground">
             {datos.preguntasValoracion.every((p) => esDistribucionLikert(p.distribucion)) ? (
               <>
-                Cada gráfico resume las respuestas en una escala de valoración de{" "}
-                <span className="font-medium text-foreground">1 (Muy bajo)</span> a{" "}
-                <span className="font-medium text-foreground">5 (Muy alto)</span>.
+                <TextoEditorial id="58eceb689fbf8c3ad8ee" original={"Cada gráfico resume las respuestas en una escala de valoración de"}/>{" "}
+                <span className="font-medium text-foreground"><TextoEditorial id="833f95bca89a0074866c" original={"1 (Muy bajo)"}/></span> a{" "}
+                <span className="font-medium text-foreground"><TextoEditorial id="6fa6ad75971ac5996b7f" original={"5 (Muy alto)"}/></span>.
               </>
             ) : (
               <>
-                Valoraciones en una escala de <span className="font-medium text-foreground">1 a 5</span> (5 = máximo);
-                los promedios se muestran como puntaje sobre 5.
+                <TextoEditorial id="d5c57b0c1504b3894a43" original={"Valoraciones en una escala de"}/> <span className="font-medium text-foreground"><TextoEditorial id="a6d692e4a67e801c6ebd" original={"1 a 5"}/></span> <TextoEditorial id="3f5803049e0961d382b4" original={"(5 = máximo); los promedios se muestran como puntaje sobre 5."}/>
               </>
             )}
           </p>
@@ -117,8 +117,7 @@ export default async function AnaliticaMomentoDetallePage({ params }: PageProps)
         <section aria-label="Publicaciones del foro">
           <h2 className="mb-3 flex items-center gap-2 font-heading text-lg font-semibold text-foreground">
             <Users className="size-4 text-primary" aria-hidden />
-            Publicaciones
-          </h2>
+            <TextoEditorial id="6c75dbe62805e46e1f82" original={"Publicaciones"}/></h2>
           <FeedForo publicaciones={datos.publicacionesForo} />
         </section>
       ) : null}

@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
 import { PanelIaAdministrativos } from "@/components/ia-administrativos/panel-ia-administrativos";
@@ -37,23 +38,21 @@ export default async function IaAdministrativosPage() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-bold text-foreground">{TITULO_IA_ADMINISTRATIVOS}</h1>
-        <p className="text-sm text-muted-foreground">{SUBTITULO_IA_ADMINISTRATIVOS}</p>
+        <h1 className="font-heading text-2xl font-bold text-foreground"><TextoEditorial id="dc97e86e3758dc180b48" original={"Uso de IA en procesos administrativos"}/></h1>
+        <p className="text-sm text-muted-foreground"><TextoEditorial id="af25a99da1c1b912ef72" original={"Encuesta diagnóstica sobre uso de Inteligencia Artificial en procesos administrativos: cuánto y cómo se usa, qué competencias se tienen, qué la frena y qué apoyo se necesita."}/></p>
       </header>
 
       {error ? (
         <div className="flex items-start gap-2.5 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm">
           <AlertTriangle className="mt-0.5 size-4 shrink-0 text-destructive" aria-hidden />
           <div>
-            <p className="font-medium text-foreground">No se pudieron cargar las respuestas.</p>
+            <p className="font-medium text-foreground"><TextoEditorial id="098b9bef77134da18b6d" original={"No se pudieron cargar las respuestas."}/></p>
             <p className="text-muted-foreground">{error}</p>
           </div>
         </div>
       ) : vista.respuestas.length === 0 ? (
         <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          Todavía no hay respuestas cargadas. Se publican subiendo el Excel de Forms desde la vista de
-          administración.
-        </p>
+          <TextoEditorial id="21ea37ee0f46b8a925cc" original={"Todavía no hay respuestas cargadas. Se publican subiendo el Excel de Forms desde la vista de administración."}/></p>
       ) : (
         <PanelIaAdministrativos respuestas={vista.respuestas} temas={vista.temas} />
       )}

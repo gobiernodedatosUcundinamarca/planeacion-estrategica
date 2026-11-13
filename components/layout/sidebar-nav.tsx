@@ -1,7 +1,9 @@
 "use client";
 
+import {EtiquetaEditorial,LapizDeCatalogo} from "@/components/editorial/texto-editorial";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,11 +11,12 @@ import { NAVEGACION, type ItemNavegacion } from "@/constants/navegacion";
 
 export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
+  const navegacion = useRef<HTMLElement>(null);
 
   // Qué secciones condicionales están publicadas. Se pide desde el cliente y no
   // desde el layout porque el layout es compartido por todo el panel: leer la
   // base ahí convertiría en dinámicas todas las páginas, hoy estáticas.
-  const { data: publicadas } = useQuery({
+  const { data: publicadas, isPending } = useQuery({
     queryKey: ["secciones-publicadas"],
     queryFn: async () => {
       const res = await fetch("/api/secciones");
@@ -41,8 +44,51 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
     .filter((item) => pathname === item.href || pathname.startsWith(`${item.href}/`))
     .sort((a, b) => b.href.length - a.href.length)[0]?.href;
 
+  useEffect(() => {
+    const menu = navegacion.current;
+    const contenedor = menu?.closest<HTMLElement>('[data-scroll-navegacion]');
+    if (!menu || !contenedor || isPending || !hrefActivo) return;
+    let vigente = true;
+    let pendiente: number | null = null;
+
+    function mostrarSeleccion() {
+      if (!menu || !contenedor || !contenedor.clientHeight) return;
+      const seleccionado = menu.querySelector<HTMLElement>('[aria-current="page"]');
+      if (!seleccionado) return;
+      const limite = contenedor.getBoundingClientRect();
+      const tarjeta = seleccionado.getBoundingClientRect();
+      // Los teléfonos escalan el escritorio; scrollTop sigue usando píxeles sin escalar.
+      const escala = limite.height / contenedor.clientHeight;
+      if (!escala) return;
+      if (tarjeta.top >= limite.top + 12 * escala && tarjeta.bottom <= limite.bottom - 12 * escala) return;
+      const altura = tarjeta.height / escala;
+      const espacio = altura + 24 < contenedor.clientHeight ? (contenedor.clientHeight - altura) / 2 : 12;
+      const destino = contenedor.scrollTop + (tarjeta.top - limite.top) / escala - espacio;
+      contenedor.scrollTo({
+        top: Math.max(0, Math.min(destino, contenedor.scrollHeight - contenedor.clientHeight)),
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      });
+    }
+
+    function programar() {
+      if (!vigente || pendiente !== null) return;
+      pendiente = requestAnimationFrame(() => { pendiente = null; mostrarSeleccion(); });
+    }
+
+    programar();
+    void document.fonts?.ready.then(programar);
+    const observador = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(programar);
+    observador?.observe(menu);
+    observador?.observe(contenedor);
+    return () => {
+      vigente = false;
+      if (pendiente !== null) cancelAnimationFrame(pendiente);
+      observador?.disconnect();
+    };
+  }, [hrefActivo, isPending, publicadas]);
+
   return (
-    <nav className="flex flex-col gap-1 px-3" aria-label="Navegación principal">
+    <nav ref={navegacion} className="flex flex-col gap-1 px-3" aria-label="Navegación principal">
       {NAVEGACION.map((item) => {
         const habilitado = estaHabilitado(item);
         const activo = habilitado && item.href === hrefActivo;
@@ -56,14 +102,14 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
               <Lock className="size-[18px] shrink-0" aria-hidden />
             )}
             <span className="flex flex-col leading-tight">
-              <span>{item.etiqueta}</span>
+              <span><EtiquetaEditorial texto={item.etiqueta}/></span>
               <span
                 className={cn(
                   "text-xs font-normal",
                   activo ? "text-primary-foreground/80" : "text-muted-foreground"
                 )}
               >
-                {habilitado ? item.descripcion : "No disponible por ahora"}
+                {habilitado ? <EtiquetaEditorial texto={item.descripcion}/> : "No disponible por ahora"}
               </span>
             </span>
           </>
@@ -94,7 +140,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
         }
 
         return (
-          <Link
+          <div className="nav-editorial" key={item.href}><Link
             key={item.href}
             href={item.href}
             onClick={onNavigate}
@@ -102,7 +148,7 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             className={clases}
           >
             {contenido}
-          </Link>
+          </Link><div className="nav-lapices"><LapizDeCatalogo texto={item.etiqueta}/><LapizDeCatalogo texto={item.descripcion}/></div></div>
         );
       })}
     </nav>

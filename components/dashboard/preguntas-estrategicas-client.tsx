@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useMemo, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -103,10 +104,9 @@ export function PreguntasEstrategicasClient({
       {otroFiltradas.length > 0 ? (
         <Card className="py-3">
           <CardHeader className="px-3.5 pb-1">
-            <CardTitle className="text-[13px]">Respuestas abiertas (&ldquo;Otro&rdquo;)</CardTitle>
+            <CardTitle className="text-[13px]"><TextoEditorial id="071d051a37ce2882d33f" original={"Respuestas abiertas (&ldquo;Otro&rdquo;)"}/></CardTitle>
             <p className="text-[11px] text-muted-foreground">
-              Texto libre genuino fuera de las opciones cerradas — {otroFiltradas.length} respuestas en total.
-            </p>
+              <TextoEditorial id="84411575f0daff135e5e" original={"Texto libre genuino fuera de las opciones cerradas —"}/>{otroFiltradas.length} <TextoEditorial id="bed15ef130f06b6a0c6d" original={"respuestas en total."}/></p>
           </CardHeader>
           <CardContent className="px-3.5">
             <OtroPanel

@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useState } from "react";
 import { Activity, CalendarRange, Percent, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,10 +45,9 @@ export function PanelSeguimiento({ datos }: { datos: CaiData }) {
           {/* Anillo de avance general */}
           <Card>
             <CardHeader className="items-center text-center">
-              <CardTitle className="text-base">Avance general de participación</CardTitle>
+              <CardTitle className="text-base"><TextoEditorial id="cd5463d981e41240028d" original={"Avance general de participación"}/></CardTitle>
               <p className="text-xs text-muted-foreground">
-                Porcentaje de actividades finalizadas sobre el total de registros persona × actividad
-              </p>
+                <TextoEditorial id="a84cccccd9c171d355e7" original={"Porcentaje de actividades finalizadas sobre el total de registros persona × actividad"}/></p>
             </CardHeader>
             <CardContent className="pb-8">
               <DonutAvance

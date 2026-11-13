@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { motion, useReducedMotion } from "framer-motion";
 import { CalendarDays, MapPin, Star, Users, Video, Eye, ExternalLink } from "lucide-react";
 import { AvatarConferencista } from "@/components/conferencistas/avatar-conferencista";
@@ -95,8 +96,7 @@ export function ConferencistaCard({
             </div>
             {esGrupo ? (
               <span className="shrink-0 rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-foreground">
-                Grupo
-              </span>
+                <TextoEditorial id="135652dce24e13601d43" original={"Grupo"}/></span>
             ) : null}
           </div>
           {/* La card mide ~25% del carrusel (siempre 4 visibles, ver
@@ -142,8 +142,7 @@ export function ConferencistaCard({
               className="text-[11.5px] font-semibold tracking-wide uppercase opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               style={{ color: acento }}
             >
-              Ver perfil completo →
-            </p>
+              <TextoEditorial id="b5c837186f2c8d418595" original={"Ver perfil completo →"}/></p>
           ) : null}
 
           <div className="mt-auto flex items-center justify-between gap-2 border-t border-border pt-3">

@@ -1,5 +1,6 @@
 "use client";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { CalendarDays, ExternalLink, Eye, GraduationCap, MapPin, Milestone, Star, Users, Video, XIcon } from "lucide-react";
 import { AvatarConferencista } from "@/components/conferencistas/avatar-conferencista";
@@ -166,7 +167,7 @@ function CabeceraHero({
         render={<Button variant="ghost" size="icon-sm" className="absolute top-3 right-3 bg-popover/70 backdrop-blur-sm" />}
       >
         <XIcon />
-        <span className="sr-only">Cerrar</span>
+        <span className="sr-only"><TextoEditorial id="d32b4703786ee0f6eb59" original={"Cerrar"}/></span>
       </DialogClose>
 
       <AvatarConferencista conferencia={conferencia} tamaño={132} animado prioridad />
@@ -210,14 +211,12 @@ function PiePagina({ conferencia }: { conferencia: ConferenciaConValoracion }) {
         {conferencia.asistentesPresenciales != null ? (
           <span className="inline-flex items-center gap-1.5">
             <Users className="size-3.5" aria-hidden />
-            {formatNumero(conferencia.asistentesPresenciales)} asistentes presenciales
-          </span>
+            {formatNumero(conferencia.asistentesPresenciales)} <TextoEditorial id="a49628b4667e699f9d9f" original={"asistentes presenciales"}/></span>
         ) : null}
         {conferencia.vistasRedesSociales != null ? (
           <span className="inline-flex items-center gap-1.5">
             <Eye className="size-3.5" aria-hidden />
-            {formatNumero(conferencia.vistasRedesSociales)} vistas en redes
-          </span>
+            {formatNumero(conferencia.vistasRedesSociales)} <TextoEditorial id="5942bf1fb5fb876c90dc" original={"vistas en redes"}/></span>
         ) : null}
       </div>
       {conferencia.enlace ? (

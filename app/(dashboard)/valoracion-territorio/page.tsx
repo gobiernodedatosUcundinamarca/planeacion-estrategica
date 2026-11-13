@@ -1,3 +1,5 @@
+import "@/components/valoracion-territorio/integrada.css";
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
 import { PanelValoracionTerritorio } from "@/components/valoracion-territorio/panel-valoracion-territorio";
@@ -43,26 +45,19 @@ export default async function ValoracionTerritorioPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <header className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-bold text-foreground">{TITULO_VALORACION_TERRITORIO}</h1>
-        <p className="text-sm text-muted-foreground">{SUBTITULO_VALORACION_TERRITORIO}</p>
-      </header>
-
       {error ? (
         <div className="flex items-start gap-2.5 rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm">
           <AlertTriangle className="mt-0.5 size-4 shrink-0 text-destructive" aria-hidden />
           <div>
-            <p className="font-medium text-foreground">No se pudieron cargar las respuestas.</p>
+            <p className="font-medium text-foreground"><TextoEditorial id="91463689520fccffa864" original={"No se pudieron cargar las respuestas."}/></p>
             <p className="text-muted-foreground">{error}</p>
           </div>
         </div>
       ) : vista.respuestas.length === 0 ? (
         <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          Todavía no hay respuestas cargadas. Se publican subiendo el Excel de Forms desde la vista de
-          administración.
-        </p>
+          <TextoEditorial id="5381e64d33b4ae952112" original={"Todavía no hay respuestas cargadas. Se publican subiendo el Excel de Forms desde la vista de administración."}/></p>
       ) : (
-        <PanelValoracionTerritorio respuestas={vista.respuestas} temas={vista.temas} excluidas={vista.excluidas} />
+        <div className="valoracion-integrada"><PanelValoracionTerritorio respuestas={vista.respuestas} temas={vista.temas} excluidas={vista.excluidas} /></div>
       )}
 
       <DescargaExcel ruta="/valoracion-territorio" />

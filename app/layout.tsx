@@ -1,8 +1,11 @@
+import {PreferenciasTipograficas} from "@/components/editorial/preferencias-tipograficas";
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Montserrat, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { AppProviders } from "@/components/layout/app-providers";
+import { EditorTextos } from '@/components/editorial/texto-editorial';
+import '@/components/editorial/editorial.css';
 
 // Debe ser >= al breakpoint Tailwind más alto usado en la app (xl = 1280px),
 // para que sm/md/lg/xl siempre resuelvan a su estado desktop.
@@ -97,15 +100,13 @@ const ESCALA_ESCRITORIO = `(() => {
   }
 })();`;
 
-const montserrat = Montserrat({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const montserrat = localFont({
+  variable:"--font-sans",display:"swap",
+  src:[{path:"../public/assets/fonts/montserrat-latin.woff2",weight:"400 700",style:"normal"},{path:"../public/assets/fonts/montserrat-latin-ext.woff2",weight:"400 700",style:"normal"}],
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const geistMono = localFont({
+  variable:"--font-geist-mono",display:"swap",
+  src:[{path:"../public/assets/fonts/geist-mono-latin.woff2",weight:"100 900",style:"normal"},{path:"../public/assets/fonts/geist-mono-latin-ext.woff2",weight:"100 900",style:"normal"}],
 });
 
 export const metadata: Metadata = {
@@ -134,7 +135,7 @@ export default function RootLayout({
         </Script>
         <div id="app-frame-outer">
           <div id="app-frame">
-            <AppProviders>{children}</AppProviders>
+            <AppProviders><EditorTextos><PreferenciasTipograficas>{children}</PreferenciasTipograficas></EditorTextos></AppProviders>
           </div>
         </div>
       </body>

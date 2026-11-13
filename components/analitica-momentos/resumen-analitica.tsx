@@ -1,3 +1,4 @@
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import Link from "next/link";
 import { ArrowUpRight, ListChecks, MessagesSquare, MessageSquareText, Star, ThumbsUp, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -70,11 +71,9 @@ export function ResumenAnaliticaMomentos({ resumen }: { resumen: ResumenAnalitic
   return (
     <section className="flex flex-col gap-4" aria-label="Resumen general">
       <div>
-        <h2 className="font-heading text-lg font-semibold text-foreground">Resumen general</h2>
+        <h2 className="font-heading text-lg font-semibold text-foreground"><TextoEditorial id="dd413aefa2b667b4db2b" original={"Resumen general"}/></h2>
         <p className="text-xs text-muted-foreground">
-          Lo más relevante de las {formatNumero(resumen.numActividades)} actividades valoradas (Momentos 1 y 2, y
-          Momento 3), la conversación del foro y las reflexiones. Toca cualquier tarjeta para ver el detalle.
-        </p>
+          <TextoEditorial id="c405ff4e70099f68ee67" original={"Lo más relevante de las"}/>{formatNumero(resumen.numActividades)} <TextoEditorial id="ce5613fec9ac94c05f3d" original={"actividades valoradas (Momentos 1 y 2, y Momento 3), la conversación del foro y las reflexiones. Toca cualquier tarjeta para ver el detalle."}/></p>
       </div>
 
       {/* Métricas de valor */}
@@ -137,7 +136,7 @@ export function ResumenAnaliticaMomentos({ resumen }: { resumen: ResumenAnalitic
       <div className="grid grid-cols-2 gap-3">
         <Card>
           <CardContent className="flex flex-col gap-3 py-4">
-            <h3 className="text-[13px] font-semibold text-foreground">Participación por actividad</h3>
+            <h3 className="text-[13px] font-semibold text-foreground"><TextoEditorial id="1882ca3e7f2faf824fe3" original={"Participación por actividad"}/></h3>
             <ul className="flex flex-col gap-2">
               {[...resumen.actividades]
                 .sort((a, b) => b.respondieron - a.respondieron)
@@ -171,7 +170,7 @@ export function ResumenAnaliticaMomentos({ resumen }: { resumen: ResumenAnalitic
 
         <Card>
           <CardContent className="flex flex-col gap-3 py-4">
-            <h3 className="text-[13px] font-semibold text-foreground">Valoración promedio por actividad</h3>
+            <h3 className="text-[13px] font-semibold text-foreground"><TextoEditorial id="48ece3cb5147afb724af" original={"Valoración promedio por actividad"}/></h3>
             <ul className="flex flex-col gap-2">
               {[...resumen.actividades]
                 .sort((a, b) => (b.promedio ?? 0) - (a.promedio ?? 0))

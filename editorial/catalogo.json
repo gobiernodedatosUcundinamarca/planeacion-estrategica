@@ -1,0 +1,3476 @@
+{
+  "71a25489b6809d3f06d6": { "original": "Sugerencias", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "h3" },
+  "9ada732e67f62dc425f4": { "original": "Ver más", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
+  "4d4ea4de3826accc1e1c": { "original": "Todas cargadas", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
+  "6a949f0fb8debe9142f2": { "original": "restantes", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
+  "b0cf7cfa2bf9f64b866d": {
+    "original": "Accesos a CAI Planeación estratégica",
+    "archivo": "app/(dashboard)/accesos-cai/page.tsx",
+    "elemento": "h1"
+  },
+  "5579bc23703ad46a046c": {
+    "original": "Analítica actividades momentos",
+    "archivo": "app/(dashboard)/analitica-momentos/page.tsx",
+    "elemento": "h1"
+  },
+  "b3a66cf0bf9d5480c959": {
+    "original": "Valoración por actividad y momento. Selecciona una tarjeta para ver su análisis.",
+    "archivo": "app/(dashboard)/analitica-momentos/page.tsx",
+    "elemento": "p"
+  },
+  "f74680c00584313c9aef": {
+    "original": "Explora cada actividad",
+    "archivo": "app/(dashboard)/analitica-momentos/page.tsx",
+    "elemento": "h2"
+  },
+  "833f95bca89a0074866c": {
+    "original": "1 (Muy bajo)",
+    "archivo": "app/(dashboard)/analitica-momentos/[slug]/page.tsx",
+    "elemento": "span"
+  },
+  "6fa6ad75971ac5996b7f": {
+    "original": "5 (Muy alto)",
+    "archivo": "app/(dashboard)/analitica-momentos/[slug]/page.tsx",
+    "elemento": "span"
+  },
+  "a6d692e4a67e801c6ebd": {
+    "original": "1 a 5",
+    "archivo": "app/(dashboard)/analitica-momentos/[slug]/page.tsx",
+    "elemento": "span"
+  },
+  "6c75dbe62805e46e1f82": {
+    "original": "Publicaciones",
+    "archivo": "app/(dashboard)/analitica-momentos/[slug]/page.tsx",
+    "elemento": "h2"
+  },
+  "748775bf88f999b6d973": {
+    "original": "Ciclos de Diálogo Estratégico",
+    "archivo": "app/(dashboard)/conferencistas/page.tsx",
+    "elemento": "h1"
+  },
+  "bbca320ecad0da0b9151": {
+    "original": "Jornadas y conversatorios del Plan Estratégico 2027–2037 —",
+    "archivo": "app/(dashboard)/conferencistas/page.tsx",
+    "elemento": "p"
+  },
+  "7132670d631c3c6090ca": {
+    "original": "en total.",
+    "archivo": "app/(dashboard)/conferencistas/page.tsx",
+    "elemento": "p"
+  },
+  "6cb7a3580724ec2769b2": {
+    "original": "Aún no hay conferencistas publicados.",
+    "archivo": "app/(dashboard)/conferencistas/page.tsx",
+    "elemento": "p"
+  },
+  "098b9bef77134da18b6d": {
+    "original": "No se pudieron cargar las respuestas.",
+    "archivo": "app/(dashboard)/ia-administrativos/page.tsx",
+    "elemento": "p"
+  },
+  "21ea37ee0f46b8a925cc": {
+    "original": "Todavía no hay respuestas cargadas. Se publican subiendo el Excel de Forms desde la vista de administración.",
+    "archivo": "app/(dashboard)/ia-administrativos/page.tsx",
+    "elemento": "p"
+  },
+  "f436aaba4441388c5cf3": {
+    "original": "Metas — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "app/(dashboard)/metas/page.tsx",
+    "elemento": "h1"
+  },
+  "4f63651bf570766ab698": {
+    "original": "Cumplimiento de metas por categoría — Sí: completó el diagnóstico; No: no registra participación en el diagnóstico.",
+    "archivo": "app/(dashboard)/metas/page.tsx",
+    "elemento": "p"
+  },
+  "853456aa6fc2b2b1d3fa": {
+    "original": "Valoración de momentos",
+    "archivo": "app/(dashboard)/seguimiento/page.tsx",
+    "elemento": "h1"
+  },
+  "f7751788a98e7bcc4f6a": {
+    "original": "Valoración de las cinco transformaciones por parte de la comunidad universitaria: quién participó, qué tanto respalda cada transformación y qué ajustes propone.",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "p"
+  },
+  "c642ffc95e6f5596e74b": {
+    "original": "No se pudieron cargar las respuestas.",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "p"
+  },
+  "c9856c2398f96629ebcf": {
+    "original": "Todavía no hay respuestas cargadas. Se publican subiendo los documentos de las cinco transformaciones desde la vista de administración.",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "p"
+  },
+  "ed437bd63626e626732c": {
+    "original": "Indicadores y gráficos originales de las encuestas",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "h2"
+  },
+  "b9d73f7204ae6b7c6c53": {
+    "original": "Incluyen todas las respuestas del formulario, también las que no tienen un comentario. Sus filtros se consultan dentro de este apartado.",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "p"
+  },
+  "b846cb38d3fd8d95d8d1": {
+    "original": "Aportes generales al Plan — formulario independiente",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "summary"
+  },
+  "f13572e21ee4b66c9345": {
+    "original": "Esta sección no está disponible por ahora",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "p"
+  },
+  "2b95aa2c5180b7db73c4": {
+    "original": "Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se publique de nuevo.",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "p"
+  },
+  "eefcfb6664de84845d1c": {
+    "original": "Seguimiento de la asistencia a las actividades en territorio: quién participó, con qué rol y desde qué unidad, a través de las distintas tandas cargadas.",
+    "archivo": "app/(dashboard)/transformaciones-participacion/page.tsx",
+    "elemento": "p"
+  },
+  "d1135eda5eef64db5238": {
+    "original": "No se pudieron cargar los registros.",
+    "archivo": "app/(dashboard)/transformaciones-participacion/page.tsx",
+    "elemento": "p"
+  },
+  "6e0e3936f5f9f5cff480": {
+    "original": "Todavía no hay tandas de asistencia cargadas. Se publican subiendo el Excel de participación desde la vista de administración.",
+    "archivo": "app/(dashboard)/transformaciones-participacion/page.tsx",
+    "elemento": "p"
+  },
+  "c3ebcb41ef889c3d2bf2": {
+    "original": "Esta sección no está disponible por ahora",
+    "archivo": "app/(dashboard)/transformaciones-participacion/page.tsx",
+    "elemento": "p"
+  },
+  "050f07009e055fd05eac": {
+    "original": "Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se publique de nuevo.",
+    "archivo": "app/(dashboard)/transformaciones-participacion/page.tsx",
+    "elemento": "p"
+  },
+  "91463689520fccffa864": {
+    "original": "No se pudieron cargar las respuestas.",
+    "archivo": "app/(dashboard)/valoracion-territorio/page.tsx",
+    "elemento": "p"
+  },
+  "5381e64d33b4ae952112": {
+    "original": "Todavía no hay respuestas cargadas. Se publican subiendo el Excel de Forms desde la vista de administración.",
+    "archivo": "app/(dashboard)/valoracion-territorio/page.tsx",
+    "elemento": "p"
+  },
+  "e0acebd865af49dc3ca1": {
+    "original": "Corte de información",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "7730e1f80fe05e27991b": {
+    "original": "Selecciona una fecha para explorar sus accesos.",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "c0aece8db5b7e83432a8": {
+    "original": "Fecha de acceso",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "span"
+  },
+  "6ccfe68d3e4ee392d301": {
+    "original": "Menos días indican una participación más reciente. Referencia global:",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "2faf25b473cfe00f000f": {
+    "original": "días.",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "3b49628c77c9392168ce": {
+    "original": "Personas únicas agrupadas por días desde su último acceso.",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "d348c4a2a4337b6cc7f9": {
+    "original": "días promedio",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "41482cf888c6bf8f581d": {
+    "original": "Primera medición",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "span"
+  },
+  "82107f44e4caf9215606": {
+    "original": "personas ·",
+    "archivo": "components/analitica-momentos/distribucion-valoracion.tsx",
+    "elemento": "p"
+  },
+  "1f50c619b6a0b48adfe8": {
+    "original": "respuestas",
+    "archivo": "components/analitica-momentos/distribucion-valoracion.tsx",
+    "elemento": "span"
+  },
+  "fd49d6ca9c44ce551c82": {
+    "original": "respuestas",
+    "archivo": "components/analitica-momentos/respuestas-abiertas.tsx",
+    "elemento": "p"
+  },
+  "dd413aefa2b667b4db2b": {
+    "original": "Resumen general",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "h2"
+  },
+  "c405ff4e70099f68ee67": {
+    "original": "Lo más relevante de las",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "p"
+  },
+  "ce5613fec9ac94c05f3d": {
+    "original": "actividades valoradas (Momentos 1 y 2, y Momento 3), la conversación del foro y las reflexiones. Toca cualquier tarjeta para ver el detalle.",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "p"
+  },
+  "1882ca3e7f2faf824fe3": {
+    "original": "Participación por actividad",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "h3"
+  },
+  "48ece3cb5147afb724af": {
+    "original": "Valoración promedio por actividad",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "h3"
+  },
+  "4a999d88d110da178184": {
+    "original": "Sin respuestas.",
+    "archivo": "components/charts/barras-escala.tsx",
+    "elemento": "p"
+  },
+  "c870ff2e22d612664b96": {
+    "original": "Estas respuestas no se separan en temas claros: la agrupación automática deja casi todas en un mismo grupo. Se resumen con las palabras que más se repiten y la lista completa.",
+    "archivo": "components/charts/comentarios-por-tema.tsx",
+    "elemento": "p"
+  },
+  "729a715a96ebba7dadb5": {
+    "original": "respuestas",
+    "archivo": "components/charts/distribucion-escala.tsx",
+    "elemento": "span"
+  },
+  "b005d0c2ff27232f17f3": {
+    "original": "No hay respuestas con contenido en este recorte.",
+    "archivo": "components/charts/lista-comentarios.tsx",
+    "elemento": "p"
+  },
+  "9a15737899ab1d913022": {
+    "original": "El tamaño y el color indican cuántas veces se repite cada palabra.",
+    "archivo": "components/charts/nube-palabras.tsx",
+    "elemento": "p"
+  },
+  "ed8d73074efc7d433027": {
+    "original": "respuestas de texto libre (",
+    "archivo": "components/charts/otro-panel.tsx",
+    "elemento": "p"
+  },
+  "be5a399aacd87a7fc559": {
+    "original": "No hay respuestas que coincidan con la búsqueda.",
+    "archivo": "components/charts/otro-panel.tsx",
+    "elemento": "li"
+  },
+  "3dc67e1232a85db2a5f5": {
+    "original": "respuestas ·",
+    "archivo": "components/charts/ranked-bar-chart.tsx",
+    "elemento": "p"
+  },
+  "135652dce24e13601d43": {
+    "original": "Grupo",
+    "archivo": "components/conferencistas/conferencista-card.tsx",
+    "elemento": "span"
+  },
+  "b5c837186f2c8d418595": {
+    "original": "Ver perfil completo →",
+    "archivo": "components/conferencistas/conferencista-card.tsx",
+    "elemento": "p"
+  },
+  "d32b4703786ee0f6eb59": {
+    "original": "Cerrar",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "span"
+  },
+  "a49628b4667e699f9d9f": {
+    "original": "asistentes presenciales",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "span"
+  },
+  "5942bf1fb5fb876c90dc": {
+    "original": "vistas en redes",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "span"
+  },
+  "218e4d76c6f4ac700159": {
+    "original": "Jornadas de Diálogo Estratégico",
+    "archivo": "components/conferencistas/navegacion-rapida-conferencistas.tsx",
+    "elemento": "span"
+  },
+  "f1041cac75297504bcb4": {
+    "original": "Calificación promedio",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "span"
+  },
+  "6ca5bf3e36677b66ad2d": {
+    "original": "Valoraciones recibidas",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "span"
+  },
+  "03dc2dfb745907aa29ba": {
+    "original": "Distribución de calificaciones",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "h3"
+  },
+  "d0d6de834fc5cdd9a515": {
+    "original": "Comentarios (",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "h3"
+  },
+  "ea878501dd4783c7490a": {
+    "original": "Comentarios generales de una jornada conjunta con",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "p"
+  },
+  "031d3f795fbd8e0db359": {
+    "original": ", no exclusivos de esta charla.",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "p"
+  },
+  "7e03044df58b9f948e5a": {
+    "original": "aportes de texto libre, agrupados en",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "facfa4130d3324686d9b": {
+    "original": "temas. Clic en un tema para filtrar las respuestas de abajo.",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "61078df34507bd7580af": {
+    "original": "Lectura general de los aportes abiertos y su implicación para el Plan Estratégico 2027–2037.",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "f4a27580bd79946caefb": {
+    "original": "Quién participó — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "h1"
+  },
+  "6aa2cfa0f4d8dae4675d": {
+    "original": "Composición de los",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "faf0abdc35be63779da2": {
+    "original": "participantes por rol, sede y facultad",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "e2d0ae6dbbcc40438be3": {
+    "original": "personas (",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "3992a47a35d1f3c3aeb0": {
+    "original": ") tienen más de un rol simultáneo.",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "50ef199b9290cf28be90": {
+    "original": "Solo aplica a roles con vínculo académico.",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "84411575f0daff135e5e": {
+    "original": "Texto libre genuino fuera de las opciones cerradas —",
+    "archivo": "components/dashboard/preguntas-estrategicas-client.tsx",
+    "elemento": "p"
+  },
+  "bed15ef130f06b6a0c6d": {
+    "original": "respuestas en total.",
+    "archivo": "components/dashboard/preguntas-estrategicas-client.tsx",
+    "elemento": "p"
+  },
+  "9a9d3cda193d19d811b7": {
+    "original": "Diagnóstico: Tu Voz Fundamental",
+    "archivo": "components/dashboard/resumen-ejecutivo-client.tsx",
+    "elemento": "h1"
+  },
+  "762f7a5abedc7ec54b6e": {
+    "original": "Unidad de la jornada del día en que se respondió.",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "span"
+  },
+  "b21f1021ae6c8f449df9": {
+    "original": "Ninguna respuesta coincide con el filtro elegido.",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "p"
+  },
+  "5168b937c5ba228aed2b": {
+    "original": "Plan Estratégico 2027 – 2037",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "3bb456a1bd6ec24f5e56": {
+    "original": "Plan Estratégico",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "h1"
+  },
+  "a74a0b3e61d12950f504": {
+    "original": "2027 – 2037",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "h1"
+  },
+  "7a14ced3032cf9c29c16": {
+    "original": "Analítica de datos del Plan Estratégico",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "p"
+  },
+  "15acca8abe75d8dc8f32": {
+    "original": "www.ucundinamarca.edu.co · Vigilada MinEducación",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "2006a12f483e58805768": {
+    "original": "Elaborado por Dirección de Planeación Institucional",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "c9e95e3d5cf9eb8bb707": {
+    "original": "Próximamente",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "a97043b177737b38ac32": {
+    "original": "Plan Estratégico",
+    "archivo": "components/layout/app-shell.tsx",
+    "elemento": "p"
+  },
+  "cc678dffe3e05dc970ac": {
+    "original": "2027 – 2037",
+    "archivo": "components/layout/app-shell.tsx",
+    "elemento": "p"
+  },
+  "17d7345597070d7afdf9": {
+    "original": "Universidad de Cundinamarca",
+    "archivo": "components/layout/app-shell.tsx",
+    "elemento": "span"
+  },
+  "130d5264e0ce5e8f3014": {
+    "original": "Planeación estratégica 2027 – 2037",
+    "archivo": "components/layout/app-shell.tsx",
+    "elemento": "p"
+  },
+  "236a3b86da88daad9b8b": {
+    "original": "Descargar los datos de esta sección",
+    "archivo": "components/layout/descarga-excel.tsx",
+    "elemento": "p"
+  },
+  "8465b7ad7f5f774de865": {
+    "original": "Excel con las respuestas de «",
+    "archivo": "components/layout/descarga-excel.tsx",
+    "elemento": "p"
+  },
+  "4c4b71657bc53d969446": {
+    "original": "Esta sección no está disponible por ahora",
+    "archivo": "components/layout/seccion-no-disponible.tsx",
+    "elemento": "p"
+  },
+  "a56930bd07cad3ed2795": {
+    "original": "Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se publique de nuevo.",
+    "archivo": "components/layout/seccion-no-disponible.tsx",
+    "elemento": "p"
+  },
+  "d93e38fe92665beaea21": {
+    "original": "Total:",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "p"
+  },
+  "4e48fbe54aadb8ed9168": {
+    "original": "Sí — completó el diagnóstico",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "span"
+  },
+  "e65c994b7934b2d1871e": {
+    "original": "No — sin participación",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "span"
+  },
+  "b8fea8092b6a4484d05b": {
+    "original": "filas",
+    "archivo": "components/metas/tabla-meta.tsx",
+    "elemento": "p"
+  },
+  "3bac99a0ccd02a77f583": {
+    "original": "Finalizado",
+    "archivo": "components/seguimiento/donut-avance.tsx",
+    "elemento": "span"
+  },
+  "a248220c0aef6d7df5c2": {
+    "original": "No finalizado",
+    "archivo": "components/seguimiento/donut-avance.tsx",
+    "elemento": "span"
+  },
+  "2b697af65f4e48e7c6f2": {
+    "original": "actividades · haz click en una actividad para ver quién la finalizó y quién no",
+    "archivo": "components/seguimiento/lista-actividades.tsx",
+    "elemento": "p"
+  },
+  "4ca46e4848c8bc6ab44e": {
+    "original": "✓ actividad finalizada · ✗ no finalizada · reincidente =",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "p"
+  },
+  "bf9c6ddb130f7690508e": {
+    "original": "o más actividades sin finalizar",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "p"
+  },
+  "845f9c45ec07cfd43b47": {
+    "original": "Reincidentes:",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "span"
+  },
+  "a44258e62028bf71dec6": {
+    "original": "No reincidentes:",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "span"
+  },
+  "ef4ae3e0cb75975b0068": {
+    "original": "Participante",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "th"
+  },
+  "2e0a3f38f58ae2b75b73": {
+    "original": "% finalización",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "th"
+  },
+  "a84cccccd9c171d355e7": {
+    "original": "Porcentaje de actividades finalizadas sobre el total de registros persona × actividad",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "p"
+  },
+  "7827f80959df6c5acde3": {
+    "original": "Ninguna respuesta con los filtros aplicados incluye un ajuste propuesto.",
+    "archivo": "components/transformaciones/aportes-ajustes.tsx",
+    "elemento": "p"
+  },
+  "d0226e169c1cbfb91848": {
+    "original": "aportes",
+    "archivo": "components/transformaciones/aportes-ajustes.tsx",
+    "elemento": "p"
+  },
+  "4df15467a7bd576bbbde": {
+    "original": "Ningún aporte coincide con los filtros elegidos.",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "p"
+  },
+  "007ea5bf776758965150": {
+    "original": "Mostrando",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "p"
+  },
+  "7cdbc961c88ac5fc6d6b": {
+    "original": "aportes",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "p"
+  },
+  "a7ae36c9ba6676e87a7b": {
+    "original": "Todavía no hay comentarios suficientes para agrupar por tema. La clasificación se rehace sola cada vez que se cargan documentos nuevos.",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "p"
+  },
+  "292906f3df9b7f20aeb4": {
+    "original": "comentarios se agrupan solos en",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "c837b8ab30885afc1ec6": {
+    "original": "según las palabras que comparten.",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "eb7d9df66df71a240c95": {
+    "original": "No hay respuestas con los filtros aplicados.",
+    "archivo": "components/transformaciones/distribucion-respaldo.tsx",
+    "elemento": "p"
+  },
+  "9a976d24d71085db6ddc": {
+    "original": "respuestas ·",
+    "archivo": "components/transformaciones/distribucion-respaldo.tsx",
+    "elemento": "p"
+  },
+  "efe9dcada51b4f1c46c6": {
+    "original": "respuestas",
+    "archivo": "components/transformaciones/distribucion-respaldo.tsx",
+    "elemento": "span"
+  },
+  "bb6090e1b63e04bacb1b": {
+    "original": "comentarios",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "b1a908de2485e8e17479": {
+    "original": "Clasificación consultada",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "label"
+  },
+  "65ef8671c16f31a5be5f": {
+    "original": "Consultando la fuente documental…",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "c0704ba041b14452ad7d": {
+    "original": "Al cambiar de fuente se conservan los filtros de regional, transformación, grupo y postura.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "ac7e31ef5efe0c68f71e": {
+    "original": "La clasificación documental no está disponible. Todos los comentarios originales siguen accesibles.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "6506d09d88732c8e754b": {
+    "original": "Principales hallazgos",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "h2"
+  },
+  "b9491957d1d217e1171d": {
+    "original": "Los cinco temas con más comentarios de la selección actual. Selecciona uno o varios para explorar los aportes que coincidan con todos.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "71f47252a0ca1dc55d97": {
+    "original": "No hay temas registrados para esta combinación.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "dbee99ee421b517151df": {
+    "original": "No hay otros temas que coincidan con la búsqueda.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "0cd399b4e250995e67c2": {
+    "original": "De esos",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "e2eb04fd056743830fd4": {
+    "original": "comentarios,",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "280e3d8b0fabe37027f4": {
+    "original": "tienen una clasificación documentada en otra metodología y",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "70e81684a0e7dcc41519": {
+    "original": "no tienen asignación temática verificable en las fuentes auditadas. Las clasificaciones se consultan por separado; no son equivalencias entre categorías.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "cb2a46721244981c97a4": {
+    "original": "Un comentario puede tener varios temas. Al seleccionar varios, se muestran los que cumplen todos; los totales cuentan cada comentario una sola vez.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "ae46ebd2be98c8b8b57e": {
+    "original": "Nivel de acuerdo registrado",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "h3"
+  },
+  "e732c9b518757a656448": {
+    "original": "La postura procede de la respuesta del formulario, sin inferirla del comentario.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "6e15162168e3b1815131": {
+    "original": "Comentarios originales",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "h2"
+  },
+  "7901e92766fdf75dee52": {
+    "original": "resultados · Total general:",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "1c81506384a6ff15518f": {
+    "original": "Seleccionado",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "3eaaf7f5a9be489b03db": {
+    "original": "comentarios",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "8920a8d063e79de1517e": {
+    "original": "No hay comentarios que cumplan todos los filtros seleccionados. Puedes quitar un filtro o volver a «Todos los comentarios».",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "e097e6669b57557ed89f": {
+    "original": "Hay clasificaciones documentadas en otras metodologías:",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "682eca5987a98f40396c": {
+    "original": ". Puedes consultarlas cambiando «Clasificación consultada».",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "248f1ee9324cc28494bb": {
+    "original": "No hay respuestas con los filtros aplicados.",
+    "archivo": "components/transformaciones/respaldo-por-transformacion.tsx",
+    "elemento": "p"
+  },
+  "e021b284144193fecf48": {
+    "original": "respuestas",
+    "archivo": "components/transformaciones/respaldo-por-transformacion.tsx",
+    "elemento": "p"
+  },
+  "32c31ded43b6098680b5": {
+    "original": "asistentes el",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "b2dc9f46683713becd42": {
+    "original": "Ninguno de los registros del recorte trae una fecha de inicio reconocible.",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "266cad4dcc2d0f11d99f": {
+    "original": "Close",
+    "archivo": "components/ui/dialog.tsx",
+    "elemento": "span"
+  },
+  "d594ed0b22378352dffe": {
+    "original": "No se incluyen",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "60e2232dbdb27c03da64": {
+    "original": "respuesta(s) para que todas las cifras cuadren entre sí:",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "262aa0f43696684850f8": {
+    "original": "Ninguna respuesta coincide con los filtros elegidos.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "1c3956ccf694d5349915": {
+    "original": "resp.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "9a4473c04dfa1822d14d": {
+    "original": "% de acuerdo o totalmente de acuerdo. El tono resalta los valores más altos de la tabla.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "765b4d9892b3c174b062": {
+    "original": "Fundamentos de planeación — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "app/(dashboard)/encuesta/fundamentos-planeacion/page.tsx",
+    "elemento": "prop"
+  },
+  "821b4bde097717ad1bdb": {
+    "original": "Qué debe definir un Plan Estratégico y cómo debe construirse la planeación institucional",
+    "archivo": "app/(dashboard)/encuesta/fundamentos-planeacion/page.tsx",
+    "elemento": "prop"
+  },
+  "6342f56abb932c30746a": {
+    "original": "Visión estratégica — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "app/(dashboard)/encuesta/vision-estrategica/page.tsx",
+    "elemento": "prop"
+  },
+  "b228a0a2931c536bf3a7": {
+    "original": "Decisiones estratégicas a futuro y la visión de la UCundinamarca a 10 años",
+    "archivo": "app/(dashboard)/encuesta/vision-estrategica/page.tsx",
+    "elemento": "prop"
+  },
+  "dc97e86e3758dc180b48": {
+    "original": "Uso de IA en procesos administrativos",
+    "archivo": "app/(dashboard)/ia-administrativos/page.tsx",
+    "elemento": "constante"
+  },
+  "af25a99da1c1b912ef72": {
+    "original": "Encuesta diagnóstica sobre uso de Inteligencia Artificial en procesos administrativos: cuánto y cómo se usa, qué competencias se tienen, qué la frena y qué apoyo se necesita.",
+    "archivo": "app/(dashboard)/ia-administrativos/page.tsx",
+    "elemento": "constante"
+  },
+  "8b29420b7bee492f88cf": {
+    "original": "Trabajo en territorio con la comunidad universitaria: Experiencia \"Transformaciones que nos conectan\" — Resultados de encuestas",
+    "archivo": "app/(dashboard)/transformaciones/page.tsx",
+    "elemento": "constante"
+  },
+  "7492ba524981089ee25b": {
+    "original": "Trabajo en territorio con la comunidad universitaria: Experiencia \"Transformaciones que nos conectan\" - Participación",
+    "archivo": "app/(dashboard)/transformaciones-participacion/page.tsx",
+    "elemento": "constante"
+  },
+  "04816ffc86bce3359840": {
+    "original": "Valoración de la experiencia en territorio",
+    "archivo": "app/(dashboard)/valoracion-territorio/page.tsx",
+    "elemento": "constante"
+  },
+  "d0ef780ba6dec37063f8": {
+    "original": "Instrumento de valoración de la experiencia “Transformaciones que nos conectan”: qué tanto ayudó a comprender las cinco Transformaciones Estratégicas y qué mejorar.",
+    "archivo": "app/(dashboard)/valoracion-territorio/page.tsx",
+    "elemento": "constante"
+  },
+  "811003c43247c51f0b81": {
+    "original": "Personas que acceden",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "prop"
+  },
+  "153fd74f0bf2a43bdcff": {
+    "original": "Promedio desde último acceso",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "prop"
+  },
+  "b380b7e9491349a91819": {
+    "original": "Registros analizados",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "prop"
+  },
+  "2bfebd5fab88fb6ec4c3": {
+    "original": "Promedio global",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "prop"
+  },
+  "9c7ddfad45667571940b": {
+    "original": "Evolución del promedio por fecha de acceso",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "CardTitle"
+  },
+  "89b905a5c8543f0775c6": {
+    "original": "Tiempo desde el último acceso",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "CardTitle"
+  },
+  "00fa77eeec147501d4ce": {
+    "original": "Frecuencia de palabras por tipo de pregunta",
+    "archivo": "components/analitica-momentos/frecuencia-por-tipo.tsx",
+    "elemento": "CardTitle"
+  },
+  "533f8c318002dee91fba": {
+    "original": "Mejor valorada",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "prop"
+  },
+  "5f4dd162f724c6228be1": {
+    "original": "Mayor participación",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "prop"
+  },
+  "a7603b21d055834b62ae": {
+    "original": "Más aportes escritos",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "prop"
+  },
+  "ac97eb41f2d108c6b329": {
+    "original": "Formación académica",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "prop"
+  },
+  "2fc027f340182bacd793": {
+    "original": "Trayectoria destacada",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "prop"
+  },
+  "6e9543a5ebcf97fc4d1a": {
+    "original": "Categorización de las respuestas abiertas",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "CardTitle"
+  },
+  "c9425fe582987aee0c26": {
+    "original": "Conclusión",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "CardTitle"
+  },
+  "c37a2957791787e5768c": {
+    "original": "Distribución por rol (completo)",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "CardTitle"
+  },
+  "6812968d8979788e7206": {
+    "original": "Distribución por sede",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "CardTitle"
+  },
+  "c32baa26e5b9aa10fd16": {
+    "original": "Combinaciones de multi-rol",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "CardTitle"
+  },
+  "8450f5037fd18cf716dc": {
+    "original": "Participantes por facultad",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "CardTitle"
+  },
+  "071d051a37ce2882d33f": {
+    "original": "Respuestas abiertas (&ldquo;Otro&rdquo;)",
+    "archivo": "components/dashboard/preguntas-estrategicas-client.tsx",
+    "elemento": "CardTitle"
+  },
+  "fe355a362e3e88056135": {
+    "original": "Participantes",
+    "archivo": "components/dashboard/resumen-ejecutivo-client.tsx",
+    "elemento": "prop"
+  },
+  "a499dbfffa91047f7648": {
+    "original": "Tipos de participantes",
+    "archivo": "components/dashboard/resumen-ejecutivo-client.tsx",
+    "elemento": "CardTitle"
+  },
+  "68d9f1ed52d6fe74f6ca": {
+    "original": "Participantes por sede",
+    "archivo": "components/dashboard/resumen-ejecutivo-client.tsx",
+    "elemento": "CardTitle"
+  },
+  "207b8ac1483d0b1b3096": {
+    "original": "Unidad regional",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "81955863c41f37d212e1": {
+    "original": "Respuestas",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "ec03e8793097ce42983a": {
+    "original": "Administrativos que respondieron",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "7ff0e57820592593ee0b": {
+    "original": "Usa IA en su trabajo",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "68caafcfa4ac0600b839": {
+    "original": "Frecuente u ocasionalmente",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "4418b1f851648ecb16ae": {
+    "original": "Uso al menos semanal",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "17135cf5410cebbbcd3b": {
+    "original": "Varias veces por semana o a diario",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "5d39904aed83ac7cf487": {
+    "original": "Claridad plena sobre orientaciones",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "c6bed18086e7883c50db": {
+    "original": "Uso responsable y seguro de IA",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "ad2f0bb29ffa915236c9": {
+    "original": "Competencias para usar IA (autoevaluación)",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "CardTitle"
+  },
+  "c998fa793f7e27e90d53": {
+    "original": "Ordenada de la forma de uso más avanzada a la más básica.",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "prop"
+  },
+  "415311f84702c69ad2fc": {
+    "original": "Tareas que la IA podría mejorar",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "CardTitle"
+  },
+  "fe360fe539cd06140f54": {
+    "original": "Lo que muestran los datos",
+    "archivo": "components/kpi/hallazgos.tsx",
+    "elemento": "CardTitle"
+  },
+  "e40d5b28f416a04df9d0": {
+    "original": "Unidad Regional",
+    "archivo": "components/layout/filter-bar.tsx",
+    "elemento": "prop"
+  },
+  "72cd35f7e2ddc54646cc": {
+    "original": "Facultad / Área",
+    "archivo": "components/layout/filter-bar.tsx",
+    "elemento": "prop"
+  },
+  "737b24c92bba858b371a": {
+    "original": "Participación por grupo",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "CardTitle"
+  },
+  "b6084dd0d073bb198d69": {
+    "original": "Total de personas de cada grupo y cuántas completaron el diagnóstico.",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "CardDescription"
+  },
+  "873ea0a373928bca1cfc": {
+    "original": "No finalizado",
+    "archivo": "components/seguimiento/detalle-actividad.tsx",
+    "elemento": "prop"
+  },
+  "6e2bef58b1298bcd18bb": {
+    "original": "Finalizado",
+    "archivo": "components/seguimiento/detalle-actividad.tsx",
+    "elemento": "prop"
+  },
+  "8f959dd56dd431ba3d57": {
+    "original": "Detalle por participante",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "CardTitle"
+  },
+  "d220092ea8f5bf7f52d8": {
+    "original": "Avance general",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "prop"
+  },
+  "55e8a7c85e97fb8cdc1e": {
+    "original": "Actividades",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "prop"
+  },
+  "c5cd8531f66b2796e043": {
+    "original": "incluye Aceptación PAD",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "prop"
+  },
+  "700d7d49d5d3339f3492": {
+    "original": "Momentos totales",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "prop"
+  },
+  "d1a81fa45dc86efa09b5": {
+    "original": "Participantes",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "prop"
+  },
+  "cd5463d981e41240028d": {
+    "original": "Avance general de participación",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "CardTitle"
+  },
+  "4f8c63e8a32e96e020f1": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "5c5349906a114d607c25": {
+    "original": "Tipo de actor",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "d016c13438fed8a94693": {
+    "original": "Unidad Regional",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "5df6905c69b60378dd9a": {
+    "original": "Aportes recibidos",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "d2645d0ca3947b30c638": {
+    "original": "Respuestas con texto escrito",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "5b9a347df647c37d5f04": {
+    "original": "Tipos de actor",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "968caa8c708ab6c537f4": {
+    "original": "Quiénes aportaron",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "b31079141e0e8c76d376": {
+    "original": "Unidades regionales",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "e6a594f00783263e9c88": {
+    "original": "Sedes, seccionales y extensiones",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "1086a6365227dedb2cbb": {
+    "original": "Aportes por tipo de actor",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "4942f752c99f53d226bb": {
+    "original": "Aportes por Unidad Regional",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "9e6b81fc8041c2073acc": {
+    "original": "Lo que más se repite en los aportes",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "prop"
+  },
+  "0c50e653362ba72f63cd": {
+    "original": "Transformación",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "8b6b2bed76fc19daa959": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "417644645220e004cb8f": {
+    "original": "Tipo de actor",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "ab65f5dea347b4641f34": {
+    "original": "Unidad Regional",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "7039cf1d3a1b1c10f582": {
+    "original": "Programa del graduado",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "007fcf9d889f3a79971a": {
+    "original": "¿Responde a lo que se necesita?",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "f03fb467e9578daacef2": {
+    "original": "Buscar",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "83ea2c97d4db924fc03f": {
+    "original": "Respuestas",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "953b8b473a9048d3ed69": {
+    "original": "Participantes únicos",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "f59cf986e091deaa3c1a": {
+    "original": "Responde a lo que se necesita",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "e6f92cf59ac891f0371d": {
+    "original": "Ajustes propuestos",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "c3262de101ece566a707": {
+    "original": "Respuestas con texto abierto",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "126eb722fbb369ac03e3": {
+    "original": "¿La transformación responde a lo que se necesita?",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "CardTitle"
+  },
+  "37fa0b8182148eee4457": {
+    "original": "Respaldo por transformación",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "CardTitle"
+  },
+  "6d29bb974047f8a6f708": {
+    "original": "Participación por tipo de actor",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "1dc1ad801cd2b214ce48": {
+    "original": "Participación por Unidad Regional",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "9e5192fc3197be09fc45": {
+    "original": "Programa de los graduados que participaron",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "438ca5274849bb05119b": {
+    "original": "¿Qué ajustarían en esta transformación?",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "CardTitle"
+  },
+  "723cccf71ec829da6065": {
+    "original": "Lo que más se repite en los comentarios",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "prop"
+  },
+  "164f2ddfb386e7ce98b3": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "071655b87c96a6da4cb8": {
+    "original": "Lugar de desarrollo",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "c3cde1a6bce93237a65a": {
+    "original": "Unidad Regional",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "c3f9e4e70a8723cddbf3": {
+    "original": "Programa, facultad, coordinación o área",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "c92fd273213b1a7a17ae": {
+    "original": "Asistentes registrados",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "5c83c75d76c21413a528": {
+    "original": "Unidades regionales",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "e3e7ac71a04bed1f7262": {
+    "original": "Sedes, seccionales y extensiones",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "af2c9fb5d915cd617283": {
+    "original": "Rol con más asistencia",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "3b16c5b3456d31a40224": {
+    "original": "Asistencia en el tiempo",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "CardTitle"
+  },
+  "df2184ca106a4fddd383": {
+    "original": "Participación por rol",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "37ed49d68e84e849d67d": {
+    "original": "Participación por Unidad Regional",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "059e6e841eed582c9454": {
+    "original": "Distribución por edad",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "b497e3ad128c120cd28e": {
+    "original": "Participación por programa, facultad, coordinación o área",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "prop"
+  },
+  "5a1645dc05da5e96c7c8": {
+    "original": "Unidad regional",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "d7bfe267411282d34887": {
+    "original": "Respuestas",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "0585153c9d8f9796f6d2": {
+    "original": "Personas que valoraron la experiencia",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "b8a75c8b63f8dff981f2": {
+    "original": "Valoración favorable",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "8cf4fb29df054eb0d1dc": {
+    "original": "De acuerdo o totalmente, promedio de las tres afirmaciones",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "52965f3b1c95b19fa870": {
+    "original": "Totalmente de acuerdo en todo",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "a8a2eea7f97da88c9e78": {
+    "original": "Marcó el nivel más alto en las tres",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "486b6adb3070bf5699b0": {
+    "original": "Sugerencias de mejora",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "acddcd70a90cf4ba81ba": {
+    "original": "Respuestas abiertas con contenido",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "3d3d5a7fb6c7070d1ec1": {
+    "original": "Nivel de acuerdo con cada afirmación",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "CardTitle"
+  },
+  "1022e3edc00328e94fc1": {
+    "original": "Respuestas por unidad regional",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "4b971c40fc4b0847cbc6": {
+    "original": "Unidad de la jornada del día en que se respondió.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "4eb8fdb23dc9ae95ff03": {
+    "original": "Respuestas por rol",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "5267a3160c1f84987d95": {
+    "original": "Valoración favorable por unidad regional",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "8c9a0ad75f2f4d52366a": {
+    "original": "Valoración favorable por rol",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "ba083e2aae266e8c4979": {
+    "original": "¿Qué aspecto de la experiencia podríamos mejorar?",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "CardTitle"
+  },
+  "bcec4c54ba82e73d0a65": {
+    "original": "Diagnóstico: Tu Voz Fundamental",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "425cd0f556dcf7d65e64": {
+    "original": "Panorama general de la participación",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "8bde69049179c5f031c3": {
+    "original": "Quién participó — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "25280bf15b998476678b": {
+    "original": "Rol, sede, facultad y programa",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "a8c11649b0c011999e96": {
+    "original": "Fundamentos de planeación — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "479ab7a35cfd4beb2922": {
+    "original": "Qué debe definir y cómo construir la planeación",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "9fd0156809d1b61e9237": {
+    "original": "Visión estratégica — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "76c97bbb9c92e7f9ed2f": {
+    "original": "Decisiones a futuro y visión a 10 años",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "f5847438c8249fbec3a8": {
+    "original": "Metas — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "0508a735dba0449bf25a": {
+    "original": "Cumplimiento de metas por categoría",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "bc5cd3b0fc680caaae6d": {
+    "original": "Valoración momentos",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "c878d05baaa1352c43d8": {
+    "original": "Seguimiento y avance por actividad",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "dbba79a2c82742e8e849": {
+    "original": "Ciclos de Diálogo Estratégico",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "78584239e3ce5b8cf64d": {
+    "original": "Jornadas y conferencias del Plan Estratégico",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "b99afbeb78f926e6ab8a": {
+    "original": "Analítica actividades momentos",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "8ae1352caff1c35be343": {
+    "original": "Valoración por actividad y momento",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "0d9323f8db3252e2e03a": {
+    "original": "Accesos a CAI",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "ca0dcc637e4716a92622": {
+    "original": "Evolución de accesos",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "459932373b16223c6c52": {
+    "original": "Trabajo en territorio con la comunidad universitaria",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "4be7ffa2b4e4564b9f00": {
+    "original": "Experiencia “Transformaciones que nos conectan” — Resultados de encuestas",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "7ee88ab07a87a6497902": {
+    "original": "Experiencia “Transformaciones que nos conectan” - Participación",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "54e44e462ad6e0bf702a": {
+    "original": "Valoración de la experiencia en territorio",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "245d4e5786d4b095f2d3": {
+    "original": "Qué tanto ayudó la experiencia y qué mejorar",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "164be416d0375b8ddea0": {
+    "original": "Uso de IA en procesos administrativos",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "cd3872bbe55a4094ad1c": {
+    "original": "Diagnóstico del uso de inteligencia artificial",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "58eceb689fbf8c3ad8ee": {
+    "original": "Cada gráfico resume las respuestas en una escala de valoración de",
+    "archivo": "app/(dashboard)/analitica-momentos/[slug]/page.tsx",
+    "elemento": "p"
+  },
+  "d5c57b0c1504b3894a43": {
+    "original": "Valoraciones en una escala de",
+    "archivo": "app/(dashboard)/analitica-momentos/[slug]/page.tsx",
+    "elemento": "p"
+  },
+  "3f5803049e0961d382b4": {
+    "original": "(5 = máximo); los promedios se muestran como puntaje sobre 5.",
+    "archivo": "app/(dashboard)/analitica-momentos/[slug]/page.tsx",
+    "elemento": "p"
+  },
+  "ac20320a51233f2e0898": {
+    "original": "días",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "span"
+  },
+  "2bbe99a2f9098374edc3": {
+    "original": "“Otro”",
+    "archivo": "components/charts/otro-panel.tsx",
+    "elemento": "p"
+  },
+  "7506b0651bd59ef13c16": {
+    "original": "Opción",
+    "archivo": "components/charts/ranked-bar-chart.tsx",
+    "elemento": "TableHead"
+  },
+  "96ae3f9e5d5c3b6b5188": {
+    "original": "Respuestas",
+    "archivo": "components/charts/ranked-bar-chart.tsx",
+    "elemento": "TableHead"
+  },
+  "6a07a51d9a2473126b86": {
+    "original": "Aún no hay valoraciones registradas para esta jornada.",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "motion.p"
+  },
+  "d9e7ae0fcb941d09a923": {
+    "original": "Calificación de una jornada conjunta con",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "motion.p"
+  },
+  "0252d25b954eac2ba17b": {
+    "original": "Los",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "f14ec6236da45016e323": {
+    "original": "Combinación de roles",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "TableHead"
+  },
+  "1e0e71af54427fbbd42c": {
+    "original": "Personas",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "TableHead"
+  },
+  "a350c980f28f5e1e0238": {
+    "original": "Facultad",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "TableHead"
+  },
+  "d86a589b14e0096470ab": {
+    "original": "Accesos del plan",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "motion.p"
+  },
+  "3b58b5f5756812f7857f": {
+    "original": "Total",
+    "archivo": "components/metas/tabla-meta.tsx",
+    "elemento": "TableHead"
+  },
+  "c1cd15d5a464b55dd82c": {
+    "original": "Porcentaje",
+    "archivo": "components/metas/tabla-meta.tsx",
+    "elemento": "TableHead"
+  },
+  "f6ec7c00909f85616c35": {
+    "original": "Los",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "b85b36eab3831604a610": {
+    "original": "temas",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "strong"
+  },
+  "7d5a9904d8b5a75173f9": {
+    "original": "Accesos a CAI Planeación estratégica 2027 – 2037",
+    "archivo": "components/layout",
+    "elemento": "etiqueta-enlace"
+  },
+  "c056a781caf6cf2f3d0e": {
+    "original": "Volver al inicio",
+    "archivo": "components/layout",
+    "elemento": "etiqueta-enlace"
+  },
+  "63c0ac3fb763df409a77": {
+    "original": "registros de asistencia",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "p"
+  },
+  "51d17cada8eb8b99d1ce": {
+    "original": "Cada registro corresponde a una asistencia. Una misma persona puede asistir a varias jornadas.",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "p"
+  },
+  "f76d6bdccaec5e4d885b": {
+    "original": "Registros de asistencia por fecha · consulte cada barra para ver su detalle",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "span"
+  },
+  "c842be8a51ca83a34652": {
+    "original": "Máximo por jornada:",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "span"
+  },
+  "e6a4d21f47539bd3b032": {
+    "original": "TRABAJO EN TERRITORIO CON LA COMUNIDAD UNIVERSITARIA",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "64faed2db00866290e02": {
+    "original": "Del llamado",
+    "archivo": "app/vista.tsx",
+    "elemento": "h1"
+  },
+  "e0a1e1bc81e6e0535304": {
+    "original": "encuentro.",
+    "archivo": "app/vista.tsx",
+    "elemento": "em"
+  },
+  "ae75bd20be30b02b1ca3": {
+    "original": "Experiencia «Transformaciones que nos conectan»",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "ddb4467adc317844fe7d": {
+    "original": "Participación · Universidad de Cundinamarca",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "9fe0e52f0807bc04de6b": {
+    "original": "¿Qué nos dice la asistencia sobre el alcance de la convocatoria?",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "dac29f4368cf485e2161": {
+    "original": "registros de asistencia",
+    "archivo": "app/vista.tsx",
+    "elemento": "span"
+  },
+  "fc1f75164b0d4335a820": {
+    "original": "jornadas",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "6c9d53b748cb7d05859d": {
+    "original": "unidades regionales",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "3c90c9d967b89c2e666b": {
+    "original": "Registros de jornadas; no equivalen necesariamente a personas únicas.",
+    "archivo": "app/vista.tsx",
+    "elemento": "small"
+  },
+  "0e3063bfd63c95aba10b": {
+    "original": "Participación de la comunidad universitaria",
+    "archivo": "app/vista.tsx",
+    "elemento": "span"
+  },
+  "80baf7c23b106a2b05e7": {
+    "original": "01 / EL ALCANCE DOCUMENTADO",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "d282aa0cd2026f7d51f3": {
+    "original": "Convocatoria en",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "cc69188ffcfa103705ce": {
+    "original": "siete unidades regionales.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "7eb89d9f2232a90b39b7": {
+    "original": "Las presentaciones registran",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "880b3c1275f066edb1b9": {
+    "original": "personas convocadas. Cada círculo representa una unidad regional.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "5b6ec4e8ccf15c3b4b18": {
+    "original": "La ubicación de los círculos es ilustrativa y no representa distancias geográficas.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "85bd5b6b76f05e106438": {
+    "original": "02 / DE LA CONVOCATORIA A LA ASISTENCIA",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "050c1ca5668e11796784": {
+    "original": "Convocatoria",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "708cb9214dde9596a943": {
+    "original": "y asistencia por unidad.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "4afad3ad65f5905b77fd": {
+    "original": "Las barras comparan la convocatoria y la asistencia en cada unidad regional, con un total de",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "4067e37f24724480ff77": {
+    "original": "asistentes documentados",
+    "archivo": "app/vista.tsx",
+    "elemento": "strong"
+  },
+  "595f76ff5e2296d6c751": {
+    "original": "Las unidades están ordenadas por número de asistentes. El porcentaje se calcula sobre las personas convocadas en cada unidad.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "7bdef54936a725292b77": {
+    "original": "03 / ASISTENCIA EFECTIVA",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "29cb018d643a14e4b163": {
+    "original": "asistencia efectiva.",
+    "archivo": "app/vista.tsx",
+    "elemento": "em"
+  },
+  "c063036dd96ca2972007": {
+    "original": "en el mismo corte documental. La diferencia aritmética es",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "33d86558b1c884733b2f": {
+    "original": "Porcentaje de asistencia: asistentes divididos entre convocados, expresado con un decimal.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "4ac587bc5826e8289f5c": {
+    "original": "CONVOCATORIA → ASISTENCIA",
+    "archivo": "app/vista.tsx",
+    "elemento": "span"
+  },
+  "595faa158cb0bd052852": {
+    "original": "Convocados",
+    "archivo": "app/vista.tsx",
+    "elemento": "span"
+  },
+  "d80c1b1ff240ccafc8d6": {
+    "original": "Asistentes",
+    "archivo": "app/vista.tsx",
+    "elemento": "span"
+  },
+  "dea61138d835bd56cafd": {
+    "original": "Fuente: presentaciones resumidas por unidad regional, diapositiva 2. Corte: 12 de noviembre de 2026.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "0da6094c2a717557ed24": {
+    "original": "DETALLE REGIONAL",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "45ff90ceac72d2a23f74": {
+    "original": "Cifras por",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "70c21c597da8ee50fe11": {
+    "original": "unidad regional.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "261c41da31a54927f6d3": {
+    "original": "Alcance documental",
+    "archivo": "app/vista.tsx",
+    "elemento": "label"
+  },
+  "b97e2bdb49b7a8fbeab4": {
+    "original": "Asistentes documentados",
+    "archivo": "app/vista.tsx",
+    "elemento": "dt"
+  },
+  "49a491a7b65c7c5cc94c": {
+    "original": "Asistentes sobre convocados",
+    "archivo": "app/vista.tsx",
+    "elemento": "dt"
+  },
+  "ca1a13bc0d11d2d39f98": {
+    "original": "Convocados menos asistentes",
+    "archivo": "app/vista.tsx",
+    "elemento": "dt"
+  },
+  "dc9361ef34fc7de31b95": {
+    "original": "Porcentaje de asistencia = asistentes ÷ convocados × 100. Los porcentajes se calculan con los conteos de las presentaciones y se redondean a un decimal.",
+    "archivo": "app/vista.tsx",
+    "elemento": "caption"
+  },
+  "7748acb8619b3a07c0f9": {
+    "original": "Unidad",
+    "archivo": "app/vista.tsx",
+    "elemento": "th"
+  },
+  "53676d61f67d12550267": {
+    "original": "% de asistencia",
+    "archivo": "app/vista.tsx",
+    "elemento": "th"
+  },
+  "b040194ca5290aed6da4": {
+    "original": "Las cifras corresponden al mismo conjunto de convocatoria y asistencia de las presentaciones. La consulta de registros por jornada se realiza por separado.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "6cf41d4b9c9314b50426": {
+    "original": "Los porcentajes de esta consulta se obtienen directamente de los conteos de asistentes y convocados. Se corrigieron las tasas transcritas en las presentaciones sin modificar esos conteos ni los documentos originales.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "33b8e8881347d6b38deb": {
+    "original": "Valores de origen conservados para trazabilidad. La tasa vigente es la calculada a partir de los conteos.",
+    "archivo": "app/vista.tsx",
+    "elemento": "caption"
+  },
+  "24deddd3cd795762909f": {
+    "original": "Unidad regional",
+    "archivo": "app/vista.tsx",
+    "elemento": "th"
+  },
+  "dc22b8127bb1d6741b9e": {
+    "original": "Asistentes / convocados",
+    "archivo": "app/vista.tsx",
+    "elemento": "th"
+  },
+  "3e801e0a681c9c3e9432": {
+    "original": "% escrito en la fuente",
+    "archivo": "app/vista.tsx",
+    "elemento": "th"
+  },
+  "4d5f761ebcddae9bce9b": {
+    "original": "% de asistencia vigente",
+    "archivo": "app/vista.tsx",
+    "elemento": "th"
+  },
+  "e024377804a3e5552cb5": {
+    "original": "Girardot: 593 ÷ 837 × 100 = 70,8 %. Ubaté: 485 ÷ 749 × 100 = 64,8 %. Los valores de origen de 69 % y 64 % no se utilizan para calcular indicadores. Esta corrección aritmética no implica una conciliación nominal de los registros ni de los subtotales por grupo.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "a53ce3c7c71a30691f2e": {
+    "original": "04 / EL LÍMITE DE LA COMPARACIÓN",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "7ba8ada1713d2048dcce": {
+    "original": "Diferencias entre",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "3d8697bbff3f60532bab": {
+    "original": "las fuentes de asistencia.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "0c23777b251438e51129": {
+    "original": "La base de registros contiene",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "b3d985b5e2daff0c230e": {
+    "original": "entradas; las presentaciones documentan",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "de999f73bcda3d2b8ad0": {
+    "original": "asistentes. La causa de esta diferencia está pendiente de verificación.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "a63e1b99a147a238a31a": {
+    "original": "Asistentes del corte documental",
+    "archivo": "app/vista.tsx",
+    "elemento": "span"
+  },
+  "f1b031c7973e79e9138d": {
+    "original": "Universos sin conciliación nominal",
+    "archivo": "app/vista.tsx",
+    "elemento": "small"
+  },
+  "9e9f9eacc76084161b15": {
+    "original": "Registros de asistencia disponibles",
+    "archivo": "app/vista.tsx",
+    "elemento": "span"
+  },
+  "d5b7e5f2ff86783686c1": {
+    "original": "La comparación de convocatoria utiliza los asistentes documentados en las presentaciones. La consulta detallada incluye los",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "31e50dcf040de7da4dd1": {
+    "original": "registros disponibles.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "57896e8d82540ed5e954": {
+    "original": "04 / LA ASISTENCIA EN EL TIEMPO",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "1a2ad35cec0850d57de3": {
+    "original": "No fue un único momento.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "fb3573fa58dfd26bbbc8": {
+    "original": "Fueron",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "97259da99149a93a7a22": {
+    "original": "jornadas.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "10a74e8605173550cd51": {
+    "original": "Distribución de los registros de asistencia por fecha de jornada.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "aad6328d286ec1f2fd5f": {
+    "original": "El rol con mayor asistencia registrada es",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "c32bb3debe45d14172ad": {
+    "original": "%). El detalle por rol, edad, unidad y dependencia permanece en el explorador.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "d345cf79a82f95e3a00e": {
+    "original": "05 / CONSULTA DETALLADA",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "48c7e686a89bc7a56433": {
+    "original": "Registros",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "7d934b538c495c553675": {
+    "original": "de participación.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "2dd68500413032f103c7": {
+    "original": "Consulte la asistencia por fecha, lugar, rol, unidad regional y dependencia.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "e0113c0e85fa663d2b0f": {
+    "original": "06 / SÍNTESIS EJECUTIVA Y FUENTES",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "ecc370355ee5837a72d8": {
+    "original": "Resumen",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "a25b77f504ad818ac83f": {
+    "original": "y fuentes de información.",
+    "archivo": "app/vista.tsx",
+    "elemento": "h2"
+  },
+  "bf3b8d67324516afd365": {
+    "original": "Alcance documentado",
+    "archivo": "app/vista.tsx",
+    "elemento": "h3"
+  },
+  "b65bc82e3ab39718beec": {
+    "original": "convocados;",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "c48fbce8ac6e5e04eb21": {
+    "original": "asistentes;",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "094e554de021b499f3eb": {
+    "original": "% calculado. Permite comparar unidades dentro del corte de las presentaciones.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "3851d7c949b5fab05e8a": {
+    "original": "Participación registrada",
+    "archivo": "app/vista.tsx",
+    "elemento": "h3"
+  },
+  "203dedbf302052184254": {
+    "original": "registros distribuidos en",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "cd2c7ea5e43bf4962ff9": {
+    "original": "fechas. Una misma persona puede registrar asistencia en varias jornadas.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "9403fd49bc6f343294bd": {
+    "original": "Aspectos pendientes de conciliación",
+    "archivo": "app/vista.tsx",
+    "elemento": "h3"
+  },
+  "b5a74bf6b65b2a66b250": {
+    "original": "Los subtotales por grupo de interés de las presentaciones presentan diferencias respecto a sus totales regionales. Estas diferencias requieren conciliación antes de ampliar la comparación.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "538a3b1b4166a28465b3": {
+    "original": "Convocatoria:",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "d974700c83125be8e481": {
+    "original": ", diapositiva",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "76cfed3e03b517343242": {
+    "original": "SHA-256:",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "cc10a806fd6718e520f1": {
+    "original": "Registros de asistencia: 3.576 entradas de participación, con corte de consulta al 11 de noviembre de 2026.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "096b02dd1255e1952372": {
+    "original": "Una entrada puede estar asociada a varias dependencias, por lo que sus conteos pueden superar el total de registros. Los porcentajes por edad consideran únicamente las edades registradas. La descarga incluye los registros de toda la sección.",
+    "archivo": "app/vista.tsx",
+    "elemento": "p"
+  },
+  "2111b1ef7b08fe1278a3": {
+    "original": "Universidad de Cundinamarca · Planeación Estratégica 2027 — 2037",
+    "archivo": "app/vista.tsx",
+    "elemento": "footer"
+  },
+  "bc1cb130e16a3a764d36": {
+    "original": "Corte de información",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "2a4a3d06af61cc6de1bd": {
+    "original": "Selecciona una fecha para explorar sus accesos.",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "e976ac758c9633fb24b5": {
+    "original": "Fecha de acceso",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "span"
+  },
+  "5ad5ba1b9564a57bd34f": {
+    "original": "Menos días indican una participación más reciente. Referencia global:",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "056e8decca9a7a3b553f": {
+    "original": "días.",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "c79887a0e147bad0e082": {
+    "original": "Personas únicas agrupadas por días desde su último acceso.",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "23e28e6ee6566eb52514": {
+    "original": "días promedio",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "p"
+  },
+  "9209cb5d72c9a370e075": {
+    "original": "Primera medición",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "span"
+  },
+  "a3f2eab41ec545d82f9c": {
+    "original": "días",
+    "archivo": "components/accesos/panel-accesos-cai.tsx",
+    "elemento": "span"
+  },
+  "9bc9fa8f04508b42593b": {
+    "original": "personas ·",
+    "archivo": "components/analitica-momentos/distribucion-valoracion.tsx",
+    "elemento": "p"
+  },
+  "f02445e5cb260d79d82f": {
+    "original": "respuestas",
+    "archivo": "components/analitica-momentos/distribucion-valoracion.tsx",
+    "elemento": "span"
+  },
+  "d845165cfa21816c6e06": {
+    "original": "respuestas",
+    "archivo": "components/analitica-momentos/respuestas-abiertas.tsx",
+    "elemento": "p"
+  },
+  "b4e398f1ccda22629dab": {
+    "original": "Resumen general",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "h2"
+  },
+  "f0f0d96318af08798139": {
+    "original": "Lo más relevante de las",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "p"
+  },
+  "757d3a2ec60be16c5d63": {
+    "original": "actividades valoradas (Momentos 1 y 2, y Momento 3), la conversación del foro y las reflexiones. Toca cualquier tarjeta para ver el detalle.",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "p"
+  },
+  "5a23550a4079c64ef58a": {
+    "original": "Participación por actividad",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "h3"
+  },
+  "337bb4ea94f3bafafc41": {
+    "original": "Valoración promedio por actividad",
+    "archivo": "components/analitica-momentos/resumen-analitica.tsx",
+    "elemento": "h3"
+  },
+  "f40743ce1c08aaeee6c9": {
+    "original": "Sin respuestas.",
+    "archivo": "components/charts/barras-escala.tsx",
+    "elemento": "p"
+  },
+  "1555ec9a8b5e48fbbca3": {
+    "original": "Estas respuestas no se separan en temas claros: la agrupación automática deja casi todas en un mismo grupo. Se resumen con las palabras que más se repiten y la lista completa.",
+    "archivo": "components/charts/comentarios-por-tema.tsx",
+    "elemento": "p"
+  },
+  "20281d1489fd4517953d": {
+    "original": "respuestas",
+    "archivo": "components/charts/distribucion-escala.tsx",
+    "elemento": "span"
+  },
+  "62dc755ba1b7b0e5341c": {
+    "original": "No hay respuestas con contenido en este recorte.",
+    "archivo": "components/charts/lista-comentarios.tsx",
+    "elemento": "p"
+  },
+  "5fac5af72c44f7dc8c83": {
+    "original": "El tamaño y el color indican cuántas veces se repite cada palabra.",
+    "archivo": "components/charts/nube-palabras.tsx",
+    "elemento": "p"
+  },
+  "d8405a901cee901b7645": {
+    "original": "respuestas de texto libre (",
+    "archivo": "components/charts/otro-panel.tsx",
+    "elemento": "p"
+  },
+  "60c3fe77933cb2c4e202": {
+    "original": "“Otro”",
+    "archivo": "components/charts/otro-panel.tsx",
+    "elemento": "p"
+  },
+  "b9138a45e09c0cbddd58": {
+    "original": "No hay respuestas que coincidan con la búsqueda.",
+    "archivo": "components/charts/otro-panel.tsx",
+    "elemento": "li"
+  },
+  "4b243eef4a7fb8efb7f4": {
+    "original": "Opción",
+    "archivo": "components/charts/ranked-bar-chart.tsx",
+    "elemento": "TableHead"
+  },
+  "d287c862503ab8f16a17": {
+    "original": "Respuestas",
+    "archivo": "components/charts/ranked-bar-chart.tsx",
+    "elemento": "TableHead"
+  },
+  "888b0cb14765a2cab519": {
+    "original": "respuestas ·",
+    "archivo": "components/charts/ranked-bar-chart.tsx",
+    "elemento": "p"
+  },
+  "6750c88f7869d761a2fd": {
+    "original": "Grupo",
+    "archivo": "components/conferencistas/conferencista-card.tsx",
+    "elemento": "span"
+  },
+  "8a074aeff739a09f1031": {
+    "original": "Ver perfil completo →",
+    "archivo": "components/conferencistas/conferencista-card.tsx",
+    "elemento": "p"
+  },
+  "d44dff03b3077e51968c": {
+    "original": "Cerrar",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "span"
+  },
+  "897aacdb48934bc1c23d": {
+    "original": "asistentes presenciales",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "span"
+  },
+  "f18440e6737e81c9d5e7": {
+    "original": "vistas en redes",
+    "archivo": "components/conferencistas/detalle-conferencista.tsx",
+    "elemento": "span"
+  },
+  "d51a67b96a7972224791": {
+    "original": "Aún no hay valoraciones registradas para esta jornada.",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "motion.p"
+  },
+  "9fca56815c1c8a8ca13d": {
+    "original": "Calificación promedio",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "span"
+  },
+  "78218dd8712d157f2e66": {
+    "original": "Valoraciones recibidas",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "span"
+  },
+  "1c91c5f3958afc7348fe": {
+    "original": "Calificación de una jornada conjunta con",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "motion.p"
+  },
+  "f2b45fd22de3c0a06b2b": {
+    "original": "Distribución de calificaciones",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "h3"
+  },
+  "353f88f2cac6c3c08471": {
+    "original": "Comentarios (",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "h3"
+  },
+  "38e202d5c47587d91b28": {
+    "original": "Comentarios generales de una jornada conjunta con",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "p"
+  },
+  "261129e8aac3a2e81eda": {
+    "original": ", no exclusivos de esta charla.",
+    "archivo": "components/conferencistas/valoraciones-conferencista.tsx",
+    "elemento": "p"
+  },
+  "987d9c667c114825e245": {
+    "original": "Los",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "6a74b1b281b2a28fd4c3": {
+    "original": "aportes de texto libre, agrupados en",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "51ddd0cbc332bf9d0c48": {
+    "original": "temas. Clic en un tema para filtrar las respuestas de abajo.",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "f5b5f8b73c73eae672a0": {
+    "original": "Lectura general de los aportes abiertos y su implicación para el Plan Estratégico 2027–2037.",
+    "archivo": "components/dashboard/analisis-otro.tsx",
+    "elemento": "p"
+  },
+  "512f1325ab7f0bc4f818": {
+    "original": "Quién participó — Diagnóstico: Tu Voz Fundamental",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "h1"
+  },
+  "1bc13fc5bbb5efc3f50c": {
+    "original": "Composición de los",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "0c3d27a4dc18395fa82a": {
+    "original": "participantes por rol, sede y facultad",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "d6c46112ad1cdb069870": {
+    "original": "personas (",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "dba17d81ac7e2eb71aee": {
+    "original": ") tienen más de un rol simultáneo.",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "b4e7b6afa6a92983097c": {
+    "original": "Combinación de roles",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "TableHead"
+  },
+  "853c6d585088fbe9d6e1": {
+    "original": "Personas",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "TableHead"
+  },
+  "65f5610287fbd394f16c": {
+    "original": "Solo aplica a roles con vínculo académico.",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "p"
+  },
+  "7f2f09f0adb17ca7a198": {
+    "original": "Facultad",
+    "archivo": "components/dashboard/participacion-client.tsx",
+    "elemento": "TableHead"
+  },
+  "b62ee60c7ee9340e60bd": {
+    "original": "Texto libre genuino fuera de las opciones cerradas —",
+    "archivo": "components/dashboard/preguntas-estrategicas-client.tsx",
+    "elemento": "p"
+  },
+  "8ccabdf3583f47210c6f": {
+    "original": "respuestas en total.",
+    "archivo": "components/dashboard/preguntas-estrategicas-client.tsx",
+    "elemento": "p"
+  },
+  "4af1e7279b3f7b73a67f": {
+    "original": "Diagnóstico: Tu Voz Fundamental",
+    "archivo": "components/dashboard/resumen-ejecutivo-client.tsx",
+    "elemento": "h1"
+  },
+  "2137ba2e8c11a68beb5e": {
+    "original": "Unidad de la jornada del día en que se respondió.",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "span"
+  },
+  "d6be66b7d2566dabf04f": {
+    "original": "Ninguna respuesta coincide con el filtro elegido.",
+    "archivo": "components/ia-administrativos/panel-ia-administrativos.tsx",
+    "elemento": "p"
+  },
+  "3b7aa0f141a572b88155": {
+    "original": "Plan Estratégico 2027 – 2037",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "dfe3f6f3dcfedbbaba37": {
+    "original": "Plan Estratégico",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "h1"
+  },
+  "d3a4006b689f44a46c5d": {
+    "original": "Analítica de datos del Plan Estratégico",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "p"
+  },
+  "d7a5a2806a9d762911ae": {
+    "original": "Accesos del plan",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "motion.p"
+  },
+  "47b121b46bb42593edf3": {
+    "original": "www.ucundinamarca.edu.co · Vigilada MinEducación",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "7c5db396d441c0fb0613": {
+    "original": "Elaborado por Dirección de Planeación Institucional",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "37095a42c62518b0b9be": {
+    "original": "Próximamente",
+    "archivo": "components/landing/landing-client.tsx",
+    "elemento": "span"
+  },
+  "060e60d6c336dbefd498": {
+    "original": "Plan Estratégico",
+    "archivo": "components/layout/app-shell.tsx",
+    "elemento": "p"
+  },
+  "04ac4c37bf9db99e7963": {
+    "original": "Universidad de Cundinamarca",
+    "archivo": "components/layout/app-shell.tsx",
+    "elemento": "span"
+  },
+  "e1d936a67d6e483c33ea": {
+    "original": "Descargar los datos de esta sección",
+    "archivo": "components/layout/descarga-excel.tsx",
+    "elemento": "p"
+  },
+  "a3f896b0c6eeb66939d0": {
+    "original": "Excel con las respuestas de «",
+    "archivo": "components/layout/descarga-excel.tsx",
+    "elemento": "p"
+  },
+  "5e1d4bcf2ee9f245aeb3": {
+    "original": "Esta sección no está disponible por ahora",
+    "archivo": "components/layout/seccion-no-disponible.tsx",
+    "elemento": "p"
+  },
+  "1af37cdeb5f1b5a89978": {
+    "original": "Se retiró temporalmente del sitio. La información no se ha perdido: volverá a verse cuando se publique de nuevo.",
+    "archivo": "components/layout/seccion-no-disponible.tsx",
+    "elemento": "p"
+  },
+  "27b19fd5acfd91056f67": {
+    "original": "Total:",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "p"
+  },
+  "7fd75f2c9a841ce516e1": {
+    "original": "Sí — completó el diagnóstico",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "span"
+  },
+  "c5a09f60e9f43263ac4e": {
+    "original": "No — sin participación",
+    "archivo": "components/metas/grafico-metas.tsx",
+    "elemento": "span"
+  },
+  "740c1f9e2d6b67bd9ace": {
+    "original": "Total",
+    "archivo": "components/metas/tabla-meta.tsx",
+    "elemento": "TableHead"
+  },
+  "8a823328533d5bdddc70": {
+    "original": "Porcentaje",
+    "archivo": "components/metas/tabla-meta.tsx",
+    "elemento": "TableHead"
+  },
+  "e201f98b65f7acbcf558": {
+    "original": "filas",
+    "archivo": "components/metas/tabla-meta.tsx",
+    "elemento": "p"
+  },
+  "35b2aac1db9cafec2e06": {
+    "original": "Finalizado",
+    "archivo": "components/seguimiento/donut-avance.tsx",
+    "elemento": "span"
+  },
+  "aef4f8dc3a531c857c07": {
+    "original": "No finalizado",
+    "archivo": "components/seguimiento/donut-avance.tsx",
+    "elemento": "span"
+  },
+  "bc2977871a6372fcc012": {
+    "original": "actividades · haz click en una actividad para ver quién la finalizó y quién no",
+    "archivo": "components/seguimiento/lista-actividades.tsx",
+    "elemento": "p"
+  },
+  "a56dd5e3966af37a4ee1": {
+    "original": "✓ actividad finalizada · ✗ no finalizada · reincidente =",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "p"
+  },
+  "fd49d84be12aac03c4cd": {
+    "original": "o más actividades sin finalizar",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "p"
+  },
+  "3dcc5d3f348233f6628e": {
+    "original": "Reincidentes:",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "span"
+  },
+  "977553abed3aba3b719e": {
+    "original": "No reincidentes:",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "span"
+  },
+  "b8245c089e24db4d2bf7": {
+    "original": "Participante",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "th"
+  },
+  "97858c91622fb3490458": {
+    "original": "% finalización",
+    "archivo": "components/seguimiento/matriz-participantes.tsx",
+    "elemento": "th"
+  },
+  "df28794883d4beb3371c": {
+    "original": "Porcentaje de actividades finalizadas sobre el total de registros persona × actividad",
+    "archivo": "components/seguimiento/panel-seguimiento.tsx",
+    "elemento": "p"
+  },
+  "6eb803677f1281321246": {
+    "original": "Ninguna respuesta con los filtros aplicados incluye un ajuste propuesto.",
+    "archivo": "components/transformaciones/aportes-ajustes.tsx",
+    "elemento": "p"
+  },
+  "0d0b5e79b20ccbd0fa5b": {
+    "original": "aportes",
+    "archivo": "components/transformaciones/aportes-ajustes.tsx",
+    "elemento": "p"
+  },
+  "b966ef1387d43ca020dc": {
+    "original": "Ningún aporte coincide con los filtros elegidos.",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "p"
+  },
+  "23ae7058dd9ecd0ccdaf": {
+    "original": "Mostrando",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "p"
+  },
+  "4c2daa585bd94001363e": {
+    "original": "aportes",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "p"
+  },
+  "009df16bf0491085009e": {
+    "original": "Todavía no hay comentarios suficientes para agrupar por tema. La clasificación se rehace sola cada vez que se cargan documentos nuevos.",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "p"
+  },
+  "8739c8f708d9bb5540ff": {
+    "original": "Los",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "6b099015f62e041e00fc": {
+    "original": "comentarios se agrupan solos en",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "f531cc53956b2f57628c": {
+    "original": "temas",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "strong"
+  },
+  "286b8376822fa4f8b723": {
+    "original": "según las palabras que comparten.",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "dc2cce82422e5d1f3b7f": {
+    "original": "No hay respuestas con los filtros aplicados.",
+    "archivo": "components/transformaciones/distribucion-respaldo.tsx",
+    "elemento": "p"
+  },
+  "3a1563a8960870fed863": {
+    "original": "respuestas ·",
+    "archivo": "components/transformaciones/distribucion-respaldo.tsx",
+    "elemento": "p"
+  },
+  "68520743c9625111511e": {
+    "original": "respuestas",
+    "archivo": "components/transformaciones/distribucion-respaldo.tsx",
+    "elemento": "span"
+  },
+  "77f0dd3deab456026bfc": {
+    "original": "comentarios",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "ec53b61a932c7f34f17a": {
+    "original": "Clasificación consultada",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "label"
+  },
+  "3e5a7a07696878005198": {
+    "original": "Consultando la fuente documental…",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "38454433c56d8465b480": {
+    "original": "Al cambiar de fuente se conservan los filtros de regional, transformación, grupo y postura.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "496eb8248d52b1c23d93": {
+    "original": "La clasificación documental no está disponible. Todos los comentarios originales siguen accesibles.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "313a0abaaf1ad888dde4": {
+    "original": "Principales hallazgos",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "h2"
+  },
+  "fdb1915d8e0e679f39c7": {
+    "original": "Los cinco temas con más comentarios de la selección actual. Selecciona uno o varios para explorar los aportes que coincidan con todos.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "43f94f16db19f088645e": {
+    "original": "No hay temas registrados para esta combinación.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "9eb9e718a2f56cb21e19": {
+    "original": "No hay otros temas que coincidan con la búsqueda.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "d1efa4dfdab3b6c106b3": {
+    "original": "De esos",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "486c06abeb311f436eed": {
+    "original": "comentarios,",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "10129a081625e44d0bf2": {
+    "original": "tienen una clasificación documentada en otra metodología y",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "b95c7d37a6b79fbe6266": {
+    "original": "no tienen asignación temática verificable en las fuentes auditadas. Las clasificaciones se consultan por separado; no son equivalencias entre categorías.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "828e733c67ea8b358bc3": {
+    "original": "Un comentario puede tener varios temas. Al seleccionar varios, se muestran los que cumplen todos; los totales cuentan cada comentario una sola vez.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "7a080b33bff633ad0c76": {
+    "original": "Nivel de acuerdo registrado",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "h3"
+  },
+  "e70c4d53cdc7b4388413": {
+    "original": "La postura procede de la respuesta del formulario, sin inferirla del comentario.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "a7dada25d67ae5355c4e": {
+    "original": "Comentarios originales",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "h2"
+  },
+  "b1660f3f66c4bfd9c503": {
+    "original": "resultados · Total general:",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "02da0f05ad313b3ef253": {
+    "original": "No hay comentarios que cumplan todos los filtros seleccionados. Puedes quitar un filtro o volver a «Todos los comentarios».",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "8e5d6fbe0e1c7899424a": {
+    "original": "Hay clasificaciones documentadas en otras metodologías:",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "fb1cbe6b017a22b26a43": {
+    "original": ". Puedes consultarlas cambiando «Clasificación consultada».",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "p"
+  },
+  "f48e7b4d0c2b6f8c29bd": {
+    "original": "No hay respuestas con los filtros aplicados.",
+    "archivo": "components/transformaciones/respaldo-por-transformacion.tsx",
+    "elemento": "p"
+  },
+  "9287637dc7d3429c15a0": {
+    "original": "respuestas",
+    "archivo": "components/transformaciones/respaldo-por-transformacion.tsx",
+    "elemento": "p"
+  },
+  "971c530ca34fc252c6ce": {
+    "original": "DISTRIBUCIÓN Y EVOLUCIÓN",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "124dc9df5124dc9841d5": {
+    "original": "Las voces que estuvieron presentes",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "h2"
+  },
+  "029cbe1c8c4dd03b7eb9": {
+    "original": "asistentes el",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "6fde8adb2d92f9b64ed5": {
+    "original": "No hay fechas de inicio disponibles para los registros seleccionados.",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "e66ed419a50cc1e2f98d": {
+    "original": "Buscar por fecha, lugar, rol, unidad o dependencia",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "label"
+  },
+  "cd8ea56d370f1c9ed70b": {
+    "original": "registros coincidentes. Una persona puede registrar asistencia en varias jornadas.",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "597e92baa6160630e71d": {
+    "original": "Registro",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "9a73d3b22d84337c1a10": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "cf2816548472b9eacdab": {
+    "original": "Lugar",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "f9940728b543cca2165d": {
+    "original": "Rol",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "6248800ec7813ceac6e3": {
+    "original": "Edad",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "875a9acc40b6ae440ef5": {
+    "original": "Unidad regional",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "f553b4b8e5394a40059e": {
+    "original": "Programa / facultad / coordinación / área",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "4bde1c5ecfa0b2b47b0b": {
+    "original": "No se incluyen",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "f731b779ff5d066f5319": {
+    "original": "respuesta(s) para que todas las cifras cuadren entre sí:",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "ad264436975963471262": {
+    "original": "Ninguna respuesta coincide con los filtros elegidos.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "3a89defbeabedb06d3ad": {
+    "original": "resp.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "65bbb6aa319f1cafa89d": {
+    "original": "% de acuerdo o totalmente de acuerdo. El tono resalta los valores más altos de la tabla.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "7bf75af3d66da7bd3cd4": {
+    "original": "Saltar a filtros, gráficos y registros",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "1b1c846ba816b1e2c10e": {
+    "original": "Versión actual ↗",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "8da0cd314836fa94a659": {
+    "original": "← Anterior",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "ce3fb408f40ad23ac135": {
+    "original": "Siguiente →",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "fb5ef764af7b7600c91b": {
+    "original": "Imprimir informe",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "f71ca8ae57e3a8208b09": {
+    "original": "Explorar el alcance",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "5b7e3e5aba8da4136376": {
+    "original": "Ir directamente al detalle ↗",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "1f8acf616860ab600b45": {
+    "original": "Consultar cifras por unidad ↗",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "f01a592b56c7aeaf4bf4": {
+    "original": "Revisar unidades y fuentes ↓",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "44238271857833380fba": {
+    "original": "Descargar Excel completo ↓",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "16b523b1c456789d5c3b": {
+    "original": "Narrativa",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "002d2a11f001e95a01e6": {
+    "original": "Baja animación",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "22acef03905a038922de": {
+    "original": "Reunión",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "03af49a9d215ba82f5a7": {
+    "original": "Reanudar animación",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "12cc5e5d5d5be2b346e1": {
+    "original": "Pausar animación",
+    "archivo": "app/vista.tsx",
+    "elemento": "accion"
+  },
+  "3669b8e262292bf88c91": {
+    "original": "Participación",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "735f4a4593ffda39374c": {
+    "original": "Convocatoria y asistencia",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "f8fc771aa14d7121740d": {
+    "original": "Diferencias entre fuentes",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "1c73c7ffaeb389f9f0b3": {
+    "original": "Jornadas",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "82297e2ce55d3d2fd4c9": {
+    "original": "Consulta de registros",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "3834453d815e9980568d": {
+    "original": "Resumen y fuentes",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "d5cbdefb517c6223156d": {
+    "original": "Lugar de la jornada",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "01fa34ad7d0eff1b787b": {
+    "original": "Grupos de interés · rol registrado",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "c29f82c72b275ccbf101": {
+    "original": "Unidad regional de origen de los participantes",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "f49dbb6e76438ea684ee": {
+    "original": "Origen y corrección de los porcentajes",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "a45e6f132472425eddf7": {
+    "original": "Fuentes y criterios de cálculo",
+    "archivo": "app/narrativa",
+    "elemento": "titulo"
+  },
+  "34018a531d23c240188b": {
+    "original": "Asistencia en el tiempo",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "c1c9fa52dd2671935d12": {
+    "original": "Detalle de los registros de asistencia",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "2683e5dda463b4a09952": {
+    "original": "Lugar de desarrollo",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "a06827fd0d5ac104c7fc": {
+    "original": "Unidad Regional",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "46b3077c7586b2a37346": {
+    "original": "Programa, facultad, coordinación o área",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "2a607b6d60d0cc4b5bc5": {
+    "original": "Asistentes registrados",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "22cab1be1eff69ac14d6": {
+    "original": "Unidades regionales",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "dfbcb143991270ecad34": {
+    "original": "Sedes, seccionales y extensiones",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "679f04919309a9b0be0f": {
+    "original": "Rol con más asistencia",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "3760cb3e78c7a4af14a0": {
+    "original": "Participación por rol",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "a23ec1f84b9ac3354957": {
+    "original": "Participación por Unidad Regional",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "6398b03daf34be55b332": {
+    "original": "Distribución por edad",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "df6136526bd097525370": {
+    "original": "Participación por programa, facultad, coordinación o área",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-titulo-jornadas-completo": {
+    "original": "Fueron 13 jornadas.",
+    "archivo": "app/vista.tsx",
+    "elemento": "titulo-completo"
+  },
+  "participacion-asistencia-regional-leyenda": {
+    "original": "Asistencias agrupadas por lugar de la jornada · consulte cada barra para ver su detalle",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-maximo-regional": {
+    "original": "Máximo por unidad regional:",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-regional-2af8c4451fde2220": {
+    "original": "Asistencias por fecha registrada",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-regional-2b8051417c2526f2": {
+    "original": "asistencias",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-regional-d3d65e7c5a4efc9e": {
+    "original": "Cerrar detalle",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-regional-ccae2d5cd4e73e0c": {
+    "original": "Cada barra suma las asistencias registradas en el mismo lugar. Las fechas originales se conservan en el detalle; no representan personas únicas.",
+    "archivo": "app/narrativa/jornadas.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-resumen-agrupacion-regional": {
+    "original": "Asistencias por lugar del encuentro, agrupando sus fechas registradas.",
+    "archivo": "app/vista.tsx",
+    "elemento": "descripcion"
+  },
+  "0f8653c867c57bb85b7c": {
+    "original": "sugerencias cargadas",
+    "archivo": "components/charts/lista-comentarios.tsx",
+    "elemento": "span"
+  },
+  "a3bb604a4e1132a432b4": {
+    "original": "DISTRIBUCIÓN Y EVOLUCIÓN",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "bd2107751314c2ec5904": {
+    "original": "Las voces que estuvieron presentes",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "h2"
+  },
+  "e48790eaaa432b2653e2": {
+    "original": "No hay fechas de inicio disponibles para los registros seleccionados.",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "dd7be19c9696dc0956e6": {
+    "original": "Buscar por fecha, lugar, rol, unidad o dependencia",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "label"
+  },
+  "320257b9b48bd17cf7b0": {
+    "original": "registros coincidentes. Una persona puede registrar asistencia en varias jornadas.",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "7e6e4d5b580881a72512": {
+    "original": "Registro",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "3258b899eda26e4bde51": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "821924e1b39e810a579e": {
+    "original": "Lugar",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "82e180400147efec2a1b": {
+    "original": "Unidad regional",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "2a3597a79f0102ad8c26": {
+    "original": "Programa / facultad / coordinación / área",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "6efb85dd22580cab0a53": {
+    "original": "05 / LAS RESPUESTAS ORIGINALES",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "p"
+  },
+  "2893094a800c34492e1a": {
+    "original": "El detalle detrás",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "h2"
+  },
+  "5600bbf0fb6a4ec6163f": {
+    "original": "de los resultados.",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "h2"
+  },
+  "130fc4798a92afd9ae06": {
+    "original": "Primero se muestran las observaciones con contenido. Las respuestas como «Ninguna», los textos breves sin propuesta y los campos vacíos permanecen al final, sin eliminarse. Este orden no asigna una importancia estratégica automática.",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "p"
+  },
+  "3577be015c1584dfdf5b": {
+    "original": "Buscar por texto, regional, grupo o identificador",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "label"
+  },
+  "62cb7debef0c398eaf52": {
+    "original": "respuestas encontradas",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "p"
+  },
+  "721616c730d9ebe460b7": {
+    "original": "Comprensión de las transformaciones",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "dt"
+  },
+  "d13a3d4f2be31780ae55": {
+    "original": "Claridad del rumbo de la universidad",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "dt"
+  },
+  "b2d687d45a32eda50f69": {
+    "original": "Participación en la dinámica",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "dt"
+  },
+  "60252f5aa621422214f0": {
+    "original": "Observación con contenido",
+    "archivo": "components/valoracion-territorio/evidencia.tsx",
+    "elemento": "span"
+  },
+  "e2c944d918d43ac2533d": {
+    "original": "01 / VALORACIÓN GENERAL",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "030e82acfee56a50c5fd": {
+    "original": "Principales resultados",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h2"
+  },
+  "2202ae0921a7962f84ba": {
+    "original": "de la experiencia.",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h2"
+  },
+  "094bee9fc879c9526d61": {
+    "original": "Se consideran favorables «De acuerdo» y «Totalmente de acuerdo». Cada porcentaje usa las respuestas a esa pregunta.",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "0c3d60de59892bb6a035": {
+    "original": "respuestas favorables",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "ef164c4625c437e8e76f": {
+    "original": "Ver pregunta y conteos",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "summary"
+  },
+  "987dda497b7f94d8c3e2": {
+    "original": "Sin respuesta",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "span"
+  },
+  "3f714d44052f24020d5c": {
+    "original": "02 / LOGROS Y FORTALEZAS",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "886ac0b09976c1bc9464": {
+    "original": "Logros y fortalezas",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h2"
+  },
+  "b4f66ba1335e314503bf": {
+    "original": "de valoración favorable",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "c92f4484a9c9bad4b3f3": {
+    "original": "Estos resultados reflejan lo que las personas declararon sobre la comprensión y la participación durante la experiencia.",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "4e8e79c4f81740810d8f": {
+    "original": "PUNTOS DE ATENCIÓN",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "7143a66125f4e5bc8f6a": {
+    "original": "Dificultades y aspectos",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h2"
+  },
+  "def660ada1c303c3256d": {
+    "original": "por mejorar.",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h2"
+  },
+  "6d53ee1c18a709fb3eca": {
+    "original": "El desacuerdo señala aspectos que requieren atención. Las respuestas neutrales se muestran por separado y no se interpretan automáticamente como dificultades. Las observaciones y propuestas originales pueden consultarse más abajo.",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "p"
+  },
+  "8817fb3860788451cc74": {
+    "original": "TRABAJO EN TERRITORIO / VALORACIÓN DE LA EXPERIENCIA",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "c4e6d5bfee8f56bc5ee8": {
+    "original": "VALORACIÓN",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "h1"
+  },
+  "48e50deda62eea7c834f": {
+    "original": "Experiencia «Transformaciones que nos conectan». Cómo ayudó a comprender el rumbo de la universidad, cómo se vivió la participación y qué proponen mejorar.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "e9ecb737751a06036611": {
+    "original": "respuestas incluidas en la valoración",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "0ff9790a633838c959d0": {
+    "original": "Fuera del análisis:",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "04e2694754ae00b7d57e": {
+    "original": "respuestas sin datos suficientes para la identificación de su jornada o grupo:",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "1840732ee62e1893904e": {
+    "original": "03 / EL DETALLE DE LA VALORACIÓN",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "871ff68860b81c820f92": {
+    "original": "Todos los niveles.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "h2"
+  },
+  "fd0f81ee64ea28eff86d": {
+    "original": "Regionales y grupos de interés.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "h2"
+  },
+  "385d97765c4195df317d": {
+    "original": "La regional corresponde a la jornada de la fecha de respuesta, no necesariamente al origen del participante.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "3ef2a997ad7fd9011ac8": {
+    "original": "04 / PROPUESTAS Y OPORTUNIDADES DE MEJORA",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "19c336307d926d1e0309": {
+    "original": "Propuestas de mejora",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "h2"
+  },
+  "a30cee04523ef4abc68a": {
+    "original": "para próximos encuentros.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "h2"
+  },
+  "535615f99cd42c0059b1": {
+    "original": "Respuestas a la pregunta abierta. Las palabras y los temas son agrupaciones automáticas; no representan una clasificación manual de dificultades o propuestas.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "2247121cb8d9d14ff81e": {
+    "original": "Resumen de la selección",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "summary"
+  },
+  "dd28bf9383444d83d7be": {
+    "original": "Fuentes y criterios de lectura",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "h2"
+  },
+  "8397c1544c4620df13c3": {
+    "original": "Instrumento de valoración de la experiencia: tres afirmaciones y una pregunta abierta. Corte de copia: 12 de noviembre de 2026. La valoración global es el promedio de los porcentajes favorables de las tres afirmaciones, no un porcentaje de personas únicas.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "d57e9c9b6f0c6e3a1561": {
+    "original": "Excel original: 519 filas; análisis actual: 515. Se mantienen las exclusiones de la sección original. Los porcentajes por pregunta consideran únicamente sus respuestas disponibles.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "14204152d19c9b5a66cb": {
+    "original": "Las presentaciones se consultaron como contexto documental; sus cifras y clasificaciones no se incorporaron a las respuestas actuales sin correspondencia verificable.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "p"
+  },
+  "8e5bd4685942c8e63feb": {
+    "original": "Detalle de los registros de asistencia",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "CardTitle"
+  },
+  "4b833742114e66e19c3f": {
+    "original": "Cuestionarios con jornada y grupo identificados",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "d6123b405a94207dbf73": {
+    "original": "Textos sobre qué mejorar",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "69adc7c1cdc6bfc9abe2": {
+    "original": "Según el criterio de contenido del módulo actual",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "prop"
+  },
+  "f14d81588ba1e330633d": {
+    "original": "Comprensión de las cinco transformaciones estratégicas",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h3"
+  },
+  "b50f919dbea057b65107": {
+    "original": "Claridad sobre la misión, la visión y el rumbo de la universidad",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h3"
+  },
+  "e0a32093d3319282c3e9": {
+    "original": "Participación favorecida por la dinámica de la experiencia",
+    "archivo": "components/valoracion-territorio/lectura.tsx",
+    "elemento": "h3"
+  },
+  "2f363a97ee3537fb6be8": {
+    "original": "DETALLE DE LA VALORACIÓN",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "f2814776c9cb7eaebda6": {
+    "original": "Consultar el enunciado completo",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "9ae3abdcdd69194cd4fb": {
+    "original": "Buscar dentro de estas respuestas",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "16a103a2ab1d498c94fa": {
+    "original": "de",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "df5e4a386b7c51720468": {
+    "original": "respuestas de la selección actual corresponden a este nivel de valoración.",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "e6e96fa900e70c9e93b6": {
+    "original": "respuestas mostradas",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "470cfc639011514bb8d2": {
+    "original": "No hay respuestas que coincidan con esta búsqueda.",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "550c195e3a1d6456d8ec": {
+    "original": "Respuesta",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "5b040668a6caab7b3e0d": {
+    "original": "Observación registrada",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "7ca9ba7fb6cb80725558": {
+    "original": "Esta respuesta no incluye un comentario abierto.",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "66852cc88910784499c6": {
+    "original": "Se muestran únicamente las respuestas del criterio seleccionado.",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "76fec863ddea22aacec7": {
+    "original": "Cerrar detalle",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "4d6d014ceb48fda2aab6": {
+    "original": "Comprender las cinco transformaciones",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "6e0b0dc7c477c00c0f8b": {
+    "original": "Claridad sobre hacia dónde se proyecta la universidad",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "5da697a0cded4b35f78f": {
+    "original": "La dinámica (MCA) favoreció la participación",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "8a57e18c430a7a45b08c": {
+    "original": "valoración favorable",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "39994a226a995b458359": {
+    "original": "desacuerdo",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "532b4f55f523da7cd67d": {
+    "original": "neutral",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "c73335ff15b2dedaaa0c": {
+    "original": "respuestas en desacuerdo",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "3d0e5a06c0906173ba7d": {
+    "original": "respuestas neutrales",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "ca6659f7c4b6a6f396b3": {
+    "original": "Mostrar más respuestas",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "a7f339dceafee6ac4892": {
+    "original": "Ver todas las respuestas",
+    "archivo": "components/valoracion-territorio",
+    "elemento": "descriptivo"
+  },
+  "0e2aa4bd812fdaae4ea1": {
+    "original": "Universidad de Cundinamarca · Valoración de la experiencia en territorio",
+    "archivo": "app/page.tsx",
+    "elemento": "footer"
+  },
+  "33429d3b208e79dca25e": {
+    "original": "Rol",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "628822e9019249d58d0d": {
+    "original": "Edad",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "th"
+  },
+  "baff78efcd1cbb86e1e8": {
+    "original": "DE LA EXPERIENCIA",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "em"
+  },
+  "4e0ea7aa3dd0c827ea10": {
+    "original": "Logros",
+    "archivo": "components\\valoracion-territorio\\panel-valoracion-territorio.tsx",
+    "elemento": "navegacion"
+  },
+  "5fc4db1f72dd6dff0017": {
+    "original": "Dificultades",
+    "archivo": "components\\valoracion-territorio\\panel-valoracion-territorio.tsx",
+    "elemento": "navegacion"
+  },
+  "6ef12cc397e78b5a9557": {
+    "original": "Regionales y grupos",
+    "archivo": "components\\valoracion-territorio\\panel-valoracion-territorio.tsx",
+    "elemento": "navegacion"
+  },
+  "bcd1fd4550b687ae7547": {
+    "original": "Respuestas originales",
+    "archivo": "components\\valoracion-territorio\\panel-valoracion-territorio.tsx",
+    "elemento": "navegacion"
+  },
+  "participacion-menu-presentacion": {
+    "original": "Modo de presentación",
+    "archivo": "components/participacion-narrativa/vista.tsx",
+    "elemento": "rotulo"
+  },
+  "participacion-presentacion-control": {
+    "original": "Presentación",
+    "archivo": "components/participacion-narrativa/vista.tsx",
+    "elemento": "control"
+  }
+}

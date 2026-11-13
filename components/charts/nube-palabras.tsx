@@ -1,5 +1,7 @@
 "use client";
+import {TextoDeCatalogo} from "@/components/editorial/texto-editorial";
 
+import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import { useSyncExternalStore } from "react";
 import { Wordcloud } from "@visx/wordcloud";
 import { ParentSize } from "@visx/responsive";
@@ -103,18 +105,17 @@ export function NubePalabras({
   return (
     <Card className="py-3">
       <CardHeader className="px-3.5 pb-1">
-        <CardTitle className="text-[13px]">{titulo}</CardTitle>
+        <CardTitle className="text-[13px]"><TextoDeCatalogo texto={titulo}/></CardTitle>
         <p className="text-[11px] text-muted-foreground">
           {descripcion ??
             `Palabras más frecuentes en las ${formatNumero(totalRespuestas)} respuestas abiertas de aprendizajes y mejoras de todas las actividades.`}{" "}
-          El tamaño y el color indican cuántas veces se repite cada palabra.
-        </p>
+          <TextoEditorial id="9a15737899ab1d913022" original={"El tamaño y el color indican cuántas veces se repite cada palabra."}/></p>
       </CardHeader>
       <CardContent className="px-3.5">
         <div
           className="relative h-80 overflow-hidden rounded-lg"
           role="img"
-          aria-label={`Nube de palabras: ${titulo}`}
+          aria-label={`Nube de palabras: $<TextoDeCatalogo texto={titulo}/>`}
         >
           <div
             className="pointer-events-none absolute inset-0"
