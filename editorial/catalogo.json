@@ -1,4 +1,14 @@
 {
+  "selector-regional-visual-titulo": {
+    "original": "1. Unidad regional",
+    "archivo": "components/transformaciones/selector-regional-visual.tsx",
+    "elemento": "h3"
+  },
+  "selector-regional-visual-todas": {
+    "original": "Todas las opciones",
+    "archivo": "components/transformaciones/selector-regional-visual.tsx",
+    "elemento": "span"
+  },
   "71a25489b6809d3f06d6": { "original": "Sugerencias", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "h3" },
   "9ada732e67f62dc425f4": { "original": "Ver más", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
   "4d4ea4de3826accc1e1c": { "original": "Todas cargadas", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
@@ -694,7 +704,7 @@
     "elemento": "p"
   },
   "6e15162168e3b1815131": {
-    "original": "Comentarios originales",
+    "original": "Comentarios",
     "archivo": "components/transformaciones/explorador-comentarios.tsx",
     "elemento": "h2"
   },

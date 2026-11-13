@@ -1,0 +1,3 @@
+Fotografias: https://github.com/DarwinDev44/Gobierno-de-Datos
+Carpeta original: assets/imagenes/Infraestructura/
+Las siete imágenes conservan su identificación original. Copias WebP de 160 x 160 para las miniaturas del selector regional.

@@ -1,7 +1,7 @@
 "use client";
 
 import {TextoEditorial} from "@/components/editorial/texto-editorial";
-import { memo, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, ChartNoAxesCombined, ChevronDown, MessageSquareQuote, Quote, RotateCcw, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -21,6 +21,7 @@ import {
 import type { RespuestaMomento4 } from "@/types/momento4";
 import type { ClasificacionDocumental, ClasificacionDocumentalCompacta, MetodoClasificacion, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
 import "./comentarios-originales.css";
+import { SelectorRegionalVisual } from './selector-regional-visual';
 
 type Nivel = "unidad" | "transformacion" | "grupo";
 
@@ -41,6 +42,7 @@ export function ExploradorComentarios({ respuestas, clasificacion, errorClasific
   const secuenciaFuente = useRef(0);
   const region = useRef<HTMLElement>(null);
   const barra = useRef<HTMLDivElement>(null);
+  const scrollComentarios = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const elemento = barra.current;
     const contenedor = region.current;
@@ -84,6 +86,9 @@ export function ExploradorComentarios({ respuestas, clasificacion, errorClasific
   const referencias = useMemo(() => expandirClasificacion(datosClasificacion), [datosClasificacion]);
   const opciones = useMemo(() => opcionesComentarios(comentarios, filtros), [comentarios, filtros]);
   const filtrados = useMemo(() => filtrarComentarios(comentarios, referencias, filtros), [comentarios, referencias, filtros]);
+  useLayoutEffect(() => {
+    scrollComentarios.current?.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [filtrados, metodo]);
   const temas = useMemo(() => contarTemas(filtrados, referencias), [filtrados, referencias]);
   const catalogo = useMemo(() => new Map(contarTemas(comentarios, referencias).map((t) => [t.id, t])), [comentarios, referencias]);
   const posturas = useMemo(() => contarPosturas(filtrarComentarios(comentarios, referencias, { ...filtros, postura: null })), [comentarios, referencias, filtros]);
@@ -144,8 +149,7 @@ export function ExploradorComentarios({ respuestas, clasificacion, errorClasific
 
     <Card className="gap-0 border-border/70 py-0">
       <CardContent className="px-4 py-3">
-        <NivelDesplegable nombre="1. Unidad regional" nivel="unidad" abierto={abierto} onAbrir={setAbierto}
-          seleccionado={filtros.unidad} opciones={opciones.unidades} onSeleccionar={(v) => seleccionar("unidad", v)} />
+        <SelectorRegionalVisual opciones={opciones.unidades} seleccionado={filtros.unidad} onSeleccionar={v => seleccionar('unidad', v)}/>
         {filtros.unidad !== null ? <div className="ml-4 border-l-2 border-primary/15 pl-3">
           <NivelDesplegable nombre="2. Transformación" nivel="transformacion" abierto={abierto} onAbrir={setAbierto}
             seleccionado={filtros.transformacion} opciones={opciones.transformaciones} onSeleccionar={(v) => seleccionar("transformacion", v)} />
@@ -239,9 +243,13 @@ export function ExploradorComentarios({ respuestas, clasificacion, errorClasific
       </CardContent>
     </Card>
 
-    <div className="flex items-center justify-between gap-3"><h2 className="font-heading text-lg font-semibold"><TextoEditorial id="6e15162168e3b1815131" original={"Comentarios originales"}/></h2>
+    <div className="panel-comentarios">
+    <div className="flex flex-wrap items-center justify-between gap-3"><h2 id="titulo-comentarios" className="font-heading text-lg font-semibold"><TextoEditorial id="6e15162168e3b1815131" original={"Comentarios"}/></h2>
       <span className="text-sm text-muted-foreground">{formatNumero(filtrados.length)} <TextoEditorial id="7901e92766fdf75dee52" original={"resultados · Total general:"}/>{formatNumero(comentarios.length)}</span></div>
+    <div ref={scrollComentarios} className="scroll-comentarios" data-testid="scroll-comentarios" role="region" aria-labelledby="titulo-comentarios" tabIndex={0}>
     <ListaComentarios comentarios={filtrados} referencias={referencias} metodo={metodo} otrasFuentes={fuentesPorComentario} />
+    </div>
+    </div>
   </section>;
 }
 
@@ -307,7 +315,7 @@ const ListaComentarios = memo(function ListaComentarios({ comentarios, referenci
   // durante la hidratación, sin paginación ni acción adicional del usuario.
   const completa = useDeferredValue(true, false);
   if (!comentarios.length) return <p role="status" className="rounded-xl border bg-muted/30 p-8 text-center text-sm text-muted-foreground"><TextoEditorial id="8920a8d063e79de1517e" original={"No hay comentarios que cumplan todos los filtros seleccionados. Puedes quitar un filtro o volver a «Todos los comentarios»."}/></p>;
-  return <ol aria-label="Comentarios originales" className="comentarios-originales-optimizados flex flex-col gap-3" data-testid="lista-comentarios" data-lista-completa={completa}>
+  return <ol aria-label="Comentarios" className="comentarios-originales-optimizados flex flex-col gap-3" data-testid="lista-comentarios" data-lista-completa={completa}>
     {(completa ? comentarios : comentarios.slice(0, 12)).map((r) => <ComentarioOriginal key={r.id} respuesta={r} clasificacion={referencias.get(r.id)} metodo={metodo} otrasFuentes={otrasFuentes[r.id]} />)}
   </ol>;
 });

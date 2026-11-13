@@ -6,8 +6,8 @@ local. Esta preparación no publica el sitio ni modifica la base remota.
 ## Archivos que se publican
 
 - Componentes y API editorial, adaptadores y catálogo de identificadores.
-- `editorial/contenido-inicial.json`: cuatro textos descriptivos de la revisión
-  local 93; conserva espacios, texto vacío y claves originales.
+- `editorial/contenido-inicial.json`: copia de los textos públicos consultados
+  antes del despliegue; conserva revisión, espacios, textos vacíos y claves originales.
 - Scripts de preparación/migración, plantilla de variables y pruebas permanentes.
 
 `acceso.json`, el historial privado y los `.env` reales no se versionan. El script
@@ -72,6 +72,32 @@ ya contiene otro contenido, se detiene sin sobrescribirlo. No usar esta importac
 como sincronización posterior de un editor que ya está funcionando en producción.
 
 ## Funcionamiento y recuperación
+
+### Despliegues posteriores y ediciones publicadas
+
+Los textos guardados desde la página de producción son la referencia editorial.
+Un despliegue de componentes o estilos debe conservarlos, aunque la copia local
+tenga otros textos o una revisión anterior. Mantener los identificadores del
+catálogo al cambiar un título: una edición persistida con ese identificador
+prevalece sobre el texto original del componente.
+
+Antes de publicar, consultar `GET /api/editorial` en el dominio oficial y guardar
+una copia de su revisión y su mapa de textos fuera del repositorio. Comparar los
+textos locales con esa respuesta para detectar diferencias, sin enviar la copia
+local a producción. Si se actualiza `contenido-inicial.json` para que la primera
+representación ya incluya las últimas ediciones, tomarlo de esa lectura pública
+reciente, conservando sus identificadores, textos vacíos y revisión; nunca del
+editor local anterior. Esto solo actualiza el contenido inicial del código y no
+escribe en PostgreSQL. Volver a consultar la API después del despliegue y comprobar
+que se conservan las ediciones. Si la revisión avanzó por una edición concurrente,
+contrastar el historial en lugar de restaurar automáticamente el respaldo.
+
+No ejecutar `editorial:preparar` ni `editorial:migrar --aplicar` como parte de un
+despliegue habitual, ni sustituir el estado PostgreSQL con
+`contenido-inicial.json`. Este archivo sirve para la primera inicialización y
+la representación inicial; la API carga después el contenido persistido.
+Una modificación de los textos originales del código no autoriza sobrescribir
+los cambios manuales del editor.
 
 La API valida catálogo, revisión y longitud antes de escribir. Texto vacío oculta
 el rótulo; `null` restaura el original. El texto se presenta como texto plano.

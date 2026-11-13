@@ -35,7 +35,7 @@ interface Filtros {
    * junto a dos fechas señaladas no querría decir nada.
    */
   fechas: string[];
-  rol: string;
+  rol: string[];
   unidadRegional: string;
   /** Programa, facultad, coordinación o área: un solo valor entre los cuatro. */
   adscripcion: string;
@@ -45,7 +45,7 @@ interface Filtros {
 
 const SIN_FILTROS: Filtros = {
   fechas: [],
-  rol: TODAS,
+  rol: [],
   unidadRegional: TODAS,
   adscripcion: TODAS,
   lugarDesarrollo: TODAS,
@@ -83,7 +83,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
       ) {
         return false;
       }
-      if (filtros.rol !== TODAS && etiquetaRol(r.rol) !== filtros.rol) return false;
+      if (filtros.rol.length && !filtros.rol.includes(etiquetaRol(r.rol))) return false;
       if (filtros.unidadRegional !== TODAS && unidadRegionalDe(r) !== filtros.unidadRegional) {
         return false;
       }
@@ -106,17 +106,20 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
   const detalle = filtrados.filter(r => JSON.stringify([r.fechaInicio,r.lugarDesarrollo,etiquetaRol(r.rol),unidadRegionalDe(r),...adscripcionesDe(r)]).toLocaleLowerCase().includes(consulta.toLocaleLowerCase()));
   const hayFiltros = JSON.stringify(filtros) !== JSON.stringify(SIN_FILTROS);
 
-  // Los filtros de un solo valor. `fechas` queda fuera a propósito: guarda una
-  // lista, y con la clave suelta se le podría asignar un texto sin que el tipo
-  // lo impidiera.
-  type CampoSimple = Exclude<keyof Filtros, "fechas">;
+  // Fechas y roles guardan listas; los otros filtros conservan un único valor.
+  type CampoSimple = Exclude<keyof Filtros, "fechas" | "rol">;
 
   function actualizar(campo: CampoSimple, valor: string) {
     setFiltros((previos) => ({ ...previos, [campo]: valor }));
   }
 
   /** Click en una barra: alterna ese valor como filtro. */
-  function alternar(campo: CampoSimple, valor: string) {
+  function alternar(campo: CampoSimple | 'rol', valor: string) {
+    if (campo === 'rol') {
+      setFiltros(previos => ({ ...previos, rol: previos.rol.includes(valor)
+        ? previos.rol.filter(rol => rol !== valor) : [...previos.rol, valor] }));
+      return;
+    }
     setFiltros((previos) => ({
       ...previos,
       [campo]: previos[campo] === valor ? TODAS : valor,
@@ -184,16 +187,15 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
           ) : null}
 
           <Campo etiqueta="Rol">
-            <Select value={filtros.rol} onValueChange={(v) => actualizar("rol", v ?? TODAS)}>
-              <SelectTrigger className="w-52">
+            <Select multiple value={filtros.rol} onValueChange={(v) => setFiltros(previos => ({ ...previos, rol: v ?? [] }))}>
+              <SelectTrigger className="w-52" aria-label="Rol">
                 <SelectValue placeholder="Todos">
-                  {(v: string | null) => (
-                    <span className="min-w-0 truncate">{textoSeleccion(v, "Todos")}</span>
+                  {(v: string[] | null) => (
+                    <span className="min-w-0 truncate">{!v?.length ? 'Todos' : v.length === 1 ? v[0] : `${v.length} roles seleccionados`}</span>
                   )}
                 </SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={TODAS}>Todos</SelectItem>
                 {opciones.roles.map((valor) => (
                   <SelectItem key={valor} value={valor}>
                     {valor}
@@ -334,7 +336,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
               titulo="Participación por rol"
               datos={metricas.porRol}
               onSeleccionarBarra={(etiqueta) => alternar("rol", etiqueta)}
-              etiquetaSeleccionada={filtros.rol === TODAS ? null : filtros.rol}
+              etiquetaSeleccionada={filtros.rol.length === 1 ? filtros.rol[0] : null}
               // Con el default (26) el eje reserva 156 px y "CREADORES DE
               // OPORTUNIDADES" en mayúsculas ocupa ~185: se cortaba por la
               // izquierda. 38 reserva 228 px y deja "GESTORES DEL CONOCIMIENTO

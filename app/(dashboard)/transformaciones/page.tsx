@@ -113,10 +113,10 @@ export default async function TransformacionesPage() {
 
       {/* Fuera del bloque anterior a propósito: si no hay respuestas de las
           transformaciones pero sí aportes generales, estos deben verse igual. */}
-      {aportes.length > 0 ? <details className="rounded-xl border border-border/70 px-4 py-3">
-        <summary className="cursor-pointer font-medium text-primary"><TextoEditorial id="b846cb38d3fd8d95d8d1" original={"Aportes generales al Plan — formulario independiente"}/></summary>
+      {aportes.length > 0 ? <section aria-labelledby="titulo-aportes-generales" className="rounded-xl border border-border/70 px-4 py-3">
+        <h2 id="titulo-aportes-generales" className="font-medium text-primary"><TextoEditorial id="b846cb38d3fd8d95d8d1" original={"Aportes generales al Plan — formulario independiente"}/></h2>
         <div className="mt-4"><AportesGenerales aportes={aportes} /></div>
-      </details> : null}
+      </section> : null}
 
       <DescargaExcel ruta="/transformaciones" />
     </div>

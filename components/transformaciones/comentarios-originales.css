@@ -1,3 +1,36 @@
+.panel-comentarios {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  /* El marco conserva el escritorio en teléfonos: usar su altura visible evita
+     reducir el cuadro una segunda vez mediante las unidades del viewport. */
+  block-size: max(360px, calc(var(--alto-escritorio, 100dvh) * .78));
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  overflow-anchor: none;
+}
+
+.scroll-comentarios {
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--muted);
+  border-radius: 8px;
+  padding: 3px 10px 3px 3px;
+}
+
+.scroll-comentarios:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
 /* Se conservan todos los textos en el DOM, la búsqueda del navegador y el árbol
    accesible. Solo se difiere el dibujo/layout de tarjetas alejadas de la pantalla.
    Sin soporte, el navegador presenta la lista completa de forma convencional. */
@@ -19,6 +52,19 @@ html.forzar-escritorio .comentarios-originales-optimizados > li {
 }
 
 @media print {
+  .panel-comentarios {
+    display: block;
+    block-size: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .scroll-comentarios {
+    overflow: visible;
+    padding: 0;
+    margin-top: 16px;
+  }
+
   .comentarios-originales-optimizados,
   .comentarios-originales-optimizados > li {
     content-visibility: visible;
