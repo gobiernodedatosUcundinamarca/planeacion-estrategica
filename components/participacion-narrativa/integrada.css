@@ -275,7 +275,7 @@
   text-decoration:underline;
   text-underline-offset:5px
 }
-:where(.participacion-integrada) .paso-activo>.folio {
+:where(.participacion-integrada) .paso-activo .folio {
   color:var(--pine)
 }
 :where(.participacion-integrada) .plano-analitico {
@@ -1298,3 +1298,31 @@ html:has(.valoracion-integrada .ventana-respuestas[open]){overflow:hidden;scroll
 .detalle-jornada-tooltip{display:block!important}
 .detalle-jornada-tooltip>:not(.contenido-jornada){display:none!important}
 @media print{.participacion-integrada .barra-participacion{display:none!important}}
+
+/* El marco escalado conserva las columnas de escritorio, pero las escenas
+   se presentan en el flujo: un sticky de varias pantallas deja huecos y pierde
+   su relación con el texto en los navegadores móviles. */
+.participacion-integrada .texto-paso{display:flex;flex-direction:column}
+.participacion-integrada .partitura{grid-template-columns:repeat(7,minmax(0,1fr))}
+.participacion-integrada .jornada{min-width:0}
+.participacion-integrada .jornada-button{width:100%;min-width:0}
+.participacion-integrada .nombre-regional-jornada{overflow-wrap:anywhere}
+.participacion-integrada .escena-atlas[data-compacta=true]{display:block}
+.participacion-integrada .escena-atlas[data-compacta=true] .paso-narrativo{display:grid;grid-template-columns:.85fr 1.35fr;gap:24px;align-items:center;min-height:0;padding:38px 0;border-bottom:1px solid var(--line)}
+.participacion-integrada .escena-atlas[data-compacta=true] .paso-narrativo[data-paso="2"]{display:flex;align-items:stretch;border-bottom:0}
+.participacion-integrada .escena-atlas[data-compacta=true] .paso-narrativo[data-paso="2"] p{max-width:65ch}
+.participacion-integrada .plano-por-paso{min-width:0}
+.participacion-integrada .plano-por-paso .atlas-svg{display:block;width:100%;height:auto;max-height:none}
+.participacion-integrada .plano-por-paso .atlas-mobile{display:none}
+.participacion-integrada .atlas-svg[data-etapa] .unidad-morph,
+.participacion-integrada .atlas-svg[data-etapa] .sello,
+.participacion-integrada .atlas-svg[data-etapa] .registro-barra,
+.participacion-integrada .atlas-svg[data-etapa] .conexiones{animation:none!important;clip-path:none!important}
+.participacion-integrada .atlas-svg[data-etapa=convocatoria] .unidad-morph{transform:translate(var(--x),var(--y))!important}
+.participacion-integrada .atlas-svg[data-etapa=convocatoria] .sello{transform:none!important;opacity:1!important;visibility:visible!important}
+.participacion-integrada .atlas-svg[data-etapa=convocatoria] .registro-barra{display:none}
+.participacion-integrada .atlas-svg[data-etapa=convocatoria] .conexiones{opacity:1!important}
+.participacion-integrada .atlas-svg[data-etapa=asistencia] .unidad-morph{transform:translate(90px,var(--row))!important}
+.participacion-integrada .atlas-svg[data-etapa=asistencia] .sello,
+.participacion-integrada .atlas-svg[data-etapa=asistencia] .conexiones{display:none}
+.participacion-integrada .atlas-svg[data-etapa=asistencia] .registro-barra{opacity:1!important;visibility:visible!important}

@@ -51,4 +51,6 @@
 :where(.valoracion-integrada) .valoracion h3.text-sm{font-size:14px}
 :where(.valoracion-integrada) .valoracion h3.text-\[13px\]{font-size:14px}
 :where(.valoracion-integrada) .valoracion [data-slot=card-title].text-\[13px\]{font-size:14px}
+/* Los dialog nativos salen del marco transformado: usan la ventana visible. */
+html.forzar-escritorio .valoracion-integrada .ventana-respuestas{inset:auto;left:var(--centro-ventana-x);top:var(--centro-ventana-y);margin:0;height:auto;max-height:calc(var(--alto-escritorio) - 48px);transform:translate(-50%,-50%) scale(var(--escala-escritorio,1))}
 .valoracion-integrada{--paper:var(--background);font-family:inherit}.valoracion-integrada .apertura{padding-top:24px}.valoracion-integrada .valoracion{width:100%}.valoracion-integrada .ventana-respuestas{max-width:calc(100vw - 32px)}

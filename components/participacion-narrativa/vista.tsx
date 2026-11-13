@@ -24,12 +24,18 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
             const nav = navigator as Navigator & { connection?: { saveData: boolean } };
             setReducido(motion.matches || !!nav.connection?.saveData ||
                 (navigator.hardwareConcurrency > 0 && navigator.hardwareConcurrency < 4));
-            setCompacto(small.matches || short.matches);
+            setCompacto(document.documentElement.classList.contains('forzar-escritorio') || small.matches || short.matches);
         }
         change();
         const queries = [motion, small, short];
         queries.forEach(query => query.addEventListener('change', change));
-        return () => queries.forEach(query => query.removeEventListener('change', change));
+        window.addEventListener('resize', change);
+        window.addEventListener('orientationchange', change);
+        return () => {
+            queries.forEach(query => query.removeEventListener('change', change));
+            window.removeEventListener('resize', change);
+            window.removeEventListener('orientationchange', change);
+        };
     }, []);
     const esencial = modo !== 'narrativa' || reducido || compacto;
     const { ref, paso, nivel } = useEscena(esencial, pausa);
@@ -72,20 +78,26 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <span className="accion-editorial"><a href="#seguimiento"><EtiquetaEditorial texto="Ir directamente al detalle ↗"/></a><LapizDeCatalogo texto="Ir directamente al detalle ↗"/></span>
     </div>
     </section>
- <section ref={ref} id="atlas" className={`escena-atlas ${pausa ? 'en-pausa' : ''}`} data-motor={nivel} aria-labelledby="titulo-atlas">
+ <section ref={ref} id="atlas" className={`escena-atlas ${pausa ? 'en-pausa' : ''}`} data-motor={nivel} data-compacta={compacto} aria-labelledby="titulo-atlas">
  <div className="argumento">
     <article className={`paso-narrativo ${paso === 0 ? 'paso-activo' : ''}`} data-paso="0">
+    <div className="texto-paso">
     <p className="folio"><TextoEditorial id="80baf7c23b106a2b05e7" original={"01 / EL ALCANCE DOCUMENTADO"}/></p>
     <h2 id="titulo-atlas"><TextoEditorial id="d282aa0cd2026f7d51f3" original={"Convocatoria en"}/><br /><TextoEditorial id="cc69188ffcfa103705ce" original={"siete unidades regionales."}/></h2>
     <p><TextoEditorial id="7eb89d9f2232a90b39b7" original={"Las presentaciones registran"}/> <strong>{formato(convocados)}</strong> <TextoEditorial id="880b3c1275f066edb1b9" original={"personas convocadas. Cada círculo representa una unidad regional."}/></p>
     <p className="margen"><TextoEditorial id="5b6ec4e8ccf15c3b4b18" original={"La ubicación de los círculos es ilustrativa y no representa distancias geográficas."}/></p>
     <span className="accion-editorial"><a href="#inspeccion"><EtiquetaEditorial texto="Consultar cifras por unidad ↗"/></a><LapizDeCatalogo texto="Consultar cifras por unidad ↗"/></span>
+    </div>
+    {compacto ? <PlanoDePaso etapa="convocatoria" unidades={unidades} seleccion={unidad} onElegir={setUnidad}/> : null}
     </article>
  <article className={`paso-narrativo ${paso === 1 ? 'paso-activo' : ''}`} data-paso="1">
+    <div className="texto-paso">
     <p className="folio"><TextoEditorial id="85bd5b6b76f05e106438" original={"02 / DE LA CONVOCATORIA A LA ASISTENCIA"}/></p>
     <h2><TextoEditorial id="050c1ca5668e11796784" original={"Convocatoria"}/><br /><TextoEditorial id="708cb9214dde9596a943" original={"y asistencia por unidad."}/></h2>
     <p><TextoEditorial id="4afad3ad65f5905b77fd" original={"Las barras comparan la convocatoria y la asistencia en cada unidad regional, con un total de"}/> <strong>{formato(asistentes)} <TextoEditorial id="4067e37f24724480ff77" original={"asistentes documentados"}/></strong>.</p>
     <p><TextoEditorial id="595f76ff5e2296d6c751" original={"Las unidades están ordenadas por número de asistentes. El porcentaje se calcula sobre las personas convocadas en cada unidad."}/></p>
+    </div>
+    {compacto ? <PlanoDePaso etapa="asistencia" unidades={unidades} seleccion={unidad} onElegir={setUnidad}/> : null}
     </article>
  <article className={`paso-narrativo ${paso === 2 ? 'paso-activo' : ''}`} data-paso="2">
     <p className="folio"><TextoEditorial id="7bdef54936a725292b77" original={"03 / ASISTENCIA EFECTIVA"}/></p>
@@ -97,7 +109,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <span className="accion-editorial"><a href="#inspeccion"><EtiquetaEditorial texto="Revisar unidades y fuentes ↓"/></a><LapizDeCatalogo texto="Revisar unidades y fuentes ↓"/></span>
     </article>
     </div>
- <div className="plano-analitico">
+ {!compacto ? <div className="plano-analitico">
     <div className="cabecera-plano">
     <span><TextoEditorial id="4ac587bc5826e8289f5c" original={"CONVOCATORIA → ASISTENCIA"}/></span>
     <button onClick={() => setPausa(v => !v)} aria-pressed={pausa} disabled={esencial}><EtiquetaEditorial texto={pausa ? 'Reanudar animación' : 'Pausar animación'}/></button><LapizDeCatalogo texto={pausa ? 'Reanudar animación' : 'Pausar animación'}/>
@@ -110,7 +122,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <i className="muestra-asist"/><TextoEditorial id="d80c1b1ff240ccafc8d6" original={"Asistentes"}/></span>
     </div>
     <p className="pie-fuente"><TextoEditorial id="dea61138d835bd56cafd" original={"Fuente: presentaciones resumidas por unidad regional, diapositiva 2. Corte: 12 de noviembre de 2026."}/></p>
-    </div>
+    </div> : null}
     </section>
  <section id="inspeccion" className="inspeccion">
     <div className="cabecera-editorial">
@@ -191,7 +203,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     </div>
     <div>
     <p><TextoEditorial id="2dd68500413032f103c7" original={"Consulte la asistencia por fecha, lugar, rol, unidad regional y dependencia."}/></p>
-    <span className="accion-editorial"><a className="descarga" href="/api/descargas/transformaciones-participacion"><EtiquetaEditorial texto="Descargar Excel completo ↓"/></a><LapizDeCatalogo texto="Descargar Excel completo ↓"/></span>
+    <span className="accion-editorial"><a className="descarga" download href="/api/descargas/transformaciones-participacion"><EtiquetaEditorial texto="Descargar Excel completo ↓"/></a><LapizDeCatalogo texto="Descargar Excel completo ↓"/></span>
     </div>
     </div>{children}</section>
  <section id="fuentes" className="fuentes-editoriales">
@@ -216,5 +228,21 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <footer><TextoEditorial id="2111b1ef7b08fe1278a3" original={"Universidad de Cundinamarca · Planeación Estratégica 2027 — 2037"}/></footer>
     </section>
  </div>
+    </div>;
+}
+
+function PlanoDePaso({ etapa, unidades, seleccion, onElegir }: {
+    etapa: 'convocatoria' | 'asistencia';
+    unidades: DatosNarrativos['documento']['filas'];
+    seleccion: string;
+    onElegir: (unidad: string) => void;
+}) {
+    return <div className="plano-por-paso">
+        <Atlas etapa={etapa} unidades={unidades} seleccion={seleccion} onElegir={onElegir}/>
+        <div className="leyenda">
+            <span><i className="muestra-conv"/><TextoEditorial id="595faa158cb0bd052852" original="Convocados"/></span>
+            {etapa === 'asistencia' ? <span><i className="muestra-asist"/><TextoEditorial id="d80c1b1ff240ccafc8d6" original="Asistentes"/></span> : null}
+        </div>
+        <p className="pie-fuente"><TextoEditorial id="dea61138d835bd56cafd" original="Fuente: presentaciones resumidas por unidad regional, diapositiva 2. Corte: 12 de noviembre de 2026."/></p>
     </div>;
 }

@@ -55,6 +55,10 @@ html.forzar-escritorio #app-frame {
   transform: scale(var(--escala-escritorio, 1));
 }
 
+html.forzar-escritorio .app-shell > aside {
+  height: var(--alto-escritorio, 100svh);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

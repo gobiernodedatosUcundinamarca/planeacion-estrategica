@@ -31,43 +31,44 @@ const ANCHO_ESCRITORIO = 1280;
 export const viewport: Viewport = {
   width: ANCHO_ESCRITORIO,
   height: "device-height",
-  initialScale: 1,
+  // Sustituye el valor 1 predeterminado de Next: el navegador encaja los 1280 px.
+  initialScale: undefined,
 };
 
 /**
- * Con el viewport ya anclado en 1280, `window.innerWidth` no sirve para saber
- * el ancho real del dispositivo (siempre da 1280). Se usa `window.screen.width`:
- * es una propiedad de la pantalla física, ajena a cualquier <meta viewport> o
- * CSS de la página.
- *
- * El escalado visual se hace con `transform: scale()` sobre #app-frame — NO
- * con `zoom`. Se probó `zoom` primero (más simple: además de escalar, ajusta
- * solo el alto ocupado) pero en Safari/WebKit real (no en la emulación de
- * Chromium, que es donde se probó primero) los componentes que se miden a sí
- * mismos con ResizeObserver — los gráficos de recharts — quedaban rotos: en
- * WebKit, bajo `zoom`, `getBoundingClientRect()` devuelve el tamaño YA
- * escalado (390px) mientras que `offsetWidth` devuelve el tamaño sin escalar
- * (1280px) — dos APIs de medición dan resultados distintos para el mismo
- * elemento — y ResizeObserver sigue a la primera, así que los gráficos se
- * calculaban a sí mismos con un contenedor minúsculo y todo el texto quedaba
- * envuelto en columnas angostas. `transform` no tiene esa ambigüedad: por
- * especificación, actúa solo en la etapa de pintado, después de que el layout
- * ya se calculó — ninguna API de medición (offsetWidth, getBoundingClientRect,
- * ResizeObserver) se ve afectada por él, en ningún navegador. La contrapartida
- * es que `transform` no reduce el alto ocupado en el documento (a diferencia
- * de `zoom`), así que hay que compensarlo a mano: #app-frame-outer mide la
- * altura natural (sin escalar) de #app-frame y fija su propio alto en
- * `alturaNatural * escala`, actualizándose con un ResizeObserver para que
- * cambios dinámicos de contenido (filtros, datos) no dejen un hueco en blanco
- * ni corten contenido.
+ * Mantiene una composición de 1280 px, sin cambiar las columnas en teléfonos.
+ * El navegador puede encajar ese ancho por sí mismo. El marco solo aplica la
+ * reducción que falte, y compensa su altura porque transform no reduce el
+ * espacio del documento. ResizeObserver conserva el alto al filtrar o editar.
+ * visualViewport también permite centrar los dialog nativos, que se muestran
+ * fuera del marco transformado, sin confundir device-height con el alto visible.
  */
 const ESCALA_ESCRITORIO = `(() => {
+  var anchoAnterior = 0, layoutAnterior = 0, escalaNavegador = 1;
+  function actualizarCentroVisible() {
+    var visual = window.visualViewport;
+    document.documentElement.style.setProperty('--centro-ventana-x', ((visual ? visual.offsetLeft : 0) + (visual ? visual.width : window.innerWidth) / 2) + 'px');
+    document.documentElement.style.setProperty('--centro-ventana-y', ((visual ? visual.offsetTop : 0) + (visual ? visual.height : window.innerHeight) / 2) + 'px');
+  }
   function calcularEscala() {
-    var anchoPantalla = window.screen && window.screen.width;
+    var visual = window.visualViewport;
+    var anchoVisual = visual ? Math.round(visual.width * visual.scale) : window.innerWidth;
+    var anchoPantalla = Math.min((window.screen && window.screen.width) || anchoVisual, anchoVisual);
+    var anchoLayout = document.documentElement.clientWidth;
+    // Safari puede encajar ya los 1280 px. No volver a reducir ese encaje.
+    // La base se conserva durante el zoom manual del usuario.
+    if (anchoPantalla !== anchoAnterior || anchoLayout !== layoutAnterior) {
+      anchoAnterior = anchoPantalla;
+      layoutAnterior = anchoLayout;
+      escalaNavegador = visual ? Math.min(1, visual.scale) : 1;
+    }
     var esMovil = anchoPantalla > 0 && anchoPantalla < ${ANCHO_ESCRITORIO};
     document.documentElement.classList.toggle('forzar-escritorio', esMovil);
-    var escala = esMovil ? anchoPantalla / ${ANCHO_ESCRITORIO} : 1;
+    var escala = esMovil ? Math.min(1, anchoPantalla / (${ANCHO_ESCRITORIO} * escalaNavegador)) : 1;
     document.documentElement.style.setProperty('--escala-escritorio', String(escala));
+    var altoVisible = visual ? visual.height : window.innerHeight;
+    document.documentElement.style.setProperty('--alto-escritorio', (altoVisible / escala) + 'px');
+    actualizarCentroVisible();
     return { esMovil: esMovil, escala: escala };
   }
 
@@ -86,13 +87,19 @@ const ESCALA_ESCRITORIO = `(() => {
   calcularEscala();
   window.addEventListener('resize', actualizarAltura);
   window.addEventListener('orientationchange', actualizarAltura);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', actualizarAltura);
+    window.visualViewport.addEventListener('scroll', actualizarCentroVisible);
+  }
 
   function iniciarObservador() {
     var frame = document.getElementById('app-frame');
     if (!frame) return;
+    anchoAnterior = 0;
     actualizarAltura();
     if (window.ResizeObserver) new ResizeObserver(actualizarAltura).observe(frame);
   }
+  window.addEventListener('load', function() { anchoAnterior = 0; actualizarAltura(); });
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', iniciarObservador);
   } else {
