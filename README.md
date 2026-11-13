@@ -102,4 +102,4 @@ script cuando el sitio cambia. El mismo build corre en Vercel y en el `.exe`;
 
 ## Reglas del proyecto
 
-Las contribuciones deben conservar la separaci?n de capas, utilizar pnpm y verificar compilaci?n, datos e interfaz antes de publicar. La vista m?vil mantiene el escritorio escalado del sitio.
+Las contribuciones deben conservar la separación de capas, utilizar pnpm y verificar compilación, datos e interfaz antes de publicar. La vista móvil mantiene el escritorio escalado del sitio.

@@ -4,7 +4,7 @@
 
 La versión activa parte del código original `b5dc1f9` en la rama local `test/navegacion-comentarios-jerarquica`. Sustituye la interfaz anterior; aquella permanece únicamente como recuperación en `test/clasificacion-encuestas-detallada`.
 
-La navegaci?n presenta clasificaciones documentales verificadas y conserva las respuestas, probabilidades y metodolog?as originales. Las referencias complementarias se almacenan en tablas independientes.
+La navegación presenta clasificaciones documentales verificadas y conserva las respuestas, probabilidades y metodologías originales. Las referencias complementarias se almacenan en tablas independientes.
 
 ## Comportamiento
 

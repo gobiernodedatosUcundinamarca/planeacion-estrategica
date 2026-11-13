@@ -1,6 +1,6 @@
 # 04 · Arquitectura
 
-Referencia de la organizaci?n del proyecto y sus diagramas interactivos.
+Referencia de la organización del proyecto y sus diagramas interactivos.
 
 | Diagrama | Archivo | Qué muestra |
 |---|---|---|
