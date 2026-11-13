@@ -120,11 +120,14 @@ async function valoracion(pagina) {
         ['horizontal', { viewport: { width: 852, height: 393 }, screen: { width: 852, height: 393 }, isMobile: true, hasTouch: true }, true],
       ]) {
         const contexto = await browser.newContext(opciones);
-        const pagina = await contexto.newPage();
-        pagina.setDefaultTimeout(15000);
-        const errores = [];
-        pagina.on('pageerror', error => errores.push(error.message));
         for (const ruta of ['/transformaciones-participacion', '/valoracion-territorio', '/transformaciones', '/ia-administrativos']) {
+          // Cada carga directa se verifica en su propia página. Reemplazar un
+          // documento vivo cancela sus precargas y WebKit las comunica como
+          // errores de acceso, aunque las rutas respondan correctamente.
+          const pagina = await contexto.newPage();
+          pagina.setDefaultTimeout(15000);
+          const errores = [];
+          pagina.on('pageerror', error => errores.push(error.message));
           const respuesta = await pagina.goto(BASE + ruta, { waitUntil: 'networkidle' });
           assert.equal(respuesta.status(), 200);
           await pagina.locator('.herramientas-pie button:enabled').first().waitFor();
@@ -142,9 +145,10 @@ async function valoracion(pagina) {
           await dialogoVisible(pagina, '.dialogo-editorial[open]');
           await pagina.getByRole('button', { name: 'Cancelar', exact: true }).click();
           assert.equal(await pagina.locator('dialog[open]').count(), 0);
+          assert.deepEqual(errores, []);
           resultados.push({ motor, nombre, ruta, correcto: true });
+          await pagina.close();
         }
-        assert.deepEqual(errores, []);
         await contexto.close();
         console.log(motor, nombre, '4 módulos correctos');
       }
