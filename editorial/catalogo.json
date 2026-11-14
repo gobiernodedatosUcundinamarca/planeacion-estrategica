@@ -3855,12 +3855,12 @@
     "elemento": "span"
   },
   "informe-otros-titulo": {
-    "original": "Otros comentarios conservados",
+    "original": "Comentarios adicionales",
     "archivo": "components/transformaciones/explorador-comentarios.tsx",
     "elemento": "span"
   },
   "informe-otros-nota": {
-    "original": "Estos textos no forman parte del conjunto preparado para las diapositivas. Se conservan para consulta y no se incluyen en los porcentajes del informe.",
+    "original": "Consulta las respuestas adicionales registradas. Se presentan por separado y no se incluyen en los porcentajes del informe.",
     "archivo": "components/transformaciones/explorador-comentarios.tsx",
     "elemento": "span"
   },

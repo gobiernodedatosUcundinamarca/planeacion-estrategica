@@ -136,10 +136,19 @@ export function ExploradorComentarios({respuestas,clasificacion,errorClasificaci
     <div className="panel-comentarios"><div className="flex items-center justify-between gap-3"><h2 id="titulo-comentarios" className="font-heading text-lg font-semibold"><T id="6e15162168e3b1815131" original="Comentarios"/></h2><span>{formatNumero(filtrados.length)}</span></div>
       <div ref={scrollComentarios} className="scroll-comentarios" data-testid="scroll-comentarios" role="region" aria-labelledby="titulo-comentarios" tabIndex={0}><ListaComentarios comentarios={filtrados} referencias={referencias} metodo="aportes-plan" otrasFuentes={fuentesPorComentario}/></div>
     </div>
-    <div className="panel-comentarios"><div><h2 id="otros-comentarios" className="font-heading text-lg font-semibold"><T id="informe-otros-titulo" original="Otros comentarios conservados"/> · {formatNumero(otros.length)}</h2>
-      <p className="mt-2 text-sm text-muted-foreground"><T id="informe-otros-nota" original="Estos textos no forman parte del conjunto preparado para las diapositivas. Se conservan para consulta y no se incluyen en los porcentajes del informe."/></p></div>
-      <div className="scroll-comentarios" role="region" aria-labelledby="otros-comentarios" tabIndex={0}><ListaComentarios comentarios={otros} referencias={referencias} metodo="aportes-plan" otrasFuentes={fuentesPorComentario}/></div>
-    </div>
+    <Collapsible defaultOpen={false} className="rounded-xl border border-border bg-card p-5" data-testid="comentarios-adicionales">
+      <div className="flex items-center justify-between gap-4">
+        <h2 id="otros-comentarios" className="font-heading text-lg font-semibold"><T id="informe-otros-titulo" original="Comentarios adicionales"/><span className="ml-3 text-sm font-normal text-muted-foreground">{formatNumero(otros.length)}</span></h2>
+        <CollapsibleTrigger className="group flex size-10 shrink-0 items-center justify-center rounded-lg border border-border text-primary hover:bg-secondary focus-visible:outline-2 focus-visible:outline-primary" aria-label="Mostrar u ocultar comentarios adicionales">
+          <ChevronDown className="size-5 transition-transform group-aria-expanded:rotate-180 motion-reduce:transition-none" aria-hidden/>
+        </CollapsibleTrigger>
+      </div>
+      <CollapsibleContent>
+        <div className="pt-3"><p className="mb-4 text-sm text-muted-foreground"><T id="informe-otros-nota" original="Consulta las respuestas adicionales registradas. Se presentan por separado y no se incluyen en los porcentajes del informe."/></p>
+          <div className="scroll-comentarios" style={{height:'max(280px, calc(var(--alto-escritorio, 100svh) * .65))'}} role="region" aria-labelledby="otros-comentarios" tabIndex={0}><ListaComentarios comentarios={otros} referencias={referencias} metodo="aportes-plan" otrasFuentes={fuentesPorComentario}/></div>
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
     <Dialog open={dialogoAbierto&&Boolean(aporteElegido)} onOpenChange={setDialogoAbierto}><DialogContent className="detalle-aporte-documental-dialogo flex flex-col gap-4 overflow-hidden" style={{width:'min(94vw, 1600px)',maxWidth:'none',height:'min(calc(var(--alto-escritorio, 100svh) * .92), 3000px)'}}>
       <DialogHeader><DialogTitle>{aporteElegido?[aporteElegido.codigo,aporteElegido.nombre].filter(Boolean).join(' · '):''}</DialogTitle><DialogDescription>{aporteElegido?.transformacion} · {detalle?.complementario?<T id="informe-modal-bert" original="Análisis BERT → Jev por unidad"/>:<T id="temas-aportes-detalle-fuente" original="Clasificación de las presentaciones"/>}</DialogDescription></DialogHeader>
       <p className="text-sm"><strong>{formatNumero(comentariosAporte.length)}</strong> <T id="temas-aportes-detalle-conteo" original="comentarios asociados a este aporte dentro de los filtros actuales."/></p>
