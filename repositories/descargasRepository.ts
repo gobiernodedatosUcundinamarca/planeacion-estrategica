@@ -1,4 +1,5 @@
 import "server-only";
+import { getDocumentosConversatorios } from './conversatoriosRepository';
 import { createHash, createHmac } from "node:crypto";
 import type { CeldaDescarga, HojaDescarga, RegistroDescargas, ResultadoDescarga } from "@/types/descargas";
 import { NAVEGACION } from "@/constants/navegacion";
@@ -309,7 +310,7 @@ const CONSTRUCTORES: Record<string, Constructor> = {
   },
 
   transformaciones: async () => {
-    const [respuestas, aportes] = await Promise.all([getRespuestasMomento4(), getAportes()]);
+    const respuestas = await getRespuestasMomento4();
     return [
       {
         nombre: "Respuestas",
@@ -337,15 +338,15 @@ const CONSTRUCTORES: Record<string, Constructor> = {
           ]),
         ],
       },
-      {
-        nombre: "Aportes generales",
-        titulo: "",
-        columnasFecha: [0],
-        filas: [
-          ["Fecha", "Tipo de actor", "Unidad regional", "Aporte"],
-          ...aportes.map((a) => [a.fechaInicio, a.tipoActor, a.unidadRegional, a.aporte]),
-        ],
-      },
+    ];
+  },
+
+  conversatorios: async () => {
+    const [aportes, documentos] = await Promise.all([getAportes(), Promise.resolve().then(getDocumentosConversatorios)]);
+    return [
+      { nombre: "Planteamientos", titulo: "", filas: [["Unidad", "Grupo", "Planteamiento", "Presentación", "Diapositiva"], ...documentos.flatMap(d => d.diapositivas.flatMap(s => s.grupos.flatMap(g => g.planteamientos.map(t => [d.unidad, g.nombre, t, d.archivo, s.numero]))))] },
+      { nombre: "Solicitudes", titulo: "", filas: [["Unidad", "Referencia documental", "Solicitud", "Ámbito", "Descripción", "Presentación", "Diapositiva"], ...documentos.flatMap(d => d.diapositivas.flatMap(s => s.solicitudes.map(t => [d.unidad, t.referencia, t.titulo, t.ambito, t.descripcion, d.archivo, s.numero])))] },
+      { nombre: "Aportes generales", titulo: "", columnasFecha: [0], filas: [["Fecha", "Tipo de actor", "Unidad regional", "Aporte"], ...aportes.map(a => [a.fechaInicio, a.tipoActor, a.unidadRegional, a.aporte])] },
     ];
   },
 
@@ -432,7 +433,7 @@ const CONSTRUCTORES: Record<string, Constructor> = {
  * regional sale de las fechas de las jornadas.
  */
 const TABLAS_POR_SECCION: Record<string, readonly string[]> = {
-  transformaciones: ["momento4_respuestas", "aportes_respuestas"],
+  transformaciones: ["momento4_respuestas"],
   "transformaciones-participacion": ["participacion_registros"],
   "valoracion-territorio": ["valoracion_territorio_respuestas", "participacion_registros"],
   "ia-administrativos": ["ia_administrativos_respuestas", "participacion_registros"],

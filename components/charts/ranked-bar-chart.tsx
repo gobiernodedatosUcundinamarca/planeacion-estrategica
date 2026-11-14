@@ -33,6 +33,7 @@ interface RankedBarChartProps {
   // la barra activa y atenúa las demás.
   onSeleccionarBarra?: (etiqueta: string) => void;
   etiquetaSeleccionada?: string | null;
+  mostrarPorcentaje?: boolean;
 }
 
 const ALTURA_LINEA = 12;
@@ -99,6 +100,7 @@ export function RankedBarChart({
   coberturaColapsada,
   onSeleccionarBarra,
   etiquetaSeleccionada,
+  mostrarPorcentaje = false,
 }: RankedBarChartProps) {
   const [vistaTabla, setVistaTabla] = useState(false);
   const [expandido, setExpandido] = useState(false);
@@ -186,6 +188,8 @@ export function RankedBarChart({
         </div>
       ) : null}
 
+      {descripcion ? <p className="text-sm text-muted-foreground"><TextoDeCatalogo texto={descripcion}/></p> : null}
+
       {vistaTabla ? (
         <Table>
           <TableHeader>
@@ -212,7 +216,7 @@ export function RankedBarChart({
             <BarChart
               data={visibles}
               layout="vertical"
-              margin={{ top: 2, right: 40, bottom: 2, left: 2 }}
+              margin={{ top: 2, right: mostrarPorcentaje ? 110 : 40, bottom: 2, left: 2 }}
               barCategoryGap={6}
             >
               <CartesianGrid horizontal={false} stroke="var(--border)" />
@@ -247,7 +251,10 @@ export function RankedBarChart({
                 <LabelList
                   dataKey="conteo"
                   position="right"
-                  formatter={(v: unknown) => formatNumero(Number(v ?? 0))}
+                  formatter={(v: unknown) => {
+                    const dato = visibles.find(d => d.conteo === Number(v ?? 0));
+                    return `${formatNumero(Number(v ?? 0))}${mostrarPorcentaje && dato ? ` (${formatPorcentaje(dato.porcentaje)})` : ''}`;
+                  }}
                   className="fill-foreground text-[11px] font-semibold tabular-nums"
                 />
               </Bar>

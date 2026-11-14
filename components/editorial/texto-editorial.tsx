@@ -29,6 +29,10 @@ export function ControlEdicion() {
 export function EtiquetaEditorial({ texto }: {
     texto: string;
 }) { const c = useContext(Contexto); const id = porTexto.get(texto); return <>{id ? c.textos[id] ?? texto : texto}</>; }
+/** Permite reutilizar una etiqueta heredada sin tomar sus cifras como datos. */
+export function useTextoEditorial(id:string,original:string) {
+    return useContext(Contexto).textos[id] ?? original;
+}
 export function LapizDeCatalogo({ texto }: {
     texto: string;
 }) {

@@ -2,19 +2,11 @@ import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft, Lock } from "lucide-react";
-import { PanelTransformaciones } from "@/components/transformaciones/panel-transformaciones";
-import { ExploradorComentarios } from "@/components/transformaciones/explorador-comentarios";
-import { AportesGenerales } from "@/components/transformaciones/aportes-generales";
+import { TransformacionesActualizadas } from "@/components/transformaciones/actualizada";
+import { getVistaTransformaciones } from "@/repositories/transformacionesVistaRepository";
 import { DescargaExcel } from "@/components/layout/descarga-excel";
-import { getClustersMomento4, getRespuestasMomento4, getClasificacionDocumental, getResumenFuentesClasificacion } from "@/repositories/momento4Repository";
-import { compactarClasificacion } from "@/lib/reglas/navegacion-comentarios";
-import type { ResultadoClasificacionDocumental, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
-import { getAportes } from "@/repositories/aportesRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_TRANSFORMACIONES } from "@/constants/secciones";
-import { TITULO_MOMENTO4 } from "@/lib/reglas/momento4";
-import type { ClusterComentarios, RespuestaMomento4 } from "@/types/momento4";
-import type { RespuestaAporte } from "@/types/aportes";
 
 export const metadata: Metadata = {
   title: "Trabajo en territorio con la comunidad universitaria",
@@ -49,36 +41,12 @@ export default async function TransformacionesPage() {
     return <SeccionNoDisponible />;
   }
 
-  let respuestas: RespuestaMomento4[] = [];
-  let clusters: ClusterComentarios[] = [];
+  let datos: Awaited<ReturnType<typeof getVistaTransformaciones>> | null = null;
   let error: string | null = null;
-  let clasificacion: ResultadoClasificacionDocumental = { disponible: false, comentarios: [] };
-  let errorClasificacion = false;
-  let resumenFuentes: ResumenFuentesClasificacion = { disponibles: [], porComentario: {} };
   try {
-    [respuestas, clusters] = await Promise.all([
-      getRespuestasMomento4(),
-      getClustersMomento4(),
-    ]);
+    datos = await getVistaTransformaciones();
   } catch (fallo) {
     error = fallo instanceof Error ? fallo.message : "No se pudo consultar la base de datos.";
-  }
-
-  try {
-    clasificacion = await getClasificacionDocumental();
-    resumenFuentes = await getResumenFuentesClasificacion();
-  } catch {
-    errorClasificacion = true;
-  }
-
-  // En su propio try: los aportes generales son otro cuestionario y otra tabla,
-  // así que un fallo suyo no debe dejar sin sección a la valoración de las
-  // cinco transformaciones, que es lo principal.
-  let aportes: RespuestaAporte[] = [];
-  try {
-    aportes = await getAportes();
-  } catch {
-    aportes = [];
   }
 
   return (
@@ -97,26 +65,7 @@ export default async function TransformacionesPage() {
             <p className="text-muted-foreground">{error}</p>
           </div>
         </div>
-      ) : respuestas.length === 0 ? (
-        <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          <TextoEditorial id="c9856c2398f96629ebcf" original={"Todavía no hay respuestas cargadas. Se publican subiendo los documentos de las cinco transformaciones desde la vista de administración."}/></p>
-      ) : (
-        <>
-          <section aria-labelledby="titulo-indicadores-encuestas" className="rounded-xl border border-border/70 px-4 py-3">
-            <h2 id="titulo-indicadores-encuestas" className="font-medium text-primary"><TextoEditorial id="ed437bd63626e626732c" original={"Indicadores y gráficos originales de las encuestas"}/></h2>
-            <p className="mt-2 text-xs text-muted-foreground"><TextoEditorial id="b9d73f7204ae6b7c6c53" original={"Incluyen todas las respuestas del formulario, también las que no tienen un comentario. Sus filtros se consultan dentro de este apartado."}/></p>
-            <div className="mt-4"><PanelTransformaciones respuestas={respuestas} clusters={clusters} mostrarComentarios={false} /></div>
-          </section>
-          <ExploradorComentarios respuestas={respuestas} clasificacion={compactarClasificacion(clasificacion)} errorClasificacion={errorClasificacion} resumenFuentes={resumenFuentes} />
-        </>
-      )}
-
-      {/* Fuera del bloque anterior a propósito: si no hay respuestas de las
-          transformaciones pero sí aportes generales, estos deben verse igual. */}
-      {aportes.length > 0 ? <section aria-labelledby="titulo-aportes-generales" className="rounded-xl border border-border/70 px-4 py-3">
-        <h2 id="titulo-aportes-generales" className="font-medium text-primary"><TextoEditorial id="b846cb38d3fd8d95d8d1" original={"Aportes generales al Plan — formulario independiente"}/></h2>
-        <div className="mt-4"><AportesGenerales aportes={aportes} /></div>
-      </section> : null}
+      ) : datos ? <TransformacionesActualizadas inicial={datos}/> : null}
 
       <DescargaExcel ruta="/transformaciones" />
     </div>

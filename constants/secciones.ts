@@ -3,6 +3,8 @@
  * administración. El identificador es la clave en la tabla `secciones_publicadas`
  * y no cambia aunque cambie la URL o el título de la sección.
  */
+export const SECCION_CONVERSATORIOS = "conversatorios";
+
 export const SECCION_TRANSFORMACIONES = "transformaciones";
 
 /** Participación (asistencia a las actividades en territorio) — sección aparte del Momento 4. */
@@ -20,6 +22,7 @@ export const SECCION_IA_ADMINISTRATIVOS = "ia-administrativos";
  * enlace sin cerrar la ruta dejaría la sección accesible a quien tenga la URL.
  */
 export const RUTA_POR_SECCION: Record<string, string> = {
+  [SECCION_CONVERSATORIOS]: "/conversatorios",
   [SECCION_TRANSFORMACIONES]: "/transformaciones",
   [SECCION_PARTICIPACION]: "/transformaciones-participacion",
   [SECCION_VALORACION_TERRITORIO]: "/valoracion-territorio",

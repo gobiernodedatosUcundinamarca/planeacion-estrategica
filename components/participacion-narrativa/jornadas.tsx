@@ -3,7 +3,8 @@
 import {TextoEditorial,TextoDeCatalogo,EtiquetaEditorial,LapizDeCatalogo} from "@/components/editorial/texto-editorial";
 import {useState} from 'react';
 import {Tooltip, TooltipTrigger, TooltipContent} from '@/components/ui/tooltip';
-import {formato, type DatosNarrativos} from './modelo';
+import {formato, porcentaje, type DatosNarrativos} from './modelo';
+import {ComparacionRoles} from './comparacion-roles';
 
 type Jornada = DatosNarrativos['jornadasRegionales'][number];
 const fechaLarga = (fecha: string) => /^\d{4}-\d{2}-\d{2}$/.test(fecha) ? new Date(fecha+'T12:00:00').toLocaleDateString('es-CO',{dateStyle:'long'}) : fecha;
@@ -20,15 +21,17 @@ function Detalle({jornada}: {jornada: Jornada}) {
             ['Unidad regional de origen de los participantes', jornada.origenes],
         ].map(([titulo, filas]) => <section key={titulo as string}>
             <h4><TextoDeCatalogo texto={titulo as string}/></h4>
-            <ul>{(filas as Jornada['grupos']).map(fila => <li key={fila.nombre}><span>{fila.nombre}</span><strong>{formato(fila.total)}</strong></li>)}</ul>
+            {titulo === 'Grupos de interés · rol registrado' ? <p className="nota-jornada"><TextoEditorial id="participacion-porcentaje-jornada" original="Porcentaje sobre las asistencias de esta jornada."/></p> : null}
+            <ul>{(filas as Jornada['grupos']).map(fila => <li key={fila.nombre}><span>{fila.nombre}</span><strong>{formato(fila.total)}{titulo === 'Grupos de interés · rol registrado' ? <span className="porcentaje-rol"> · {porcentaje(fila.total,jornada.total)} %</span> : null}</strong></li>)}</ul>
         </section>)}
+        <ComparacionRoles roles={jornada.comparacionRoles} compacta/>
         <p className="nota-jornada"><TextoEditorial id="51d17cada8eb8b99d1ce" original={"Cada registro corresponde a una asistencia. Una misma persona puede asistir a varias jornadas."}/></p>
     </div>;
 }
 
 export function Jornadas({jornadas}: {jornadas: Jornada[]}) {
     const [seleccion, setSeleccion] = useState<string | null>(null);
-    const maximo = Math.max(...jornadas.map(j => j.total));
+    const maximo = Math.max(1,...jornadas.map(j => j.total));
     const elegida = jornadas.find(j => j.unidad === seleccion);
     return <>
         <div className="leyenda-jornadas"><span><TextoEditorial id="participacion-asistencia-regional-leyenda" original={"Asistencias agrupadas por lugar de la jornada · consulte cada barra para ver su detalle"}/></span><span><TextoEditorial id="participacion-maximo-regional" original={"Máximo por unidad regional:"}/> {formato(maximo)}</span></div>

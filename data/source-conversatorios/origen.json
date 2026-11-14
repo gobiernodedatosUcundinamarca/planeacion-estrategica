@@ -1,0 +1,46 @@
+{
+  "repositorio": "https://github.com/Nicolaserd/Planeacion_estrategica_transformaciones_temas.git",
+  "revision": "5e17d3ff793f22b1e4f0c519c6edef9795c6649b",
+  "archivos": [
+    {
+      "archivo": "Presentacion_Extension_Chia_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_Extension_Chia_Resumen.pptx",
+      "sha256": "6a2db7bf52d3924e09f8e1857ce5069552e6f0c971af9c9a04db416d312424c0"
+    },
+    {
+      "archivo": "Presentacion_Extension_Facatativa_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_Extension_Facatativa_Resumen.pptx",
+      "sha256": "feab11bb46c2332f6c3a15b12ae1db0c61d030eefdcde564c8fbf67c63e31239"
+    },
+    {
+      "archivo": "Presentacion_Extension_Soacha_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_Extension_Soacha_Resumen.pptx",
+      "sha256": "263d2627d079d2e644fa01bbb50e75a0bdccdfb6bf803ba84a8a6e97574787ab"
+    },
+    {
+      "archivo": "Presentacion_Extension_Zipaquira_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_Extension_Zipaquira_Resumen.pptx",
+      "sha256": "e2f83cae6b00548d58e4d896dcbec22f6158d397970f6531872d90b59b782e51"
+    },
+    {
+      "archivo": "Presentacion_General_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_General_Resumen.pptx",
+      "sha256": "4ae51c6de77ccf9164889ccb007aa899aadb47faba206daa092b5bc9d2126c29"
+    },
+    {
+      "archivo": "Presentacion_Seccional_Girardot_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_Seccional_Girardot_Resumen.pptx",
+      "sha256": "565f9de1708b17a402cd4fe03704ae6a4a5ea3df9b9a2d0a53667feb3eb7ccb9"
+    },
+    {
+      "archivo": "Presentacion_Seccional_Ubate_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_Seccional_Ubate_Resumen.pptx",
+      "sha256": "3936b004de55dda72903921c2a70f24a5d746d0ab5e3ea48c8b02f2d95915cae"
+    },
+    {
+      "archivo": "Presentacion_Sede_Fusagasuga_Resumen.pptx",
+      "ruta": "flujo_bert_jev/informe/presentacionresumida/Presentacion_Sede_Fusagasuga_Resumen.pptx",
+      "sha256": "658feb6fcc9ff16340dbde2a89951715c626d737aee19ea5b8a80c05fe26f197"
+    }
+  ]
+}

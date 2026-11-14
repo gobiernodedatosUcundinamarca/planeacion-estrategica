@@ -60,6 +60,22 @@ test("la postura usa solo el campo del formulario, conserva ausentes y admite co
  assert.deepEqual(filtrarComentarios(originales,referencias,{...TODOS,postura:"otra"}).map(r=>r.id),[4,5]);
  assert.equal(filtrarComentarios(originales,referencias,TODOS).length,5);
 });
+
+test('los aportes A1 y A2 conservan su transformación y no se equiparan con los temas por unidad',()=>{
+ const originales=comentariosExistentes(respuestas);
+ const bert=new Map([[1,referencia(1,'tema-regional')],[2,referencia(2,'tema-regional')],[4,referencia(4,'tema-regional')]]);
+ const contexto=filtrarComentarios(originales,bert,{...TODOS,temas:['digital:tema-regional']});
+ const aportes=contarTemas(contexto,referencias);
+ assert.deepEqual(contexto.map(r=>r.id),[1,2]);
+ assert.equal(aportes.find(t=>t.id==='digital:A1')?.total,2);
+ assert.equal(aportes.find(t=>t.id==='digital:A2')?.total,1);
+ assert(!aportes.some(t=>t.id==='inteligente:A1'));
+ assert(!aportes.some(t=>t.id.includes('tema-regional')));
+ const detalle=filtrarComentarios(contexto,referencias,{...TODOS,temas:['digital:A2']});
+ assert.deepEqual(detalle.map(r=>r.id),[1]);
+ assert.equal(bert.get(1)!.temas[0].id,'tema-regional');
+ assert.equal(referencias.get(1)!.temas[0].codigo,'A1');
+});
 test("compactar las referencias no modifica ninguna clasificación ni probabilidad",()=>{
  const original={disponible:true,comentarios:[...referencias.values()]};
  assert.deepEqual([...expandirClasificacion(compactarClasificacion(original)).values()],original.comentarios);

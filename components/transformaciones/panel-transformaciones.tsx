@@ -1,6 +1,7 @@
 "use client";
 
 import {TextoEditorial} from "@/components/editorial/texto-editorial";
+import { EtiquetaFiltroEditable } from "@/components/editorial/etiqueta-filtro";
 import { useMemo, useState } from "react";
 import { MessageSquareQuote, ThumbsUp, Users2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -468,7 +469,7 @@ export function PanelTransformaciones({
           icono={ThumbsUp}
         />
         <KpiCard
-          etiqueta="Ajustes propuestos"
+          etiqueta="Comentarios recibidos"
           valor={formatNumero(metricas.conAporte)}
           detalle="Respuestas con texto abierto"
           icono={MessageSquareQuote}
@@ -599,7 +600,7 @@ const ETIQUETAS_RESPALDO = new Map<string, string>(
 function Campo({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-[11px] font-medium text-muted-foreground">{etiqueta}</span>
+      <span className="text-[11px] font-medium text-muted-foreground"><EtiquetaFiltroEditable ambito="transformaciones" texto={etiqueta}/></span>
       {children}
     </label>
   );

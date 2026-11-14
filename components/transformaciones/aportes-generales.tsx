@@ -1,6 +1,7 @@
 "use client";
 
 import {TextoEditorial} from "@/components/editorial/texto-editorial";
+import { EtiquetaFiltroEditable } from "@/components/editorial/etiqueta-filtro";
 import { useMemo, useState } from "react";
 import { MessageSquareQuote, Users2, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,7 @@ import { NubePalabras } from "@/components/charts/nube-palabras";
 import { formatNumero } from "@/lib/formatters";
 import { calcularFrecuenciaPalabras } from "@/lib/frecuencia-palabras";
 import { TITULO_APORTES } from "@/lib/reglas/aportes";
+import { ordenarAportesParaLectura } from '@/lib/reglas/orden-aportes';
 import type { RespuestaAporte } from "@/types/aportes";
 
 const TODAS = "__todas__";
@@ -121,7 +123,7 @@ export function AportesGenerales({ aportes }: { aportes: RespuestaAporte[] }) {
         {/* Un punto más grande y en negrilla que el resto de tarjetas: este
             bloque es de otro formulario, y el título es lo que separa sus
             cifras de las de las cinco transformaciones. */}
-        <CardTitle className="text-lg font-bold">{TITULO_APORTES}</CardTitle>
+        <CardTitle className="text-lg font-bold"><TextoEditorial id="conversatorios-formulario-titulo" original={TITULO_APORTES}/></CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-col gap-5">
@@ -270,7 +272,7 @@ export function AportesGenerales({ aportes }: { aportes: RespuestaAporte[] }) {
               />
             ) : null}
 
-            <ListaAportes aportes={filtrados} />
+            <ListaAportes key={JSON.stringify(filtros)} aportes={filtrados} />
           </>
         )}
       </CardContent>
@@ -278,17 +280,14 @@ export function AportesGenerales({ aportes }: { aportes: RespuestaAporte[] }) {
   );
 }
 
-/** Cuántos aportes se muestran antes de pedir "ver más". */
-const PASO = 5;
-
 function ListaAportes({ aportes }: { aportes: RespuestaAporte[] }) {
-  const [visibles, setVisibles] = useState(PASO);
-  const mostrados = aportes.slice(0, visibles);
+  const mostrados = useMemo(() => ordenarAportesParaLectura(aportes), [aportes]);
 
   return (
     <div className="flex flex-col gap-2">
+      <div className="max-h-[calc(var(--alto-escritorio,100svh)*.7)] min-h-0 space-y-2 overflow-y-auto overscroll-contain pr-2" role="region" aria-label="Comentarios de aportes generales" tabIndex={0}>
       {mostrados.map((a) => (
-        <div key={a.id} className="rounded-lg border border-border/70 bg-muted/30 px-4 py-3">
+        <div key={a.id} data-aporte-id={a.id} className="rounded-lg border border-border/70 bg-muted/30 px-4 py-3">
           <p className="whitespace-pre-line text-sm text-foreground">{a.aporte}</p>
           <p className="mt-1.5 text-xs text-muted-foreground">
             {[
@@ -304,14 +303,10 @@ function ListaAportes({ aportes }: { aportes: RespuestaAporte[] }) {
         </div>
       ))}
 
+      </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-xs text-muted-foreground">
-          <TextoEditorial id="007ea5bf776758965150" original={"Mostrando"}/>{formatNumero(mostrados.length)} de {formatNumero(aportes.length)} <TextoEditorial id="7cdbc961c88ac5fc6d6b" original={"aportes"}/></p>
-        {visibles < aportes.length ? (
-          <Button variant="outline" size="sm" onClick={() => setVisibles((v) => v + PASO * 2)}>
-            Ver más aportes
-          </Button>
-        ) : null}
+          <TextoEditorial id="007ea5bf776758965150" original={"Mostrando"}/>{' '}{formatNumero(mostrados.length)} de {formatNumero(aportes.length)} <TextoEditorial id="7cdbc961c88ac5fc6d6b" original={"aportes"}/></p>
       </div>
     </div>
   );
@@ -320,7 +315,7 @@ function ListaAportes({ aportes }: { aportes: RespuestaAporte[] }) {
 function Campo({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-[11px] font-medium text-muted-foreground">{etiqueta}</span>
+      <span className="text-[11px] font-medium text-muted-foreground"><EtiquetaFiltroEditable ambito="conversatorios" texto={etiqueta}/></span>
       {children}
     </label>
   );

@@ -27,6 +27,7 @@ import { getMetricasUso } from "@/repositories/metricasRepository";
 import type { MetricasUso } from "@/types/metricas";
 import {
   RUTA_POR_SECCION,
+  SECCION_CONVERSATORIOS,
   SECCION_IA_ADMINISTRATIVOS,
   SECCION_PARTICIPACION,
   SECCION_TRANSFORMACIONES,
@@ -353,7 +354,7 @@ export async function subirDocumentoAportes(datos: FormData): Promise<ResultadoC
 
   if (resultado.aceptado) {
     revalidatePath("/admin");
-    revalidatePath(RUTA_POR_SECCION[SECCION_TRANSFORMACIONES]);
+    revalidatePath(RUTA_POR_SECCION[SECCION_CONVERSATORIOS]);
   }
 
   return resultado;
@@ -376,7 +377,7 @@ export async function eliminarRegistrosAportes(): Promise<{
   try {
     const eliminados = await eliminarAportes();
     revalidatePath("/admin");
-    revalidatePath(RUTA_POR_SECCION[SECCION_TRANSFORMACIONES]);
+    revalidatePath(RUTA_POR_SECCION[SECCION_CONVERSATORIOS]);
     return { ok: true, eliminados, motivo: `Se borraron ${eliminados} aporte(s).` };
   } catch (error) {
     console.error("eliminarRegistrosAportes falló:", error);

@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { Activity, BarChart3, Blocks, LayoutDashboard, MapPinned, Network, Users, UserCheck, Compass, Target, Mic2, ThumbsUp, Sparkles } from "lucide-react";
 import {
+  SECCION_CONVERSATORIOS,
   SECCION_IA_ADMINISTRATIVOS,
   SECCION_PARTICIPACION,
   SECCION_TRANSFORMACIONES,
@@ -81,6 +82,13 @@ export const NAVEGACION: ItemNavegacion[] = [
     descripcion: "Experiencia “Transformaciones que nos conectan” — Resultados de encuestas",
     icono: MapPinned,
     seccion: SECCION_TRANSFORMACIONES,
+  },
+  {
+    href: "/conversatorios",
+    etiqueta: "Conversatorios",
+    descripcion: "Planteamientos, solicitudes y aportes al Plan",
+    icono: Mic2,
+    seccion: SECCION_CONVERSATORIOS,
   },
   {
     href: "/transformaciones-participacion",

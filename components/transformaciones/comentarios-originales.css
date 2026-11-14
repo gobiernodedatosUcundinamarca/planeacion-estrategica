@@ -51,6 +51,11 @@ html.forzar-escritorio .comentarios-originales-optimizados > li {
   contain: layout style;
 }
 
+/* En el escritorio escalado, svh no representa la altura visible completa. */
+html.forzar-escritorio .detalle-aporte-documental-dialogo {
+  max-height: calc(var(--alto-escritorio, 100svh) * .92) !important;
+}
+
 @media print {
   .panel-comentarios {
     display: block;

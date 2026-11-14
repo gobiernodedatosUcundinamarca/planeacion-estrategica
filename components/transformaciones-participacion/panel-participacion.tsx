@@ -2,7 +2,9 @@
 
 
 import {TextoEditorial,TextoDeCatalogo} from "@/components/editorial/texto-editorial";
-import { useMemo, useState } from "react";
+import { EtiquetaFiltroEditable } from "@/components/editorial/etiqueta-filtro";
+import { useMemo, useState, type SetStateAction } from "react";
+import { opcionesParticipacion,ajustarFiltrosParticipacion } from "@/lib/reglas/opciones-participacion";
 import { GraduationCap, MapPinned, UserCheck, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -55,25 +57,15 @@ const formatoDiaCorto = new Intl.DateTimeFormat("es-CO", { day: "2-digit", month
 const formatoDiaLargo = new Intl.DateTimeFormat("es-CO", { dateStyle: "long" });
 
 export function PanelParticipacion({ registros }: { registros: RegistroParticipacion[] }) {
-  const [filtros, setFiltros] = useState<Filtros>(SIN_FILTROS);
-
-  // Las opciones salen de los datos y sobre el total, no sobre lo filtrado: si
-  // dependieran del filtro activo, elegir una opción haría desaparecer las
-  // demás del desplegable.
-  const opciones = useMemo(
-    () => ({
-      // De más reciente a más antigua: al filtrar por jornada se busca casi
-      // siempre la última, no la primera.
-      fechas: [
-        ...new Set(registros.map((r) => r.fechaInicio).filter((f): f is string => Boolean(f))),
-      ].sort((a, b) => b.localeCompare(a)),
-      roles: valoresUnicos(registros.map((r) => etiquetaRol(r.rol))),
-      unidadesRegionales: valoresUnicos(registros.map(unidadRegionalDe)),
-      adscripciones: valoresUnicos(registros.flatMap(adscripcionesDe)),
-      lugares: valoresUnicos(registros.map((r) => r.lugarDesarrollo?.trim() || SIN_ESPECIFICAR)),
-    }),
-    [registros]
-  );
+  const [seleccion, setSeleccion] = useState<Filtros>(SIN_FILTROS);
+  const filtros=useMemo(()=>ajustarFiltrosParticipacion(seleccion,registros),[seleccion,registros]);
+  const opciones=useMemo(()=>opcionesParticipacion(registros,filtros.fechas),[registros,filtros.fechas]);
+  function setFiltros(accion:SetStateAction<Filtros>) {
+    setSeleccion(anterior=>{
+      const vigente=ajustarFiltrosParticipacion(anterior,registros);
+      return ajustarFiltrosParticipacion(typeof accion==='function'?accion(vigente):accion,registros);
+    });
+  }
 
   const filtrados = useMemo(() => {
     return registros.filter((r) => {
@@ -152,33 +144,6 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
                   {opciones.fechas.map((valor) => (
                     <SelectItem key={valor} value={valor}>
                       {formatoDiaLargo.format(new Date(`${valor}T12:00:00`))}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </Campo>
-          ) : null}
-
-          {/* Solo si hay más de un lugar: con uno solo el desplegable no
-              recortaría nada. */}
-          {opciones.lugares.length > 1 ? (
-            <Campo etiqueta="Lugar de desarrollo">
-              <Select
-                value={filtros.lugarDesarrollo}
-                onValueChange={(v) => actualizar("lugarDesarrollo", v ?? TODAS)}
-              >
-                <SelectTrigger className="w-52">
-                  <SelectValue placeholder="Todos">
-                    {(v: string | null) => (
-                      <span className="min-w-0 truncate">{textoSeleccion(v, "Todos")}</span>
-                    )}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={TODAS}>Todos</SelectItem>
-                  {opciones.lugares.map((valor) => (
-                    <SelectItem key={valor} value={valor}>
-                      {valor}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -334,6 +299,8 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
           <CardContent>
             <RankedBarChart
               titulo="Participación por rol"
+              mostrarPorcentaje
+              descripcion="Porcentaje sobre las asistencias de la selección actual."
               datos={metricas.porRol}
               onSeleccionarBarra={(etiqueta) => alternar("rol", etiqueta)}
               etiquetaSeleccionada={filtros.rol.length === 1 ? filtros.rol[0] : null}
@@ -401,7 +368,7 @@ export function PanelParticipacion({ registros }: { registros: RegistroParticipa
 function Campo({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-[11px] font-medium text-muted-foreground">{etiqueta}</span>
+      <span className="text-[11px] font-medium text-muted-foreground"><EtiquetaFiltroEditable ambito="participacion" texto={etiqueta}/></span>
       {children}
     </label>
   );
@@ -420,12 +387,6 @@ function textoFechas(fechas: string[]): string {
   if (fechas.length === 0) return "Todas";
   if (fechas.length === 1) return formatoDiaLargo.format(new Date(`${fechas[0]}T12:00:00`));
   return `${fechas.length} fechas`;
-}
-
-function valoresUnicos(valores: (string | null)[]): string[] {
-  return [...new Set(valores.filter((v): v is string => Boolean(v && v.trim())))].sort((a, b) =>
-    a.localeCompare(b, "es")
-  );
 }
 
 const RANGOS_EDAD: { etiqueta: string; min: number; max: number }[] = [

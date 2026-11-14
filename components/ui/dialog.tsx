@@ -58,8 +58,9 @@ function useCentrarDialogoMovilForzado() {
     const el = nodeRef.current;
     if (!el || !document.documentElement.classList.contains("forzar-escritorio")) return;
     const margen = 16;
-    const alto = document.documentElement.clientHeight;
-    const ancho = document.documentElement.clientWidth;
+    const viewport = window.visualViewport;
+    const alto = viewport?.height ?? document.documentElement.clientHeight;
+    const ancho = viewport?.width ?? document.documentElement.clientWidth;
     el.style.position = "absolute";
     // Tailwind v4 aplica `-translate-x-1/2 -translate-y-1/2` con la
     // propiedad CSS `translate` independiente (no con `transform`) — hay que
@@ -72,8 +73,8 @@ function useCentrarDialogoMovilForzado() {
     el.getAnimations().forEach((a) => a.cancel());
     el.style.maxHeight = `${alto - margen * 2}px`;
     const rect = el.getBoundingClientRect();
-    const top = Math.max(margen, window.scrollY + (alto - rect.height) / 2);
-    const left = Math.max(margen, window.scrollX + (ancho - rect.width) / 2);
+    const top = window.scrollY + (viewport?.offsetTop ?? 0) + Math.max(margen, (alto - rect.height) / 2);
+    const left = window.scrollX + (viewport?.offsetLeft ?? 0) + Math.max(margen, (ancho - rect.width) / 2);
     el.style.top = `${top}px`;
     el.style.left = `${left}px`;
   }, []);
@@ -93,7 +94,14 @@ function useCentrarDialogoMovilForzado() {
 
   React.useEffect(() => {
     window.addEventListener("resize", centrar);
-    return () => window.removeEventListener("resize", centrar);
+    const viewport = window.visualViewport;
+    viewport?.addEventListener('resize', centrar);
+    viewport?.addEventListener('scroll', centrar);
+    return () => {
+      window.removeEventListener("resize", centrar);
+      viewport?.removeEventListener('resize', centrar);
+      viewport?.removeEventListener('scroll', centrar);
+    };
   }, [centrar]);
 
   return setRef;

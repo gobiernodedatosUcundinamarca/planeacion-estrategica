@@ -34,7 +34,7 @@ export function SerieTemporal({
   return (
     <div className="h-52">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={datos} margin={{ top: 4, right: 8, bottom: 0, left: -20 }}>
+        <AreaChart data={datos} margin={{ top: 8, right: 18, bottom: 8, left: 12 }}>
           <defs>
             <linearGradient id="degradado-serie-temporal" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="var(--primary)" stopOpacity={0.28} />
@@ -57,7 +57,8 @@ export function SerieTemporal({
             allowDecimals={false}
             tickLine={false}
             axisLine={false}
-            width={48}
+            width={Math.max(60,formatNumero(Math.max(0,...datos.map(d=>d.valor))).length*9+24)}
+            tickFormatter={formatNumero}
             tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
           />
           <Tooltip

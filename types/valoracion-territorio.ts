@@ -25,6 +25,7 @@ export type RespuestaValoracionTerritorio = Record<CampoAfirmacion, string | nul
 
 /** Lo que recibe la sección: las respuestas y los temas de las sugerencias. */
 export interface VistaValoracionTerritorio {
+  fuente?: { total: number; archivo: string | null; actualizado: string | null };
   /** Solo las que tienen tipo de actor y unidad regional (`entraEnValoracion`). */
   respuestas: RespuestaValoracionTerritorio[];
   temas: TemaComentarios[];

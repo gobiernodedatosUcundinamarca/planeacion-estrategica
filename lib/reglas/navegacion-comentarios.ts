@@ -1,6 +1,7 @@
 import type { RespuestaMomento4 } from "@/types/momento4";
 import type { ClasificacionDocumental, ClasificacionDocumentalCompacta, ResultadoClasificacionDocumental } from "@/types/clasificacion-documental";
 import { clasificarRespaldo, normalizar, type OpcionRespaldo } from "./momento4";
+import { compararOrdenTransformaciones } from './orden-transformaciones';
 
 export interface FiltrosComentarios {
   unidad: string | null;
@@ -78,7 +79,7 @@ export function opcionesComentarios(comentarios: RespuestaMomento4[], filtros: F
   const porTransformacion = porUnidad.filter((r) => filtros.transformacion === null || r.transformacion === filtros.transformacion);
   return {
     unidades: contarOpciones(comentarios, (r) => valorRegistrado(r.unidadRegional)),
-    transformaciones: contarOpciones(porUnidad, (r) => r.transformacion, (r) => r.etiqueta),
+    transformaciones: contarOpciones(porUnidad, (r) => r.transformacion, (r) => r.etiqueta).sort((a,b) => compararOrdenTransformaciones(a.id,b.id)),
     grupos: contarOpciones(porTransformacion, (r) => valorRegistrado(r.tipoActor)),
   };
 }

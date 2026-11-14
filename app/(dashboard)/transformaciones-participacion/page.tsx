@@ -1,18 +1,13 @@
-import {Vista} from "@/components/participacion-narrativa/vista";
-import {crearNarrativa} from "@/components/participacion-narrativa/modelo";
-import {getConvocatoriaDocumental} from "@/repositories/convocatoriaRepository";
+import {ParticipacionActualizada} from "@/components/participacion-narrativa/actualizada";
+import {getVistaParticipacion} from "@/repositories/participacionVistaRepository";
 import "@/components/participacion-narrativa/integrada.css";
 import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AlertTriangle, ArrowLeft, Lock } from "lucide-react";
-import { PanelParticipacion } from "@/components/transformaciones-participacion/panel-participacion";
 import { DescargaExcel } from "@/components/layout/descarga-excel";
-import { getRegistrosParticipacion } from "@/repositories/participacionRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_PARTICIPACION } from "@/constants/secciones";
-import { TITULO_PARTICIPACION } from "@/lib/reglas/participacion";
-import type { RegistroParticipacion } from "@/types/participacion";
 
 export const metadata: Metadata = {
   title: "Trabajo en territorio con la comunidad universitaria - Participación",
@@ -31,10 +26,10 @@ export default async function TransformacionesParticipacionPage() {
     return <SeccionNoDisponible />;
   }
 
-  let registros: RegistroParticipacion[] = [];
+  let datos: Awaited<ReturnType<typeof getVistaParticipacion>> | null = null;
   let error: string | null = null;
   try {
-    registros = await getRegistrosParticipacion();
+    datos = await getVistaParticipacion();
   } catch (fallo) {
     error = fallo instanceof Error ? fallo.message : "No se pudo consultar la base de datos.";
   }
@@ -49,12 +44,9 @@ export default async function TransformacionesParticipacionPage() {
             <p className="text-muted-foreground">{error}</p>
           </div>
         </div>
-      ) : registros.length === 0 ? (
-        <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          <TextoEditorial id="6e0e3936f5f9f5cff480" original={"Todavía no hay tandas de asistencia cargadas. Se publican subiendo el Excel de participación desde la vista de administración."}/></p>
-      ) : (
-        <div className="participacion-integrada"><Vista datosNarrativos={crearNarrativa(registros,getConvocatoriaDocumental())}><PanelParticipacion registros={registros} /></Vista></div>
-      )}
+      ) : datos ? (
+        <div className="participacion-integrada"><ParticipacionActualizada inicial={datos}/></div>
+      ) : null}
 
       <DescargaExcel ruta="/transformaciones-participacion" />
     </div>

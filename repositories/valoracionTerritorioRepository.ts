@@ -19,11 +19,10 @@ export function getDocumentoValoracionTerritorio(): Promise<DocumentoFormulario 
  * su sugerencia de mejora.
  */
 export async function getVistaValoracionTerritorio(): Promise<VistaValoracionTerritorio> {
-  const [respuestas, unidadDe] = await Promise.all([
+  const [respuestas, unidadDe,documento] = await Promise.all([
     getValoracionTerritorioDataSource().getRespuestas(),
-    // Si las jornadas no se pueden consultar, la sección se ve igual, solo que
-    // sin unidad regional: no es motivo para dejarla en blanco.
-    getUnidadRegionalPorFecha().catch(() => new Map<string, string>()),
+    getUnidadRegionalPorFecha(),
+    getDocumentoValoracionTerritorio(),
   ]);
   const conUnidad = respuestas.map((r) => ({
     ...r,
@@ -34,6 +33,7 @@ export async function getVistaValoracionTerritorio(): Promise<VistaValoracionTer
   // cifras de cada tema contarían sugerencias que la sección no muestra.
   const { temas, temaDe } = agruparPorTema(incluidas, (r) => r.mejora, PALABRAS_SIN_TEMA_MEJORA);
   return {
+    fuente:{total:respuestas.length,archivo:documento?.archivo??null,actualizado:documento?.actualizado??null},
     respuestas: incluidas.map((r) => ({ ...r, tema: temaDe.get(r.id) ?? null })),
     temas,
     excluidas: {

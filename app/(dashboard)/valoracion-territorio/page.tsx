@@ -2,14 +2,14 @@ import "@/components/valoracion-territorio/integrada.css";
 import {TextoEditorial} from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
-import { PanelValoracionTerritorio } from "@/components/valoracion-territorio/panel-valoracion-territorio";
+import { ValoracionActualizada } from "@/components/valoracion-territorio/actualizada";
+import { versionarDatos } from '@/lib/datos-versionados';
 import { SeccionNoDisponible } from "@/components/layout/seccion-no-disponible";
 import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { getVistaValoracionTerritorio } from "@/repositories/valoracionTerritorioRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_VALORACION_TERRITORIO } from "@/constants/secciones";
 import {
-  SUBTITULO_VALORACION_TERRITORIO,
   TITULO_VALORACION_TERRITORIO,
 } from "@/lib/reglas/valoracion-territorio";
 import type { VistaValoracionTerritorio } from "@/types/valoracion-territorio";
@@ -53,11 +53,8 @@ export default async function ValoracionTerritorioPage() {
             <p className="text-muted-foreground">{error}</p>
           </div>
         </div>
-      ) : vista.respuestas.length === 0 ? (
-        <p className="rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          <TextoEditorial id="5381e64d33b4ae952112" original={"Todavía no hay respuestas cargadas. Se publican subiendo el Excel de Forms desde la vista de administración."}/></p>
       ) : (
-        <div className="valoracion-integrada"><PanelValoracionTerritorio respuestas={vista.respuestas} temas={vista.temas} excluidas={vista.excluidas} /></div>
+        <div className="valoracion-integrada"><ValoracionActualizada inicial={versionarDatos({vista})}/></div>
       )}
 
       <DescargaExcel ruta="/valoracion-territorio" />

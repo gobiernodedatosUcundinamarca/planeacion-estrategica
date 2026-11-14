@@ -140,7 +140,9 @@ export default function RootLayout({
         <Script id="escala-escritorio" strategy="beforeInteractive">
           {ESCALA_ESCRITORIO}
         </Script>
-        <div id="app-frame-outer">
+        {/* El script previo a React fija el alto de este contenedor al escalar
+            el escritorio. Esa dimensión depende del dispositivo y no del SSR. */}
+        <div id="app-frame-outer" suppressHydrationWarning>
           <div id="app-frame">
             <AppProviders><EditorTextos><PreferenciasTipograficas>{children}</PreferenciasTipograficas></EditorTextos></AppProviders>
           </div>

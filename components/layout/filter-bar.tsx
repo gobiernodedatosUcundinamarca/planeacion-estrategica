@@ -1,4 +1,5 @@
 "use client";
+import { EtiquetaFiltroEditable } from "@/components/editorial/etiqueta-filtro";
 
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
@@ -155,7 +156,7 @@ export function FilterBar() {
 function Campo({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">{etiqueta}</span>
+      <span className="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground"><EtiquetaFiltroEditable ambito="diagnostico" texto={etiqueta}/></span>
       {children}
     </div>
   );

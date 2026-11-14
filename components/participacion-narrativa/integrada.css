@@ -1326,3 +1326,19 @@ html:has(.valoracion-integrada .ventana-respuestas[open]){overflow:hidden;scroll
 .participacion-integrada .atlas-svg[data-etapa=asistencia] .sello,
 .participacion-integrada .atlas-svg[data-etapa=asistencia] .conexiones{display:none}
 .participacion-integrada .atlas-svg[data-etapa=asistencia] .registro-barra{opacity:1!important;visibility:visible!important}
+
+.participacion-integrada .comparacion-roles{margin-top:32px;min-width:0}
+.participacion-integrada .comparacion-roles h3{font-size:20px;font-weight:600;margin-bottom:16px}
+.participacion-integrada .comparacion-roles .tabla-scroll{max-width:100%;overflow:auto;scrollbar-gutter:stable}
+.participacion-integrada .comparacion-roles table{width:100%;min-width:570px}
+.participacion-integrada .comparacion-roles th:first-child{width:45%;white-space:normal}
+.participacion-integrada .porcentaje-rol{color:var(--quiet);font-weight:400}
+.detalle-jornada-tooltip .comparacion-roles{margin:22px 0 0;color:var(--ink)}
+.detalle-jornada-tooltip .comparacion-roles h3{font-size:16px;margin-bottom:10px}
+.detalle-jornada-tooltip .comparacion-roles .tabla-scroll{overflow:auto;max-width:100%}
+.detalle-jornada-tooltip .comparacion-roles table{width:100%;font-size:13px;border-collapse:collapse}
+.detalle-jornada-tooltip .comparacion-roles th,.detalle-jornada-tooltip .comparacion-roles td{padding:8px 5px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top;white-space:nowrap}
+.detalle-jornada-tooltip .comparacion-roles th:first-child{white-space:normal;text-align:left;min-width:135px;font-weight:500}
+.detalle-jornada-tooltip .comparacion-roles caption{font-size:13px;text-align:left;margin-bottom:10px;color:var(--quiet)}
+.detalle-jornada-tooltip .comparacion-roles .nota-evidencia{font-size:13px;line-height:1.6;color:var(--quiet);margin-top:12px}
+.detalle-jornada-tooltip .porcentaje-rol{font-weight:400;color:var(--quiet)}

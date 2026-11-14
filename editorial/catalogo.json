@@ -9,10 +9,26 @@
     "archivo": "components/transformaciones/selector-regional-visual.tsx",
     "elemento": "span"
   },
-  "71a25489b6809d3f06d6": { "original": "Sugerencias", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "h3" },
-  "9ada732e67f62dc425f4": { "original": "Ver más", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
-  "4d4ea4de3826accc1e1c": { "original": "Todas cargadas", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
-  "6a949f0fb8debe9142f2": { "original": "restantes", "archivo": "components/charts/lista-comentarios.tsx", "elemento": "button" },
+  "71a25489b6809d3f06d6": {
+    "original": "Sugerencias",
+    "archivo": "components/charts/lista-comentarios.tsx",
+    "elemento": "h3"
+  },
+  "9ada732e67f62dc425f4": {
+    "original": "Ver más",
+    "archivo": "components/charts/lista-comentarios.tsx",
+    "elemento": "button"
+  },
+  "4d4ea4de3826accc1e1c": {
+    "original": "Todas cargadas",
+    "archivo": "components/charts/lista-comentarios.tsx",
+    "elemento": "button"
+  },
+  "6a949f0fb8debe9142f2": {
+    "original": "restantes",
+    "archivo": "components/charts/lista-comentarios.tsx",
+    "elemento": "button"
+  },
   "b0cf7cfa2bf9f64b866d": {
     "original": "Accesos a CAI Planeación estratégica",
     "archivo": "app/(dashboard)/accesos-cai/page.tsx",
@@ -125,8 +141,8 @@
   },
   "b846cb38d3fd8d95d8d1": {
     "original": "Aportes generales al Plan — formulario independiente",
-    "archivo": "app/(dashboard)/transformaciones/page.tsx",
-    "elemento": "summary"
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
   },
   "f13572e21ee4b66c9345": {
     "original": "Esta sección no está disponible por ahora",
@@ -1774,7 +1790,7 @@
     "elemento": "span"
   },
   "dea61138d835bd56cafd": {
-    "original": "Fuente: presentaciones resumidas por unidad regional, diapositiva 2. Corte: 12 de noviembre de 2026.",
+    "original": "Convocados: presentaciones por unidad regional. Asistencias: registros actuales de la base de datos, agrupados por lugar del encuentro.",
     "archivo": "app/vista.tsx",
     "elemento": "p"
   },
@@ -2054,7 +2070,7 @@
     "elemento": "p"
   },
   "cc10a806fd6718e520f1": {
-    "original": "Registros de asistencia: 3.576 entradas de participación, con corte de consulta al 11 de noviembre de 2026.",
+    "original": "Registros de asistencia en la base de datos.",
     "archivo": "app/vista.tsx",
     "elemento": "p"
   },
@@ -3274,12 +3290,12 @@
     "elemento": "h2"
   },
   "8397c1544c4620df13c3": {
-    "original": "Instrumento de valoración de la experiencia: tres afirmaciones y una pregunta abierta. Corte de copia: 12 de noviembre de 2026. La valoración global es el promedio de los porcentajes favorables de las tres afirmaciones, no un porcentaje de personas únicas.",
+    "original": "La valoración global promedia los porcentajes favorables de las afirmaciones.",
     "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
     "elemento": "p"
   },
   "d57e9c9b6f0c6e3a1561": {
-    "original": "Excel original: 519 filas; análisis actual: 515. Se mantienen las exclusiones de la sección original. Los porcentajes por pregunta consideran únicamente sus respuestas disponibles.",
+    "original": "Las cifras se calculan con las respuestas actuales de la fuente y las exclusiones registradas.",
     "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
     "elemento": "p"
   },
@@ -3482,5 +3498,490 @@
     "original": "Presentación",
     "archivo": "components/participacion-narrativa/vista.tsx",
     "elemento": "control"
+  },
+  "participacion-aviso-actualizacion": {
+    "original": "No se pudo consultar la última actualización. Se conserva la información cargada y se reintentará automáticamente.",
+    "archivo": "components/participacion-narrativa/actualizada.tsx",
+    "elemento": "span"
+  },
+  "participacion-comparacion-roles": {
+    "original": "Convocados y asistentes por rol",
+    "archivo": "components/participacion-narrativa/comparacion-roles.tsx",
+    "elemento": "span"
+  },
+  "participacion-formula-roles": {
+    "original": "% de asistencia: asistentes del rol ÷ convocados del mismo rol × 100.",
+    "archivo": "components/participacion-narrativa/comparacion-roles.tsx",
+    "elemento": "span"
+  },
+  "participacion-nota-administrativos": {
+    "original": "Administrativos reúne planta y trabajadores, como en la convocatoria. Un porcentaje superior al 100 % indica más asistencias registradas que personas convocadas. — indica que no hay un denominador disponible.",
+    "archivo": "components/participacion-narrativa/comparacion-roles.tsx",
+    "elemento": "span"
+  },
+  "participacion-porcentaje-jornada": {
+    "original": "Porcentaje sobre las asistencias de esta jornada.",
+    "archivo": "components/participacion-narrativa/jornadas.tsx",
+    "elemento": "span"
+  },
+  "participacion-unidades-sin-convocatoria": {
+    "original": "Los registros de lugares sin convocatoria documentada se conservan en las jornadas y en la consulta detallada. No se incluyen en la comparación con convocados.",
+    "archivo": "components/participacion-narrativa/vista.tsx",
+    "elemento": "span"
+  },
+  "participacion-fuente-registros-actuales": {
+    "original": "Registros de asistencia en la base de datos:",
+    "archivo": "components/participacion-narrativa/vista.tsx",
+    "elemento": "span"
+  },
+  "d6005f4294f8dc1baae3": {
+    "original": "Porcentaje sobre las asistencias de la selección actual.",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "p"
+  },
+  "fuente-aviso-actualizacion": {
+    "original": "No se pudo consultar la última actualización. Se conserva la información cargada y se reintentará automáticamente.",
+    "archivo": "components/layout/aviso-actualizacion.tsx",
+    "elemento": "span"
+  },
+  "participacion-etiqueta-unidades": {
+    "original": "unidades regionales.",
+    "archivo": "components/participacion-narrativa/vista.tsx",
+    "elemento": "span"
+  },
+  "aportes-fuente-no-disponible": {
+    "original": "No se pudieron consultar los aportes generales. Intenta nuevamente cuando la fuente esté disponible.",
+    "archivo": "components/transformaciones/actualizada.tsx",
+    "elemento": "span"
+  },
+  "valoracion-metodo-actual": {
+    "original": "La valoración global promedia los porcentajes favorables de las afirmaciones. Cada pregunta considera únicamente sus respuestas disponibles.",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "valoracion-fuente-total": {
+    "original": "Respuestas registradas en la fuente:",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "valoracion-analisis-total": {
+    "original": "Incluidas en el análisis:",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "valoracion-seleccion-total": {
+    "original": "Selección actual:",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "participacion-etiqueta-jornadas": {
+    "original": "Jornadas de",
+    "archivo": "components/participacion-narrativa/titulo-jornadas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-titulo": {
+    "original": "Cada transformación.",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-titulo-verde": {
+    "original": "Una universidad que se conecta.",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-intro": {
+    "original": "Las piezas del encuentro se unen para presentar las transformaciones. Explora sus dos caras y consulta las respuestas de la comunidad.",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-respuestas": {
+    "original": "respuestas de encuestas",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-comentarios": {
+    "original": "comentarios",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-armado": {
+    "original": "Así encajan las piezas.",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-ayuda": {
+    "original": "Al recorrer esta sección, las piezas se unen. Selecciona una transformación para consultar sus resultados más abajo.",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-conteo-de": {
+    "original": "de",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-si": {
+    "original": "respondieron «Sí» a la pregunta «¿La transformación responde a lo que se necesita?».",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-nota-fuente": {
+    "original": "Piezas originales del material del encuentro. Las fotografías corresponden a su transformación; la otra cara conserva las descripciones y la misión.",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "puzzle-respuestas-cortas": {
+    "original": "respuestas",
+    "archivo": "components/transformaciones/actualizada.tsx",
+    "elemento": "span"
+  },
+  "puzzle-ver-todas": {
+    "original": "Ver todas las transformaciones",
+    "archivo": "components/transformaciones/actualizada.tsx",
+    "elemento": "span"
+  },
+  "puzzle-cara-vision": {
+    "original": "Visión",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "button"
+  },
+  "puzzle-cara-mision": {
+    "original": "Misión",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "button"
+  },
+  "puzzle-ver-datos": {
+    "original": "Consultar los resultados ↓",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "button"
+  },
+  "conversatorios-unidad": {
+    "original": "Unidad regional",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-grupo": {
+    "original": "Grupo de interés",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-sintesis-nota": {
+    "original": "Síntesis documental de los conversatorios con el Rector. Los planteamientos conservan la redacción y el alcance de las presentaciones.",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-solicitudes-generales": {
+    "original": "La síntesis general de solicitudes agrupa unidades regionales; no desglosa cada tema por grupo de interés.",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-consultar-fuente": {
+    "original": "Consultar presentación",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-diapositiva": {
+    "original": "diapositiva",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-aportes-separados": {
+    "original": "Respuestas del formulario «Comparte aquí tu aporte». Se consultan por separado de la síntesis documental de los conversatorios.",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-error-fuente": {
+    "original": "No se pudieron consultar las fuentes de Conversatorios. Intenta nuevamente cuando estén disponibles.",
+    "archivo": "app/(dashboard)/conversatorios/page.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-titulo": {
+    "original": "Conversatorios",
+    "archivo": "app/(dashboard)/conversatorios/page.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-descripcion": {
+    "original": "Planteamientos de los grupos de interés, solicitudes estratégicas y aportes generales al Plan.",
+    "archivo": "app/(dashboard)/conversatorios/page.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-formulario-titulo": {
+    "original": "Experiencia: \"Transformaciones que nos conectan\". (UCUNDINAMARCA)",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-nav": {
+    "original": "Conversatorios",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "span"
+  },
+  "conversatorios-nav-descripcion": {
+    "original": "Planteamientos, solicitudes y aportes al Plan",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "span"
+  },
+  "conversatorios-todos": {
+    "original": "Todos",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "conversatorios-sin-solicitudes-grupo": {
+    "original": "Esta diapositiva no detalla solicitudes estratégicas para el grupo seleccionado. Sus planteamientos pueden consultarse en el apartado anterior.",
+    "archivo": "components/conversatorios/panel-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-presentaciones-titulo": {
+    "original": "Aportes de las presentaciones",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-presentaciones-nota": {
+    "original": "Identifica cada aporte por su código y transformación. Los conteos corresponden a los comentarios de los filtros actuales; abre un aporte para consultar los comentarios asociados.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-presentaciones-error": {
+    "original": "No se pudo consultar la clasificación de las presentaciones. Los comentarios continúan disponibles en el apartado inferior.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-comentarios": {
+    "original": "comentarios",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-ver": {
+    "original": "Ver comentarios",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-sin-coincidencias": {
+    "original": "No hay aportes de las presentaciones asignados a los comentarios de esta selección.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-clasificacion-unidad": {
+    "original": "Temas por unidad regional",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-detalle-fuente": {
+    "original": "Clasificación de las presentaciones",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-detalle-conteo": {
+    "original": "comentarios asociados a este aporte dentro de los filtros actuales.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "temas-aportes-etiquetas-comentario": {
+    "original": "Aportes de las presentaciones",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-fuente-error": {
+    "original": "No se pudo consultar el informe y sus fuentes. Intenta actualizar la página.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-comentarios-titulo": {
+    "original": "Comentarios del informe",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-comentarios-unidad": {
+    "original": "comentarios del informe",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-base-nota": {
+    "original": "Los porcentajes se calculan sobre los comentarios incluidos en el informe de cada transformación, dentro de los filtros actuales. Abre un aporte para consultar sus comentarios.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-base-total": {
+    "original": "Comentarios del informe",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-base-con": {
+    "original": "Con aportes A1, A2…",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-base-sin": {
+    "original": "Sin aportes A1, A2…",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-card-unidad": {
+    "original": "comentarios",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-sin-aportes": {
+    "original": "No hay aportes temáticos para esta selección.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-solapamiento": {
+    "original": "Un comentario puede estar asociado a varios aportes. Por eso los conteos y porcentajes de las tarjetas no se suman para obtener el total de comentarios.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-otras-respuestas": {
+    "original": "Otras respuestas clasificadas",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-ver-sin-aporte": {
+    "original": "Consultar comentarios sin aportes A1, A2…",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-complementario": {
+    "original": "Análisis complementario por unidad",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-complementario-nota": {
+    "original": "Clasificación BERT → Jev por unidad. Es una lectura distinta de los aportes A1, A2…; sus categorías se consultan por separado.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-complementario-error": {
+    "original": "No se pudo consultar la clasificación complementaria.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-otros-titulo": {
+    "original": "Otros comentarios conservados",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-otros-nota": {
+    "original": "Estos textos no forman parte del conjunto preparado para las diapositivas. Se conservan para consulta y no se incluyen en los porcentajes del informe.",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "informe-modal-bert": {
+    "original": "Análisis BERT → Jev por unidad",
+    "archivo": "components/transformaciones/explorador-comentarios.tsx",
+    "elemento": "span"
+  },
+  "puzzle-comentarios-informe": {
+    "original": "comentarios del informe",
+    "archivo": "components/transformaciones/rompecabezas.tsx",
+    "elemento": "span"
+  },
+  "indicadores-comentarios-recibidos": {
+    "original": "Comentarios recibidos",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-transformaciones-transformacion": {
+    "original": "Transformación",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-transformaciones-fecha": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-transformaciones-tipo-de-actor": {
+    "original": "Tipo de actor",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-transformaciones-unidad-regional": {
+    "original": "Unidad Regional",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-transformaciones-programa-del-graduado": {
+    "original": "Programa del graduado",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-transformaciones-responde-a-lo-que-se-necesita": {
+    "original": "¿Responde a lo que se necesita?",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-transformaciones-buscar": {
+    "original": "Buscar",
+    "archivo": "components/transformaciones/panel-transformaciones.tsx",
+    "elemento": "span"
+  },
+  "filtro-participacion-fecha": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "span"
+  },
+  "filtro-participacion-rol": {
+    "original": "Rol",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "span"
+  },
+  "filtro-participacion-unidad-regional": {
+    "original": "Unidad Regional",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "span"
+  },
+  "filtro-participacion-programa-facultad-coordinacion-o-area": {
+    "original": "Programa, facultad, coordinación o área",
+    "archivo": "components/transformaciones-participacion/panel-participacion.tsx",
+    "elemento": "span"
+  },
+  "filtro-conversatorios-fecha": {
+    "original": "Fecha",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "span"
+  },
+  "filtro-conversatorios-tipo-de-actor": {
+    "original": "Tipo de actor",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "span"
+  },
+  "filtro-conversatorios-unidad-regional": {
+    "original": "Unidad Regional",
+    "archivo": "components/transformaciones/aportes-generales.tsx",
+    "elemento": "span"
+  },
+  "filtro-diagnostico-unidad-regional": {
+    "original": "Unidad Regional",
+    "archivo": "components/layout/filter-bar.tsx",
+    "elemento": "span"
+  },
+  "filtro-diagnostico-facultad-area": {
+    "original": "Facultad / Área",
+    "archivo": "components/layout/filter-bar.tsx",
+    "elemento": "span"
+  },
+  "filtro-diagnostico-rol": {
+    "original": "Rol",
+    "archivo": "components/layout/filter-bar.tsx",
+    "elemento": "span"
+  },
+  "filtro-generales-unidad-regional": {
+    "original": "Unidad regional",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "filtro-generales-rol": {
+    "original": "Rol",
+    "archivo": "components/valoracion-territorio/panel-valoracion-territorio.tsx",
+    "elemento": "span"
+  },
+  "filtro-comentarios-2-transformacion": {
+    "original": "2. Transformación",
+    "archivo": "components/transformaciones/comentarios-compartidos.tsx",
+    "elemento": "span"
+  },
+  "filtro-comentarios-3-grupo-de-interes": {
+    "original": "3. Grupo de interés",
+    "archivo": "components/transformaciones/comentarios-compartidos.tsx",
+    "elemento": "span"
   }
 }

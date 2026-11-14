@@ -10,7 +10,7 @@ import { getDocumentosParticipacion } from "@/repositories/participacionReposito
 import { getDocumentoAportes } from "@/repositories/aportesRepository";
 import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { getMetricasUso } from "@/repositories/metricasRepository";
-import { SECCION_PARTICIPACION, SECCION_TRANSFORMACIONES } from "@/constants/secciones";
+import { SECCION_CONVERSATORIOS, SECCION_PARTICIPACION, SECCION_TRANSFORMACIONES } from "@/constants/secciones";
 import { TITULO_MOMENTO4 } from "@/lib/reglas/momento4";
 import { TITULO_PARTICIPACION } from "@/lib/reglas/participacion";
 import type { DocumentoMomento4 } from "@/types/momento4";
@@ -101,6 +101,7 @@ export default async function AdminPage() {
   // No se envuelve en el try anterior: si fallara la consulta de documentos, el
   // interruptor de publicación sigue siendo utilizable.
   const publicada = await estaSeccionPublicada(SECCION_TRANSFORMACIONES);
+  const publicadaConversatorios = await estaSeccionPublicada(SECCION_CONVERSATORIOS);
   const publicadaParticipacion = await estaSeccionPublicada(SECCION_PARTICIPACION);
   const publicadaValoracion = await estaSeccionPublicada(SECCION_VALORACION_TERRITORIO);
   const publicadaIa = await estaSeccionPublicada(SECCION_IA_ADMINISTRATIVOS);
@@ -143,6 +144,7 @@ export default async function AdminPage() {
         publicada={publicada}
       />
       <CargueMomento4 documentos={documentos} error={error} />
+      <PublicacionSeccion seccion={SECCION_CONVERSATORIOS} titulo="Conversatorios" descripcion="Síntesis documental de los conversatorios con el Rector y aportes generales al Plan." publicada={publicadaConversatorios}/>
       <CargueAportes documento={documentoAportes} error={errorAportes} />
 
       <PublicacionSeccion

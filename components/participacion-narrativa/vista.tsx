@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import { Atlas } from './atlas';
 import { Jornadas } from './jornadas';
+import { ComparacionRoles } from './comparacion-roles';
+import { TituloJornadas } from './titulo-jornadas';
 import { useEscena } from './use-escena';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { formato, porcentaje, capitulos, type DatosNarrativos } from './modelo';
@@ -12,7 +14,7 @@ export function Vista({ children, datosNarrativos }: {
     children: React.ReactNode;
     datosNarrativos: DatosNarrativos;
 }) {
-    const {resumen,jornadasRegionales,rolPrincipal,documento:fuente} = datosNarrativos;
+    const {resumen,jornadasRegionales,rolPrincipal,documento:fuente,comparacionRoles,comparacionPorUnidad} = datosNarrativos;
 const unidades=fuente.filas, unidadesPorAsistencia=[...unidades].sort((a,b)=>b.asistentes-a.asistentes);
 const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.reduce((s,r)=>s+r.asistentes,0);
     const [modo, setModo] = useState('narrativa'), [reducido, setReducido] = useState(false), [compacto, setCompacto] = useState(false), [pausa, setPausa] = useState(false), [unidad, setUnidad] = useState('Todas'), [capitulo, setCapitulo] = useState(0);
@@ -41,6 +43,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     const { ref, paso, nivel } = useEscena(esencial, pausa);
     const filas = unidadesPorAsistencia.filter(r => unidad === 'Todas' || r.unidad === unidad);
     const c = filas.reduce((s, r) => s + r.convocados, 0), a = filas.reduce((s, r) => s + r.asistentes, 0);
+    const rolesComparados = unidad === 'Todas' ? comparacionRoles : comparacionPorUnidad.find(f => f.unidad === unidad)?.roles ?? [];
     function ir(i: number) { setCapitulo(i); document.getElementById(capitulos[i].id)?.scrollIntoView({ behavior: reducido ? 'auto' : 'smooth', block: 'start' }); }
     return <div className={`experiencia modo-${modo}`} data-motion={esencial ? 'esencial' : nivel}>
  <span className="accion-editorial"><a className="saltar" href="#seguimiento"><EtiquetaEditorial texto="Saltar a filtros, gráficos y registros"/></a><LapizDeCatalogo texto="Saltar a filtros, gráficos y registros"/></span>
@@ -83,8 +86,8 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <article className={`paso-narrativo ${paso === 0 ? 'paso-activo' : ''}`} data-paso="0">
     <div className="texto-paso">
     <p className="folio"><TextoEditorial id="80baf7c23b106a2b05e7" original={"01 / EL ALCANCE DOCUMENTADO"}/></p>
-    <h2 id="titulo-atlas"><TextoEditorial id="d282aa0cd2026f7d51f3" original={"Convocatoria en"}/><br /><TextoEditorial id="cc69188ffcfa103705ce" original={"siete unidades regionales."}/></h2>
-    <p><TextoEditorial id="7eb89d9f2232a90b39b7" original={"Las presentaciones registran"}/> <strong>{formato(convocados)}</strong> <TextoEditorial id="880b3c1275f066edb1b9" original={"personas convocadas. Cada círculo representa una unidad regional."}/></p>
+    <h2 id="titulo-atlas"><TextoEditorial id="d282aa0cd2026f7d51f3" original={"Convocatoria en"}/><br />{formato(unidades.length)} <TextoEditorial id="participacion-etiqueta-unidades" original="unidades regionales."/></h2>
+    <p><TextoEditorial id="7eb89d9f2232a90b39b7" original={"La convocatoria documentada registra"}/> <strong>{formato(convocados)}</strong> <TextoEditorial id="880b3c1275f066edb1b9" original={"personas convocadas. Cada círculo representa una unidad regional."}/></p>
     <p className="margen"><TextoEditorial id="5b6ec4e8ccf15c3b4b18" original={"La ubicación de los círculos es ilustrativa y no representa distancias geográficas."}/></p>
     <span className="accion-editorial"><a href="#inspeccion"><EtiquetaEditorial texto="Consultar cifras por unidad ↗"/></a><LapizDeCatalogo texto="Consultar cifras por unidad ↗"/></span>
     </div>
@@ -94,7 +97,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <div className="texto-paso">
     <p className="folio"><TextoEditorial id="85bd5b6b76f05e106438" original={"02 / DE LA CONVOCATORIA A LA ASISTENCIA"}/></p>
     <h2><TextoEditorial id="050c1ca5668e11796784" original={"Convocatoria"}/><br /><TextoEditorial id="708cb9214dde9596a943" original={"y asistencia por unidad."}/></h2>
-    <p><TextoEditorial id="4afad3ad65f5905b77fd" original={"Las barras comparan la convocatoria y la asistencia en cada unidad regional, con un total de"}/> <strong>{formato(asistentes)} <TextoEditorial id="4067e37f24724480ff77" original={"asistentes documentados"}/></strong>.</p>
+    <p><TextoEditorial id="4afad3ad65f5905b77fd" original={"Las barras comparan la convocatoria y la asistencia en cada unidad regional, con un total de"}/> <strong>{formato(asistentes)} <TextoEditorial id="4067e37f24724480ff77" original={"asistencias registradas"}/></strong>.</p>
     <p><TextoEditorial id="595f76ff5e2296d6c751" original={"Las unidades están ordenadas por número de asistentes. El porcentaje se calcula sobre las personas convocadas en cada unidad."}/></p>
     </div>
     {compacto ? <PlanoDePaso etapa="asistencia" unidades={unidades} seleccion={unidad} onElegir={setUnidad}/> : null}
@@ -104,7 +107,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <h2>{porcentaje(asistentes, convocados)} %<br />
     <em><TextoEditorial id="29cb018d643a14e4b163" original={"asistencia efectiva."}/></em>
     </h2>
-    <p>{formato(asistentes)} de {formato(convocados)} <TextoEditorial id="c063036dd96ca2972007" original={"en el mismo corte documental. La diferencia aritmética es"}/> <strong>{formato(convocados - asistentes)}</strong>.</p>
+    <p>{formato(asistentes)} de {formato(convocados)} <TextoEditorial id="c063036dd96ca2972007" original={"asistencias respecto a la convocatoria documentada. La diferencia aritmética es"}/> <strong>{formato(convocados - asistentes)}</strong>.</p>
     <p className="margen"><TextoEditorial id="33d86558b1c884733b2f" original={"Porcentaje de asistencia: asistentes divididos entre convocados, expresado con un decimal."}/></p>
     <span className="accion-editorial"><a href="#inspeccion"><EtiquetaEditorial texto="Revisar unidades y fuentes ↓"/></a><LapizDeCatalogo texto="Revisar unidades y fuentes ↓"/></span>
     </article>
@@ -121,7 +124,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <span>
     <i className="muestra-asist"/><TextoEditorial id="d80c1b1ff240ccafc8d6" original={"Asistentes"}/></span>
     </div>
-    <p className="pie-fuente"><TextoEditorial id="dea61138d835bd56cafd" original={"Fuente: presentaciones resumidas por unidad regional, diapositiva 2. Corte: 12 de noviembre de 2026."}/></p>
+    <p className="pie-fuente"><TextoEditorial id="dea61138d835bd56cafd" original={"Convocados: presentaciones por unidad regional. Asistencias: registros actuales de la base de datos, agrupados por lugar del encuentro."}/></p>
     </div> : null}
     </section>
  <section id="inspeccion" className="inspeccion">
@@ -148,7 +151,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <dd>{formato(c)}</dd>
     </div>
     <div>
-    <dt><TextoEditorial id="b97e2bdb49b7a8fbeab4" original={"Asistentes documentados"}/></dt>
+    <dt><TextoEditorial id="b97e2bdb49b7a8fbeab4" original={"Asistencias registradas"}/></dt>
     <dd>{formato(a)}</dd>
     </div>
     <div>
@@ -162,7 +165,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     </dl>
 <div className="tabla-scroll" tabIndex={0} role="region" aria-label="Cifras documentales por unidad regional">
     <table>
-    <caption><TextoEditorial id="dc9361ef34fc7de31b95" original={"Porcentaje de asistencia = asistentes ÷ convocados × 100. Los porcentajes se calculan con los conteos de las presentaciones y se redondean a un decimal."}/></caption>
+    <caption><TextoEditorial id="dc9361ef34fc7de31b95" original={"Porcentaje de asistencia = asistencias registradas ÷ convocados × 100. Se calcula por lugar del encuentro y se redondea a un decimal."}/></caption>
     <thead>
     <tr>
     <th scope="col"><TextoEditorial id="7748acb8619b3a07c0f9" original={"Unidad"}/></th>
@@ -181,14 +184,16 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
         </tr>)}</tbody>
     </table>
     </div>
-    <p className="nota-evidencia"><TextoEditorial id="b040194ca5290aed6da4" original={"Las cifras corresponden al mismo conjunto de convocatoria y asistencia de las presentaciones. La consulta de registros por jornada se realiza por separado."}/></p>
+    <p className="nota-evidencia"><TextoEditorial id="b040194ca5290aed6da4" original={"Los convocados proceden de las presentaciones. Las asistencias se calculan con los registros actuales de la base de datos por lugar del encuentro, que puede ser distinto de la unidad de origen del participante."}/></p>
+    <ComparacionRoles roles={rolesComparados}/>
+    {datosNarrativos.unidadesAdicionales.length ? <p className="nota-evidencia"><TextoEditorial id="participacion-unidades-sin-convocatoria" original="Los registros de lugares sin convocatoria documentada se conservan en las jornadas y en la consulta detallada. No se incluyen en la comparación con convocados."/> {datosNarrativos.unidadesAdicionales.join(', ')}.</p> : null}
 
     </section>
  <section id="pulso" className="pulso">
     <div className="cabecera-editorial">
     <div>
     <p className="folio"><TextoEditorial id="57896e8d82540ed5e954" original={"04 / LA ASISTENCIA EN EL TIEMPO"}/></p>
-    <h2><TextoEditorial id="1a2ad35cec0850d57de3" original={"No fue un único momento."}/><br /><TextoEditorialCompuesto id="participacion-titulo-jornadas-completo" partes={[{id:"fb3573fa58dfd26bbbc8",original:"Fueron"},` ${resumen.jornadas} `,{id:"97259da99149a93a7a22",original:"jornadas."}]}/></h2>
+    <h2><TituloJornadas total={resumen.jornadas}/><br /><TextoEditorialCompuesto id="participacion-titulo-jornadas-completo" partes={[{id:"fb3573fa58dfd26bbbc8",original:"Diálogo "},{id:"97259da99149a93a7a22",original:"Territorial"}]}/></h2>
     </div>
     <p><TextoEditorial id="participacion-resumen-agrupacion-regional" original={"Asistencias por lugar del encuentro, agrupando sus fechas registradas."}/></p>
     </div>
@@ -201,10 +206,6 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <p className="folio"><TextoEditorial id="d345cf79a82f95e3a00e" original={"05 / CONSULTA DETALLADA"}/></p>
     <h2><TextoEditorial id="48c7e686a89bc7a56433" original={"Registros"}/><br /><TextoEditorial id="7d934b538c495c553675" original={"de participación."}/></h2>
     </div>
-    <div>
-    <p><TextoEditorial id="2dd68500413032f103c7" original={"Consulte la asistencia por fecha, lugar, rol, unidad regional y dependencia."}/></p>
-    <span className="accion-editorial"><a className="descarga" download href="/api/descargas/transformaciones-participacion"><EtiquetaEditorial texto="Descargar Excel completo ↓"/></a><LapizDeCatalogo texto="Descargar Excel completo ↓"/></span>
-    </div>
     </div>{children}</section>
  <section id="fuentes" className="fuentes-editoriales">
     <p className="folio"><TextoEditorial id="e0113c0e85fa663d2b0f" original={"06 / SÍNTESIS EJECUTIVA Y FUENTES"}/></p>
@@ -212,7 +213,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <div className="sintesis">
     <article>
     <h3><TextoEditorial id="bf3b8d67324516afd365" original={"Alcance documentado"}/></h3>
-    <p>{formato(convocados)} <TextoEditorial id="b65bc82e3ab39718beec" original={"convocados;"}/> {formato(asistentes)} <TextoEditorial id="c48fbce8ac6e5e04eb21" original={"asistentes;"}/> {porcentaje(asistentes, convocados)} <TextoEditorial id="094e554de021b499f3eb" original={"% de asistencia respecto a las personas convocadas. Permite comparar unidades dentro del corte de las presentaciones."}/></p>
+    <p>{formato(convocados)} <TextoEditorial id="b65bc82e3ab39718beec" original={"convocados;"}/> {formato(asistentes)} <TextoEditorial id="c48fbce8ac6e5e04eb21" original={"asistentes;"}/> {porcentaje(asistentes, convocados)} <TextoEditorial id="094e554de021b499f3eb" original={"% de asistencia respecto a la convocatoria documentada. Los conteos de asistencia corresponden a la base de datos actual."}/></p>
     </article>
     <article>
     <h3><TextoEditorial id="3851d7c949b5fab05e8a" original={"Participación registrada"}/></h3>
@@ -222,7 +223,7 @@ const convocados=unidades.reduce((s,r)=>s+r.convocados,0),asistentes=unidades.re
     <details>
     <summary><EtiquetaEditorial texto="Fuentes y criterios de cálculo"/></summary><LapizDeCatalogo texto="Fuentes y criterios de cálculo"/>
     <p><TextoEditorial id="538a3b1b4166a28465b3" original={"Convocatoria:"}/> {fuente.fuente}<TextoEditorial id="d974700c83125be8e481" original={", diapositiva"}/> {fuente.diapositiva}.</p>
-    <p><TextoEditorial id="cc10a806fd6718e520f1" original={"Registros de asistencia: 3.576 entradas de participación, con corte de consulta al 11 de noviembre de 2026."}/></p>
+    <p><TextoEditorial id="participacion-fuente-registros-actuales" original="Registros de asistencia en la base de datos:"/> {formato(resumen.registros)}.</p>
     <p><TextoEditorial id="096b02dd1255e1952372" original={"Una entrada puede estar asociada a varias dependencias, por lo que sus conteos pueden superar el total de registros. Los porcentajes por edad consideran únicamente las edades registradas. La descarga incluye los registros de toda la sección."}/></p>
     </details>
     <footer><TextoEditorial id="2111b1ef7b08fe1278a3" original={"Universidad de Cundinamarca · Planeación Estratégica 2027 — 2037"}/></footer>
@@ -243,6 +244,6 @@ function PlanoDePaso({ etapa, unidades, seleccion, onElegir }: {
             <span><i className="muestra-conv"/><TextoEditorial id="595faa158cb0bd052852" original="Convocados"/></span>
             {etapa === 'asistencia' ? <span><i className="muestra-asist"/><TextoEditorial id="d80c1b1ff240ccafc8d6" original="Asistentes"/></span> : null}
         </div>
-        <p className="pie-fuente"><TextoEditorial id="dea61138d835bd56cafd" original="Fuente: presentaciones resumidas por unidad regional, diapositiva 2. Corte: 12 de noviembre de 2026."/></p>
+        <p className="pie-fuente"><TextoEditorial id="dea61138d835bd56cafd" original="Convocados: presentaciones por unidad regional. Asistencias: registros actuales de la base de datos, agrupados por lugar del encuentro."/></p>
     </div>;
 }

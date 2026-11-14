@@ -1,5 +1,5 @@
 "use client";
-import {TextoDeCatalogo} from "@/components/editorial/texto-editorial";
+import { EtiquetaFiltroEditable } from "@/components/editorial/etiqueta-filtro";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -30,7 +30,7 @@ export function FiltroOpciones({
 }) {
   return (
     <label className="flex flex-col gap-1">
-      <span className="text-xs text-muted-foreground"><TextoDeCatalogo texto={etiqueta}/></span>
+      <span className="text-xs text-muted-foreground"><EtiquetaFiltroEditable ambito="generales" texto={etiqueta}/></span>
       <Select value={valor} onValueChange={(v) => onCambiar(v ?? TODAS_LAS_OPCIONES)}>
         <SelectTrigger className={ancho}>
           <SelectValue placeholder={siTodas}>

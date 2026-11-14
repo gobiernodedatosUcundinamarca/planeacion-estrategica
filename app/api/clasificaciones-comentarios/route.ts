@@ -4,6 +4,7 @@ import { estaSeccionPublicada } from "@/repositories/seccionesRepository";
 import { SECCION_TRANSFORMACIONES } from "@/constants/secciones";
 import { esMetodoClasificacion } from "@/lib/reglas/fuentes-clasificacion";
 import { compactarClasificacion } from "@/lib/reglas/navegacion-comentarios";
+import { responderDatos,versionarDatos } from '@/lib/datos-versionados';
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +14,7 @@ export async function GET(peticion: Request) {
   try {
     if (!await estaSeccionPublicada(SECCION_TRANSFORMACIONES)) return NextResponse.json({ error: "Sección no disponible." }, { status: 404 });
     const resultado = await getClasificacionDocumental(metodo);
-    return NextResponse.json(compactarClasificacion(resultado), { headers: { "Cache-Control": "no-store" } });
+    return responderDatos(peticion,versionarDatos(compactarClasificacion(resultado)));
   } catch {
     return NextResponse.json({ error: "No se pudo consultar la clasificación documental." }, { status: 503 });
   }

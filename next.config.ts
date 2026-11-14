@@ -83,6 +83,7 @@ const nextConfig: NextConfig = {
       "./data/source-analitica-momentos/**",
       "./data/source-cai/**",
       "./data/source-participacion-documental/**",
+      "./data/source-conversatorios/**",
     ],
   },
 };

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "vision",
+    "piezas": [
+      {
+        "id": "centro",
+        "imagen": "/rompecabezas/vision-centro.webp",
+        "detalle": "/rompecabezas/vision-centro-detalle.webp",
+        "posicion": 1
+      },
+      {
+        "id": "uc-inteligente",
+        "imagen": "/rompecabezas/vision-uc-inteligente.webp",
+        "detalle": "/rompecabezas/vision-uc-inteligente-detalle.webp",
+        "posicion": 2
+      },
+      {
+        "id": "uc-translocal",
+        "imagen": "/rompecabezas/vision-uc-translocal.webp",
+        "detalle": "/rompecabezas/vision-uc-translocal-detalle.webp",
+        "posicion": 3
+      },
+      {
+        "id": "uc-para-la-vida",
+        "imagen": "/rompecabezas/vision-uc-para-la-vida.webp",
+        "detalle": "/rompecabezas/vision-uc-para-la-vida-detalle.webp",
+        "posicion": 4
+      },
+      {
+        "id": "uc-emprendedora-e-innovadora",
+        "imagen": "/rompecabezas/vision-uc-emprendedora-e-innovadora.webp",
+        "detalle": "/rompecabezas/vision-uc-emprendedora-e-innovadora-detalle.webp",
+        "posicion": 5
+      },
+      {
+        "id": "uc-digital",
+        "imagen": "/rompecabezas/vision-uc-digital.webp",
+        "detalle": "/rompecabezas/vision-uc-digital-detalle.webp",
+        "posicion": 6
+      }
+    ]
+  },
+  {
+    "id": "mision",
+    "piezas": [
+      {
+        "id": "centro",
+        "imagen": "/rompecabezas/mision-centro.webp",
+        "detalle": "/rompecabezas/mision-centro-detalle.webp",
+        "posicion": 1
+      },
+      {
+        "id": "uc-translocal",
+        "imagen": "/rompecabezas/mision-uc-translocal.webp",
+        "detalle": "/rompecabezas/mision-uc-translocal-detalle.webp",
+        "posicion": 2
+      },
+      {
+        "id": "uc-inteligente",
+        "imagen": "/rompecabezas/mision-uc-inteligente.webp",
+        "detalle": "/rompecabezas/mision-uc-inteligente-detalle.webp",
+        "posicion": 3
+      },
+      {
+        "id": "uc-digital",
+        "imagen": "/rompecabezas/mision-uc-digital.webp",
+        "detalle": "/rompecabezas/mision-uc-digital-detalle.webp",
+        "posicion": 4
+      },
+      {
+        "id": "uc-emprendedora-e-innovadora",
+        "imagen": "/rompecabezas/mision-uc-emprendedora-e-innovadora.webp",
+        "detalle": "/rompecabezas/mision-uc-emprendedora-e-innovadora-detalle.webp",
+        "posicion": 5
+      },
+      {
+        "id": "uc-para-la-vida",
+        "imagen": "/rompecabezas/mision-uc-para-la-vida.webp",
+        "detalle": "/rompecabezas/mision-uc-para-la-vida-detalle.webp",
+        "posicion": 6
+      }
+    ]
+  }
+]

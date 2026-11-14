@@ -1,6 +1,9 @@
 import "server-only";
+import { PptxConversatoriosDataSource } from './pptx-conversatorios-source';
+export const getConversatoriosDataSource = crearSingleton(() => new PptxConversatoriosDataSource());
 import { ExcelConvocatoriaDataSource } from './excel-convocatoria-source';
-export const getConvocatoriaDataSource = crearSingleton(() => new ExcelConvocatoriaDataSource());
+import { PostgresConvocatoriaDataSource } from './postgres-convocatoria-source';
+export const getConvocatoriaDataSource = crearSingleton(() => new PostgresConvocatoriaDataSource(new ExcelConvocatoriaDataSource()));
 import { ExcelEncuestaDataSource } from "./excel-data-source";
 import { ExcelMetasDataSource } from "./excel-metas-source";
 import { ExcelConferencistasDataSource } from "./excel-conferencistas-source";

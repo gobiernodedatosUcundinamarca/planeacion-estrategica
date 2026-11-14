@@ -11,12 +11,14 @@ export function Atlas({ seleccion, onElegir, unidades, etapa }: {
     const id = useId();
     const escala=Math.max(1,...unidades.flatMap(u=>[u.convocados,u.asistentes]));
     const unidadesPorAsistencia=[...unidades].sort((a,b)=>b.asistentes-a.asistentes);
+    const alto=Math.max(650,unidades.length*78+100);
+    const ubicaciones=unidades.map((_,i)=>unidades.length<=posiciones.length ? posiciones[i] : [480+320*Math.cos(i/unidades.length*Math.PI*2),310+210*Math.sin(i/unidades.length*Math.PI*2)]);
     return <>
-    <svg viewBox="0 0 1000 650" role="img" aria-labelledby={`${id}-nombre ${id}-descripcion`} className="atlas-svg" data-etapa={etapa}>
-    <title id={`${id}-nombre`}>Siete unidades: convocatoria y asistencia documental</title>
+    <svg viewBox={`0 0 1000 ${alto}`} role="img" aria-labelledby={`${id}-nombre ${id}-descripcion`} className="atlas-svg" data-etapa={etapa}>
+    <title id={`${id}-nombre`}>{`${formato(unidades.length)} unidades: convocatoria y asistencia`}</title>
     <desc id={`${id}-descripcion`}>La constelación simbólica de unidades se alinea en comparaciones. Verde: asistentes documentados; línea de fondo: convocados. Todos los valores están en la tabla de inspección. No es un mapa geográfico.</desc>
-    <g className="conexiones" aria-hidden="true">{posiciones.map(([x, y], i) => <line key={i} x1="440" y1="300" x2={x} y2={y} stroke="currentColor" strokeWidth="1"/>)}</g>{unidades.map((u, i) => {
-            const [x, y] = posiciones[i];
+    <g className="conexiones" aria-hidden="true">{ubicaciones.map(([x, y], i) => <line key={i} x1="440" y1="300" x2={x} y2={y} stroke="currentColor" strokeWidth="1"/>)}</g>{unidades.map((u, i) => {
+            const [x, y] = ubicaciones[i];
             const width = u.convocados / escala * 440;
             const posicionFinal = unidadesPorAsistencia.findIndex(fila => fila.unidad === u.unidad);
             return <g key={u.unidad} data-unidad={u.unidad} data-asistentes={u.asistentes} className={`unidad-morph ${seleccion === u.unidad ? 'inspeccionada' : ''}`} style={{ '--x': `${x}px`, '--y': `${y}px`, '--row': `${75 + posicionFinal * 78}px` } as CSSProperties} onClick={() => onElegir(seleccion === u.unidad ? 'Todas' : u.unidad)}>
@@ -34,7 +36,7 @@ export function Atlas({ seleccion, onElegir, unidades, etapa }: {
             <text x="750" y="12" textAnchor="end" className="barra-porcentaje">{porcentaje(u.asistentes, u.convocados)}%</text>
             </g>
             </g>;
-        })}{etapa !== 'convocatoria' ? <text x="70" y="635" className="escala-atlas">Mayor a menor asistencia · escala común: 0 — {formato(escala)} registros</text> : null}
+        })}{etapa !== 'convocatoria' ? <text x="70" y={alto-15} className="escala-atlas">Mayor a menor asistencia · escala común: 0 — {formato(escala)} registros</text> : null}
     </svg>
 <div className="atlas-mobile" role="group" aria-label="Comparación de unidades">{unidadesPorAsistencia.map(u => <button key={u.unidad} aria-pressed={seleccion === u.unidad} onClick={() => onElegir(seleccion === u.unidad ? 'Todas' : u.unidad)}>
         <strong>{u.unidad}</strong>

@@ -27,6 +27,7 @@ import {
 } from "@/lib/reglas/valoracion-territorio";
 import type { TemaComentarios } from "@/types/formularios";
 import type { RespuestaValoracionTerritorio } from "@/types/valoracion-territorio";
+import type { VistaValoracionTerritorio } from "@/types/valoracion-territorio";
 
 import {Evidencia,type FiltroRespuesta} from "./evidencia";
 import {VentanaRespuestas} from "./ventana-respuestas";
@@ -100,11 +101,13 @@ export function PanelValoracionTerritorio({
   respuestas,
   temas,
   excluidas,
+  fuente,
 }: {
   respuestas: Respuesta[];
   temas: TemaComentarios[];
   /** Respuestas que no entran por no tener unidad regional o tipo de actor (`entraEnValoracion`). */
   excluidas: { sinUnidadRegional: number; sinRol: number };
+  fuente?: VistaValoracionTerritorio['fuente'];
 }) {
   const [filtroDetalle,setFiltroDetalle]=useState<FiltroRespuesta|null>(null);
   const totalExcluidas = excluidas.sinUnidadRegional + excluidas.sinRol;
@@ -363,7 +366,7 @@ export function PanelValoracionTerritorio({
 
       {/* Al final, como cierre: primero se ven los datos y después la lectura
           que se hace de ellos. */}
-      <Evidencia respuestas={filtradas} filtro={null} onLimpiar={()=>{}}/><VentanaRespuestas respuestas={filtradas} filtro={filtroDetalle} onCerrar={()=>setFiltroDetalle(null)}/><details className="balance"><summary><TextoEditorial id="2247121cb8d9d14ff81e" original={"Resumen de la selección"}/></summary><Hallazgos frases={hallazgos}/></details><section className="metodo"><h2><TextoEditorial id="dd28bf9383444d83d7be" original={"Fuentes y criterios de lectura"}/></h2><p><TextoEditorial id="8397c1544c4620df13c3" original={"Instrumento de valoración de la experiencia: tres afirmaciones y una pregunta abierta. Corte de copia: 12 de noviembre de 2026. La valoración global es el promedio de los porcentajes favorables de las tres afirmaciones, no un porcentaje de personas únicas."}/></p><p><TextoEditorial id="d57e9c9b6f0c6e3a1561" original={"Excel original: 519 filas; análisis actual: 515. Se mantienen las exclusiones de la sección original. Los porcentajes por pregunta consideran únicamente sus respuestas disponibles."}/></p><p><TextoEditorial id="14204152d19c9b5a66cb" original={"Las presentaciones se consultaron como contexto documental; sus cifras y clasificaciones no se incorporaron a las respuestas actuales sin correspondencia verificable."}/></p><a className="boton" href="/api/descargas/valoracion-territorio">Descargar todas las respuestas de la valoración</a></section>
+      <Evidencia respuestas={filtradas} filtro={null} onLimpiar={()=>{}}/><VentanaRespuestas respuestas={filtradas} filtro={filtroDetalle} onCerrar={()=>setFiltroDetalle(null)}/><details className="balance"><summary><TextoEditorial id="2247121cb8d9d14ff81e" original={"Resumen de la selección"}/></summary><Hallazgos frases={hallazgos}/></details><section className="metodo"><h2><TextoEditorial id="dd28bf9383444d83d7be" original={"Fuentes y criterios de lectura"}/></h2><p><TextoEditorial id="valoracion-metodo-actual" original="La valoración global promedia los porcentajes favorables de las afirmaciones. Cada pregunta considera únicamente sus respuestas disponibles."/></p><p><TextoEditorial id="valoracion-fuente-total" original="Respuestas registradas en la fuente:"/> {formatNumero(fuente?.total ?? respuestas.length+totalExcluidas)}. <TextoEditorial id="valoracion-analisis-total" original="Incluidas en el análisis:"/> {formatNumero(respuestas.length)}. <TextoEditorial id="valoracion-seleccion-total" original="Selección actual:"/> {formatNumero(metricas.total)}.</p><p><TextoEditorial id="14204152d19c9b5a66cb" original={"Las presentaciones se consultaron como contexto documental; sus cifras y clasificaciones no se incorporaron a las respuestas actuales sin correspondencia verificable."}/></p><a className="boton" download href="/api/descargas/valoracion-territorio">Descargar todas las respuestas de la valoración</a></section>
     </div>
   );
 }
