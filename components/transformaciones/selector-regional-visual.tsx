@@ -22,7 +22,7 @@ export function SelectorRegionalVisual({ opciones, seleccionado, onSeleccionar }
       <span>{seleccionado ?? <TextoEditorial id="selector-regional-visual-todas" original="Todas las opciones"/>}</span>
     </div>
     <div className="opciones-regionales-visuales" role="group" aria-labelledby={`${id}-titulo`}>
-      {opciones.map((opcion, indice) => {
+      {opciones.filter(opcion => opcion.nombre.trim().toLocaleLowerCase() !== 'sin especificar').map((opcion, indice) => {
         const foto = fotos[opcion.nombre];
         const activo = seleccionado === opcion.id;
         const clip = `${id}-${indice}`;

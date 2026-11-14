@@ -60,19 +60,38 @@ export function EditorTextos({ children }: {
     const [modoEdicion, setModoEdicion] = useState(false);
     const montado = useSyncExternalStore(sinSuscripcion, () => true, () => false);
     const dialogo = useRef<HTMLDialogElement>(null);
+    const generacion = useRef(0);
+    const enviando = useRef(false);
+    const revisionEdicion = useRef(estado.revision);
     async function refrescar() { const r = await fetch('/api/editorial', { cache: 'no-store' }); if (r.ok)
         setEstado(await r.json()); }
     useEffect(() => {
-        let vigente = true;
-        const consultar = () => {
-            void fetch('/api/editorial', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(datos => {
-                if (vigente && datos) setEstado(datos);
-            }).catch(() => {});
+        let vigente = true, pendiente = false;
+        const controlador = new AbortController();
+        const consultar = async () => {
+            if (pendiente || enviando.current || document.visibilityState !== 'visible') return;
+            pendiente = true;
+            const turno = generacion.current;
+            try {
+                const r = await fetch('/api/editorial', { cache: 'no-store', signal: controlador.signal });
+                if (!r.ok) return;
+                const datos = await r.json();
+                if (vigente && turno === generacion.current && Number.isSafeInteger(datos.revision) && datos.textos) {
+                    setEstado(actual => actual.habilitado && datos.habilitado && datos.revision < actual.revision ? actual
+                        : datos.revision === actual.revision && datos.autorizado === actual.autorizado && datos.habilitado === actual.habilitado ? actual : datos);
+                }
+            } catch { /* Conservar el último contenido confirmado y reintentar. */ }
+            finally { pendiente = false; }
         };
-        consultar();
+        void consultar();
+        const intervalo = setInterval(() => { void consultar(); }, 2000);
+        const canal = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('editorial-actualizado') : null;
+        if (canal) canal.onmessage = () => { void consultar(); };
         const cambio = () => { if (document.visibilityState === 'visible') consultar(); };
         document.addEventListener('visibilitychange', cambio);
-        return () => { vigente = false; document.removeEventListener('visibilitychange', cambio); };
+        window.addEventListener('focus', cambio);
+        window.addEventListener('online', cambio);
+        return () => { vigente = false; controlador.abort(); clearInterval(intervalo); canal?.close(); document.removeEventListener('visibilitychange', cambio); window.removeEventListener('focus', cambio); window.removeEventListener('online', cambio); };
     }, []);
     useEffect(() => {
         if (modoEdicion) document.documentElement.dataset.modoEdicion = 'activo';
@@ -84,8 +103,8 @@ export function EditorTextos({ children }: {
         if (estado.autorizado) { setModoEdicion(true); return; }
         setObjetivo(null); setClave(''); setMensaje(''); dialogo.current?.showModal();
     }
-    function editar(o: Objetivo) { if (!modoEdicion) return; setObjetivo(o); setValor(estado.textos[o.id] ?? o.original); setMensaje(''); dialogo.current?.showModal(); }
-    async function enviar(body: unknown) { setOcupado(true); setMensaje(''); try {
+    function editar(o: Objetivo) { if (!modoEdicion) return; revisionEdicion.current = estado.revision; setObjetivo(o); setValor(estado.textos[o.id] ?? o.original); setMensaje(''); dialogo.current?.showModal(); }
+    async function enviar(body: unknown) { enviando.current = true; generacion.current++; setOcupado(true); setMensaje(''); try {
         const r = await fetch('/api/editorial', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
         const d = await r.json();
         if (!r.ok) {
@@ -95,8 +114,14 @@ export function EditorTextos({ children }: {
                 await refrescar();
             return false;
         }
-        if (d.textos)
+        if (body && typeof body === 'object' && 'id' in body && (!d.textos || !Number.isSafeInteger(d.revision))) {
+            setMensaje('El servidor no confirmó el guardado. Compruebe la conexión antes de reintentar.');
+            return false;
+        }
+        if (d.textos) {
             setEstado(s => ({ ...s, ...d }));
+            if (typeof BroadcastChannel !== 'undefined') { const canal = new BroadcastChannel('editorial-actualizado'); canal.postMessage(d.revision); canal.close(); }
+        }
         if (typeof d.autorizado === 'boolean')
             setEstado(s => ({ ...s, autorizado: d.autorizado }));
         return true;
@@ -106,6 +131,7 @@ export function EditorTextos({ children }: {
         return false;
     }
     finally {
+        enviando.current = false;
         setOcupado(false);
     } }
     return <Contexto.Provider value={{ textos: estado.textos, editar, modoEdicion, alternarModo, disponible: estado.habilitado }}>{children}{montado ? createPortal(<dialog ref={dialogo} className="dialogo-editorial" aria-labelledby="titulo-editorial" onClose={() => { setClave(''); setObjetivo(null); }}>
@@ -116,7 +142,7 @@ export function EditorTextos({ children }: {
         }
         setClave('');
     }
-    else if (objetivo && await enviar({ id: objetivo.id, valor, revision: estado.revision }))
+    else if (objetivo && await enviar({ id: objetivo.id, valor, revision: revisionEdicion.current }))
         dialogo.current?.close(); }}>
     <h2 id="titulo-editorial">{estado.autorizado ? 'Editar texto de la página' : 'Acceso al modo de edición'}</h2>{estado.autorizado ? <>
         <p>Este cambio modifica únicamente el texto descriptivo, no los datos de encuestas.</p>
@@ -127,8 +153,8 @@ export function EditorTextos({ children }: {
         </label>}<p role="alert">{mensaje}</p>
     <div className="acciones-editorial">
     <button type="button" onClick={() => dialogo.current?.close()}>Cancelar</button>
-    <button disabled={ocupado} type="submit">{ocupado ? 'Procesando…' : estado.autorizado ? 'Guardar cambios' : 'Ingresar'}</button>{estado.autorizado && objetivo ? <button disabled={ocupado} type="button" onClick={async () => { if (await enviar({ id: objetivo.id, valor: null, revision: estado.revision }))
-        dialogo.current?.close(); }}>Restaurar texto original</button> : null}{estado.autorizado && objetivo ? <button type="button" disabled={ocupado} onClick={async () => {if(await enviar({id:objetivo.id,valor:'',revision:estado.revision})) dialogo.current?.close();}}>Ocultar texto</button> : null}{estado.autorizado ? <button type="button" disabled={ocupado} onClick={async () => { if (await enviar({ accion: 'salir' })) { setModoEdicion(false); dialogo.current?.close(); } }}>Cerrar sesión</button> : null}</div>
+    <button disabled={ocupado} type="submit">{ocupado ? 'Procesando…' : estado.autorizado ? 'Guardar' : 'Ingresar'}</button>{estado.autorizado && objetivo ? <button disabled={ocupado} type="button" onClick={async () => { if (await enviar({ id: objetivo.id, valor: null, revision: revisionEdicion.current }))
+        dialogo.current?.close(); }}>Restaurar texto original</button> : null}{estado.autorizado && objetivo ? <button type="button" disabled={ocupado} onClick={async () => {if(await enviar({id:objetivo.id,valor:'',revision:revisionEdicion.current})) dialogo.current?.close();}}>Ocultar texto</button> : null}{estado.autorizado ? <button type="button" disabled={ocupado} onClick={async () => { if (await enviar({ accion: 'salir' })) { setModoEdicion(false); dialogo.current?.close(); } }}>Cerrar sesión</button> : null}</div>
     </form>
     </dialog>, document.body) : null}
     </Contexto.Provider>;

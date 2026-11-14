@@ -8,7 +8,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 const cookieLocal = 'editorial-sesion';
 const cookieSegura = '__Host-editorial-sesion';
-const ok = (data: unknown, status = 200) => NextResponse.json(data, { status, headers: { 'Cache-Control': 'no-store' } });
+const ok = (data: unknown, status = 200) => NextResponse.json(data, { status, headers: { 'Cache-Control': 'private, no-store, max-age=0, must-revalidate', 'CDN-Cache-Control': 'no-store', 'Vercel-CDN-Cache-Control': 'no-store' } });
 function origenSolicitud(r: NextRequest) {
   try { return new URL(`${r.nextUrl.protocol}//${r.headers.get('host') ?? ''}`).origin; }
   catch { return ''; }

@@ -118,6 +118,20 @@ La edición modifica datos persistidos, no archivos `.tsx`, commits ni despliegu
 
 ## Verificación local
 
+Las sesiones visibles consultan la revisión editorial cada dos segundos, sin
+caché de navegador ni CDN. Las pestañas del mismo navegador reciben además
+un aviso inmediato por BroadcastChannel. Volver a la pestaña o recuperar la
+conexión fuerza otra consulta. Una respuesta anterior a un guardado no sustituye
+la confirmación más reciente. El borrador conserva la revisión con que se abrió:
+si otra persona guarda entretanto, el servidor exige revisar el conflicto.
+
+La prueba `scripts/probar-sincronizacion-editorial.cjs` acepta
+`EDITORIAL_PRUEBA_URL` y `EDITORIAL_PRUEBA_CLAVE` por entorno. Por defecto usa
+solo localhost. Comprueba acceso real, persistencia, una sesión ya abierta,
+otro navegador y restauración exacta. Para producción requiere autorización
+expresa; conserva la revisión actual y restaura únicamente su propio texto de
+prueba, sin sobrescribir una edición concurrente de otro usuario.
+
 ```powershell
 pnpm exec tsx --test tests/editorial-seguridad.test.ts
 pnpm exec tsx --test tests/editorial-postgres.test.ts
