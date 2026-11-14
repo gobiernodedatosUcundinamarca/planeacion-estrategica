@@ -58,11 +58,13 @@ export function EditorTextos({ children }: {
 }) {
     const [estado, setEstado] = useState({ revision: contenidoInicial.revision, textos: contenidoInicial.textos as Record<string, string>, autorizado: false, habilitado: false }), [objetivo, setObjetivo] = useState<Objetivo | null>(null), [clave, setClave] = useState(''), [valor, setValor] = useState(''), [mensaje, setMensaje] = useState(''), [ocupado, setOcupado] = useState(false);
     const [modoEdicion, setModoEdicion] = useState(false);
+    const [aviso, setAviso] = useState('');
     const montado = useSyncExternalStore(sinSuscripcion, () => true, () => false);
     const dialogo = useRef<HTMLDialogElement>(null);
     const generacion = useRef(0);
     const enviando = useRef(false);
     const revisionEdicion = useRef(estado.revision);
+    useEffect(() => { if (!aviso) return; const reloj = setTimeout(() => setAviso(''), 6000); return () => clearTimeout(reloj); }, [aviso]);
     async function refrescar() { const r = await fetch('/api/editorial', { cache: 'no-store' }); if (r.ok)
         setEstado(await r.json()); }
     useEffect(() => {
@@ -114,9 +116,14 @@ export function EditorTextos({ children }: {
                 await refrescar();
             return false;
         }
-        if (body && typeof body === 'object' && 'id' in body && (!d.textos || !Number.isSafeInteger(d.revision))) {
-            setMensaje('El servidor no confirmó el guardado. Compruebe la conexión antes de reintentar.');
-            return false;
+        if (body && typeof body === 'object' && 'id' in body) {
+            const cambio = body as {id:string;valor:string|null;revision:number};
+            const coincide = d.textos && (cambio.valor === null ? !Object.hasOwn(d.textos,cambio.id) : d.textos[cambio.id] === cambio.valor);
+            if (!coincide || !Number.isSafeInteger(d.revision) || d.revision <= cambio.revision) {
+                setMensaje('El servidor no confirmó el texto enviado. La edición sigue abierta; compruebe el contenido publicado antes de reintentar.');
+                return false;
+            }
+            setAviso('Cambios guardados y publicados.');
         }
         if (d.textos) {
             setEstado(s => ({ ...s, ...d }));
@@ -134,7 +141,7 @@ export function EditorTextos({ children }: {
         enviando.current = false;
         setOcupado(false);
     } }
-    return <Contexto.Provider value={{ textos: estado.textos, editar, modoEdicion, alternarModo, disponible: estado.habilitado }}>{children}{montado ? createPortal(<dialog ref={dialogo} className="dialogo-editorial" aria-labelledby="titulo-editorial" onClose={() => { setClave(''); setObjetivo(null); }}>
+    return <Contexto.Provider value={{ textos: estado.textos, editar, modoEdicion, alternarModo, disponible: estado.habilitado }}>{children}{montado && aviso ? createPortal(<div role="status" aria-live="polite" className="fixed bottom-6 left-1/2 z-[10000] -translate-x-1/2 rounded-lg border border-primary/30 bg-background px-5 py-3 text-sm text-foreground shadow-lg">{aviso}</div>,document.body) : null}{montado ? createPortal(<dialog ref={dialogo} className="dialogo-editorial" aria-labelledby="titulo-editorial" onClose={() => { setClave(''); setObjetivo(null); }}>
     <form onSubmit={async (e) => { e.preventDefault(); if (!estado.autorizado) {
         if (await enviar({ accion: 'entrar', clave })) {
             setModoEdicion(true);

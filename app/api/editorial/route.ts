@@ -74,7 +74,11 @@ export async function POST(r: NextRequest) {
     if (!await sesion(r.cookies.get(cookie)?.value || '')) return ok({ error: 'Acceso requerido' }, 401);
     try { validarCambio(body.id, body.valor, body.revision); }
     catch { return ok({ error: 'Datos no válidos' }, 400); }
-    return ok(await guardarTextoEditorial(body.id, body.valor as string | null, body.revision as number));
+    const guardado = await guardarTextoEditorial(body.id, body.valor as string | null, body.revision as number);
+    const confirmado = await leerTextosEditoriales();
+    const coincide = body.valor === null ? !Object.hasOwn(confirmado.textos,body.id) : confirmado.textos[body.id] === body.valor;
+    if (confirmado.revision < guardado.revision || !coincide) return ok({ error: 'No se pudo confirmar el contenido después de guardar. Consulte la versión publicada antes de reintentar.' }, 503);
+    return ok(confirmado);
   } catch (error) {
     if ((error as Error).message === 'CONFLICTO') return ok({ error: 'Otra persona modificó los textos. Recargue antes de guardar.' }, 409);
     return ok({ error: 'No se pudo completar la operación. Intente nuevamente.' }, 503);
