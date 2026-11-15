@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const portable = process.env.BUILD_STANDALONE === "1";
+
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
@@ -20,7 +22,7 @@ const nextConfig: NextConfig = {
   // Empaqueta un servidor Node mínimo y autocontenido en .next/standalone —
   // base de la distribución portable (exe). Solo se activa con
   // BUILD_STANDALONE=1 para no alterar el build normal que usa Vercel.
-  output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
+  output: portable ? "standalone" : undefined,
   // PGlite carga su .wasm y sus datos desde su propia carpeta: no se empaqueta.
   serverExternalPackages: ["@electric-sql/pglite"],
   // Fija la raíz de trazado a este proyecto en vez de dejar que Next la
@@ -86,9 +88,14 @@ const nextConfig: NextConfig = {
       "./data/source-cai/**",
       "./data/source-participacion-documental/**",
       "./data/source-conversatorios/**",
-      "./node_modules/@electric-sql/pglite/dist/**",
+      ...(portable ? ["./node_modules/@electric-sql/pglite/**"] : []),
     ],
   },
+  // PGlite solo lo usa el ejecutable portable (base embebida): las funciones de
+  // Vercel no lo empaquetan.
+  outputFileTracingExcludes: portable
+    ? {}
+    : { "/*": ["./node_modules/**/@electric-sql/pglite/**"] },
 };
 
 export default nextConfig;
