@@ -21,10 +21,12 @@
     "migrar:valoracion-territorio": "tsx scripts/migrar-valoracion-territorio.ts",
     "migrar:ia-administrativos": "tsx scripts/migrar-ia-administrativos.ts",
     "migrar:descargas": "tsx scripts/migrar-descargas.ts",
-    "cargar:momento4": "tsx scripts/cargar-momento4.ts"
+    "cargar:momento4": "tsx scripts/cargar-momento4.ts",
+    "exportar:base-local": "tsx scripts/exportar-base-local.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
+    "@electric-sql/pglite": "^0.5.16",
     "@neondatabase/serverless": "^1.1.0",
     "@tanstack/react-query": "^5.101.2",
     "@visx/responsive": "^4.0.0",

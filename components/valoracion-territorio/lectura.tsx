@@ -6,7 +6,7 @@ import {distribucionEscala,estaEnNiveles} from '@/lib/reglas/formularios';
 import {ESCALA_ACUERDO} from '@/lib/reglas/valoracion-territorio';
 import {formatPorcentaje} from '@/lib/formatters';
 import type {RespuestaValoracionTerritorio as Respuesta} from '@/types/valoracion-territorio';
-const titulosTarjetas = {"comprension": "Comprensión de las cinco transformaciones estratégicas", "misionVision": "Claridad sobre la misión, la visión y el rumbo de la universidad", "dinamica": "Participación favorecida por la dinámica de la experiencia"};
+const titulosTarjetas = {"comprension": "Comprensión de las cinco transformaciones estratégicas", "misionVision": "Claridad sobre la misión, la visión y el rumbo de la universidad", "dinamica": "Participación cocreativa MCA"};
 const idsTarjetas = {"comprension": "f14d81588ba1e330633d", "misionVision": "b50f919dbea057b65107", "dinamica": "e0a32093d3319282c3e9"};
 export function Lectura({respuestas,onSeleccionar}:{respuestas:Respuesta[];onSeleccionar:(f:FiltroRespuesta)=>void}){
  const filas=AFIRMACIONES_VALORACION.map(a=>{const validas=respuestas.filter(r=>r[a.campo]);const favorables=validas.filter(r=>estaEnNiveles(r[a.campo],NIVELES_FAVORABLES)).length;return {...a,validas:validas.length,favorables,porcentaje:validas.length?favorables/validas.length*100:0,niveles:distribucionEscala(validas.map(r=>r[a.campo]),ESCALA_ACUERDO)}});

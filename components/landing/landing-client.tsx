@@ -7,7 +7,7 @@ import {TextoEditorial,ControlEdicion,EtiquetaEditorial,LapizDeCatalogo} from "@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ArrowRight, Network, Target, Users2 } from "lucide-react";
+import { ArrowRight, MapPinned, Network, Target, Users2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TemaPlan {
@@ -32,6 +32,11 @@ const TEMAS: TemaPlan[] = [
     titulo: "Accesos a CAI Planeación estratégica 2027 – 2037",
     icono: Network,
     href: "/accesos-cai",
+  },
+  {
+    titulo: "Resultados del diálogo territorial “Transformaciones que nos conectan”",
+    icono: MapPinned,
+    href: "/transformaciones-participacion",
   },
 ];
 

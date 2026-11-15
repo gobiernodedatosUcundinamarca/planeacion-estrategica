@@ -77,6 +77,13 @@ export const NAVEGACION: ItemNavegacion[] = [
     icono: Network,
   },
   {
+    href: "/transformaciones-participacion",
+    etiqueta: "Trabajo en territorio con la comunidad universitaria",
+    descripcion: "Experiencia “Transformaciones que nos conectan” - Participación",
+    icono: UserCheck,
+    seccion: SECCION_PARTICIPACION,
+  },
+  {
     href: "/transformaciones",
     etiqueta: "Trabajo en territorio con la comunidad universitaria",
     descripcion: "Experiencia “Transformaciones que nos conectan” — Resultados de encuestas",
@@ -89,13 +96,6 @@ export const NAVEGACION: ItemNavegacion[] = [
     descripcion: "Planteamientos, solicitudes y aportes al Plan",
     icono: Mic2,
     seccion: SECCION_CONVERSATORIOS,
-  },
-  {
-    href: "/transformaciones-participacion",
-    etiqueta: "Trabajo en territorio con la comunidad universitaria",
-    descripcion: "Experiencia “Transformaciones que nos conectan” - Participación",
-    icono: UserCheck,
-    seccion: SECCION_PARTICIPACION,
   },
   {
     href: "/valoracion-territorio",

@@ -1,4 +1,5 @@
 import { neon } from "@neondatabase/serverless";
+import { conexionLocal } from "./base-local";
 
 /**
  * Única puerta a la base de datos, igual que `excel.ts` lo es a los .xlsx: que
@@ -15,6 +16,9 @@ import { neon } from "@neondatabase/serverless";
  * fallar en Node.
  */
 export function conexionSql(opciones: { directa?: boolean } = {}) {
+  // El ejecutable portable trae su propia copia de la base y no usa la red.
+  if (process.env.BASE_LOCAL_DIR) return conexionLocal(process.env.BASE_LOCAL_DIR);
+
   // La cadena sin pooler solo se pide explícitamente (migraciones y carga
   // inicial); la aplicación siempre usa la del pooler.
   const cadena = opciones.directa

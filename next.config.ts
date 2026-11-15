@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
   // base de la distribución portable (exe). Solo se activa con
   // BUILD_STANDALONE=1 para no alterar el build normal que usa Vercel.
   output: process.env.BUILD_STANDALONE === "1" ? "standalone" : undefined,
+  // PGlite carga su .wasm y sus datos desde su propia carpeta: no se empaqueta.
+  serverExternalPackages: ["@electric-sql/pglite"],
   // Fija la raíz de trazado a este proyecto en vez de dejar que Next la
   // deduzca subiendo por el árbol hasta encontrar un workspace. Sin esto, el
   // build del portable —que Compilar-Portable.bat hace en una copia dentro de
@@ -84,6 +86,7 @@ const nextConfig: NextConfig = {
       "./data/source-cai/**",
       "./data/source-participacion-documental/**",
       "./data/source-conversatorios/**",
+      "./node_modules/@electric-sql/pglite/dist/**",
     ],
   },
 };

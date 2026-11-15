@@ -88,6 +88,7 @@ class Launcher
             psi.EnvironmentVariables["PORT"] = puerto.ToString();
             psi.EnvironmentVariables["HOSTNAME"] = "127.0.0.1";
             psi.EnvironmentVariables["NODE_ENV"] = "production";
+            psi.EnvironmentVariables["BASE_LOCAL_DIR"] = Path.Combine(destino, "base-local");
 
             proceso = Process.Start(psi);
 

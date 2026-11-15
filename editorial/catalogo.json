@@ -1614,6 +1614,11 @@
     "archivo": "components/layout",
     "elemento": "etiqueta-enlace"
   },
+  "3f9c1a7e52b8d40e6a21": {
+    "original": "Resultados del diálogo territorial “Transformaciones que nos conectan”",
+    "archivo": "components/layout",
+    "elemento": "etiqueta-enlace"
+  },
   "c056a781caf6cf2f3d0e": {
     "original": "Volver al inicio",
     "archivo": "components/layout",
@@ -3335,7 +3340,7 @@
     "elemento": "h3"
   },
   "e0a32093d3319282c3e9": {
-    "original": "Participación favorecida por la dinámica de la experiencia",
+    "original": "Participación cocreativa MCA",
     "archivo": "components/valoracion-territorio/lectura.tsx",
     "elemento": "h3"
   },

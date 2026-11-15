@@ -49,3 +49,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+
+# Copia local de la base para el ejecutable portable
+base-local/
