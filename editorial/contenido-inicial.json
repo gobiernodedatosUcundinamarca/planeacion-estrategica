@@ -1,10 +1,13 @@
 {
-  "revision": 96,
+  "revision": 102,
   "textos": {
+    "informe-otros-nota": "Consulta las respuestas adicionales registradas.",
     "1a2ad35cec0850d57de3": "13 Jornadas de ",
-    "fb3573fa58dfd26bbbc8": "Diálogo ",
     "97259da99149a93a7a22": "Territorial",
-    "participacion-titulo-jornadas-completo": "Diálogo Territorial",
-    "temas-aportes-presentaciones-titulo": "Aportes de las transformaciones"
+    "a25b77f504ad818ac83f": "asistencia y fuentes",
+    "ecc370355ee5837a72d8": "Alcance,",
+    "fb3573fa58dfd26bbbc8": "Diálogo ",
+    "temas-aportes-presentaciones-titulo": "Aportes de las transformaciones",
+    "participacion-titulo-jornadas-completo": "Diálogo Territorial"
   }
 }

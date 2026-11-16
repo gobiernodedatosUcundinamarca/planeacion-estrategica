@@ -18,3 +18,11 @@ Los aportes del formulario «Comparte aquí tu aporte» permanecen en `aportes_r
 El proceso es explícito: actualizar un repositorio externo no modifica automáticamente los archivos incorporados ni un despliegue de Vercel. En producción los archivos empaquetados requieren la publicación correspondiente, mientras que los aportes de PostgreSQL se consultan en cada actualización. El editor de textos controla etiquetas de la interfaz; no sustituye los datos ni la redacción de los documentos oficiales.
 
 La publicación del módulo se controla mediante `secciones_publicadas.conversatorios`, con el mismo mecanismo y autorización de administración que las demás secciones.
+
+## Consulta visual de las fuentes
+
+Las referencias abren la imagen de su página original. `vistas/<sha256>/<referencia>.png` contiene imágenes derivadas de la presentación de ese mismo hash, no indicadores reconstruidos. La lectura verifica la versión actual y nunca sirve una captura de otro documento o de una versión anterior.
+
+Después de incorporar presentaciones actualizadas, ejecutar `pnpm exec tsx scripts/preparar-vistas-conversatorios.ts` antes de publicar. Las imágenes existentes se verifican sin regenerarlas. Las nuevas se convierten con PowerPoint instalado en Windows, sin guardar cambios en los originales. El número interno `slideN.xml` se resuelve mediante las relaciones del archivo para respetar el orden original incluso cuando se eliminaron páginas.
+
+En local también se generan las vistas faltantes bajo `uso-local/vistas-fuentes-conversatorios/`. En Vercel se sirven las vistas preparadas e incluidas junto con las fuentes; una vista ausente devuelve un error explícito. No se ejecuta PowerPoint en el servidor de producción.

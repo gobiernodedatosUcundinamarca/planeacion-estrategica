@@ -3988,5 +3988,255 @@
     "original": "3. Grupo de interés",
     "archivo": "components/transformaciones/comentarios-compartidos.tsx",
     "elemento": "span"
+  },
+  "cv-marca": {
+    "original": "Planeación estratégica",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-comparar": {
+    "original": "Ver versión local",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-movimiento": {
+    "original": "Pausar movimiento",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-error": {
+    "original": "No se pudo actualizar la fuente. Se mantiene la última información confirmada.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-folio": {
+    "original": "Trabajo en territorio · Conversatorios",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-titulo": {
+    "original": "El diálogo",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-titulo-verde": {
+    "original": "toma forma.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-intro": {
+    "original": "Recorre las voces de la comunidad universitaria y las solicitudes que surgieron en los encuentros con el Rector.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-explorar": {
+    "original": "Entrar en la conversación",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-material": {
+    "original": "Voces, planteamientos y solicitudes",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-ambito": {
+    "original": "Una lectura desde el territorio",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-unidades": {
+    "original": "unidades regionales",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-nav-territorio": {
+    "original": "El territorio",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-nav-voces": {
+    "original": "Las voces",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-nav-peticiones": {
+    "original": "Las solicitudes",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-nav-aportes": {
+    "original": "Los aportes",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-territorio-folio": {
+    "original": "01 / Punto de encuentro",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-territorio-titulo": {
+    "original": "Cada lugar tiene una voz.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-territorio-nota": {
+    "original": "Elige una unidad para recorrer sus planteamientos. La síntesis general presenta su propio contenido consolidado.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-contexto-texto": {
+    "original": "La selección se aplica a las voces y solicitudes del recorrido.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-aportes-folio": {
+    "original": "04 / Una conversación abierta",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-aportes-titulo": {
+    "original": "El aporte de cada persona.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-final": {
+    "original": "Universidad de Cundinamarca · Planeación estratégica",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-subir": {
+    "original": "Volver al inicio",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-voces-folio": {
+    "original": "02 / La mesa de diálogo",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-voces-titulo": {
+    "original": "Escuchar desde cada lugar.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-modo-recorrido": {
+    "original": "Recorrido",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-modo-lectura": {
+    "original": "Lectura continua",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-grupos-etiqueta": {
+    "original": "Grupos de interés",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-nota-mesa": {
+    "original": "Cada punto representa un grupo. Su tamaño y posición son ilustrativos; no expresan cantidades de participantes.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-planteamientos-etiqueta": {
+    "original": "planteamientos en la selección",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-contexto-original": {
+    "original": "Contexto y referencia del documento",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-solicitudes-folio": {
+    "original": "03 / Las solicitudes estratégicas",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-solicitudes-titulo": {
+    "original": "Lo que se puso sobre la mesa.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-solicitudes-nota": {
+    "original": "Abre cada solicitud para leer su descripción y el ámbito al que corresponde.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-frecuencia-nota": {
+    "original": "La longitud de cada línea indica el número de unidades que formularon esa solicitud, según la síntesis general. No representa personas ni porcentajes.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-frecuencia-unidad": {
+    "original": "unidades",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-sin-resultados": {
+    "original": "No hay solicitudes que coincidan con la búsqueda o con el grupo seleccionado.",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-fuente": {
+    "original": "Consultar fuente",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
+  },
+  "cv-pagina": {
+    "original": "página",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-movimiento-activar": {
+    "original": "Activar movimiento",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-mesa-centro": {
+    "original": "CONVERSATORIOS",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-ref-original": {
+    "original": "Referencia en la fuente:",
+    "archivo": "components/conversatorios/recorrido-conversatorios.tsx",
+    "elemento": "span"
+  },
+  "cv-vista-fuente": {
+    "original": "Fuente documental",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
+  },
+  "cv-fuente-cargando": {
+    "original": "Preparando la página del documento…",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
+  },
+  "cv-fuente-error": {
+    "original": "No se pudo cargar la página de la fuente. Inténtalo de nuevo.",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
+  },
+  "cv-fuente-reintentar": {
+    "original": "Reintentar",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
+  },
+  "cv-fuente-fiel": {
+    "original": "Vista de la página del documento original",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
+  },
+  "cv-fuente-ajustar": {
+    "original": "Ajustar a la ventana",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
+  },
+  "cv-fuente-ampliar": {
+    "original": "Ampliar imagen",
+    "archivo": "components/conversatorios/visor-fuentes.tsx",
+    "elemento": "span"
   }
 }
