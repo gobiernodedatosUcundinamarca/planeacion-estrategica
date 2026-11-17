@@ -51,13 +51,15 @@
 .cv-prototipo .cv-visual-fija .cv-leyenda-mesa button{padding:9px 0;min-inline-size:0;overflow-wrap:anywhere}
 .cv-prototipo .cv-visual-fija .cv-leyenda-mesa button>span{flex:none}
 
-/* Un solo desplazamiento: el de la página. El panel solo se fija cuando cabe entero. */
-.cv-prototipo .cv-visual-fija{--cv-panel-top:120px;position:relative;top:auto;max-height:none;overflow:visible;padding:20px 24px 18px}
-.cv-prototipo .cv-visual-fija[data-cabe=true]{position:sticky;top:var(--cv-panel-top)}
+/* Anclaje continuo con un único desplazamiento: el de la página. */
+.cv-prototipo .cv-visual-fija{--cv-panel-top:120px;position:sticky;top:var(--cv-panel-anclaje,var(--cv-panel-top));max-height:none;overflow:visible;padding:20px 24px 18px}
 .cv-prototipo .cv-visual-fija .cv-fotografia{margin:12px 0 6px}
 .cv-prototipo .cv-visual-fija .cv-fotografia figcaption{margin-top:6px}
 .cv-prototipo .cv-visual-fija .cv-mesa{grid-template-columns:minmax(0,min(38%,180px)) minmax(0,1fr);gap:14px;margin:10px 0}
 .cv-prototipo .cv-visual-fija .cv-leyenda-mesa button{padding:7px 0;overflow-wrap:break-word}
 .cv-prototipo .cv-visual-fija .cv-nota-mesa{max-width:none;line-height:1.5;margin-top:6px!important}
 .cv-prototipo .cv-visual-fija .cv-conteo-documental{margin-top:8px;padding-top:8px;gap:9px}
-@media(max-width:760px){.cv-prototipo .cv-visual-fija[data-cabe=true]{position:relative;top:auto}}
+
+/* Compensa únicamente el marco de escritorio escalado, sin alterar su recorte global. */
+.cv-prototipo .cv-visual-fija[data-anclaje=escalado]{position:relative;top:auto;transform:translate3d(0,var(--cv-panel-desplazamiento,0px),0)}
+html.forzar-escritorio .cv-prototipo .cv-escucha{display:grid}

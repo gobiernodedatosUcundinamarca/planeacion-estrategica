@@ -96,19 +96,34 @@ function PanelEscucha({children}:{children:ReactNode}){
   const panel=useRef<HTMLElement>(null);
   useLayoutEffect(()=>{
     const elemento=panel.current;
-    if(!elemento)return;
-    let pendiente=0;
+    const contenedor=elemento?.parentElement;
+    if(!elemento||!contenedor)return;
+    let pendiente=0,pendienteScroll=0,escala=1,anclaje=120,inicio=0,limite=0;
+    const fijar=()=>{
+      const desplazamiento=escala===1?0:Math.min(limite,Math.max(0,(window.scrollY+anclaje*escala-inicio)/escala));
+      elemento.style.setProperty('--cv-panel-desplazamiento',desplazamiento+'px');
+    };
     const medir=()=>{
-      const caja=elemento.getBoundingClientRect();
-      const escala=elemento.offsetHeight?caja.height/elemento.offsetHeight:1;
+      const caja=elemento.getBoundingClientRect(),padre=contenedor.getBoundingClientRect();
+      const proporcion=elemento.offsetWidth?caja.width/elemento.offsetWidth:1;
+      escala=Math.abs(proporcion-1)<.005?1:proporcion;
       const superior=parseFloat(getComputedStyle(elemento).getPropertyValue('--cv-panel-top'))||120;
-      // Si no cabe completo, acompaña el flujo de la página: nunca crea otro scroll.
-      elemento.dataset.cabe=String(caja.height<=window.innerHeight-superior*escala-20);
+      // Anclar siempre por arriba para mantener visibles los filtros.
+      anclaje=superior;
+      inicio=padre.top+window.scrollY;
+      limite=Math.max(0,(padre.height-caja.height)/escala);
+      elemento.dataset.anclaje=escala===1?'nativo':'escalado';
+      elemento.style.setProperty('--cv-panel-anclaje',anclaje+'px');
+      fijar();
     };
     const programar=()=>{cancelAnimationFrame(pendiente);pendiente=requestAnimationFrame(medir)};
+    // El marco de escritorio escalado tiene un contenedor de recorte que impide sticky.
+    // Solo en ese modo se reproduce el anclaje dentro de los límites de la sección.
+    const desplazar=()=>{if(escala===1)return;cancelAnimationFrame(pendienteScroll);pendienteScroll=requestAnimationFrame(fijar)};
     const observador=new ResizeObserver(programar);
-    observador.observe(elemento);window.addEventListener('resize',programar);medir();
-    return()=>{observador.disconnect();window.removeEventListener('resize',programar);cancelAnimationFrame(pendiente)};
+    observador.observe(elemento);observador.observe(contenedor);
+    window.addEventListener('resize',programar);window.addEventListener('scroll',desplazar,{passive:true});medir();
+    return()=>{observador.disconnect();window.removeEventListener('resize',programar);window.removeEventListener('scroll',desplazar);cancelAnimationFrame(pendiente);cancelAnimationFrame(pendienteScroll)};
   },[]);
   return <aside ref={panel} className="cv-visual-fija">{children}</aside>;
 }
