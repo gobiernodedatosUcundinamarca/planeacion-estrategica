@@ -1,0 +1,273 @@
+/*
+ * Sistema visual de la nota metodológica. Una sola retícula, una escala y una
+ * paleta; lo que cambia entre apartados es la composición, no el sistema.
+ * Sin media queries de ancho: el sitio escala el escritorio en cualquier
+ * pantalla (ver .claude/rules/interfaz.md).
+ */
+.nm {
+  /* Escala tipográfica: cuarta justa (×1,333) sobre 16 px. */
+  --nm-t-0: 0.75rem;   /* 12 · rótulos */
+  --nm-t-1: 0.875rem;  /* 14 · notas */
+  --nm-t-2: 1rem;      /* 16 · texto */
+  --nm-t-3: 1.333rem;  /* 21 · entradilla */
+  --nm-t-4: 1.777rem;  /* 28 · titular de apartado, cifras de tabla */
+  --nm-t-5: 2.369rem;  /* 38 · cifra destacada */
+  --nm-t-6: 3.157rem;  /* 50 · valor de parámetro */
+  --nm-t-7: 4.209rem;  /* 67 · número de apartado */
+  --nm-t-8: 7.5rem;    /* 120 · cifra de apertura */
+
+  /* Paleta: tinta y papel del sitio, un acento institucional y una señal. */
+  --nm-tinta: var(--foreground);
+  --nm-papel: var(--background);
+  --nm-gris: var(--muted-foreground);
+  --nm-linea: var(--border);
+  --nm-velo: var(--muted);
+  --nm-acento: var(--primary);
+  --nm-senal: var(--chart-2);
+
+  --nm-medianil: 2rem;
+  --nm-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  max-width: 72rem;
+  color: var(--nm-tinta);
+  font-size: var(--nm-t-2);
+  line-height: 1.55;
+}
+
+/* Retícula de 12 columnas: margen (1–3) y principal (4–12). */
+.nm-reticula {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--nm-medianil);
+}
+.nm-margen { grid-column: 1 / span 3; }
+.nm-principal { grid-column: 4 / span 9; }
+.nm-completa { grid-column: 1 / -1; }
+
+/* Apartado: un filete de tinta lo abre; el blanco lo separa del siguiente. */
+.nm-apartado {
+  border-top: 1px solid var(--nm-tinta);
+  padding-block: 3.5rem 4.5rem;
+}
+.nm-numero {
+  font-family: var(--nm-mono);
+  font-size: var(--nm-t-7);
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--nm-tinta);
+}
+.nm-titular {
+  font-size: var(--nm-t-4);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.nm-pregunta {
+  margin-top: 0.75rem;
+  font-size: var(--nm-t-3);
+  line-height: 1.35;
+  color: var(--nm-acento);
+}
+.nm-entradilla {
+  margin-top: 0.75rem;
+  max-width: 62ch;
+  font-size: var(--nm-t-2);
+  color: var(--nm-tinta);
+  opacity: 0.82;
+}
+.nm-enlace {
+  font-size: var(--nm-t-1);
+  font-style: italic;
+  color: var(--nm-gris);
+  max-width: 62ch;
+  margin-bottom: 1.25rem;
+}
+
+/* Rótulos y notas: el nivel más bajo de la jerarquía, en mono. */
+.nm-rotulo {
+  font-family: var(--nm-mono);
+  font-size: var(--nm-t-0);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--nm-gris);
+}
+.nm-nota {
+  font-size: var(--nm-t-1);
+  line-height: 1.5;
+  color: var(--nm-gris);
+}
+.nm-cifra {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.nm-mono {
+  font-family: var(--nm-mono);
+}
+
+/* Apertura: la cifra es el titular. */
+.nm-display {
+  font-size: var(--nm-t-8);
+  line-height: 0.85;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.nm-h1 {
+  font-size: var(--nm-t-4);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* Tablas tipográficas: filete de tinta en el encabezado, líneas finas entre filas, doble al total. */
+.nm-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+.nm-tabla th {
+  font-family: var(--nm-mono);
+  font-size: var(--nm-t-0);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nm-gris);
+  text-align: right;
+  vertical-align: bottom;
+  padding: 0 0 0.5rem 1rem;
+  border-bottom: 1px solid var(--nm-tinta);
+}
+.nm-tabla td {
+  text-align: right;
+  vertical-align: baseline;
+  padding: 0.6rem 0 0.6rem 1rem;
+  border-bottom: 1px solid var(--nm-linea);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.nm-tabla th:first-child,
+.nm-tabla td:first-child {
+  text-align: left;
+  padding-left: 0;
+}
+.nm-tabla tfoot td {
+  font-weight: 700;
+  border-top: 1px solid var(--nm-tinta);
+  border-bottom: 3px double var(--nm-tinta);
+}
+.nm-tabla tbody tr[data-elegible] { cursor: pointer; }
+.nm-tabla tbody tr[data-elegible]:hover td { background: var(--nm-velo); }
+.nm-tabla tbody tr[aria-selected="true"] td { background: var(--nm-velo); font-weight: 600; }
+
+/* Pestañas de texto: subrayado en la elegida, sin cajas. */
+.nm-pestanas {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1.5rem;
+  row-gap: 0.25rem;
+  border-bottom: 1px solid var(--nm-linea);
+}
+.nm-pestanas[data-orientacion="vertical"] {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  border-bottom: 0;
+  border-left: 1px solid var(--nm-linea);
+}
+.nm-pestanas button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--nm-mono);
+  font-size: var(--nm-t-0);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nm-gris);
+  padding: 0.55rem 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  text-align: left;
+  transition: color 0.2s;
+}
+.nm-pestanas[data-orientacion="vertical"] button {
+  padding: 0.35rem 0 0.35rem 0.9rem;
+  border-bottom: 0;
+  border-left: 2px solid transparent;
+  margin: 0 0 0 -1px;
+}
+.nm-pestanas button:hover { color: var(--nm-tinta); }
+.nm-pestanas button[aria-checked="true"] {
+  color: var(--nm-tinta);
+  border-color: var(--nm-tinta);
+}
+.nm-muestra-color {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  flex-shrink: 0;
+}
+
+/* Cita: el principio que sostiene un apartado, a cuerpo de titular. */
+.nm-cita {
+  font-size: var(--nm-t-4);
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  max-width: 34ch;
+}
+.nm-cita::before {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background: var(--nm-acento);
+  margin-bottom: 1rem;
+}
+
+/* Libro contable: operaciones en columna, con filete antes de cada resultado. */
+.nm-libro {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.nm-libro td { padding: 0.35rem 0; }
+.nm-libro td:first-child { font-family: var(--nm-mono); width: 1.5rem; color: var(--nm-gris); }
+.nm-libro td:last-child { text-align: right; font-size: var(--nm-t-3); }
+.nm-libro tr[data-resultado] td { border-top: 1px solid var(--nm-tinta); font-weight: 700; }
+.nm-libro tr[data-final] td { border-bottom: 3px double var(--nm-tinta); }
+
+/* Notas al pie numeradas. */
+.nm-pies {
+  counter-reset: pie;
+  display: grid;
+  gap: 0.5rem;
+}
+.nm-pies li {
+  counter-increment: pie;
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  font-size: var(--nm-t-1);
+  line-height: 1.5;
+  color: var(--nm-gris);
+}
+.nm-pies li::before {
+  content: counter(pie);
+  font-family: var(--nm-mono);
+  font-size: var(--nm-t-0);
+  color: var(--nm-tinta);
+  padding-top: 0.15rem;
+}
+
+/* Anotaciones sobre gráficos: texto pequeño unido al dato por un filete. */
+.nm-anotacion {
+  position: absolute;
+  font-size: var(--nm-t-0);
+  line-height: 1.35;
+  color: var(--nm-tinta);
+  max-width: 15rem;
+  pointer-events: none;
+}
+.nm-anotacion strong { font-family: var(--nm-mono); font-weight: 600; }
+
+.nm-rango {
+  width: 100%;
+  accent-color: var(--nm-tinta);
+}

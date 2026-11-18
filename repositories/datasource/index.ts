@@ -6,6 +6,7 @@ import { PostgresConvocatoriaDataSource } from './postgres-convocatoria-source';
 export const getConvocatoriaDataSource = crearSingleton(() => new PostgresConvocatoriaDataSource(new ExcelConvocatoriaDataSource()));
 import { ExcelEncuestaDataSource } from "./excel-data-source";
 import { ExcelMetasDataSource } from "./excel-metas-source";
+import { ExcelNotaMetodologicaDataSource } from "./excel-nota-metodologica-source";
 import { ExcelConferencistasDataSource } from "./excel-conferencistas-source";
 import { ExcelValoracionesDataSource } from "./excel-valoraciones-source";
 import { ExcelCaiDataSource } from "./excel-cai-source";
@@ -25,6 +26,7 @@ import { PostgresDescargasDataSource } from "./postgres-descargas-source";
 import type {
   DescargasDataSource,
   IaAdministrativosDataSource,
+  NotaMetodologicaDataSource,
   ValoracionTerritorioDataSource,
 } from "./types";
 import { crearSingleton } from "./infrastructure/singleton";
@@ -60,6 +62,10 @@ export type {
 export const getEncuestaDataSource = crearSingleton(() => new ExcelEncuestaDataSource());
 
 export const getMetasDataSource = crearSingleton(() => new ExcelMetasDataSource());
+
+export const getNotaMetodologicaDataSource = crearSingleton(
+  (): NotaMetodologicaDataSource => new ExcelNotaMetodologicaDataSource()
+);
 
 export const getConferencistasDataSource = crearSingleton(() => new ExcelConferencistasDataSource());
 

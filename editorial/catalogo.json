@@ -4238,5 +4238,920 @@
     "original": "Ampliar imagen",
     "archivo": "components/conversatorios/visor-fuentes.tsx",
     "elemento": "span"
+  },
+  "nota-muestreo-alcance-plan-1": {
+    "original": "El nivel de confianza del",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-alcance-plan-2": {
+    "original": "y el margen de error de",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-alcance-plan-3": {
+    "original": "puntos porcentuales se utilizaron para determinar el número de personas a convocar; no certifican la precisión de los resultados.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-alcance-voluntaria-titulo": {
+    "original": "Participación voluntaria",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-alcance-voluntaria": {
+    "original": "La asistencia fue voluntaria. Si quienes asistieron difieren sistemáticamente de quienes no lo hicieron, ningún tamaño de muestra corrige ese sesgo de autoselección.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-alcance-seleccion-titulo": {
+    "original": "Selección no documentada",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-alcance-seleccion": {
+    "original": "El archivo no documenta el procedimiento de selección de las personas convocadas ni la conformación del grupo asistente. Por ello, los márgenes calculados con la asistencia tienen carácter referencial.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-alcance-gancho": {
+    "original": "¿Qué conclusiones admiten los datos?",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-alcance-entrada": {
+    "original": "El nivel de confianza y el margen de error orientaron la planificación de la convocatoria; no constituyen una garantía sobre la precisión de los resultados obtenidos.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-alcance-cautela-titulo": {
+    "original": "Resultados que requieren cautela",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-alcance-cautela-1": {
+    "original": "fue el estamento con menor asistencia:",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-alcance-cautela-2": {
+    "original": "asistentes por cada 100 convocados. Entre las unidades regionales, la menor asistencia se registró en",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-alcance-cautela-4": {
+    "original": "por cada 100 convocados.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-alcance-cautela-5": {
+    "original": "Con niveles de asistencia tan bajos, lo expresado en esas mesas puede no representar al conjunto del estrato. Estos resultados deben leerse como aportes orientadores y no como estimaciones de toda la unidad.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-alcance-excel-titulo": {
+    "original": "Recomendaciones del diseño muestral",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-precision-titulo": {
+    "original": "Precisión alcanzada con la asistencia",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "h3"
+  },
+  "nota-muestreo-precision-texto": {
+    "original": "Margen de error estimado a partir de los asistentes registrados: cuanto más a la izquierda, mayor la precisión. Es una cifra referencial que supone que los asistentes se comportan como una muestra aleatoria de su estrato, supuesto que el archivo no permite comprobar.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-precision-a": {
+    "original": "a = asistentes (limitados a N)",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-precision-cumple": {
+    "original": "Margen planificado",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-precision-moderada": {
+    "original": "Precisión moderada",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-precision-cautela": {
+    "original": "Leer con cautela",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-precision-total": {
+    "original": "Total del estamento",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-precision-pista": {
+    "original": "Al situar el cursor sobre un punto se muestra la unidad regional correspondiente.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-epilogo-1": {
+    "original": "El tamaño de muestra se calculó para cada combinación de unidad regional y estamento, de modo que cada unidad contara con representación propia.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-epilogo-2": {
+    "original": "La meta se ajustó en dos casos: los estratos pequeños se convocaron en su totalidad y la capacidad de un auditorio limitó la convocatoria.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-epilogo-3": {
+    "original": "La asistencia efectiva condiciona el alcance de cada resultado: donde fue baja, las conclusiones deben interpretarse con cautela.",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-epilogo-antetitulo": {
+    "original": "Síntesis",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-epilogo-titulo": {
+    "original": "Conclusiones principales",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "h2"
+  },
+  "nota-muestreo-tramo-100": {
+    "original": "100 o más",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-tramo-70": {
+    "original": "70 a 99",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-tramo-40": {
+    "original": "40 a 69",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-tramo-0": {
+    "original": "Menos de 40",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-gancho": {
+    "original": "¿Cuántas de las personas convocadas asistieron?",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-entrada": {
+    "original": "El registro de asistencia refleja la participación efectiva. En algunas mesas el número de asistentes superó la muestra calculada y en otras fue considerablemente menor. Cada celda indica el porcentaje de asistentes respecto a la muestra calculada del estrato.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-mas-titulo": {
+    "original": "Registros de asistencia superiores a la muestra calculada",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "h3"
+  },
+  "nota-muestreo-asistencia-mas-texto": {
+    "original": "Un valor superior a 100 % indica que el número de asistentes excedió la muestra calculada del estrato. Esta situación se presentó en:",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-asistencia-excede-1": {
+    "original": "El registro supera en",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-excede-2": {
+    "original": "personas el tamaño del estrato, que es de",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-excede-censo": {
+    "original": "Como todo el estrato fue convocado, la diferencia corresponde a personal de apoyo logístico y de comunicaciones que participó en las mesas y quedó incluido en el registro.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-excede-ajenas": {
+    "original": "Por tanto, el registro incluye a personas que no pertenecen al estrato.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-causa": {
+    "original": "El archivo no permite establecer la causa (registros duplicados, asistentes no convocados o personas de otra unidad regional). Únicamente documenta el criterio de conteo:",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-asistencia-no-respuesta": {
+    "original": "Esta cifra compara la asistencia con la muestra calculada. No corresponde a la tasa de respuesta de las personas originalmente seleccionadas, pues no se identifica a las personas convocadas ni cuáles de ellas asistieron.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-tabla-titulo": {
+    "original": "Detalle por unidad regional",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-tabla-poblacion": {
+    "original": "Población",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-tabla-razon": {
+    "original": "Asistencia frente a la muestra",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-tabla-censo": {
+    "original": "Estrato convocado en su totalidad.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-ficha-razon": {
+    "original": "Asistencia frente a la muestra calculada (%)",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-ficha-margen": {
+    "original": "Con los asistentes registrados, el resultado podría variar en",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-ficha-margen-cero": {
+    "original": "El margen resulta igual a cero porque los asistentes se limitan al tamaño de la población; no debe interpretarse como precisión real.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-censo-gancho": {
+    "original": "¿Qué ocurre cuando el estrato tiene pocas personas?",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-censo-entrada-1": {
+    "original": "En poblaciones pequeñas, la fórmula exige convocar a la gran mayoría de las personas. Seleccionar a quiénes excluir no mejora la precisión y reduce la participación. Por ello, en los estratos con",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-censo-entrada-2": {
+    "original": "personas o menos se convocó a la totalidad.",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-censo-leyenda-formula": {
+    "original": "Muestra según la fórmula:",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-censo-leyenda-extra": {
+    "original": "Personas adicionales por convocatoria total:",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-censo-lista": {
+    "original": "Estratos con convocatoria total",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "caption"
+  },
+  "nota-muestreo-censo-lista-nota": {
+    "original": "En el estrato seleccionado, la fórmula habría exigido el",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-censo-lista-nota-2": {
+    "original": "de sus integrantes.",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-cifras-muestra-def": {
+    "original": "Tamaño mínimo que la fórmula estadística establece para cada estrato.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cifras-convocados-def": {
+    "original": "Personas efectivamente invitadas. Coincide con la muestra calculada, salvo donde existió un tope logístico.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cifras-asistentes-def": {
+    "original": "Personas que figuran en el registro de asistencia.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-cifras-gancho": {
+    "original": "¿Qué diferencia hay entre población, muestra, convocatoria y asistencia?",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-cifras-entrada": {
+    "original": "El proceso involucra cuatro cifras que deben distinguirse: la población de referencia, el tamaño de muestra calculado, las personas convocadas y los asistentes registrados. Confundirlas es el error más frecuente al interpretar los resultados.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-cifras-poblacion-def": {
+    "original": "Total de personas del estamento.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-cifras-cuadricula-1": {
+    "original": "La muestra calculada equivale al",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-cifras-cuadricula-2": {
+    "original": "de la población: no es necesario consultar a la totalidad para obtener resultados con una precisión conocida.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-cifras-parada": {
+    "original": "Etapa",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-cifras-delta-tope": {
+    "original": "Obedece al tope de capacidad de un auditorio, descrito más adelante.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-cifras-delta-igual": {
+    "original": "La convocatoria coincidió con la muestra calculada.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-formula-paso-1": {
+    "original": "Tamaño de muestra para una población muy grande",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-1-nota": {
+    "original": "Valor de partida, común a todos los estratos; no depende del tamaño de la población.",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-2": {
+    "original": "Corrección por población finita",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-2-nota": {
+    "original": "Ajusta el valor anterior al tamaño real del estrato: en poblaciones finitas se requieren menos personas.",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-3-censo": {
+    "original": "Estrato pequeño: convocatoria total",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-3": {
+    "original": "Redondeo al entero superior",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-3-censo-nota": {
+    "original": "La fórmula habría arrojado",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-3-censo-nota-2": {
+    "original": "personas; la regla de convocatoria total se explica más adelante.",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-3-nota": {
+    "original": "El resultado se redondea siempre hacia arriba para no quedar por debajo de la precisión fijada.",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-4": {
+    "original": "Personas convocadas",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-paso-4-igual": {
+    "original": "= muestra calculada",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-formula-gancho": {
+    "original": "¿Cuántas personas era necesario convocar en cada estrato?",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-entrada": {
+    "original": "El cálculo se realizó de forma independiente para cada combinación de unidad regional y estamento (estrato). Así, cada unidad cuenta con su propia meta y las unidades de menor tamaño quedan debidamente representadas.",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-metafora": {
+    "original": "No es necesario consultar a toda la población para conocer su opinión con un margen de error conocido: basta con un subconjunto de tamaño suficiente.",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-sigamos": {
+    "original": "Ejemplo desarrollado",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-formula-administrativos": {
+    "original": "En el estamento administrativo, el personal de planta y los contratistas OPS-APA se calcularon como estratos separados y luego se sumaron por unidad regional.",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-formula-coincide": {
+    "original": "Verificado frente al Excel",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-formula-no-coincide": {
+    "original": "Diferencia con el Excel:",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-parametros-gancho": {
+    "original": "¿Con qué nivel de precisión se planificó la convocatoria?",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-parametros-entrada": {
+    "original": "Antes del cálculo se fijaron tres parámetros. Ninguno proviene de los resultados de las mesas: son decisiones de planificación adoptadas antes de la convocatoria.",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-parametros-confianza": {
+    "original": "Nivel de confianza",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-parametros-confianza-1": {
+    "original": "Si el procedimiento se repitiera 100 veces, en",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-parametros-confianza-2": {
+    "original": "de ellas el intervalo obtenido contendría el valor real de la población.",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-parametros-margen": {
+    "original": "Margen de error (puntos porcentuales)",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-parametros-margen-1": {
+    "original": "Por ejemplo, si el",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-parametros-margen-2": {
+    "original": "de los participantes manifiesta una opinión, en la población total esa proporción se ubicaría entre",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-parametros-margen-3": {
+    "original": "y",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-parametros-proporcion": {
+    "original": "Proporción esperada (p)",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-parametros-proporcion-texto": {
+    "original": "Ante la ausencia de información previa, se asume la situación de máxima variabilidad, con opiniones divididas por mitades. Este supuesto produce el mayor tamaño de muestra y, por tanto, el más conservador.",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-curva-titulo": {
+    "original": "Relación entre el tamaño de la población y el de la muestra",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "h3"
+  },
+  "nota-muestreo-curva-texto-1": {
+    "original": "La muestra aumenta con el tamaño de la población, pero se estabiliza: con estos parámetros nunca supera",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-curva-texto-2": {
+    "original": "Cada punto corresponde a un estrato real de las mesas. El control deslizante permite calcular la muestra para cualquier tamaño de población.",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-curva-leyenda-censo": {
+    "original": "Convocatoria total del estrato",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "br"
+  },
+  "nota-muestreo-curva-eje-x": {
+    "original": "Tamaño de la población (N), escala logarítmica",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-curva-prueba-1": {
+    "original": "Para una población de",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-curva-prueba-2": {
+    "original": "personas, la muestra requerida es de",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-curva-pista": {
+    "original": "Al situar el cursor sobre un punto se muestra el estrato correspondiente.",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-poblacion-gancho": {
+    "original": "¿A quiénes se buscaba consultar?",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-poblacion-entrada": {
+    "original": "Los datos de estudiantes, docentes y administrativos se obtuvieron con corte al primer semestre de 2026 (2026-1). Para graduados, se consideró la totalidad de los graduados del histórico institucional, de todas las cohortes, con corte al primer semestre de 2026 (2026-1). La consulta se dirigió a cuatro estamentos de la comunidad universitaria. Para cada uno se definió una población de referencia, es decir, el conjunto completo de personas cuya opinión se buscaba conocer; a partir de ella se calculó el número de personas a convocar.",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-poblacion-fechas-titulo": {
+    "original": "Dos referencias temporales distintas",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-poblacion-bases": {
+    "original": "Bases de población",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "dd"
+  },
+  "nota-muestreo-poblacion-corte": {
+    "original": "Corte del registro de asistencia",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "dd"
+  },
+  "nota-muestreo-poblacion-fechas-nota": {
+    "original": "La población de referencia corresponde a las bases institucionales empleadas para planificar la convocatoria; el registro de asistencia tiene su propia fecha de corte. Son momentos distintos que no deben confundirse al interpretar las cifras.",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-poblacion-depuracion-titulo": {
+    "original": "Graduados: depuración de registros duplicados",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "h3"
+  },
+  "nota-muestreo-poblacion-depuracion-entrada": {
+    "original": "Se tomó el histórico institucional de todas las cohortes y se depuró para contar una sola vez a cada persona.",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-depuracion-registros": {
+    "original": "Registros de titulación",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "li"
+  },
+  "nota-muestreo-depuracion-personas": {
+    "original": "Personas únicas",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-depuracion-repetidos": {
+    "original": "Documentos repetidos",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-depuracion-unidades": {
+    "original": "Población de referencia de graduados",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-depuracion-fuera": {
+    "original": "Personas fuera de las unidades con encuentro",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-portada-antetitulo": {
+    "original": "Plan Estratégico 2027–2037 · Mesas de diálogo",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-titulo": {
+    "original": "Nota metodológica: muestreo",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "div"
+  },
+  "nota-muestreo-portada-entrada": {
+    "original": "Este documento explica cómo se determinó el número de personas convocadas a las mesas de diálogo en cada unidad regional y estamento, cómo se registró la asistencia y qué alcance tienen los resultados obtenidos.",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-tope-gancho": {
+    "original": "¿Qué ocurre cuando la capacidad del lugar es inferior a la muestra?",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-tope-entrada": {
+    "original": "Cuando la capacidad del lugar del encuentro era inferior a la muestra calculada, la convocatoria se limitó a dicha capacidad.",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-tope-metafora": {
+    "original": "Al convocar a menos personas que las indicadas por la fórmula, se reduce la precisión prevista del estrato, aun cuando asista la totalidad de los convocados.",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-tope-escala": {
+    "original": "Cada silla representa a dos personas.",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-tope-calculada": {
+    "original": "Muestra calculada",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-tope-sin-silla": {
+    "original": "Sin cupo",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cap-poblacion": {
+    "original": "Población de referencia",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "h3"
+  },
+  "nota-muestreo-cap-cifras": {
+    "original": "Las cuatro cifras del proceso",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-puente-cifras": {
+    "original": "Definida la población de referencia, el paso siguiente fue determinar cuántas personas convocar en cada estrato.",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cap-formula": {
+    "original": "Cálculo del tamaño de muestra",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-puente-formula": {
+    "original": "La muestra calculada resulta de una fórmula estadística estándar, que se expone a continuación.",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cap-parametros": {
+    "original": "Parámetros de planificación",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-puente-parametros": {
+    "original": "La fórmula depende de tres parámetros fijados antes de la convocatoria.",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cap-censo": {
+    "original": "Convocatoria total en estratos pequeños",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-puente-censo": {
+    "original": "En los estratos de menor tamaño se aplicó una regla complementaria.",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cap-tope": {
+    "original": "Ajuste por capacidad logística",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-puente-tope": {
+    "original": "En algunos casos, la convocatoria debió ajustarse a restricciones logísticas.",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cap-asistencia": {
+    "original": "Asistencia registrada",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-puente-asistencia": {
+    "original": "Realizada la convocatoria, se registró la asistencia efectiva a las mesas.",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-cap-alcance": {
+    "original": "Alcance e interpretación de los resultados",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-puente-alcance": {
+    "original": "Con estas cifras es posible precisar el alcance y los límites de los resultados.",
+    "archivo": "components/nota-metodologica/nota-metodologica.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-capitulo": {
+    "original": "Apartado",
+    "archivo": "components/nota-metodologica/piezas.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-error": {
+    "original": "No se pudo cargar la nota metodológica.",
+    "archivo": "app/(dashboard)/nota-metodologica/page.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-nav-descripcion": {
+    "original": "Diseño muestral de las convocatorias a las mesas de diálogo",
+    "archivo": "constants/navegacion.ts",
+    "elemento": "navegacion"
+  },
+  "nota-muestreo-precision-hueco": {
+    "original": "Asistentes superiores a la población: margen no interpretable",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-censo-columna-estrato": {
+    "original": "Estrato",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-alcance-columna-margen": {
+    "original": "Margen",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-curva-rotulo": {
+    "original": "Hallazgo",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-precision-nivel-cumple": {
+    "original": "Dentro del margen planificado",
+    "archivo": "components/nota-metodologica/escena-alcance.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-asistencia-precision-rotulo": {
+    "original": "Precisión conceptual",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-tabla-tope": {
+    "original": "Convocatoria limitada por capacidad logística.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-ficha-rotulo": {
+    "original": "Estrato seleccionado",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-censo-lectura": {
+    "original": "Lectura del gráfico",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-censo-columna-formula": {
+    "original": "Fórmula",
+    "archivo": "components/nota-metodologica/escena-censo.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-cifras-por-cada-100": {
+    "original": "asistentes por cada 100 personas convocadas.",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-portada-matriz-estamento": {
+    "original": "Estamento",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-cifras-ampliacion": {
+    "original": "Ampliación del tramo de la muestra",
+    "archivo": "components/nota-metodologica/escena-cuatro-cifras.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-formula-simbolo-n": {
+    "original": "Población del estrato",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-simbolo-z": {
+    "original": "Valor crítico para un nivel de confianza del",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-simbolo-p": {
+    "original": "Proporción esperada",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-simbolo-e": {
+    "original": "Margen de error de planificación",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-principio": {
+    "original": "Principio",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-formula-rotulo": {
+    "original": "Fórmula para población finita",
+    "archivo": "components/nota-metodologica/escena-formula.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-curva-anotacion-techo": {
+    "original": "Techo de la muestra: no se supera, por grande que sea la población.",
+    "archivo": "components/nota-metodologica/escena-parametros.tsx",
+    "elemento": "br"
+  },
+  "nota-muestreo-poblacion-fuente": {
+    "original": "Fuente",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-poblacion-composicion": {
+    "original": "Composición",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-poblacion-participacion": {
+    "original": "Participación en el total",
+    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
+    "elemento": "th"
+  },
+  "nota-muestreo-portada-corte": {
+    "original": "Corte de asistencia",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-portada-tesis-1": {
+    "original": "personas conforman la población de referencia. No era necesario convocarlas a todas: se calculó una muestra independiente para cada uno de los",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-portada-tesis-2": {
+    "original": "estratos de unidad regional y estamento, y se registraron",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-portada-tesis-3": {
+    "original": "asistentes.",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "strong"
+  },
+  "nota-muestreo-portada-matriz-rotulo": {
+    "original": "Muestra calculada por estrato",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-portada-matriz-nota": {
+    "original": "Cada cifra es la meta de un estrato. Su suma es la muestra total del diseño:",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-portada-censo": {
+    "original": "Estrato pequeño: se convocó a la totalidad de sus integrantes.",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-portada-contenido": {
+    "original": "Contenido",
+    "archivo": "components/nota-metodologica/escena-portada.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-tope-capacidad": {
+    "original": "Capacidad del auditorio",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-tope-margen": {
+    "original": "Margen de error de planificación",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-tope-efecto": {
+    "original": "Efecto del ajuste",
+    "archivo": "components/nota-metodologica/escena-tope.tsx",
+    "elemento": "p"
+  },
+  "nota-muestreo-ficha-margen-unidad": {
+    "original": "puntos porcentuales (cifra referencial).",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-ficha-nivel-cumple": {
+    "original": "La precisión está dentro de lo planificado.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-ficha-nivel-moderada": {
+    "original": "La precisión es aceptable, aunque menor a la planificada.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
+  },
+  "nota-muestreo-ficha-nivel-cautela": {
+    "original": "La precisión es baja: los resultados deben leerse con cautela.",
+    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
+    "elemento": "span"
   }
 }

@@ -26,6 +26,7 @@ import { getDescargasDataSource } from "./datasource";
 import { estaSeccionPublicada } from "./seccionesRepository";
 import { getPersonasFiltradas, getRespuestasEncuesta, getRolesAsignadosEncuesta } from "./encuestaRepository";
 import { getTablasMetas } from "./metasRepository";
+import { getNotaMetodologica } from "./notaMetodologicaRepository";
 import { getCaiData } from "./caiRepository";
 import { getConferencias } from "./conferencistasRepository";
 import { getValoracion } from "./valoracionesRepository";
@@ -175,6 +176,46 @@ const CONSTRUCTORES: Record<string, Constructor> = {
       ],
     },
   ],
+
+  "nota-metodologica": () => {
+    const nota = getNotaMetodologica();
+    const nombre = new Map(nota.totales.map((t) => [t.estamento, t.etiqueta]));
+    const redondear = (n: number, decimales: number) => Math.round(n * 10 ** decimales) / 10 ** decimales;
+    return [
+      {
+        nombre: "Estratos",
+        titulo: "",
+        filas: [
+          [
+            "Estamento",
+            "Unidad regional",
+            "Población",
+            "Muestra calculada",
+            "Tope logístico",
+            "Convocados",
+            "Asistentes",
+            "Asistentes ÷ convocados (%)",
+            "Margen de error de diseño (%)",
+            "Margen de error con asistentes, referencial (%)",
+            "Lectura",
+          ],
+          ...nota.estratos.map((e) => [
+            nombre.get(e.estamento) ?? e.estamento,
+            e.unidad,
+            e.poblacion,
+            e.muestraCalculada,
+            e.topeLogistico,
+            e.convocados,
+            e.asistentes,
+            redondear((e.asistentes / e.convocados) * 100, 1),
+            redondear(e.margenDiseno * 100, 2),
+            redondear(e.margenReal * 100, 2),
+            e.lectura,
+          ]),
+        ],
+      },
+    ];
+  },
 
   seguimiento: () => {
     const actividades = getCaiData().actividades;

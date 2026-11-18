@@ -1,6 +1,7 @@
 import type { Persona, RolAsignado, RespuestaPregunta } from "@/types/encuesta";
 import type { ResultadoClasificacionDocumental, MetodoClasificacion, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
 import type { FilaMeta } from "@/types/metas";
+import type { NotaMetodologica } from "@/types/nota-metodologica";
 import type { ConferenciaCard } from "@/types/conferencistas";
 import type { ValoracionConferencista } from "@/types/valoraciones";
 import type { CaiData } from "@/types/cai";
@@ -61,6 +62,11 @@ export interface MetasDataSource {
   getAdministrativosPorSede(): FilaMeta[];
   getCreadorOportunidad(): FilaMeta[];
   getGraduados(): FilaMeta[];
+}
+
+/** Diseño muestral de las mesas de diálogo: población, muestra, convocatoria y asistencia. */
+export interface NotaMetodologicaDataSource {
+  getNotaMetodologica(): NotaMetodologica;
 }
 
 /**
