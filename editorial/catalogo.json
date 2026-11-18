@@ -4659,16 +4659,6 @@
     "archivo": "components/nota-metodologica/escena-formula.tsx",
     "elemento": "p"
   },
-  "nota-muestreo-formula-coincide": {
-    "original": "Verificado frente al Excel",
-    "archivo": "components/nota-metodologica/escena-formula.tsx",
-    "elemento": "p"
-  },
-  "nota-muestreo-formula-no-coincide": {
-    "original": "Diferencia con el Excel:",
-    "archivo": "components/nota-metodologica/escena-formula.tsx",
-    "elemento": "p"
-  },
   "nota-muestreo-parametros-gancho": {
     "original": "¿Con qué nivel de precisión se planificó la convocatoria?",
     "archivo": "components/nota-metodologica/escena-parametros.tsx",
@@ -4810,7 +4800,7 @@
     "elemento": "span"
   },
   "nota-muestreo-depuracion-repetidos": {
-    "original": "Documentos repetidos",
+    "original": "Identificaciones repetidas",
     "archivo": "components/nota-metodologica/escena-poblacion.tsx",
     "elemento": "span"
   },
@@ -4835,7 +4825,7 @@
     "elemento": "div"
   },
   "nota-muestreo-portada-entrada": {
-    "original": "Este documento explica cómo se determinó el número de personas convocadas a las mesas de diálogo en cada unidad regional y estamento, cómo se registró la asistencia y qué alcance tienen los resultados obtenidos.",
+    "original": "Esta sección explica cómo se determinó el número de personas convocadas a las mesas de diálogo en cada unidad regional y estamento, cómo se registró la asistencia y qué alcance tienen los resultados obtenidos.",
     "archivo": "components/nota-metodologica/escena-portada.tsx",
     "elemento": "p"
   },

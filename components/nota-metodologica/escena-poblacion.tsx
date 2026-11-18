@@ -105,7 +105,7 @@ export function EscenaPoblacion({ nota, numero, titulo, enlace }: Props) {
           {nota.notasPoblacion.length > 0 ? (
             <ol className="nm-pies mt-10 border-t border-[var(--nm-linea)] pt-4">
               {nota.notasPoblacion.filter((n) => !n.startsWith("Excluidos de la población objetivo:")).map((n) => (
-                <li key={n}>{n}</li>
+                <li key={n}>{n.replace(/documentos repetidos/gi, "identificaciones repetidas")}</li>
               ))}
             </ol>
           ) : null}
@@ -126,7 +126,7 @@ function LibroDepuracion({ depuracion }: { depuracion: NonNullable<NotaMetodolog
     },
     {
       signo: "−",
-      texto: <TextoEditorial id="nota-muestreo-depuracion-repetidos" original={"Documentos repetidos"} />,
+      texto: <TextoEditorial id="nota-muestreo-depuracion-repetidos" original={"Identificaciones repetidas"} />,
       valor: depuracion.repetidos,
     },
     {

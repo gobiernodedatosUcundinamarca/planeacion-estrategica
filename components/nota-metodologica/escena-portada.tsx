@@ -54,7 +54,7 @@ export function EscenaPortada({
             <TextoEditorial
               id="nota-muestreo-portada-entrada"
               original={
-                "Este documento explica cómo se determinó el número de personas convocadas a las mesas de diálogo en cada unidad regional y estamento, cómo se registró la asistencia y qué alcance tienen los resultados obtenidos."
+                "Esta sección explica cómo se determinó el número de personas convocadas a las mesas de diálogo en cada unidad regional y estamento, cómo se registró la asistencia y qué alcance tienen los resultados obtenidos."
               }
             />
           </p>

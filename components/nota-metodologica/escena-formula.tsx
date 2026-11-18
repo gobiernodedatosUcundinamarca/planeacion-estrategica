@@ -50,7 +50,6 @@ export function EscenaFormula({ nota, numero, titulo, enlace }: Props) {
   const finita = muestraPoblacionFinita(N, p);
   const requerida = muestraRequerida(N, p);
   const censo = esCenso(N, p);
-  const coincide = requerida === calculo.muestraCalculada;
 
   const simbolos = [
     {
@@ -283,16 +282,6 @@ export function EscenaFormula({ nota, numero, titulo, enlace }: Props) {
                   )}
                 </p>
                 {calculo.observacion ? <p className="nm-nota mt-1">{calculo.observacion}</p> : null}
-                <p className="nm-rotulo mt-2" style={{ color: coincide ? "var(--nm-acento)" : "var(--nm-senal)" }}>
-                  {coincide ? (
-                    <TextoEditorial id="nota-muestreo-formula-coincide" original={"Verificado frente al Excel"} />
-                  ) : (
-                    <>
-                      <TextoEditorial id="nota-muestreo-formula-no-coincide" original={"Diferencia con el Excel:"} />{" "}
-                      {entero(calculo.muestraCalculada)}
-                    </>
-                  )}
-                </p>
               </div>
               <span className="nm-cifra text-right text-[length:var(--nm-t-6)] leading-none font-bold">
                 {entero(calculo.convocados)}

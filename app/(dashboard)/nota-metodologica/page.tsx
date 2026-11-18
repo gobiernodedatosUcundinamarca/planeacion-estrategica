@@ -20,8 +20,8 @@ export default function NotaMetodologicaPage() {
   let error: string | null = null;
   try {
     nota = getNotaMetodologica();
-  } catch (fallo) {
-    error = fallo instanceof Error ? fallo.message : "No se pudo leer el Excel del diseño muestral.";
+  } catch {
+    error = "No se pudieron cargar los datos del diseño muestral.";
   }
 
   return (
@@ -40,7 +40,7 @@ export default function NotaMetodologicaPage() {
         </div>
       )}
 
-      <DescargaExcel ruta="/nota-metodologica" />
+      <DescargaExcel ruta="/nota-metodologica" mencionarFormato={false} />
     </div>
   );
 }

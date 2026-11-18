@@ -17,7 +17,7 @@ import { NAVEGACION } from "@/constants/navegacion";
  * enlace, un error dejaría a la persona en una pantalla de texto suelto fuera
  * del sitio.
  */
-export function DescargaExcel({ ruta }: { ruta: string }) {
+export function DescargaExcel({ ruta, mencionarFormato = true }: { ruta: string; mencionarFormato?: boolean }) {
   // El nombre y el identificador salen del menú: una sección nueva no necesita
   // repetirlos aquí.
   const seccion = slugDeRuta(ruta);
@@ -63,12 +63,12 @@ export function DescargaExcel({ ruta }: { ruta: string }) {
           <div className="min-w-0 flex-1">
             <p className="font-heading text-sm font-semibold text-foreground"><TextoEditorial id="236a3b86da88daad9b8b" original={"Descargar los datos de esta sección"}/></p>
             <p className="text-xs text-muted-foreground">
-              <TextoEditorial id="8465b7ad7f5f774de865" original={"Excel con las respuestas de «"}/>{titulo}». {AVISO_ANONIMATO}
+              {mencionarFormato ? <TextoEditorial id="8465b7ad7f5f774de865" original={"Excel con las respuestas de «"}/> : "Datos de «"}{titulo}». {AVISO_ANONIMATO}
             </p>
           </div>
           <Button type="button" onClick={descargar} disabled={descargando} className="shrink-0">
             {descargando ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <Download className="size-4" aria-hidden />}
-            {descargando ? "Generando…" : "Descargar Excel"}
+            {descargando ? "Generando…" : mencionarFormato ? "Descargar Excel" : "Descargar datos"}
           </Button>
         </div>
         {error ? (
