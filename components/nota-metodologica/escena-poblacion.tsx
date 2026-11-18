@@ -29,14 +29,6 @@ export function EscenaPoblacion({ nota, numero, titulo, enlace }: Props) {
       titulo={titulo}
       enlace={enlace}
       pregunta={<TextoEditorial id="nota-muestreo-poblacion-gancho" original={"¿A quiénes se buscaba consultar?"} />}
-      entrada={
-        <TextoEditorial
-          id="nota-muestreo-poblacion-entrada"
-          original={
-            "Los datos de estudiantes, docentes y administrativos se obtuvieron con corte al primer semestre de 2026 (2026-1). Para graduados, se consideró la totalidad de los graduados del histórico institucional, de todas las cohortes, con corte al primer semestre de 2026 (2026-1). La consulta se dirigió a cuatro estamentos de la comunidad universitaria. Para cada uno se definió una población de referencia, es decir, el conjunto completo de personas cuya opinión se buscaba conocer; a partir de ella se calculó el número de personas a convocar."
-          }
-        />
-      }
     >
       <div className="nm-reticula">
         <div className="nm-principal">

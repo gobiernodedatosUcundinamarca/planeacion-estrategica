@@ -4769,11 +4769,6 @@
     "archivo": "components/nota-metodologica/escena-poblacion.tsx",
     "elemento": "span"
   },
-  "nota-muestreo-poblacion-entrada": {
-    "original": "Los datos de estudiantes, docentes y administrativos se obtuvieron con corte al primer semestre de 2026 (2026-1). Para graduados, se consideró la totalidad de los graduados del histórico institucional, de todas las cohortes, con corte al primer semestre de 2026 (2026-1). La consulta se dirigió a cuatro estamentos de la comunidad universitaria. Para cada uno se definió una población de referencia, es decir, el conjunto completo de personas cuya opinión se buscaba conocer; a partir de ella se calculó el número de personas a convocar.",
-    "archivo": "components/nota-metodologica/escena-poblacion.tsx",
-    "elemento": "span"
-  },
   "nota-muestreo-poblacion-fechas-titulo": {
     "original": "Dos referencias temporales distintas",
     "archivo": "components/nota-metodologica/escena-poblacion.tsx",
