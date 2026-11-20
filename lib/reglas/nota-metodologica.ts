@@ -56,6 +56,14 @@ export function proporcionAsistencia(asistentes: number, convocados: number): nu
   return convocados > 0 ? asistentes / convocados : null;
 }
 
+/** Los mismos tres textos que escribe el Excel: dentro del margen planificado, hasta el doble, y más. */
+export function lecturaDeMargen(margen: number, parametros: ParametrosMuestreo): string {
+  const planificado = Math.round(parametros.margenError * 100);
+  if (margen <= parametros.margenError + 1e-9) return `Cumple ±${planificado} %`;
+  if (margen <= parametros.margenError * 2 + 1e-9) return `Precisión moderada (≤ ±${planificado * 2} %)`;
+  return `Leer con cautela (> ±${planificado * 2} %)`;
+}
+
 export type NivelLectura = "cumple" | "moderada" | "cautela";
 
 /**

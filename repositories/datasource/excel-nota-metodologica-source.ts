@@ -11,11 +11,18 @@ import type {
   TotalEstamento,
   UnidadRegionalMuestreo,
 } from "@/types/nota-metodologica";
+import { lecturaDeMargen, margenErrorCon } from "@/lib/reglas/nota-metodologica";
 import type { NotaMetodologicaDataSource } from "./types";
 import { hojaAMatriz, leerLibro } from "./infrastructure/excel";
 import { CacheArchivo } from "./infrastructure/cache-archivo";
 
 const ARCHIVO = "Diseño muestral - Mesas de diálogo PE 2027-2037.xlsx";
+
+/** Registros de asistencia que no pertenecen a la unidad donde se contaron (`unidad` va normalizada). */
+const AJUSTES_ASISTENCIA: { estamento: EstamentoMuestreo; unidad: string; descontar?: number; dejar?: number }[] = [
+  { estamento: "administrativos", unidad: "soacha", descontar: 4 },
+  { estamento: "administrativos", unidad: "ubate", dejar: 33 },
+];
 
 const HOJA_POR_ESTAMENTO: Record<EstamentoMuestreo, string> = {
   estudiantes: "Estudiantes",
@@ -111,6 +118,7 @@ export class ExcelNotaMetodologicaDataSource implements NotaMetodologicaDataSour
     const parametros = this.leerParametros(metodologia);
     const calculos = ESTAMENTOS.flatMap((e) => this.leerCalculos(libro, e));
     const { estratos, totales, unidades, fuente } = this.leerParticipacion(libro, calculos);
+    this.descontarAsistentesAjenos(estratos, totales, parametros);
 
     const etiquetas = new Map<EstamentoMuestreo, string>();
     for (const fila of metodologia) {
@@ -248,6 +256,7 @@ export class ExcelNotaMetodologicaDataSource implements NotaMetodologicaDataSour
           estamento,
           unidad,
           ...comunes,
+          asistentesDescontados: 0,
           asistentesEnCalculo: numero(fila[c.enCalculo], contexto),
           muestraCalculada: deLaUnidad.reduce((s, k) => s + k.muestraCalculada, 0),
           topeLogistico: topes.length ? topes.reduce((s, t) => s + t, 0) : null,
@@ -262,6 +271,34 @@ export class ExcelNotaMetodologicaDataSource implements NotaMetodologicaDataSour
     }
     const fuente = texto(filas.find((f) => normalizar(f[0]).startsWith("asistentes:"))?.[0]);
     return { estratos, totales, unidades, fuente };
+  }
+
+  /**
+   * La asistencia se cuenta por «Lugar de desarrollo» y la base no trae la
+   * unidad regional de origen del personal administrativo, así que no hay
+   * forma de detectar en los datos a quienes asistieron desde otra unidad:
+   * el descuento lo informó la coordinación y se aplica aquí.
+   */
+  private descontarAsistentesAjenos(
+    estratos: EstratoMuestreo[],
+    totales: TotalEstamento[],
+    parametros: ParametrosMuestreo
+  ) {
+    for (const ajuste of AJUSTES_ASISTENCIA) {
+      const estrato = estratos.find(
+        (e) => e.estamento === ajuste.estamento && normalizar(e.unidad).includes(ajuste.unidad)
+      );
+      const total = totales.find((t) => t.estamento === ajuste.estamento);
+      if (!estrato || !total) continue;
+      const quitar = ajuste.dejar !== undefined ? estrato.asistentes - ajuste.dejar : (ajuste.descontar ?? 0);
+      if (quitar <= 0) continue;
+      estrato.asistentes -= quitar;
+      estrato.asistentesDescontados = quitar;
+      estrato.asistentesEnCalculo = Math.min(estrato.asistentes, estrato.poblacion);
+      estrato.margenReal = margenErrorCon(estrato.poblacion, estrato.asistentesEnCalculo, parametros);
+      estrato.lectura = lecturaDeMargen(estrato.margenReal, parametros);
+      total.asistentes -= quitar;
+    }
   }
 
   /** Las cifras de la depuración solo están en el texto de la viñeta de graduados. */

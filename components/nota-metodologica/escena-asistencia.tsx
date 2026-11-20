@@ -74,10 +74,6 @@ export function EscenaAsistencia({ nota, numero, titulo, enlace }: Props) {
     const t = nota.totales.find((x) => x.estamento === estamento)!;
     return { ...t, unidad: null };
   };
-  // Cada estrato con más asistentes que convocados recibe una llamada numerada en la matriz.
-  const anomalias = nota.estratos.filter((e) => e.asistentes > e.muestraCalculada);
-  const llamada = (e: Pick<Celda, "estamento" | "unidad">) =>
-    anomalias.findIndex((a) => a.estamento === e.estamento && a.unidad === e.unidad) + 1;
   const filasTabla = nota.estratos.filter((e) => e.estamento === tabla);
   const totalTabla = nota.totales.find((t) => t.estamento === tabla);
 
@@ -145,7 +141,6 @@ export function EscenaAsistencia({ nota, numero, titulo, enlace }: Props) {
                     if (!celda) return <td key={col} />;
                     const tramo = tramoDe(celda.asistentes, celda.muestraCalculada);
                     const activa = foco?.estamento === celda.estamento && foco?.unidad === celda.unidad;
-                    const numeroLlamada = celda.unidad !== null ? llamada(celda) : 0;
                     return (
                       <td key={col} className={cn("p-0", celda.unidad === null && "pl-2")}>
                         <motion.button
@@ -164,9 +159,6 @@ export function EscenaAsistencia({ nota, numero, titulo, enlace }: Props) {
                           aria-label={`${partirEtiqueta(t.etiqueta).nombre} ${celda.unidad ?? "total"}: ${porcentaje(celda.asistentes / celda.muestraCalculada)}`}
                         >
                           {entero((celda.asistentes / celda.muestraCalculada) * 100)}%
-                          {numeroLlamada > 0 ? (
-                            <sup className="absolute top-1 right-1.5 text-[10px]">{numeroLlamada}</sup>
-                          ) : null}
                         </motion.button>
                       </td>
                     );
@@ -176,76 +168,44 @@ export function EscenaAsistencia({ nota, numero, titulo, enlace }: Props) {
             </tbody>
           </table>
 
-          {anomalias.length > 0 ? (
-            <Aparecer className="mt-8 border-t border-[var(--nm-tinta)] pt-4">
-              <h3 className="font-semibold">
-                <TextoEditorial id="nota-muestreo-asistencia-mas-titulo" original={"Registros de asistencia superiores a la muestra calculada"} />
-              </h3>
-              <p className="nm-nota mt-1">
-                <TextoEditorial
-                  id="nota-muestreo-asistencia-mas-texto"
-                  original={"Un valor superior a 100 % indica que el número de asistentes excedió la muestra calculada del estrato. Esta situación se presentó en:"}
-                />
-              </p>
-              <ol className="nm-pies mt-3">
-                {anomalias.map((e) => (
-                  <li key={`${e.estamento}-${e.unidad}`}>
-                    <span>
-                      <strong className="text-[var(--nm-tinta)]">
-                        {nombreEstamento(nota, e.estamento)} · {e.unidad}
-                      </strong>
-                      {": "}
-                      <span className="nm-mono">
-                        {entero(e.asistentes)} / {entero(e.muestraCalculada)} ({porcentaje(e.asistentes / e.muestraCalculada)})
-                      </span>
-                      {e.asistentes > e.poblacion ? (
-                        <>
-                          {". "}
-                          <TextoEditorial id="nota-muestreo-asistencia-excede-1" original={"El registro supera en"} />{" "}
-                          <span className="nm-mono">{entero(e.asistentes - e.poblacion)}</span>{" "}
-                          <TextoEditorial
-                            id="nota-muestreo-asistencia-excede-2"
-                            original={"personas el tamaño del estrato, que es de"}
-                          />{" "}
-                          <span className="nm-mono">{entero(e.poblacion)}</span>
-                          {". "}
-                          {e.censo ? (
-                            <TextoEditorial
-                              id="nota-muestreo-asistencia-excede-censo"
-                              original={
-                                "Como todo el estrato fue convocado, la diferencia corresponde a personal de apoyo logístico y de comunicaciones que participó en las mesas y quedó incluido en el registro."
-                              }
-                            />
-                          ) : (
-                            <TextoEditorial
-                              id="nota-muestreo-asistencia-excede-ajenas"
-                              original={"Por tanto, el registro incluye a personas que no pertenecen al estrato."}
-                            />
-                          )}
-                        </>
-                      ) : null}
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </Aparecer>
-          ) : null}
+          <Aparecer className="mt-8 border-t border-[var(--nm-tinta)] pt-4">
+            <h3 className="font-semibold">
+              <TextoEditorial id="nota-muestreo-asistencia-mas-titulo" original={"Asistentes frente a la muestra calculada, por estrato"} />
+            </h3>
+            <p className="nm-nota mt-1">
+              <TextoEditorial
+                id="nota-muestreo-asistencia-mas-texto"
+                original={"Un valor superior a 100 % indica que el número de asistentes excedió la muestra calculada del estrato."}
+              />
+            </p>
+            <div className="mt-4 flex flex-col gap-5">
+              {nota.totales.map((t) => (
+                <div key={t.estamento}>
+                  <p className="flex items-baseline gap-2 font-semibold">
+                    <span className="nm-muestra-color" style={{ backgroundColor: COLOR_ESTAMENTO[t.estamento] }} aria-hidden />
+                    {nombreEstamento(nota, t.estamento)}
+                  </p>
+                  <ul className="mt-1 border-t border-[var(--nm-linea)] text-[length:var(--nm-t-1)]">
+                    {nota.estratos
+                      .filter((e) => e.estamento === t.estamento)
+                      .map((e) => (
+                        <li
+                          key={e.unidad}
+                          className="flex items-baseline justify-between gap-4 border-b border-[var(--nm-linea)] py-1.5"
+                        >
+                          <span>{e.unidad}</span>
+                          <span className={cn("nm-mono", e.asistentes > e.muestraCalculada && "font-semibold text-[var(--nm-tinta)]")}>
+                            {entero(e.asistentes)} / {entero(e.muestraCalculada)} ({porcentaje(e.asistentes / e.muestraCalculada)})
+                          </span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Aparecer>
         </div>
       </div>
-
-      <Aparecer className="nm-reticula mt-12">
-        <p className="nm-margen nm-rotulo">
-          <TextoEditorial id="nota-muestreo-asistencia-precision-rotulo" original={"Precisión conceptual"} />
-        </p>
-        <p className="nm-principal max-w-[62ch]">
-          <TextoEditorial
-            id="nota-muestreo-asistencia-no-respuesta"
-            original={
-              "Esta cifra compara la asistencia con la muestra calculada. No corresponde a la tasa de respuesta de las personas originalmente seleccionadas, pues no se identifica a las personas convocadas ni cuáles de ellas asistieron."
-            }
-          />
-        </p>
-      </Aparecer>
 
       <div className="nm-reticula mt-14">
         <div className="nm-margen">

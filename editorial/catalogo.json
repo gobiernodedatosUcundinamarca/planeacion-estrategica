@@ -4410,42 +4410,17 @@
     "elemento": "span"
   },
   "nota-muestreo-asistencia-mas-titulo": {
-    "original": "Registros de asistencia superiores a la muestra calculada",
+    "original": "Asistentes frente a la muestra calculada, por estrato",
     "archivo": "components/nota-metodologica/escena-asistencia.tsx",
     "elemento": "h3"
   },
   "nota-muestreo-asistencia-mas-texto": {
-    "original": "Un valor superior a 100 % indica que el número de asistentes excedió la muestra calculada del estrato. Esta situación se presentó en:",
+    "original": "Un valor superior a 100 % indica que el número de asistentes excedió la muestra calculada del estrato.",
     "archivo": "components/nota-metodologica/escena-asistencia.tsx",
     "elemento": "p"
-  },
-  "nota-muestreo-asistencia-excede-1": {
-    "original": "El registro supera en",
-    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
-    "elemento": "span"
-  },
-  "nota-muestreo-asistencia-excede-2": {
-    "original": "personas el tamaño del estrato, que es de",
-    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
-    "elemento": "span"
-  },
-  "nota-muestreo-asistencia-excede-censo": {
-    "original": "Como todo el estrato fue convocado, la diferencia corresponde a personal de apoyo logístico y de comunicaciones que participó en las mesas y quedó incluido en el registro.",
-    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
-    "elemento": "span"
-  },
-  "nota-muestreo-asistencia-excede-ajenas": {
-    "original": "Por tanto, el registro incluye a personas que no pertenecen al estrato.",
-    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
-    "elemento": "span"
   },
   "nota-muestreo-asistencia-causa": {
     "original": "El archivo no permite establecer la causa (registros duplicados, asistentes no convocados o personas de otra unidad regional). Únicamente documenta el criterio de conteo:",
-    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
-    "elemento": "p"
-  },
-  "nota-muestreo-asistencia-no-respuesta": {
-    "original": "Esta cifra compara la asistencia con la muestra calculada. No corresponde a la tasa de respuesta de las personas originalmente seleccionadas, pues no se identifica a las personas convocadas ni cuáles de ellas asistieron.",
     "archivo": "components/nota-metodologica/escena-asistencia.tsx",
     "elemento": "p"
   },
@@ -4973,11 +4948,6 @@
     "original": "Dentro del margen planificado",
     "archivo": "components/nota-metodologica/escena-alcance.tsx",
     "elemento": "span"
-  },
-  "nota-muestreo-asistencia-precision-rotulo": {
-    "original": "Precisión conceptual",
-    "archivo": "components/nota-metodologica/escena-asistencia.tsx",
-    "elemento": "p"
   },
   "nota-muestreo-tabla-tope": {
     "original": "Convocatoria limitada por capacidad logística.",

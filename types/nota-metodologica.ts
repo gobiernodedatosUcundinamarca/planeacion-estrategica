@@ -40,6 +40,8 @@ export interface EstratoMuestreo {
   topeLogistico: number | null;
   convocados: number;
   asistentes: number;
+  /** Registros del Excel que se descontaron por no pertenecer a la unidad (0 si ninguno). */
+  asistentesDescontados: number;
   /** Asistentes limitados a N, como los usa el Excel para el margen real. */
   asistentesEnCalculo: number;
   censo: boolean;
