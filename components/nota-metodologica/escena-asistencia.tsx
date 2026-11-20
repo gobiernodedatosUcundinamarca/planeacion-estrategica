@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { nivelDeLectura } from "@/lib/reglas/nota-metodologica";
 import { cn } from "@/lib/utils";
@@ -178,29 +179,9 @@ export function EscenaAsistencia({ nota, numero, titulo, enlace }: Props) {
                 original={"Un valor superior a 100 % indica que el número de asistentes excedió la muestra calculada del estrato."}
               />
             </p>
-            <div className="mt-4 flex flex-col gap-5">
+            <div className="mt-4 border-t border-[var(--nm-tinta)]">
               {nota.totales.map((t) => (
-                <div key={t.estamento}>
-                  <p className="flex items-baseline gap-2 font-semibold">
-                    <span className="nm-muestra-color" style={{ backgroundColor: COLOR_ESTAMENTO[t.estamento] }} aria-hidden />
-                    {nombreEstamento(nota, t.estamento)}
-                  </p>
-                  <ul className="mt-1 border-t border-[var(--nm-linea)] text-[length:var(--nm-t-1)]">
-                    {nota.estratos
-                      .filter((e) => e.estamento === t.estamento)
-                      .map((e) => (
-                        <li
-                          key={e.unidad}
-                          className="flex items-baseline justify-between gap-4 border-b border-[var(--nm-linea)] py-1.5"
-                        >
-                          <span>{e.unidad}</span>
-                          <span className={cn("nm-mono", e.asistentes > e.muestraCalculada && "font-semibold text-[var(--nm-tinta)]")}>
-                            {entero(e.asistentes)} / {entero(e.muestraCalculada)} ({porcentaje(e.asistentes / e.muestraCalculada)})
-                          </span>
-                        </li>
-                      ))}
-                  </ul>
-                </div>
+                <DesplegableEstamento key={t.estamento} nota={nota} total={t} />
               ))}
             </div>
           </Aparecer>
@@ -291,6 +272,65 @@ export function EscenaAsistencia({ nota, numero, titulo, enlace }: Props) {
         </div>
       </div>
     </Apartado>
+  );
+}
+
+/** Un estamento plegable: el encabezado resume el total y, al abrir, las unidades entran una tras otra. */
+function DesplegableEstamento({ nota, total }: { nota: NotaMetodologica; total: NotaMetodologica["totales"][number] }) {
+  const [abierto, setAbierto] = useState(false);
+  const idPanel = `asistencia-estamento-${total.estamento}`;
+  const estratos = nota.estratos.filter((e) => e.estamento === total.estamento);
+
+  return (
+    <div className="border-b border-[var(--nm-linea)]">
+      <button
+        type="button"
+        aria-expanded={abierto}
+        aria-controls={idPanel}
+        onClick={() => setAbierto((a) => !a)}
+        className="flex w-full cursor-pointer items-center gap-2 py-2 text-left font-semibold"
+      >
+        <ChevronDown
+          className={cn("size-4 shrink-0 transition-transform duration-300", abierto && "rotate-180")}
+          aria-hidden
+        />
+        <span className="nm-muestra-color" style={{ backgroundColor: COLOR_ESTAMENTO[total.estamento] }} aria-hidden />
+        {nombreEstamento(nota, total.estamento)}
+        <span className="nm-mono ml-auto text-[length:var(--nm-t-1)] font-normal">
+          {entero(total.asistentes)} / {entero(total.muestraCalculada)} ({porcentaje(total.asistentes / total.muestraCalculada)})
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {abierto ? (
+          <motion.div
+            id={idPanel}
+            key="panel"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: SUAVIZADO }}
+            className="overflow-hidden"
+          >
+            <ul className="border-t border-[var(--nm-linea)] text-[length:var(--nm-t-1)]">
+              {estratos.map((e, i) => (
+                <motion.li
+                  key={e.unidad}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.08 + i * 0.04, ease: SUAVIZADO }}
+                  className="flex items-baseline justify-between gap-4 border-b border-[var(--nm-linea)] py-1.5 last:border-b-0"
+                >
+                  <span>{e.unidad}</span>
+                  <span className={cn("nm-mono", e.asistentes > e.muestraCalculada && "font-semibold text-[var(--nm-tinta)]")}>
+                    {entero(e.asistentes)} / {entero(e.muestraCalculada)} ({porcentaje(e.asistentes / e.muestraCalculada)})
+                  </span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </div>
   );
 }
 
