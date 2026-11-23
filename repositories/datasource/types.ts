@@ -2,6 +2,7 @@ import type { Persona, RolAsignado, RespuestaPregunta } from "@/types/encuesta";
 import type { ResultadoClasificacionDocumental, MetodoClasificacion, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
 import type { FilaMeta } from "@/types/metas";
 import type { NotaMetodologica } from "@/types/nota-metodologica";
+import type { ResultadosMomento5 } from "@/types/momento5";
 import type { ConferenciaCard } from "@/types/conferencistas";
 import type { ValoracionConferencista } from "@/types/valoraciones";
 import type { CaiData } from "@/types/cai";
@@ -67,6 +68,11 @@ export interface MetasDataSource {
 /** Diseño muestral de las mesas de diálogo: población, muestra, convocatoria y asistencia. */
 export interface NotaMetodologicaDataSource {
   getNotaMetodologica(): NotaMetodologica;
+}
+
+/** Contrato del origen de los resultados del Momento 5 del CAI (cinco formularios ya depurados). */
+export interface Momento5DataSource {
+  getResultados(): ResultadosMomento5;
 }
 
 /**

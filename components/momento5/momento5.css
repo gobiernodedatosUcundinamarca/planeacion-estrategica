@@ -1,0 +1,199 @@
+/*
+ * Momento 5: cada formulario contado por separado, con sus gráficas dentro
+ * del relato. Una tinta para el texto, el verde institucional para lo que se
+ * sostuvo y el naranja de «Requiere ajuste» como tinta de corrección. La
+ * jerarquía sale del tamaño y el peso, no de cajas.
+ * Sin media queries de ancho: el sitio escala el escritorio en cualquier
+ * pantalla (.claude/rules/interfaz.md).
+ */
+.m5 {
+  --m5-tinta: var(--foreground);
+  /* El gris de interfaz (muted-foreground) queda en 4:1 sobre el fondo; este llega a 5,9:1. */
+  --m5-suave: color-mix(in srgb, var(--foreground) 68%, var(--background));
+  --m5-linea: color-mix(in srgb, var(--foreground) 13%, transparent);
+  --m5-filete: color-mix(in srgb, var(--foreground) 82%, transparent);
+  --m5-valida: var(--primary);
+  --m5-correccion: var(--chart-2);
+  /* El naranja puro no alcanza 4,5:1 como texto; mezclado con la tinta llega a 4,7:1. */
+  --m5-correccion-texto: color-mix(in srgb, var(--chart-2) 72%, var(--foreground));
+  --m5-velo: color-mix(in srgb, var(--foreground) 6%, transparent);
+  /* Carril de BarraCreciente (piezas de la nota metodológica). */
+  --nm-velo: var(--m5-velo);
+  --m5-medianil: 2rem;
+  /* Barra fija del portal (4rem) + barra de la sección. */
+  --m5-sobre-plano: 12.5rem;
+
+  color: var(--m5-tinta);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.m5 ::selection {
+  background: color-mix(in srgb, var(--chart-2) 30%, transparent);
+  color: var(--foreground);
+}
+.m5 :focus-visible {
+  outline: 2px solid var(--m5-tinta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.m5 a:not([class]) {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.m5-reticula {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--m5-medianil);
+}
+
+/* Titulares: Montserrat en sus pesos altos; el tamaño marca el nivel. */
+.m5-titular-1 {
+  font-size: 3.5rem;
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.m5-titular-2 {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.m5-titular-3 {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.m5-entradilla {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+.m5-texto {
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+.m5-nota {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--m5-suave);
+}
+.m5-cifra {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.m5-correccion {
+  color: var(--m5-correccion-texto);
+}
+.m5-valida {
+  color: var(--m5-valida);
+}
+
+/* Capítulo: un filete lo abre y el blanco lo separa del anterior. */
+.m5-capitulo {
+  border-top: 1px solid var(--m5-filete);
+  padding-block: 4.5rem 5rem;
+}
+.m5-ficha {
+  margin-top: 1rem;
+  max-width: 70ch;
+  font-size: 0.9375rem;
+  color: var(--m5-suave);
+}
+
+/* Escenario: pasos de texto a la izquierda, plano fijo a la derecha. */
+.m5-escenario {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--m5-medianil);
+  margin-top: 2rem;
+}
+.m5-pasos {
+  grid-column: 1 / span 5;
+  /* Aire tras el último paso: sin él, el escenario termina antes y el plano
+     fijo se va debajo de la barra mientras se lee ese paso. */
+  padding-bottom: 35vh;
+}
+.m5-escenario[data-compacto="true"] .m5-pasos {
+  padding-bottom: 0;
+}
+.m5-paso {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 2.5rem;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.m5-escenario:not([data-compacto="true"]) .m5-paso:not([data-activo="true"]) {
+  opacity: 0.3;
+}
+.m5-plano {
+  grid-column: 6 / -1;
+  position: sticky;
+  top: var(--m5-sobre-plano);
+  height: calc(100vh - var(--m5-sobre-plano) - 2rem);
+  display: flex;
+  align-items: center;
+}
+.m5-plano > * {
+  width: 100%;
+  /* El mapa de componentes con sus propuestas puede ser más alto que la pantalla. */
+  max-height: 100%;
+  overflow-y: auto;
+}
+/* Compacto (teléfono con el escritorio escalado, pantallas bajas o «reducir
+   movimiento»): cada paso lleva su gráfico y no hay nada fijo. En el marco
+   escalado `sticky` no se sostiene. */
+.m5-escenario[data-compacto="true"] {
+  display: block;
+}
+.m5-escenario[data-compacto="true"] .m5-paso {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: var(--m5-medianil);
+  align-items: center;
+  padding-block: 2.5rem;
+  border-bottom: 1px solid var(--m5-linea);
+}
+
+/* Citas: texto de quienes respondieron, a cuerpo de entradilla. */
+.m5-cita {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  max-width: 46ch;
+  text-wrap: pretty;
+}
+.m5-cita-autor {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--m5-suave);
+}
+
+/* Tabla tipográfica: filete en la cabeza, líneas finas entre filas. */
+.m5-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.m5-tabla th {
+  text-align: left;
+  vertical-align: bottom;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--m5-suave);
+  padding: 0 1rem 0.5rem 0;
+  border-bottom: 1px solid var(--m5-filete);
+}
+.m5-tabla td {
+  vertical-align: top;
+  padding: 0.85rem 1rem 0.85rem 0;
+  border-bottom: 1px solid var(--m5-linea);
+}

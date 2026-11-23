@@ -89,6 +89,7 @@ const nextConfig: NextConfig = {
       "./data/source-participacion-documental/**",
       "./data/source-conversatorios/**",
       "./data/source-nota-metodologica/**",
+      "./data/source-momento5-cai/**",
       ...(portable ? ["./node_modules/@electric-sql/pglite/**"] : []),
     ],
   },

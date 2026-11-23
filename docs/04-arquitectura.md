@@ -94,6 +94,12 @@ Módulos que siguen esta ruta: encuesta, fundamentos de planeación, visión
 estratégica, metas, conferencistas / ciclos de diálogo, valoraciones,
 accesos a CAI y analítica de momentos.
 
+**Excepción acotada:** «Resultados Momento 5 · CAI» lee en vivo
+`data/source-momento5-cai/resultados.json`, que llega ya depurado y codificado
+del proyecto de análisis, por [`infrastructure/json.ts`](../repositories/datasource/infrastructure/json.ts)
+(la única puerta a los .json) y `CacheArchivo`. No abre la vía a otros JSON
+intermedios: ver [`decisions/0003`](decisions/0003-json-momento5.md).
+
 ### 2.2 Única excepción: lo que se sube desde `/admin` vive en Postgres (Neon)
 
 Los módulos del **Momento 4** —"Transformaciones que nos conectan", su sección

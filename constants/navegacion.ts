@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Activity, BarChart3, Blocks, Calculator, LayoutDashboard, MapPinned, Network, Users, UserCheck, Compass, Target, Mic2, ThumbsUp, Sparkles } from "lucide-react";
+import { Activity, BarChart3, Blocks, Calculator, ClipboardCheck, LayoutDashboard, MapPinned, Network, Users, UserCheck, Compass, Target, Mic2, ThumbsUp, Sparkles } from "lucide-react";
 import {
   SECCION_CONVERSATORIOS,
   SECCION_IA_ADMINISTRATIVOS,
@@ -116,5 +116,11 @@ export const NAVEGACION: ItemNavegacion[] = [
     descripcion: "Diagnóstico del uso de inteligencia artificial",
     icono: Sparkles,
     seccion: SECCION_IA_ADMINISTRATIVOS,
+  },
+  {
+    href: "/resultados-momento5",
+    etiqueta: "Resultados Momento 5 · CAI",
+    descripcion: "Validación del plan, transformación digital y MEDIT",
+    icono: ClipboardCheck,
   },
 ];

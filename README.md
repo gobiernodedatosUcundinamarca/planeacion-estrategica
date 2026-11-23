@@ -54,8 +54,9 @@ Hay dos orígenes, y el flujo va siempre en una dirección: origen → infraestr
 Los `.xlsx` de `data/source-*/` son la fuente de verdad de la mayoría de los
 módulos y se leen en vivo: editar un archivo se refleja en la siguiente petición,
 sin regenerar nada ni reiniciar el servidor. No hay JSON intermedios ni scripts
-ETL. Todo `data/source-*/` nuevo debe registrarse en `outputFileTracingIncludes`
-(`next.config.ts`).
+ETL; la única excepción es `data/source-momento5-cai/resultados.json`, que llega ya
+procesado del análisis del Momento 5 (docs/decisions/0003). Todo `data/source-*/`
+nuevo debe registrarse en `outputFileTracingIncludes` (`next.config.ts`).
 
 ```bash
 pnpm validar:metas   # verifica la consistencia de los Excel del módulo Metas
