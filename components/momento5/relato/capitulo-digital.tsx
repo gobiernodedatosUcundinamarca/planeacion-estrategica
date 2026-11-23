@@ -4,7 +4,7 @@ import { useState } from "react";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import type { DerivadosMomento5, DestacadosMomento5, FiltroEquipo } from "@/lib/reglas/momento5";
 import type { PreguntaAbiertaMomento5 } from "@/types/momento5";
-import { Medidor, Ranking, Tarjeta } from "../piezas";
+import { Fuente, Medidor, Ranking, Tarjeta } from "../piezas";
 import { RespuestasAbiertas } from "../respuestas-abiertas";
 import { TablaProcesos } from "../transformacion-digital";
 import { Capitulo, Cifra, Clasificacion, Pregunta } from "./capitulo";
@@ -51,7 +51,7 @@ export function CapituloDigital({
         </Pregunta>
         <p className="m5-entradilla">
           <Cifra valor={n} />{" "}
-          <TextoEditorial id="m5-dig-paso1-a" original="personas propusieron un proceso de su dependencia. La categoría más frecuente es" />{" "}
+          <TextoEditorial id="m5-dig-paso1-a" original="personas propusieron un proceso de su dependencia o unidad académica. La categoría más frecuente es" />{" "}
           <strong className="font-semibold">{categoria.label}</strong>, <TextoEditorial id="m5-dig-paso1-b" original="con" />{" "}
           <Cifra valor={categoria.value} /> <TextoEditorial id="m5-dig-paso1-c" original="propuestas." />
         </p>
@@ -74,7 +74,7 @@ export function CapituloDigital({
           <TextoEditorial id="m5-dig-paso2-c" original="respuestas." />
         </p>
         <p className="m5-nota">
-          <TextoEditorial id="m5-dig-paso2-nota" original="Una misma respuesta puede citar varias dificultades." />
+          <TextoEditorial id="m5-dig-paso2-nota" original="Pregunta abierta: los tipos de dificultad son una clasificación de cada respuesta, que puede tener varios." />
         </p>
       </>
     ) : (
@@ -83,15 +83,18 @@ export function CapituloDigital({
     n ? (
       <>
         <Pregunta>
-          <TextoEditorial
-            id="m5-dig-pregunta-ia"
-            original="Proceso propuesto, ¿En qué consiste actualmente?, Dificultad percibida y ¿Cómo afecta el trabajo a los usuarios?"
-          />
+          <TextoEditorial id="m5-dig-pregunta-ia" original="Menciones de inteligencia artificial y automatización" />
         </Pregunta>
         <p className="m5-entradilla">
           <Cifra valor={d.kpi.procesosAuto} className="m5-valida" /> <TextoEditorial id="m5-de" original="de" /> <Cifra valor={n} />{" "}
-          <TextoEditorial id="m5-dig-paso3-a" original="respuestas mencionan inteligencia artificial o automatización en alguna de estas preguntas;" />{" "}
-          <Cifra valor={d.kpi.procesosIA} /> <TextoEditorial id="m5-dig-paso3-b" original="hablan de IA, chatbots o agentes." />
+          <TextoEditorial id="m5-dig-paso3-a" original="respuestas mencionan inteligencia artificial o automatización de tareas; de ellas," />{" "}
+          <Cifra valor={d.kpi.procesosIA} /> <TextoEditorial id="m5-dig-paso3-b" original="hablan de IA, chatbots o agentes inteligentes." />
+        </p>
+        <p className="m5-nota">
+          <TextoEditorial
+            id="m5-dig-paso3-nota"
+            original="Se buscaron en las cuatro preguntas abiertas: «Proceso propuesto:», «¿En qué consiste actualmente?», «Dificultad percibida» y «¿Cómo afecta el trabajo a los usuarios?»."
+          />
         </p>
       </>
     ) : (
@@ -103,7 +106,13 @@ export function CapituloDigital({
     <Ranking
       key="cat"
       titulo="Procesos propuestos por categoría"
-      descripcion="Proceso que cada participante propone transformar digitalmente (una categoría por respuesta)."
+      descripcion="Clasificación de las respuestas a «Proceso propuesto:», una categoría por respuesta."
+      pie={
+        <Fuente
+          id="m5-fuente-dig-categoria"
+          original="«Proceso propuesto:», Formulario de Percepción sobre Transformación Digital. Es una pregunta abierta: cada respuesta recibió una sola categoría mediante codificación analítica, respuesta por respuesta, y aquí se cuentan las respuestas por categoría."
+        />
+      }
       items={d.catProceso}
       total={n}
       truncarEn={30}
@@ -113,7 +122,13 @@ export function CapituloDigital({
     <Ranking
       key="dif"
       titulo="Dificultades percibidas"
-      descripcion="Tipo de dificultad descrita. Una respuesta puede mencionar varias, por eso los % no suman 100."
+      descripcion="Clasificación de las respuestas a «Dificultad percibida». Una respuesta puede tener varios tipos, por eso los porcentajes no suman 100 %."
+      pie={
+        <Fuente
+          id="m5-fuente-dig-dificultad"
+          original="«Dificultad percibida», Formulario de Percepción sobre Transformación Digital. Pregunta abierta con codificación analítica, respuesta por respuesta, que también lee el resto de lo que escribió la persona; cada respuesta puede tener varios tipos de dificultad. Porcentaje = respuestas con ese tipo ÷ total de respuestas."
+        />
+      }
       items={d.dificultades}
       total={n}
       truncarEn={30}
@@ -122,8 +137,14 @@ export function CapituloDigital({
     />,
     <Tarjeta
       key="ia"
-      titulo="Hacia dónde apuntan las soluciones"
-      descripcion="Menciones explícitas en el proceso, su descripción, la dificultad o la afectación."
+      titulo="Menciones de inteligencia artificial y automatización"
+      descripcion="Respuestas que las nombran de forma explícita en alguna de las cuatro preguntas abiertas."
+      pie={
+        <Fuente
+          id="m5-fuente-dig-ia"
+          original="búsqueda de palabras en «Proceso propuesto:», «¿En qué consiste actualmente?», «Dificultad percibida» y «¿Cómo afecta el trabajo a los usuarios?». IA: la respuesta contiene «IA», «inteligencia artificial», «chatbot» o «agente». Automatización: contiene una palabra que empieza por «automati» (automatizar, automatización). Una respuesta cuenta una vez aunque lo mencione en varias preguntas."
+        />
+      }
     >
       <div className="flex flex-col gap-6">
         <Cuadricula total={n} ia={d.kpi.procesosIA} automatizacion={d.kpi.procesosAuto} />
@@ -134,7 +155,7 @@ export function CapituloDigital({
             total={n}
           />
           <Medidor
-            etiqueta={<TextoEditorial id="m5-mencionan-automatizacion" original="Mencionan IA o automatización de tareas" />}
+            etiqueta={<TextoEditorial id="m5-mencionan-automatizacion" original="Mencionan IA o automatización de tareas (incluye las anteriores)" />}
             valor={d.kpi.procesosAuto}
             total={n}
           />

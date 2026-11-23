@@ -8,13 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { formatNumero } from "@/lib/formatters";
-import { TIPO_CORTO, pasoAjustes, validaDemasComponentes, type DerivadosMomento5 } from "@/lib/reglas/momento5";
+import { pasoAjustes, validaDemasComponentes, type DerivadosMomento5 } from "@/lib/reglas/momento5";
 import { cn } from "@/lib/utils";
-import { EstadoVacio, Medidor, TablaSimple, Tarjeta, estiloTramo } from "./piezas";
+import { EstadoVacio, Fuente, Medidor, TablaSimple, Tarjeta, estiloTramo } from "./piezas";
 
 type Filtro = { t: string; tipo: string | null } | null;
-
-const tipoCorto = (tipo: string) => TIPO_CORTO[tipo] ?? tipo;
 
 /** Ajustes en los que hubo consenso dentro de cada equipo (registro grupal del relator). */
 export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
@@ -37,7 +35,13 @@ export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
   return (
     <Tarjeta
       titulo="Ajustes acordados por los equipos"
-      descripcion="Registro grupal: cada equipo consolidó, mediante su relator(a), los ajustes en los que hubo consenso. Clic en una celda para filtrar."
+      descripcion="Un registro por equipo, diligenciado por su relator(a). Las columnas son las opciones de «Componente:». Elige una celda para filtrar los ajustes."
+      pie={
+        <Fuente
+          id="m5-fuente-acu-matriz"
+          original="cada ajuste registrado en Acuerdos Estratégicos del Equipo, contado según su «Transformación estratégica:» (filas) y su «Componente:» (columnas). Los dos indicadores cuentan los equipos que respondieron «SI» a «El equipo valida, sin ajustes adicionales, los demás componentes…» y los que describieron puntos en «El equipo no alcanzó acuerdo sobre uno o más componentes…». Cuando la transformación o el componente se escribieron de otra forma, se normalizaron y se indica con una nota."
+        />
+      }
       tabla={
         <TablaSimple
           encabezados={["Equipo n.º", "Transformación estratégica", "Identificación del componente", "Componente", "Ajuste propuesto por el equipo", "Justificación del ajuste"]}
@@ -52,8 +56,9 @@ export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
             <TableHeader>
               <TableRow className="hover:bg-transparent">
                 <TableHead className="text-xs"><TextoEditorial id="m5-th-transformacion" original="Transformación" /></TableHead>
+                {/* Las opciones de «Componente:» completas, como en el formulario. */}
                 {d.tipos.map((t) => (
-                  <TableHead key={t} className="text-center text-xs">{tipoCorto(t)}</TableHead>
+                  <TableHead key={t} className="text-center text-xs leading-tight whitespace-normal">{t}</TableHead>
                 ))}
                 <TableHead className="text-center text-xs"><TextoEditorial id="m5-th-total" original="Total" /></TableHead>
               </TableRow>
@@ -166,7 +171,7 @@ export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
               {a.visibles.map((x) => (
                 <div key={x.n} className="flex flex-col gap-1 border-t border-[var(--m5-linea)] pt-2.5 text-sm">
                   <p className="font-semibold">
-                    {nombreT[x.t] ?? (x.t || "—")}, {(tipoCorto(x.tipo) || "componente").toLowerCase()} {x.c}
+                    {nombreT[x.t] ?? (x.t || "—")}: {(x.tipo || "componente").toLowerCase()} {x.c}
                   </p>
                   <p className="text-foreground">{x.ajuste || "—"}</p>
                   {x.justificacion ? (

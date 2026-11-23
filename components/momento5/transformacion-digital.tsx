@@ -11,7 +11,7 @@ import { coincideBusqueda } from "@/lib/buscar";
 import { formatNumero } from "@/lib/formatters";
 import type { DerivadosMomento5 } from "@/lib/reglas/momento5";
 import { cn } from "@/lib/utils";
-import { EstadoVacio, FiltroCategoria, Tarjeta } from "./piezas";
+import { EstadoVacio, FiltroCategoria, Fuente, Tarjeta } from "./piezas";
 
 /**
  * Los procesos propuestos, uno por fila, con búsqueda y filas que se abren.
@@ -55,7 +55,13 @@ export function TablaProcesos({
     <div className="flex flex-col">
       <Tarjeta
         titulo="Procesos propuestos para transformación digital"
-        descripcion="Respuestas individuales. Clic en una fila para ver en qué consiste el proceso y cómo afecta a los usuarios."
+        descripcion="Respuestas individuales. Elige una fila para leer «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?»."
+        pie={
+          <Fuente
+            id="m5-fuente-dig-tabla"
+            original="respuestas tal como se escribieron a «Participante:», «Dependencia / Unidad Académica», «Proceso propuesto:», «Dificultad percibida», «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?». La columna Categoría muestra la codificación de las gráficas anteriores."
+          />
+        }
       >
         <div className="flex flex-wrap items-end gap-3">
           <label className="flex flex-col gap-1">

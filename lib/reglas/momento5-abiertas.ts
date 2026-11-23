@@ -45,39 +45,42 @@ function fuentes(datos: ResultadosMomento5): Fuente[] {
   const detallePercepcion = (p: ResultadosMomento5["percepcion"][number]) =>
     [p.nombre, p.dependencia, equipoDe(p.equipo)].filter(Boolean).join(" · ");
 
+  // Enunciados copiados de la exportación de Microsoft Forms. En la validación, el formulario
+  // repite la pregunta en cada componente («…al Objetivo Estratégico», «…al Ámbito 1»,
+  // «…al Resultado Estratégico R2»): aquí se nombran los tres tipos a la vez.
   return [
     {
       id: "validacion-ajuste",
       formulario: "validacion",
-      pregunta: "Ajuste propuesto (si corresponde)",
+      pregunta: "Ajuste propuesto al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):",
       palabrasSinTema: ["ajuste", "ajustar", "propuesta", "propone", "redacción", "redaccion"],
       textos: ajustesIndividuales.map((v) => ({ texto: v.aj, detalle: detalleValoracion(v), equipo: v.equipo })),
     },
     {
       id: "validacion-justificacion",
       formulario: "validacion",
-      pregunta: "Justificación del ajuste (si corresponde)",
+      pregunta: "Justificación del ajuste al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):",
       palabrasSinTema: ["ajuste", "ajustar", "propuesta", "propone", "justificación", "justificacion"],
       textos: ajustesIndividuales.map((v) => ({ texto: v.ju, detalle: detalleValoracion(v), equipo: v.equipo })),
     },
     {
       id: "acuerdos-ajuste",
       formulario: "acuerdos",
-      pregunta: "Ajuste propuesto por el equipo",
+      pregunta: "Ajuste propuesto por el equipo:",
       palabrasSinTema: ["ajuste", "ajustar", "propuesta", "propone", "redacción", "redaccion"],
       textos: ajustesEquipo.map((x) => ({ texto: x.ajuste, detalle: detalleAjuste(x), equipo: x.equipo })),
     },
     {
       id: "acuerdos-justificacion",
       formulario: "acuerdos",
-      pregunta: "Justificación del ajuste",
+      pregunta: "Justificación del ajuste:",
       palabrasSinTema: ["ajuste", "ajustar", "propuesta", "propone", "justificación", "justificacion"],
       textos: ajustesEquipo.map((x) => ({ texto: x.justificacion, detalle: detalleAjuste(x), equipo: x.equipo })),
     },
     {
       id: "acuerdos-desacuerdos",
       formulario: "acuerdos",
-      pregunta: "El equipo no alcanzó acuerdo sobre uno o más componentes (identificar brevemente)",
+      pregunta: "El equipo no alcanzó acuerdo sobre uno o más componentes (identificar brevemente):",
       palabrasSinTema: ["acuerdo", "consenso"],
       textos: datos.acuerdos.map((a) => ({ texto: a.desacuerdos, detalle: equipoDe(a.equipo), equipo: a.equipo })),
     },

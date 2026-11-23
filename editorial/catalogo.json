@@ -24,6 +24,21 @@
     "archivo": "components/momento5/transformacion-digital.tsx",
     "elemento": "span"
   },
+  "m5-equipo": {
+    "original": "Equipo",
+    "archivo": "components/momento5/acuerdos.tsx",
+    "elemento": "span"
+  },
+  "m5-th-categoria": {
+    "original": "Categoría",
+    "archivo": "components/momento5/transformacion-digital.tsx",
+    "elemento": "th"
+  },
+  "m5-val-paso2-los": {
+    "original": "Los",
+    "archivo": "components/momento5/relato/capitulo-validacion.tsx",
+    "elemento": "span"
+  },
   "selector-regional-visual-titulo": {
     "original": "1. Unidad regional",
     "archivo": "components/transformaciones/selector-regional-visual.tsx",
@@ -5159,11 +5174,6 @@
     "archivo": "components/momento5/acuerdos.tsx",
     "elemento": "span"
   },
-  "m5-equipo": {
-    "original": "Equipo",
-    "archivo": "components/momento5/acuerdos.tsx",
-    "elemento": "span"
-  },
   "m5-relator": {
     "original": "Relator(a):",
     "archivo": "components/momento5/acuerdos.tsx",
@@ -5185,7 +5195,7 @@
     "elemento": "span"
   },
   "m5-voces-tema": {
-    "original": "Voces:",
+    "original": "Respuestas con el tema:",
     "archivo": "components/momento5/medit.tsx",
     "elemento": "span"
   },
@@ -5205,12 +5215,12 @@
     "elemento": "span"
   },
   "m5-matriz-temas": {
-    "original": "Temas que toca:",
+    "original": "Temas identificados:",
     "archivo": "components/momento5/medit.tsx",
     "elemento": "span"
   },
   "m5-integrantes-registrados": {
-    "original": "Integrantes registrados:",
+    "original": "Integrantes del equipo:",
     "archivo": "components/momento5/medit.tsx",
     "elemento": "span"
   },
@@ -5235,22 +5245,22 @@
     "elemento": "span"
   },
   "m5-nota-correo": {
-    "original": "Los participantes se unen entre formularios por su correo institucional, que no se muestra.",
+    "original": "Las respuestas de una misma persona se cruzan entre formularios por su correo institucional, que no se muestra.",
     "archivo": "components/momento5/notas-momento5.tsx",
     "elemento": "li"
   },
   "m5-nota-codificacion": {
-    "original": "Las categorías de proceso y de dificultad de transformación digital son una codificación analítica, respuesta por respuesta. Los temas del MEDIT se asignan por palabras clave.",
+    "original": "En el Formulario de Percepción sobre Transformación Digital, las categorías de «Proceso propuesto:» y los tipos de «Dificultad percibida» son una codificación analítica, respuesta por respuesta. Los temas del MEDIT se asignan por palabras clave a «Aspecto prioritario de consolidación del MEDIT:» y «¿Qué debería cambiar o mejorar en la Universidad?», y en la matriz, a sus aspectos y cambios.",
     "archivo": "components/momento5/notas-momento5.tsx",
     "elemento": "li"
   },
   "m5-nota-filtro-equipo": {
-    "original": "El filtro de equipo usa el equipo asignado en la validación estratégica. Quien solo registró un formulario grupal toma el equipo de ese registro.",
+    "original": "El filtro de equipo usa la respuesta a «Equipo asignado:» del Formulario Individual de Validación Estratégica. Quien solo aparece en un registro grupal toma el equipo de ese registro.",
     "archivo": "components/momento5/notas-momento5.tsx",
     "elemento": "li"
   },
   "m5-nota-abiertas": {
-    "original": "Las preguntas abiertas que su formulario no clasifica se agrupan con la clasificación automática del portal: TF-IDF sobre las palabras y K-Means, con el número de temas elegido por silueta. Cada tema toma el nombre de sus términos más característicos.",
+    "original": "Las preguntas abiertas que el análisis no había clasificado se agrupan con la clasificación automática del portal: TF-IDF sobre las palabras y K-Means, con el número de temas elegido por silueta. Cada tema toma el nombre de sus términos más característicos.",
     "archivo": "components/momento5/notas-momento5.tsx",
     "elemento": "li"
   },
@@ -5280,7 +5290,7 @@
     "elemento": "span"
   },
   "m5-acu-pregunta-ajuste": {
-    "original": "Registro de ajuste: Ajuste propuesto por el equipo",
+    "original": "Ajuste propuesto por el equipo:",
     "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
     "elemento": "span"
   },
@@ -5290,17 +5300,17 @@
     "elemento": "span"
   },
   "m5-acu-paso1-b": {
-    "original": "ajustes en los que hubo consenso, uno por cada marca.",
+    "original": "ajustes acordados en su equipo. Cada marca del gráfico es un ajuste.",
     "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
     "elemento": "span"
   },
   "m5-acu-paso1-nota": {
-    "original": "Cada equipo podía registrar hasta cinco ajustes.",
+    "original": "El formulario permitía hasta cinco ajustes por equipo, de «Registro de ajuste 1» a «Registro de ajuste 5».",
     "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
     "elemento": "span"
   },
   "m5-acu-pregunta-equipo": {
-    "original": "Equipo n.º",
+    "original": "Equipo n.º:",
     "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
     "elemento": "span"
   },
@@ -5350,7 +5360,7 @@
     "elemento": "span"
   },
   "m5-dig-paso1-a": {
-    "original": "personas propusieron un proceso de su dependencia. La categoría más frecuente es",
+    "original": "personas propusieron un proceso de su dependencia o unidad académica. La categoría más frecuente es",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5390,22 +5400,22 @@
     "elemento": "span"
   },
   "m5-dig-paso2-nota": {
-    "original": "Una misma respuesta puede citar varias dificultades.",
+    "original": "Pregunta abierta: los tipos de dificultad son una clasificación de cada respuesta, que puede tener varios.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
   "m5-dig-pregunta-ia": {
-    "original": "Proceso propuesto, ¿En qué consiste actualmente?, Dificultad percibida y ¿Cómo afecta el trabajo a los usuarios?",
+    "original": "Menciones de inteligencia artificial y automatización",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
   "m5-dig-paso3-a": {
-    "original": "respuestas mencionan inteligencia artificial o automatización en alguna de estas preguntas;",
+    "original": "respuestas mencionan inteligencia artificial o automatización de tareas; de ellas,",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
   "m5-dig-paso3-b": {
-    "original": "hablan de IA, chatbots o agentes.",
+    "original": "hablan de IA, chatbots o agentes inteligentes.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5415,7 +5425,7 @@
     "elemento": "span"
   },
   "m5-mencionan-automatizacion": {
-    "original": "Mencionan IA o automatización de tareas",
+    "original": "Mencionan IA o automatización de tareas (incluye las anteriores)",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5425,7 +5435,7 @@
     "elemento": "span"
   },
   "m5-matriz-entrada": {
-    "original": "Cada equipo respondió las tres preguntas de la matriz. Aquí va el primer punto de cada respuesta; la matriz completa de cada equipo está más abajo.",
+    "original": "Cada equipo respondió las tres preguntas de la matriz. La tabla muestra el primer punto de cada respuesta; las respuestas completas están en la clasificación, más abajo.",
     "archivo": "components/momento5/relato/capitulo-matriz.tsx",
     "elemento": "span"
   },
@@ -5479,11 +5489,6 @@
     "archivo": "components/momento5/relato/capitulo-medit.tsx",
     "elemento": "span"
   },
-  "m5-pie-temas": {
-    "original": "Temas asignados por palabras clave sobre el aspecto prioritario y la propuesta de cambio.",
-    "archivo": "components/momento5/relato/capitulo-medit.tsx",
-    "elemento": "span"
-  },
   "m5-sin-valoraciones": {
     "original": "Con este filtro no hay valoraciones del plan.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
@@ -5520,7 +5525,7 @@
     "elemento": "span"
   },
   "m5-val-paso1-e": {
-    "original": "La transformación con más «Requiere ajuste» en proporción fue",
+    "original": "La transformación con mayor proporción de «Requiere ajuste» fue",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -5535,7 +5540,7 @@
     "elemento": "span"
   },
   "m5-val-paso2-a": {
-    "original": "El tipo de componente con más «Requiere ajuste» fue",
+    "original": "reunieron la mayor proporción de «Requiere ajuste»:",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -5545,12 +5550,12 @@
     "elemento": "span"
   },
   "m5-val-paso3-a": {
-    "original": "participantes marcaron «Requiere ajuste» en este componente, el que más ajustes reunió.",
+    "original": "participantes marcaron «Requiere ajuste» en este componente:",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
   "m5-val-paso3-nota": {
-    "original": "En el mapa, cada celda es un objetivo, ámbito o resultado, y su tono marca qué parte pidió ajuste. Elige una celda para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona.",
+    "original": "En el mapa, cada celda es un componente; su color indica el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -5595,17 +5600,17 @@
     "elemento": "text"
   },
   "m5-condensa-valido": {
-    "original": "valida los demás componentes",
+    "original": "«SI»: valida los demás componentes",
     "archivo": "components/momento5/relato/graficos.tsx",
     "elemento": "text"
   },
   "m5-condensa-no-valido": {
-    "original": "no valida los demás componentes",
+    "original": "«NO»: no valida los demás componentes",
     "archivo": "components/momento5/relato/graficos.tsx",
     "elemento": "text"
   },
   "m5-abiertas-alcance": {
-    "original": "Se agrupan solo las preguntas abiertas que su formulario no clasifica; los temas se calculan con todas las respuestas y se recuentan con el filtro de equipo.",
+    "original": "respuestas a la pregunta elegida, tal como se escribieron; se excluyen las vacías y las de relleno («No aplica», «N/A», «.»). Se agrupan solo las preguntas abiertas que el análisis no había clasificado. Los temas se calculan con todas las respuestas y se recuentan con el filtro de equipo.",
     "archivo": "components/momento5/respuestas-abiertas.tsx",
     "elemento": "span"
   },
@@ -5626,11 +5631,6 @@
   },
   "m5-th-dificultad": {
     "original": "Dificultad percibida",
-    "archivo": "components/momento5/transformacion-digital.tsx",
-    "elemento": "th"
-  },
-  "m5-th-categoria": {
-    "original": "Categoría",
     "archivo": "components/momento5/transformacion-digital.tsx",
     "elemento": "th"
   },
@@ -5680,12 +5680,12 @@
     "elemento": "span"
   },
   "m5-ajuste-sin-redactar": {
-    "original": "Pidió ajuste sin redactar una propuesta.",
+    "original": "Marcó «Requiere ajuste» sin redactar el ajuste propuesto.",
     "archivo": "components/momento5/validacion.tsx",
     "elemento": "span"
   },
   "m5-sin-propuestas": {
-    "original": "Ningún participante pidió ajustar este componente.",
+    "original": "Ningún participante marcó «Requiere ajuste» en este componente.",
     "archivo": "components/momento5/validacion.tsx",
     "elemento": "span"
   },
@@ -5735,12 +5735,12 @@
     "elemento": "prop"
   },
   "m5-proporcion-de-componentes-que-cada-participante": {
-    "original": "Proporción de componentes que cada participante validó tal como están o para los que pidió ajuste.",
+    "original": "Respuestas «Se valida» y «Requiere ajuste» a los componentes de cada transformación.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "prop"
   },
   "m5-por-tipo-de-componente": {
-    "original": "Por tipo de componente",
+    "original": "Valoración por tipo de componente",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "prop"
   },
@@ -5755,12 +5755,12 @@
     "elemento": "prop"
   },
   "m5-que-componentes-del-plan-generan-mas-ajustes": {
-    "original": "¿Qué componentes del plan generan más ajustes?",
+    "original": "«Requiere ajuste» por componente",
     "archivo": "components/momento5/validacion.tsx",
     "elemento": "prop"
   },
   "m5-cada-celda-es-un-objetivo-oe-ambito-a-o-resultad": {
-    "original": "Cada celda es un objetivo (OE), ámbito (Á) o resultado (R). Color y cifra = % de participantes que pidió ajuste. Clic para ver las propuestas.",
+    "original": "Cada celda es un objetivo estratégico (OE), un ámbito (Á) o un resultado estratégico (R). El color y la cifra indican el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer sus propuestas.",
     "archivo": "components/momento5/validacion.tsx",
     "elemento": "prop"
   },
@@ -5780,7 +5780,7 @@
     "elemento": "prop"
   },
   "m5-registro-grupal-cada-equipo-consolido-mediante-s": {
-    "original": "Registro grupal: cada equipo consolidó, mediante su relator(a), los ajustes en los que hubo consenso. Clic en una celda para filtrar.",
+    "original": "Un registro por equipo, diligenciado por su relator(a). Las columnas son las opciones de «Componente:». Elige una celda para filtrar los ajustes.",
     "archivo": "components/momento5/acuerdos.tsx",
     "elemento": "prop"
   },
@@ -5815,7 +5815,7 @@
     "elemento": "prop"
   },
   "m5-proceso-que-cada-participante-propone-transforma": {
-    "original": "Proceso que cada participante propone transformar digitalmente (una categoría por respuesta).",
+    "original": "Clasificación de las respuestas a «Proceso propuesto:», una categoría por respuesta.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "prop"
   },
@@ -5825,17 +5825,17 @@
     "elemento": "prop"
   },
   "m5-tipo-de-dificultad-descrita-una-respuesta-puede": {
-    "original": "Tipo de dificultad descrita. Una respuesta puede mencionar varias, por eso los % no suman 100.",
+    "original": "Clasificación de las respuestas a «Dificultad percibida». Una respuesta puede tener varios tipos, por eso los porcentajes no suman 100 %.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "prop"
   },
   "m5-hacia-donde-apuntan-las-soluciones": {
-    "original": "Hacia dónde apuntan las soluciones",
+    "original": "Menciones de inteligencia artificial y automatización",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "prop"
   },
   "m5-menciones-explicitas-en-el-proceso-su-descripcio": {
-    "original": "Menciones explícitas en el proceso, su descripción, la dificultad o la afectación.",
+    "original": "Respuestas que las nombran de forma explícita en alguna de las cuatro preguntas abiertas.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "prop"
   },
@@ -5845,7 +5845,7 @@
     "elemento": "prop"
   },
   "m5-respuestas-individuales-clic-en-una-fila-para-ve": {
-    "original": "Respuestas individuales. Clic en una fila para ver en qué consiste el proceso y cómo afecta a los usuarios.",
+    "original": "Respuestas individuales. Elige una fila para leer «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?».",
     "archivo": "components/momento5/transformacion-digital.tsx",
     "elemento": "prop"
   },
@@ -5855,17 +5855,17 @@
     "elemento": "prop"
   },
   "m5-aspectos-prioritarios-para-consolidar-el-medit": {
-    "original": "Aspectos prioritarios para consolidar el MEDIT",
+    "original": "Temas de las respuestas",
     "archivo": "components/momento5/relato/capitulo-medit.tsx",
     "elemento": "prop"
   },
   "m5-temas-presentes-en-cada-respuesta-individual-una": {
-    "original": "Temas presentes en cada respuesta individual (una respuesta puede tocar varios). Clic en un tema para leer las respuestas.",
+    "original": "Respuestas individuales que tocan cada tema; una respuesta puede tocar varios. Elige un tema para leer sus respuestas, más abajo.",
     "archivo": "components/momento5/relato/capitulo-medit.tsx",
     "elemento": "prop"
   },
   "m5-voces-de-los-participantes": {
-    "original": "Voces de los participantes",
+    "original": "Respuestas de los participantes",
     "archivo": "components/momento5/medit.tsx",
     "elemento": "prop"
   },
@@ -5875,7 +5875,7 @@
     "elemento": "prop"
   },
   "m5-registro-grupal-que-consolidar-que-cambios-se-es": {
-    "original": "Registro grupal: qué consolidar, qué cambios se esperan y cómo se sabrá que se lograron.",
+    "original": "Respuestas completas de cada equipo a las tres preguntas de la matriz.",
     "archivo": "components/momento5/medit.tsx",
     "elemento": "prop"
   },
@@ -5903,5 +5903,140 @@
     "original": "Validación del plan, transformación digital y MEDIT",
     "archivo": "constants/navegacion.ts",
     "elemento": "navegacion"
+  },
+  "m5-fuente-acu-matriz": {
+    "original": "cada ajuste registrado en Acuerdos Estratégicos del Equipo, contado según su «Transformación estratégica:» (filas) y su «Componente:» (columnas). Los dos indicadores cuentan los equipos que respondieron «SI» a «El equipo valida, sin ajustes adicionales, los demás componentes…» y los que describieron puntos en «El equipo no alcanzó acuerdo sobre uno o más componentes…». Cuando la transformación o el componente se escribieron de otra forma, se normalizaron y se indica con una nota.",
+    "archivo": "components/momento5/acuerdos.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-medit-voces": {
+    "original": "respuestas tal como se escribieron en el Formulario Individual de Consolidación del MEDIT. Bajo cada aspecto: «Nombre Completo:», «Rol o vinculación institucional:» y «Sede o seccional:». El filtro de tema usa la asignación por palabras clave de la gráfica anterior.",
+    "archivo": "components/momento5/medit.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-matriz": {
+    "original": "Matriz de Construcción Colaborativa y Acuerdos del MEDIT, un registro por equipo («Equipo numero:»). Cada respuesta se dividió en puntos por salto de línea, sin la numeración ni las viñetas originales. «Temas identificados» aplica las palabras clave del Formulario Individual de Consolidación del MEDIT a los aspectos y los cambios.",
+    "archivo": "components/momento5/medit.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente": {
+    "original": "Fuente:",
+    "archivo": "components/momento5/piezas.tsx",
+    "elemento": "span"
+  },
+  "m5-acu-paso2-a": {
+    "original": "el formulario",
+    "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
+    "elemento": "span"
+  },
+  "m5-acu-paso2-nota": {
+    "original": "Cada fila del gráfico es un equipo, con sus ajustes registrados.",
+    "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
+    "elemento": "span"
+  },
+  "m5-acu-paso3-nota": {
+    "original": "Opciones de respuesta: «SI» o «NO».",
+    "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-acu-condensacion": {
+    "original": "Acuerdos Estratégicos del Equipo, un registro por equipo. Cada marca es un ajuste registrado con «Ajuste propuesto por el equipo:» (de «Registro de ajuste 1» a «Registro de ajuste 5»); cada fila, un «Equipo n.º:». Las etiquetas son la respuesta a «El equipo valida, sin ajustes adicionales, los demás componentes de las dos transformaciones asignadas.» y, si la hubo, a «El equipo no alcanzó acuerdo sobre uno o más componentes (identificar brevemente):».",
+    "archivo": "components/momento5/relato/capitulo-acuerdos.tsx",
+    "elemento": "span"
+  },
+  "m5-dig-paso3-nota": {
+    "original": "Se buscaron en las cuatro preguntas abiertas: «Proceso propuesto:», «¿En qué consiste actualmente?», «Dificultad percibida» y «¿Cómo afecta el trabajo a los usuarios?».",
+    "archivo": "components/momento5/relato/capitulo-digital.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-dig-categoria": {
+    "original": "«Proceso propuesto:», Formulario de Percepción sobre Transformación Digital. Es una pregunta abierta: cada respuesta recibió una sola categoría mediante codificación analítica, respuesta por respuesta, y aquí se cuentan las respuestas por categoría.",
+    "archivo": "components/momento5/relato/capitulo-digital.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-dig-dificultad": {
+    "original": "«Dificultad percibida», Formulario de Percepción sobre Transformación Digital. Pregunta abierta con codificación analítica, respuesta por respuesta, que también lee el resto de lo que escribió la persona; cada respuesta puede tener varios tipos de dificultad. Porcentaje = respuestas con ese tipo ÷ total de respuestas.",
+    "archivo": "components/momento5/relato/capitulo-digital.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-dig-ia": {
+    "original": "búsqueda de palabras en «Proceso propuesto:», «¿En qué consiste actualmente?», «Dificultad percibida» y «¿Cómo afecta el trabajo a los usuarios?». IA: la respuesta contiene «IA», «inteligencia artificial», «chatbot» o «agente». Automatización: contiene una palabra que empieza por «automati» (automatizar, automatización). Una respuesta cuenta una vez aunque lo mencione en varias preguntas.",
+    "archivo": "components/momento5/relato/capitulo-digital.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-matriz-primeros": {
+    "original": "Matriz de Construcción Colaborativa y Acuerdos del MEDIT, un registro por equipo («Equipo numero:»). Cada respuesta se dividió en puntos por salto de línea; «y N más» indica cuántos puntos siguen.",
+    "archivo": "components/momento5/relato/capitulo-matriz.tsx",
+    "elemento": "span"
+  },
+  "m5-medit-entrada-nota": {
+    "original": "Los temas se asignan por palabras clave a las respuestas de las dos preguntas; una respuesta puede tener varios.",
+    "archivo": "components/momento5/relato/capitulo-medit.tsx",
+    "elemento": "span"
+  },
+  "m5-medit-cita-fuente": {
+    "original": "Respuesta a «Aspecto prioritario de consolidación del MEDIT:».",
+    "archivo": "components/momento5/relato/capitulo-medit.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-medit-temas": {
+    "original": "«Aspecto prioritario de consolidación del MEDIT:» y «¿Qué debería cambiar o mejorar en la Universidad?», Formulario Individual de Consolidación del MEDIT. Una respuesta recibe un tema si contiene alguna de sus palabras clave (se comparan sin tildes ni mayúsculas); puede recibir varios. Porcentaje = respuestas con ese tema ÷ total de respuestas.",
+    "archivo": "components/momento5/relato/capitulo-medit.tsx",
+    "elemento": "span"
+  },
+  "m5-val-paso1-f": {
+    "original": "de sus valoraciones.",
+    "archivo": "components/momento5/relato/capitulo-validacion.tsx",
+    "elemento": "span"
+  },
+  "m5-val-paso3-b": {
+    "original": ", la proporción más alta entre los componentes.",
+    "archivo": "components/momento5/relato/capitulo-validacion.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-val-transformacion": {
+    "original": "secciones «3. Transformación: …» del Formulario Individual de Validación Estratégica. Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo.",
+    "archivo": "components/momento5/relato/capitulo-validacion.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-val-tipo": {
+    "original": "las mismas valoraciones «Se valida» o «Requiere ajuste», sumadas según el tipo de componente que encabezaba cada pregunta: OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO.",
+    "archivo": "components/momento5/relato/capitulo-validacion.tsx",
+    "elemento": "span"
+  },
+  "m5-equipos-pregunta": {
+    "original": "Equipo asignado:",
+    "archivo": "components/momento5/relato/equipos-asignados.tsx",
+    "elemento": "span"
+  },
+  "m5-equipos-a": {
+    "original": "participantes trabajaron en",
+    "archivo": "components/momento5/relato/equipos-asignados.tsx",
+    "elemento": "span"
+  },
+  "m5-equipos-b": {
+    "original": "equipos; cada persona valoró las dos transformaciones asignadas a su equipo.",
+    "archivo": "components/momento5/relato/equipos-asignados.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-equipos": {
+    "original": "respuesta de cada participante a «Equipo asignado:» en el Formulario Individual de Validación Estratégica; quien solo aparece en un registro grupal toma el equipo de ese registro. Las transformaciones son las dos que el equipo tenía asignadas.",
+    "archivo": "components/momento5/relato/equipos-asignados.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-dig-tabla": {
+    "original": "respuestas tal como se escribieron a «Participante:», «Dependencia / Unidad Académica», «Proceso propuesto:», «Dificultad percibida», «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?». La columna Categoría muestra la codificación de las gráficas anteriores.",
+    "archivo": "components/momento5/transformacion-digital.tsx",
+    "elemento": "span"
+  },
+  "m5-fuente-val-mapa": {
+    "original": "valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al … (si corresponde):» y «Justificación del ajuste al … (si corresponde):» de ese componente.",
+    "archivo": "components/momento5/validacion.tsx",
+    "elemento": "span"
+  },
+  "m5-las-mismas-respuestas-agrupadas-en-objetivos-est": {
+    "original": "Las mismas respuestas, agrupadas en objetivos estratégicos, ámbitos de transformación y resultados estratégicos.",
+    "archivo": "components/momento5/relato/capitulo-validacion.tsx",
+    "elemento": "prop"
   }
 }

@@ -1,4 +1,5 @@
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
+import { nombreFormularioDe } from "@/lib/reglas/momento5";
 import type { ResultadosMomento5 } from "@/types/momento5";
 
 /**
@@ -18,7 +19,8 @@ export function NotasMomento5({ meta }: { meta: ResultadosMomento5["meta"] }) {
             <ul className="flex flex-col gap-4">
               {meta.exclusiones.map((x, i) => (
                 <li key={i} className="m5-texto text-[0.9375rem]">
-                  <span className="font-semibold">{x.formulario || "—"}</span>
+                  {/* El análisis abrevia el nombre; se muestra el del formulario, igual que en el menú. */}
+                  <span className="font-semibold">{x.formulario ? nombreFormularioDe(x.formulario, meta.formularios) : "—"}</span>
                   {x.id_respuesta !== null ? <span className="m5-cifra text-[var(--m5-suave)]"> (ID {x.id_respuesta})</span> : null}.{" "}
                   {x.motivo || "—"}
                 </li>
@@ -38,25 +40,25 @@ export function NotasMomento5({ meta }: { meta: ResultadosMomento5["meta"] }) {
             <li>
               <TextoEditorial
                 id="m5-nota-correo"
-                original="Los participantes se unen entre formularios por su correo institucional, que no se muestra."
+                original="Las respuestas de una misma persona se cruzan entre formularios por su correo institucional, que no se muestra."
               />
             </li>
             <li>
               <TextoEditorial
                 id="m5-nota-codificacion"
-                original="Las categorías de proceso y de dificultad de transformación digital son una codificación analítica, respuesta por respuesta. Los temas del MEDIT se asignan por palabras clave."
+                original="En el Formulario de Percepción sobre Transformación Digital, las categorías de «Proceso propuesto:» y los tipos de «Dificultad percibida» son una codificación analítica, respuesta por respuesta. Los temas del MEDIT se asignan por palabras clave a «Aspecto prioritario de consolidación del MEDIT:» y «¿Qué debería cambiar o mejorar en la Universidad?», y en la matriz, a sus aspectos y cambios."
               />
             </li>
             <li>
               <TextoEditorial
                 id="m5-nota-filtro-equipo"
-                original="El filtro de equipo usa el equipo asignado en la validación estratégica. Quien solo registró un formulario grupal toma el equipo de ese registro."
+                original="El filtro de equipo usa la respuesta a «Equipo asignado:» del Formulario Individual de Validación Estratégica. Quien solo aparece en un registro grupal toma el equipo de ese registro."
               />
             </li>
             <li>
               <TextoEditorial
                 id="m5-nota-abiertas"
-                original="Las preguntas abiertas que su formulario no clasifica se agrupan con la clasificación automática del portal: TF-IDF sobre las palabras y K-Means, con el número de temas elegido por silueta. Cada tema toma el nombre de sus términos más característicos."
+                original="Las preguntas abiertas que el análisis no había clasificado se agrupan con la clasificación automática del portal: TF-IDF sobre las palabras y K-Means, con el número de temas elegido por silueta. Cada tema toma el nombre de sus términos más característicos."
               />
             </li>
             {meta.generado ? (

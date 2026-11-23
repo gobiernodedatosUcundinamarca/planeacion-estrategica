@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatNumero } from "@/lib/formatters";
 import { indicePorId, type DerivadosMomento5 } from "@/lib/reglas/momento5";
 import type { EquipoMomento5, MatrizEquipo, ResultadosMomento5 } from "@/types/momento5";
-import { EstadoVacio, FiltroCategoria, TablaSimple, Tarjeta } from "./piezas";
+import { EstadoVacio, FiltroCategoria, Fuente, TablaSimple, Tarjeta } from "./piezas";
 
 /**
  * Las respuestas individuales sobre el MEDIT, completas. El tema lo controla el
@@ -26,11 +26,17 @@ export function VocesMedit({ d, tema, setTema }: { d: DerivadosMomento5; tema: s
         titulo={
           tema ? (
             <>
-              <TextoEditorial id="m5-voces-tema" original="Voces:" /> {nombreTema[tema] ?? tema}
+              <TextoEditorial id="m5-voces-tema" original="Respuestas con el tema:" /> {nombreTema[tema] ?? tema}
             </>
           ) : (
-            "Voces de los participantes"
+            "Respuestas de los participantes"
           )
+        }
+        pie={
+          <Fuente
+            id="m5-fuente-medit-voces"
+            original="respuestas tal como se escribieron en el Formulario Individual de Consolidación del MEDIT. Bajo cada aspecto: «Nombre Completo:», «Rol o vinculación institucional:» y «Sede o seccional:». El filtro de tema usa la asignación por palabras clave de la gráfica anterior."
+          />
         }
         descripcion={
           <>
@@ -51,7 +57,7 @@ export function VocesMedit({ d, tema, setTema }: { d: DerivadosMomento5; tema: s
             </Button>
           ) : null}
         </div>
-        <div className="flex max-h-[470px] flex-col gap-3 overflow-y-auto pr-1" tabIndex={0} aria-label="Voces de los participantes">
+        <div className="flex max-h-[470px] flex-col gap-3 overflow-y-auto pr-1" tabIndex={0} aria-label="Respuestas de los participantes">
           {voces.map((v) => (
             <article key={v.pid} className="flex flex-col gap-1 border-t border-[var(--m5-linea)] pt-3 text-sm">
               <p className="text-foreground">{v.aspecto ?? "—"}</p>
@@ -101,7 +107,7 @@ function ContenidoMatriz({
         ) : null}
         {m.temas.length ? (
           <p className="m5-nota">
-            <TextoEditorial id="m5-matriz-temas" original="Temas que toca:" /> {m.temas.map((t) => (nombreTema[t] ?? t).toLowerCase()).join("; ")}.
+            <TextoEditorial id="m5-matriz-temas" original="Temas identificados:" /> {m.temas.map((t) => (nombreTema[t] ?? t).toLowerCase()).join("; ")}.
           </p>
         ) : null}
       </div>
@@ -125,7 +131,7 @@ function ContenidoMatriz({
       </div>
       {m.integrantes ? (
         <p className="text-xs text-muted-foreground">
-          <TextoEditorial id="m5-integrantes-registrados" original="Integrantes registrados:" /> {m.integrantes.replace(/\n/g, " · ")}
+          <TextoEditorial id="m5-integrantes-registrados" original="Integrantes del equipo:" /> {m.integrantes.replace(/\n/g, "; ")}
         </p>
       ) : null}
     </div>
@@ -150,7 +156,13 @@ export function MatrizColaborativa({ d, datos }: { d: DerivadosMomento5; datos: 
   return (
     <Tarjeta
       titulo="Matriz de construcción colaborativa del MEDIT"
-      descripcion="Registro grupal: qué consolidar, qué cambios se esperan y cómo se sabrá que se lograron."
+      descripcion="Respuestas completas de cada equipo a las tres preguntas de la matriz."
+      pie={
+        <Fuente
+          id="m5-fuente-matriz"
+          original="Matriz de Construcción Colaborativa y Acuerdos del MEDIT, un registro por equipo («Equipo numero:»). Cada respuesta se dividió en puntos por salto de línea, sin la numeración ni las viñetas originales. «Temas identificados» aplica las palabras clave del Formulario Individual de Consolidación del MEDIT a los aspectos y los cambios."
+        />
+      }
       tabla={
         <TablaSimple
           encabezados={["Equipo", "¿Qué aspectos del MEDIT debemos consolidar?", "¿Qué cambios esperamos lograr?", "¿Cómo sabremos que los hemos logrado?"]}

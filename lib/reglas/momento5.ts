@@ -316,3 +316,62 @@ export function citasDeTema(consolidacion: DerivadosMomento5["consolidacion"], t
   const legibles = delTema.filter((c) => (c.aspecto ?? "").length >= 40 && (c.aspecto ?? "").length <= 220);
   return (legibles.length ? legibles : delTema).slice(0, cuantas);
 }
+
+export interface ConformacionEquipo {
+  equipo: number;
+  /** Nombres de las dos transformaciones asignadas, en el orden del plan. */
+  transformaciones: string[];
+  integrantes: { pid: string; nombre: string; cargo: string | null }[];
+}
+
+/**
+ * Quiénes formaron cada equipo: el «Equipo asignado:» de la validación
+ * estratégica, ya consolidado en `equipos`. Los integrantes van por orden
+ * alfabético; un pid sin participante no se inventa, se omite.
+ */
+export function conformacionEquipos(datos: ResultadosMomento5): ConformacionEquipo[] {
+  const porPid = new Map(datos.participantes.map((p) => [p.pid, p]));
+  const ordenT = new Map(datos.transformaciones.map((t, i) => [t.id, i]));
+  const nombreT = new Map(datos.transformaciones.map((t) => [t.id, t.nombre]));
+  return [...datos.equipos]
+    .sort((a, b) => a.equipo - b.equipo)
+    .map((e) => ({
+      equipo: e.equipo,
+      transformaciones: [...e.transformaciones]
+        .sort((a, b) => (ordenT.get(a) ?? 99) - (ordenT.get(b) ?? 99))
+        .map((t) => nombreT.get(t) ?? t),
+      integrantes: e.integrantes
+        .flatMap((pid) => {
+          const p = porPid.get(pid);
+          return p ? [{ pid, nombre: p.nombre, cargo: p.cargo }] : [];
+        })
+        .sort((a, b) => a.nombre.localeCompare(b.nombre, "es")),
+    }));
+}
+
+const palabras = (texto: string) =>
+  new Set(
+    texto
+      .normalize("NFD")
+      .replace(/\p{M}/gu, "")
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      // Sin «de», «del», «la»…: solo palabras que distinguen un formulario de otro.
+      .filter((p) => p.length > 3)
+  );
+
+/**
+ * Nombre exacto del formulario al que se refiere una nota de depuración: las
+ * exclusiones del análisis los abrevian («Validación estratégica», «Matriz de
+ * Construcción Colaborativa del MEDIT»). Se elige el formulario que comparte
+ * más palabras; sin ninguna en común, queda el texto original.
+ */
+export function nombreFormularioDe(texto: string, formularios: FormularioMomento5[]): string {
+  const buscadas = palabras(texto);
+  let mejor: { nombre: string; comunes: number } | null = null;
+  for (const f of formularios) {
+    const comunes = [...palabras(f.nombre)].filter((p) => buscadas.has(p)).length;
+    if (comunes > 0 && (!mejor || comunes > mejor.comunes)) mejor = { nombre: f.nombre, comunes };
+  }
+  return mejor?.nombre ?? texto;
+}

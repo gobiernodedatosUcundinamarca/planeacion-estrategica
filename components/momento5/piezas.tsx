@@ -111,6 +111,30 @@ export function Tarjeta({
   );
 }
 
+/**
+ * Pie de una gráfica: de qué preguntas del formulario sale y cómo se calculó.
+ * Toda gráfica lo lleva, para que nadie tenga que adivinar el origen de una cifra.
+ */
+export function Fuente({ id, original }: { id: string; original: string }) {
+  return (
+    <>
+      <span className="font-semibold">
+        <TextoEditorial id="m5-fuente" original="Fuente:" />
+      </span>{" "}
+      <TextoEditorial id={id} original={original} />
+    </>
+  );
+}
+
+/** La misma fuente, como párrafo propio, para gráficas que no van en `Tarjeta`. */
+export function LineaFuente({ id, original, className }: { id: string; original: string; className?: string }) {
+  return (
+    <p className={cn("max-w-[70ch] text-xs text-[var(--m5-suave,var(--muted-foreground))]", className)}>
+      <Fuente id={id} original={original} />
+    </p>
+  );
+}
+
 /** Tabla equivalente de un gráfico: textos largos en varias líneas y scroll propio. */
 export function TablaSimple({
   encabezados,

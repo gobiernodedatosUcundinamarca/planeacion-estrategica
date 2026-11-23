@@ -1,12 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { ComentariosPorTema } from "@/components/charts/comentarios-por-tema";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { FiltroEquipo } from "@/lib/reglas/momento5";
 import type { PreguntaAbiertaMomento5 } from "@/types/momento5";
-import { Tarjeta } from "./piezas";
+import { LineaFuente, Tarjeta } from "./piezas";
 
 /**
  * Las preguntas abiertas de un formulario que no traen clasificación propia,
@@ -50,12 +49,10 @@ export function RespuestasAbiertas({ preguntas, equipo }: { preguntas: PreguntaA
         tituloNube="Palabras más frecuentes"
         tituloLista="Respuestas"
       />
-      <p className="text-[11px] text-muted-foreground">
-        <TextoEditorial
-          id="m5-abiertas-alcance"
-          original="Se agrupan solo las preguntas abiertas que su formulario no clasifica; los temas se calculan con todas las respuestas y se recuentan con el filtro de equipo."
-        />
-      </p>
+      <LineaFuente
+        id="m5-abiertas-alcance"
+        original="respuestas a la pregunta elegida, tal como se escribieron; se excluyen las vacías y las de relleno («No aplica», «N/A», «.»). Se agrupan solo las preguntas abiertas que el análisis no había clasificado. Los temas se calculan con todas las respuestas y se recuentan con el filtro de equipo."
+      />
     </Tarjeta>
   );
 }

@@ -1,12 +1,19 @@
 "use client";
 
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
-import type { DerivadosMomento5, DestacadosMomento5, FiltroEquipo } from "@/lib/reglas/momento5";
+import {
+  porcentajesComplementarios,
+  type ConformacionEquipo,
+  type DerivadosMomento5,
+  type DestacadosMomento5,
+  type FiltroEquipo,
+} from "@/lib/reglas/momento5";
 import type { PreguntaAbiertaMomento5 } from "@/types/momento5";
-import { TablaSimple, Tarjeta, pct } from "../piezas";
+import { Fuente, TablaSimple, Tarjeta, pct } from "../piezas";
 import { RespuestasAbiertas } from "../respuestas-abiertas";
 import { BarrasValoracion, MapaComponentes } from "../validacion";
 import { Capitulo, Cifra, Clasificacion, Porcentaje, Pregunta } from "./capitulo";
+import { EquiposAsignados } from "./equipos-asignados";
 import { Escenario } from "./escenario";
 
 const SinDatos = () => (
@@ -15,8 +22,12 @@ const SinDatos = () => (
   </p>
 );
 
+/** «Y» antes del último: «A, B y C». */
+const enumerar = (items: string[]) => (items.length > 1 ? `${items.slice(0, -1).join(", ")} y ${items.at(-1)}` : (items[0] ?? ""));
+
 /**
- * Formulario Individual de Validación Estratégica. En el formulario, cada
+ * Formulario Individual de Validación Estratégica. El formulario tenía una
+ * sección «3. Transformación: …» por transformación y, en ella, cada
  * objetivo, ámbito y resultado se marcaba «Se valida» o «Requiere ajuste».
  * Cada paso del scroll explica una de sus gráficas: por transformación, por
  * tipo de componente y componente por componente (el mapa, con las
@@ -28,18 +39,23 @@ export function CapituloValidacion({
   equipo,
   compacto,
   abiertas,
+  equipos,
 }: {
   d: DerivadosMomento5;
   destacados: DestacadosMomento5;
   equipo: FiltroEquipo;
   compacto: boolean;
   abiertas: PreguntaAbiertaMomento5[];
+  equipos: ConformacionEquipo[];
 }) {
   const k = d.kpi;
   const tipo = destacados.tipoMasCorregido;
   const masT = destacados.transformacionMasCorregida;
   const foco = destacados.componenteMasAjustado;
   const filasT = d.porT.map((r) => ({ id: r.t, label: r.nombre, V: r.V, A: r.A, total: r.total }));
+  // Con filtro de equipo solo cuentan las dos transformaciones que ese equipo valoró.
+  const valoradas = d.porT.filter((t) => t.total > 0).map((t) => t.nombre);
+  const reparto = porcentajesComplementarios(k.ajustesIndividuales, k.valoraciones);
   const nombreT = Object.fromEntries(d.porT.map((t) => [t.t, t.nombre]));
   const filaTabla = (r: { label: string; V: number; A: number; total: number }) => [
     r.label,
@@ -58,19 +74,22 @@ export function CapituloValidacion({
     k.valoraciones ? (
       <>
         <Pregunta>
-          <TextoEditorial id="m5-val-pregunta-transformacion" original="3. Transformación:" /> {d.porT.map((t) => t.nombre).join(", ")}
+          <TextoEditorial id="m5-val-pregunta-transformacion" original="3. Transformación:" /> {enumerar(valoradas)}
         </Pregunta>
         {opciones}
         <p className="m5-entradilla">
           <TextoEditorial id="m5-val-paso1-a" original="De las" /> <Cifra valor={k.valoraciones} />{" "}
-          <TextoEditorial id="m5-val-paso1-b" original="valoraciones," /> <Porcentaje fraccion={k.pctValida} className="m5-valida" />{" "}
-          <TextoEditorial id="m5-val-paso1-c" original="fueron «Se valida» y" /> <Cifra valor={k.ajustesIndividuales} className="m5-correccion" />{" "}
+          <TextoEditorial id="m5-val-paso1-b" original="valoraciones," /> <Cifra valor={k.valoraciones - k.ajustesIndividuales} className="m5-valida" /> (
+          <Porcentaje fraccion={reparto.valida / 100} className="m5-valida" />){" "}
+          <TextoEditorial id="m5-val-paso1-c" original="fueron «Se valida» y" /> <Cifra valor={k.ajustesIndividuales} className="m5-correccion" /> (
+          <Porcentaje fraccion={reparto.ajuste / 100} className="m5-correccion" />){" "}
           <TextoEditorial id="m5-val-paso1-d" original="«Requiere ajuste»." />
         </p>
         {masT ? (
           <p className="m5-texto">
-            <TextoEditorial id="m5-val-paso1-e" original="La transformación con más «Requiere ajuste» en proporción fue" /> {masT.nombre}:{" "}
-            <Porcentaje fraccion={masT.A / masT.total} className="m5-correccion" />.
+            <TextoEditorial id="m5-val-paso1-e" original="La transformación con mayor proporción de «Requiere ajuste» fue" /> {masT.nombre}:{" "}
+            <Porcentaje fraccion={masT.A / masT.total} className="m5-correccion" />{" "}
+            <TextoEditorial id="m5-val-paso1-f" original="de sus valoraciones." />
           </p>
         ) : null}
         <p className="m5-nota">
@@ -87,7 +106,9 @@ export function CapituloValidacion({
         </Pregunta>
         {opciones}
         <p className="m5-entradilla">
-          <TextoEditorial id="m5-val-paso2-a" original="El tipo de componente con más «Requiere ajuste» fue" /> {tipo.label.toLowerCase()}:{" "}
+          {/* Las tres agrupaciones son masculinas y plurales: «Los objetivos…», «Los ámbitos…», «Los resultados…». */}
+          <TextoEditorial id="m5-val-paso2-los" original="Los" /> {tipo.label.toLowerCase()}{" "}
+          <TextoEditorial id="m5-val-paso2-a" original="reunieron la mayor proporción de «Requiere ajuste»:" />{" "}
           <Porcentaje fraccion={tipo.pct} className="m5-correccion" /> <TextoEditorial id="m5-val-paso2-b" original="de sus valoraciones." />
         </p>
       </>
@@ -103,12 +124,14 @@ export function CapituloValidacion({
         {opciones}
         <p className="m5-entradilla">
           <Cifra valor={foco.A} className="m5-correccion" /> <TextoEditorial id="m5-de" original="de" /> <Cifra valor={foco.total} />{" "}
-          <TextoEditorial id="m5-val-paso3-a" original="participantes marcaron «Requiere ajuste» en este componente, el que más ajustes reunió." />
+          <TextoEditorial id="m5-val-paso3-a" original="participantes marcaron «Requiere ajuste» en este componente:" />{" "}
+          <Porcentaje fraccion={foco.pct} className="m5-correccion" />
+          <TextoEditorial id="m5-val-paso3-b" original=", la proporción más alta entre los componentes." />
         </p>
         <p className="m5-nota">
           <TextoEditorial
             id="m5-val-paso3-nota"
-            original="En el mapa, cada celda es un objetivo, ámbito o resultado, y su tono marca qué parte pidió ajuste. Elige una celda para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona."
+            original="En el mapa, cada celda es un componente; su color indica el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona."
           />
         </p>
       </>
@@ -121,7 +144,13 @@ export function CapituloValidacion({
     <Tarjeta
       key="t"
       titulo="Valoración por transformación"
-      descripcion="Proporción de componentes que cada participante validó tal como están o para los que pidió ajuste."
+      descripcion="Respuestas «Se valida» y «Requiere ajuste» a los componentes de cada transformación."
+      pie={
+        <Fuente
+          id="m5-fuente-val-transformacion"
+          original="secciones «3. Transformación: …» del Formulario Individual de Validación Estratégica. Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo."
+        />
+      }
       tabla={
         <TablaSimple
           encabezados={["Agrupación", "Se valida", "Requiere ajuste", "Total", "% ajuste"]}
@@ -134,7 +163,14 @@ export function CapituloValidacion({
     </Tarjeta>,
     <Tarjeta
       key="c"
-      titulo="Por tipo de componente"
+      titulo="Valoración por tipo de componente"
+      descripcion="Las mismas respuestas, agrupadas en objetivos estratégicos, ámbitos de transformación y resultados estratégicos."
+      pie={
+        <Fuente
+          id="m5-fuente-val-tipo"
+          original="las mismas valoraciones «Se valida» o «Requiere ajuste», sumadas según el tipo de componente que encabezaba cada pregunta: OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO."
+        />
+      }
       tabla={
         <TablaSimple
           encabezados={["Agrupación", "Se valida", "Requiere ajuste", "Total", "% ajuste"]}
@@ -150,6 +186,7 @@ export function CapituloValidacion({
 
   return (
     <Capitulo id="validacion" formulario={d.formularios.find((f) => f.id === "validacion")} equipo={equipo}>
+      <EquiposAsignados equipos={equipos} equipo={equipo} />
       <Escenario compacto={compacto} pasos={pasos} grafico={(i) => graficos[Math.min(i, graficos.length - 1)]} />
       <Clasificacion>
         <RespuestasAbiertas preguntas={abiertas.filter((p) => p.formulario === "validacion")} equipo={equipo} />

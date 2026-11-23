@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { SUAVIZADO, useAlEntrar } from "@/components/nota-metodologica/piezas";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { citasDeTema, type DerivadosMomento5, type DestacadosMomento5, type FiltroEquipo } from "@/lib/reglas/momento5";
 import { VocesMedit } from "../medit";
-import { Ranking, pct } from "../piezas";
+import { Fuente, Ranking, pct } from "../piezas";
 import { Capitulo, Cifra, Clasificacion, Pregunta } from "./capitulo";
 import { Escenario } from "./escenario";
 
 /** Una cita que se descubre de izquierda a derecha, como si se subrayara al leerla. */
-function Cita({ texto, autor }: { texto: string; autor: string }) {
+function Cita({ texto, autor }: { texto: string; autor: ReactNode }) {
   const [ref, visible] = useAlEntrar<HTMLQuoteElement>(0.4);
   const reducido = useReducedMotion();
   return (
@@ -31,10 +31,11 @@ function Cita({ texto, autor }: { texto: string; autor: string }) {
 }
 
 /**
- * Formulario individual de consolidación del MEDIT. El ranking de temas es el
- * gráfico fijo: el primer paso lo presenta y los siguientes resaltan cada tema
- * principal con una respuesta textual. Debajo, todas las respuestas, filtradas
- * por el tema que se elija en el ranking.
+ * Formulario Individual de Consolidación del MEDIT. Los temas se asignan sobre
+ * sus dos preguntas abiertas, por eso el primer paso las nombra a las dos. El
+ * ranking de temas es el gráfico fijo: los pasos siguientes resaltan cada
+ * tema principal con una respuesta textual. Debajo, todas las respuestas,
+ * filtradas por el tema que se elija en el ranking.
  */
 export function CapituloMedit({
   d,
@@ -56,25 +57,46 @@ export function CapituloMedit({
     ? [
         <div key="0" className="flex flex-col gap-4">
           <Pregunta>
-            <TextoEditorial id="m5-medit-pregunta-aspecto" original="Aspecto prioritario de consolidación del MEDIT:" />
+            <span className="block">
+              <TextoEditorial id="m5-medit-pregunta-aspecto" original="Aspecto prioritario de consolidación del MEDIT:" />
+            </span>
+            <span className="block">
+              <TextoEditorial id="m5-que-cambiar" original="¿Qué debería cambiar o mejorar en la Universidad?" />
+            </span>
           </Pregunta>
-        <p className="m5-entradilla">
-          <TextoEditorial id="m5-medit-entrada-a" original="En" /> <Cifra valor={n} />{" "}
-          <TextoEditorial id="m5-medit-entrada-b" original="respuestas individuales, el tema que más se repite es" />{" "}
-          <strong className="font-semibold">{principal.label.toLowerCase()}</strong>: <TextoEditorial id="m5-medit-entrada-c" original="aparece en" />{" "}
-          <Cifra valor={principal.value} /> ({pct(n ? principal.value / n : 0)}).
-        </p>
+          <p className="m5-entradilla">
+            <TextoEditorial id="m5-medit-entrada-a" original="En" /> <Cifra valor={n} />{" "}
+            <TextoEditorial id="m5-medit-entrada-b" original="respuestas individuales, el tema que más se repite es" />{" "}
+            <strong className="font-semibold">{principal.label.toLowerCase()}</strong>: <TextoEditorial id="m5-medit-entrada-c" original="aparece en" />{" "}
+            <Cifra valor={principal.value} /> ({pct(n ? principal.value / n : 0)}).
+          </p>
+          <p className="m5-nota">
+            <TextoEditorial
+              id="m5-medit-entrada-nota"
+              original="Los temas se asignan por palabras clave a las respuestas de las dos preguntas; una respuesta puede tener varios."
+            />
+          </p>
         </div>,
         ...temas.map((t) => {
           const cita = citasDeTema(d.consolidacion, t.id, 1)[0];
           return (
             <div key={t.id} className="flex flex-col gap-4">
-              <Pregunta>{t.label}</Pregunta>
-              <p className="m5-nota">
-                <Cifra valor={t.value} /> <TextoEditorial id="m5-de" original="de" /> <Cifra valor={n} />{" "}
-                <TextoEditorial id="m5-medit-respuestas" original="respuestas." />
+              {/* El tema es una clasificación, no una pregunta del formulario: va en la frase, no como encabezado. */}
+              <p className="m5-entradilla">
+                <strong className="font-semibold">{t.label}</strong>: <Cifra valor={t.value} /> <TextoEditorial id="m5-de" original="de" />{" "}
+                <Cifra valor={n} /> <TextoEditorial id="m5-medit-respuestas" original="respuestas." />
               </p>
-              {cita ? <Cita texto={cita.aspecto ?? ""} autor={[cita.nombre, cita.rol, cita.sede].filter(Boolean).join(", ")} /> : null}
+              {cita ? (
+                <Cita
+                  texto={cita.aspecto ?? ""}
+                  autor={
+                    <>
+                      {[cita.nombre, cita.rol, cita.sede].filter(Boolean).join(", ")}.{" "}
+                      <TextoEditorial id="m5-medit-cita-fuente" original="Respuesta a «Aspecto prioritario de consolidación del MEDIT:»." />
+                    </>
+                  }
+                />
+              ) : null}
             </div>
           );
         }),
@@ -93,8 +115,8 @@ export function CapituloMedit({
         grafico={(i) =>
           principal ? (
             <Ranking
-              titulo="Aspectos prioritarios para consolidar el MEDIT"
-              descripcion="Temas presentes en cada respuesta individual (una respuesta puede tocar varios). Clic en un tema para leer las respuestas."
+              titulo="Temas de las respuestas"
+              descripcion="Respuestas individuales que tocan cada tema; una respuesta puede tocar varios. Elige un tema para leer sus respuestas, más abajo."
               items={d.temas}
               total={n}
               truncarEn={30}
@@ -102,9 +124,9 @@ export function CapituloMedit({
               seleccionada={tema ?? (i > 0 ? (temas[i - 1]?.id ?? null) : null)}
               onSeleccionar={setTema}
               pie={
-                <TextoEditorial
-                  id="m5-pie-temas"
-                  original="Temas asignados por palabras clave sobre el aspecto prioritario y la propuesta de cambio."
+                <Fuente
+                  id="m5-fuente-medit-temas"
+                  original="«Aspecto prioritario de consolidación del MEDIT:» y «¿Qué debería cambiar o mejorar en la Universidad?», Formulario Individual de Consolidación del MEDIT. Una respuesta recibe un tema si contiene alguna de sus palabras clave (se comparan sin tildes ni mayúsculas); puede recibir varios. Porcentaje = respuestas con ese tema ÷ total de respuestas."
                 />
               }
             />

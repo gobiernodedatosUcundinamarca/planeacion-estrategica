@@ -6,10 +6,12 @@ import { normalizarResultadosMomento5 } from "@/repositories/datasource/momento5
 import {
   binAjuste,
   citasDeTema,
+  conformacionEquipos,
   derivarMomento5,
   destacadosMomento5,
   fechaCorta,
   fechaLarga,
+  nombreFormularioDe,
   pasoAjustes,
   porcentajesComplementarios,
 } from "@/lib/reglas/momento5";
@@ -187,4 +189,32 @@ test("escalas, porcentajes y fechas", () => {
   assert.equal(fechaLarga("2026-11-17"), "17 de noviembre");
   assert.match(fechaCorta("2026-11-18"), /^18 nov\.$/);
   assert.equal(fechaLarga("sin fecha"), "sin fecha");
+});
+
+test("la conformación de los equipos reúne a los 53 participantes sin repetir a nadie", () => {
+  const equipos = conformacionEquipos(datos);
+  assert.deepEqual(
+    equipos.map((e) => [e.equipo, e.integrantes.length]),
+    [[1, 6], [2, 6], [3, 8], [4, 7], [5, 6], [6, 7], [7, 7], [8, 6]]
+  );
+  const pids = equipos.flatMap((e) => e.integrantes.map((p) => p.pid));
+  assert.equal(new Set(pids).size, 53);
+  assert.deepEqual(equipos[0].transformaciones, ["UC Inteligente", "UC Translocal"]);
+  // Orden alfabético dentro de cada equipo.
+  for (const e of equipos) {
+    const nombres = e.integrantes.map((p) => p.nombre);
+    assert.deepEqual(nombres, [...nombres].sort((a, b) => a.localeCompare(b, "es")));
+  }
+  // Un pid sin participante se omite en lugar de mostrarse como texto suelto.
+  const conHueco = { ...datos, equipos: [{ equipo: 9, transformaciones: [], integrantes: ["P999"] }] };
+  assert.deepEqual(conformacionEquipos(conHueco)[0].integrantes, []);
+});
+
+test("las notas de depuración nombran el formulario tal como se llamó", () => {
+  const f = datos.meta.formularios;
+  assert.equal(nombreFormularioDe("Validación estratégica", f), "Formulario Individual de Validación Estratégica");
+  assert.equal(nombreFormularioDe("Percepción sobre Transformación Digital", f), "Formulario de Percepción sobre Transformación Digital");
+  assert.equal(nombreFormularioDe("Matriz de Construcción Colaborativa del MEDIT", f), "Matriz de Construcción Colaborativa y Acuerdos del MEDIT");
+  assert.equal(nombreFormularioDe("Acuerdos Estratégicos del Equipo", f), "Acuerdos Estratégicos del Equipo");
+  assert.equal(nombreFormularioDe("Otro registro", f), "Otro registro");
 });

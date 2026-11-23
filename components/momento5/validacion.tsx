@@ -16,6 +16,7 @@ import {
   COLOR_AJUSTE,
   COLOR_VALIDA,
   EstadoVacio,
+  Fuente,
   LeyendaValoracion,
   TEXTO_AJUSTE,
   TEXTO_VALIDA,
@@ -134,8 +135,14 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
   return (
     <Tarjeta
       className="col-span-7"
-      titulo="¿Qué componentes del plan generan más ajustes?"
-      descripcion="Cada celda es un objetivo (OE), ámbito (Á) o resultado (R). Color y cifra = % de participantes que pidió ajuste. Clic para ver las propuestas."
+      titulo="«Requiere ajuste» por componente"
+      descripcion="Cada celda es un objetivo estratégico (OE), un ámbito (Á) o un resultado estratégico (R). El color y la cifra indican el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer sus propuestas."
+      pie={
+        <Fuente
+          id="m5-fuente-val-mapa"
+          original="valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al … (si corresponde):» y «Justificación del ajuste al … (si corresponde):» de ese componente."
+        />
+      }
       tabla={
         <TablaSimple
           encabezados={["Transformación", "Componente", "Se valida", "Requiere ajuste", "% ajuste"]}
@@ -236,7 +243,7 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
           {actual ? (
             <div id={idDetalle} aria-live="polite" className="flex flex-col gap-2 border border-border/70 bg-muted/30 p-3">
               <p className="text-sm font-semibold text-foreground">
-                {nombreT[actual.t] ?? actual.t} · {actual.titulo}
+                {nombreT[actual.t] ?? actual.t}: {actual.titulo}
               </p>
               {actual.texto ? (
                 <p className="text-xs text-muted-foreground">
@@ -272,15 +279,19 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
                         {p.equipo ? ` · Equipo ${p.equipo}` : ""}
                       </p>
                       <p className="mt-1 text-foreground">
-                        {p.ajuste ?? <TextoEditorial id="m5-ajuste-sin-redactar" original="Pidió ajuste sin redactar una propuesta." />}
+                        {p.ajuste ?? <TextoEditorial id="m5-ajuste-sin-redactar" original="Marcó «Requiere ajuste» sin redactar el ajuste propuesto." />}
                       </p>
-                      {p.justificacion ? <p className="mt-1 text-muted-foreground">{p.justificacion}</p> : null}
+                      {p.justificacion ? (
+                        <p className="mt-1 text-muted-foreground">
+                          <TextoEditorial id="m5-justificacion" original="Justificación del ajuste:" /> {p.justificacion}
+                        </p>
+                      ) : null}
                     </li>
                   ))}
                 </ul>
               ) : (
                 <p className="text-xs text-muted-foreground">
-                  <TextoEditorial id="m5-sin-propuestas" original="Ningún participante pidió ajustar este componente." />
+                  <TextoEditorial id="m5-sin-propuestas" original="Ningún participante marcó «Requiere ajuste» en este componente." />
                 </p>
               )}
             </div>

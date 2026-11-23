@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { destacadosMomento5, ordenAplicacion, type DerivadosMomento5, type FiltroEquipo } from "@/lib/reglas/momento5";
+import { useMemo, type ReactNode } from "react";
+import { conformacionEquipos, destacadosMomento5, ordenAplicacion, type DerivadosMomento5, type FiltroEquipo } from "@/lib/reglas/momento5";
 import type { PreguntaAbiertaMomento5, ResultadosMomento5 } from "@/types/momento5";
 import { CapituloAcuerdos } from "./capitulo-acuerdos";
 import { CapituloDigital } from "./capitulo-digital";
@@ -37,9 +37,13 @@ export function RelatoMomento5({
 }) {
   const compacto = useCompacto();
   const destacados = destacadosMomento5(d);
+  // La conformación no depende del filtro: el filtro solo resalta un equipo.
+  const equipos = useMemo(() => conformacionEquipos(datos), [datos]);
 
   const capitulos: Record<string, ReactNode> = {
-    validacion: <CapituloValidacion d={d} destacados={destacados} equipo={equipo} compacto={compacto} abiertas={abiertas} />,
+    validacion: (
+      <CapituloValidacion d={d} destacados={destacados} equipo={equipo} compacto={compacto} abiertas={abiertas} equipos={equipos} />
+    ),
     acuerdos: <CapituloAcuerdos d={d} datos={datos} destacados={destacados} equipo={equipo} compacto={compacto} abiertas={abiertas} />,
     percepcion: <CapituloDigital d={d} destacados={destacados} equipo={equipo} compacto={compacto} abiertas={abiertas} />,
     consolidacion: <CapituloMedit d={d} destacados={destacados} equipo={equipo} compacto={compacto} />,

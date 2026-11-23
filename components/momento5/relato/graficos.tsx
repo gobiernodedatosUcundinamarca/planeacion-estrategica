@@ -22,18 +22,19 @@ const X_FILA = 92;
 const PASO_FILA = 19;
 
 /**
- * Las solicitudes individuales de ajuste (una marca cada una) se condensan en
- * los acuerdos de cada equipo: estado 0, todas las marcas; estado 1, solo las
- * que se volvieron acuerdo, en la fila de su equipo; estado 2, además, qué
- * equipo validó el resto y cuál dejó puntos sin consenso.
+ * Los ajustes registrados por los equipos, una marca cada uno: estado 0, todas
+ * las marcas juntas; estado 1, cada marca en la fila de su equipo; estado 2,
+ * además, la respuesta del equipo a «El equipo valida, sin ajustes
+ * adicionales, los demás componentes…» y, en una segunda línea, si no alcanzó
+ * acuerdo sobre algún componente (las dos cosas pueden darse a la vez).
  */
 export function Condensacion({ equipos, estado }: { equipos: EquipoCondensado[]; estado: 0 | 1 | 2 }) {
   const reducido = useReducedMotion();
   // Dentro de un <text> de SVG no cabe el <span> de TextoEditorial: se usa el texto plano editable.
   const tEquipo = useTextoEditorial("m5-equipo", "Equipo");
   const tSinConsenso = useTextoEditorial("m5-condensa-sin-consenso", "no alcanzó acuerdo sobre uno o más componentes");
-  const tValido = useTextoEditorial("m5-condensa-valido", "valida los demás componentes");
-  const tNoValido = useTextoEditorial("m5-condensa-no-valido", "no valida los demás componentes");
+  const tValido = useTextoEditorial("m5-condensa-valido", "«SI»: valida los demás componentes");
+  const tNoValido = useTextoEditorial("m5-condensa-no-valido", "«NO»: no valida los demás componentes");
   const totalIndividual = equipos.reduce((s, e) => s + e.individuales, 0);
   const filasGrilla = Math.max(1, Math.ceil(totalIndividual / COLUMNAS));
   const alto = Math.max(filasGrilla * PASO, equipos.length * FILA) + 8;
@@ -52,9 +53,7 @@ export function Condensacion({ equipos, estado }: { equipos: EquipoCondensado[];
     })
   );
 
-  const resumen = `${formatNumero(totalIndividual)} solicitudes individuales; ${formatNumero(
-    equipos.reduce((s, e) => s + e.acuerdos, 0)
-  )} acuerdos de ${formatNumero(equipos.length)} equipos.`;
+  const resumen = `${formatNumero(equipos.reduce((s, e) => s + e.acuerdos, 0))} ajustes registrados por ${formatNumero(equipos.length)} equipos.`;
 
   return (
     <svg viewBox={`0 0 ${ANCHO} ${alto}`} className="h-auto w-full overflow-visible" role="img" aria-label={resumen}>
@@ -89,12 +88,18 @@ export function Condensacion({ equipos, estado }: { equipos: EquipoCondensado[];
             x={X_FILA + Math.max(e.acuerdos, 1) * PASO_FILA + 6}
             y={yFila(fila) + 10}
             fontSize={11.5}
-            fill={e.desacuerdo ? "var(--m5-correccion-texto)" : "var(--m5-valida)"}
+            fill={e.validaDemas ? "var(--m5-valida)" : "var(--m5-correccion-texto)"}
             initial={false}
             animate={{ opacity: estado === 2 ? 1 : 0 }}
             transition={{ duration: reducido ? 0 : 0.4 }}
           >
-            {e.desacuerdo ? tSinConsenso : e.validaDemas ? tValido : tNoValido}
+            {e.validaDemas ? tValido : tNoValido}
+            {/* Segunda línea, dentro del espacio entre filas (30 px). */}
+            {e.desacuerdo ? (
+              <tspan x={X_FILA + Math.max(e.acuerdos, 1) * PASO_FILA + 6} dy={13} fontSize={10.5} fill="var(--m5-correccion-texto)">
+                {tSinConsenso}
+              </tspan>
+            ) : null}
           </motion.text>
         </motion.g>
       ))}

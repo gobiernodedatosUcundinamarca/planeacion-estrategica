@@ -5,6 +5,7 @@ import { formatNumero } from "@/lib/formatters";
 import type { DerivadosMomento5, FiltroEquipo } from "@/lib/reglas/momento5";
 import type { PreguntaAbiertaMomento5, ResultadosMomento5 } from "@/types/momento5";
 import { MatrizColaborativa } from "../medit";
+import { LineaFuente } from "../piezas";
 import { RespuestasAbiertas } from "../respuestas-abiertas";
 import { Capitulo, Clasificacion } from "./capitulo";
 
@@ -46,7 +47,7 @@ export function CapituloMatriz({
       <p className="m5-entradilla mt-10">
         <TextoEditorial
           id="m5-matriz-entrada"
-          original="Cada equipo respondió las tres preguntas de la matriz. Aquí va el primer punto de cada respuesta; la matriz completa de cada equipo está más abajo."
+          original="Cada equipo respondió las tres preguntas de la matriz. La tabla muestra el primer punto de cada respuesta; las respuestas completas están en la clasificación, más abajo."
         />
       </p>
       {d.matriz.length ? (
@@ -84,6 +85,13 @@ export function CapituloMatriz({
             ))}
           </tbody>
         </table>
+      ) : null}
+      {d.matriz.length ? (
+        <LineaFuente
+          className="mt-4"
+          id="m5-fuente-matriz-primeros"
+          original="Matriz de Construcción Colaborativa y Acuerdos del MEDIT, un registro por equipo («Equipo numero:»). Cada respuesta se dividió en puntos por salto de línea; «y N más» indica cuántos puntos siguen."
+        />
       ) : (
         <p className="m5-entradilla mt-10 text-[var(--m5-suave)]">
           <TextoEditorial id="m5-sin-matriz" original="Este equipo no registró matriz." />
