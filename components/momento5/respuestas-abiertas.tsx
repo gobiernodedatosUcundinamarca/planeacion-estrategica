@@ -24,15 +24,20 @@ export function RespuestasAbiertas({ preguntas, equipo }: { preguntas: PreguntaA
   return (
     <Tarjeta
       titulo="Respuestas abiertas agrupadas por tema"
-      descripcion="Agrupación automática por vocabulario compartido (TF-IDF y K-Means; el número de temas se elige por silueta). Agrupa por palabras, no por significado."
+      descripcion="Agrupación automática por vocabulario compartido (TF-IDF y K-Means; el número de temas se elige por silueta). Dos respuestas quedan en el mismo tema si usan palabras parecidas, aunque no digan lo mismo."
     >
       {preguntas.length > 1 ? (
         <Tabs value={actual.id} onValueChange={(v) => setElegida(String(v))}>
-          {/* Los enunciados van completos, como en el formulario: la lista se parte en líneas si no cabe. */}
-          <TabsList variant="line" aria-label="Pregunta abierta" className="h-auto w-full flex-wrap justify-start gap-x-4 gap-y-2">
+          {/* Los enunciados van completos, como en el formulario: la lista se parte en líneas si no cabe.
+              La altura fija de TabsList (h-8) se anula con su misma variante; un h-auto suelto no la
+              vence y la segunda línea quedaba encima del texto de los temas. */}
+          <TabsList
+            variant="line"
+            aria-label="Pregunta abierta"
+            className="h-auto w-full flex-wrap justify-start gap-x-4 gap-y-2 group-data-horizontal/tabs:h-auto"
+          >
             {preguntas.map((p) => (
               <TabsTrigger key={p.id} value={p.id} className="h-auto flex-none px-0 py-1 text-left whitespace-normal">
-
                 {p.pregunta}
               </TabsTrigger>
             ))}
@@ -48,6 +53,7 @@ export function RespuestasAbiertas({ preguntas, equipo }: { preguntas: PreguntaA
         palabrasIgnoradas={actual.palabrasSinTema}
         tituloNube="Palabras más frecuentes"
         tituloLista="Respuestas"
+        sic
       />
       <LineaFuente
         id="m5-abiertas-alcance"

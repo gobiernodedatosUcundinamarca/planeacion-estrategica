@@ -120,7 +120,7 @@ export function CapituloValidacion({
         <Pregunta>
           {nombreT[foco.t] ?? foco.t}: {foco.titulo}
         </Pregunta>
-        {foco.texto ? <p className="m5-texto text-[var(--m5-suave)] line-clamp-4">{foco.texto}</p> : null}
+        {foco.texto ? <p className="m5-texto text-[var(--m5-suave)]">{foco.texto}</p> : null}
         {opciones}
         <p className="m5-entradilla">
           <Cifra valor={foco.A} className="m5-correccion" /> <TextoEditorial id="m5-de" original="de" /> <Cifra valor={foco.total} />{" "}
@@ -131,7 +131,7 @@ export function CapituloValidacion({
         <p className="m5-nota">
           <TextoEditorial
             id="m5-val-paso3-nota"
-            original="En el mapa, cada celda es un componente; su color indica el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona."
+            original="Elige una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona."
           />
         </p>
       </>
@@ -148,7 +148,7 @@ export function CapituloValidacion({
       pie={
         <Fuente
           id="m5-fuente-val-transformacion"
-          original="secciones «3. Transformación: …» del Formulario Individual de Validación Estratégica. Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo."
+          original="las cuatro secciones «3. Transformación:» del Formulario Individual de Validación Estratégica (UC Inteligente, UC Translocal, UC Emprendedora e Innovadora y UC para la Vida). Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo."
         />
       }
       tabla={

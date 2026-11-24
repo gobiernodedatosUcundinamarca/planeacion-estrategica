@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { SUAVIZADO, useAlEntrar } from "@/components/nota-metodologica/piezas";
+import { Sic } from "@/components/editorial/sic";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { citasDeTema, type DerivadosMomento5, type DestacadosMomento5, type FiltroEquipo } from "@/lib/reglas/momento5";
 import { VocesMedit } from "../medit";
@@ -23,7 +24,7 @@ function Cita({ texto, autor }: { texto: string; autor: ReactNode }) {
         animate={{ clipPath: visible || reducido ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)" }}
         transition={{ duration: reducido ? 0 : 1.1, ease: SUAVIZADO }}
       >
-        «{texto}»
+        «{texto}» <Sic />
       </motion.blockquote>
       <figcaption className="m5-cita-autor">{autor}</figcaption>
     </figure>
@@ -73,7 +74,7 @@ export function CapituloMedit({
           <p className="m5-nota">
             <TextoEditorial
               id="m5-medit-entrada-nota"
-              original="Los temas se asignan por palabras clave a las respuestas de las dos preguntas; una respuesta puede tener varios."
+              original="Los temas se asignan con palabras clave a las respuestas de las dos preguntas."
             />
           </p>
         </div>,
@@ -115,8 +116,8 @@ export function CapituloMedit({
         grafico={(i) =>
           principal ? (
             <Ranking
-              titulo="Temas de las respuestas"
-              descripcion="Respuestas individuales que tocan cada tema; una respuesta puede tocar varios. Elige un tema para leer sus respuestas, más abajo."
+              titulo="Temas de las respuestas al Formulario Individual de Consolidación del MEDIT"
+              descripcion="Respuestas individuales que hacen referencia a cada tema; una misma respuesta puede referirse a varios. Elige un tema para leer sus respuestas más abajo."
               items={d.temas}
               total={n}
               truncarEn={30}

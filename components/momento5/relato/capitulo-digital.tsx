@@ -74,7 +74,7 @@ export function CapituloDigital({
           <TextoEditorial id="m5-dig-paso2-c" original="respuestas." />
         </p>
         <p className="m5-nota">
-          <TextoEditorial id="m5-dig-paso2-nota" original="Pregunta abierta: los tipos de dificultad son una clasificación de cada respuesta, que puede tener varios." />
+          <TextoEditorial id="m5-dig-paso2-nota" original="Es una pregunta abierta; cada respuesta se clasificó en uno o más tipos de dificultad." />
         </p>
       </>
     ) : (
@@ -110,7 +110,7 @@ export function CapituloDigital({
       pie={
         <Fuente
           id="m5-fuente-dig-categoria"
-          original="«Proceso propuesto:», Formulario de Percepción sobre Transformación Digital. Es una pregunta abierta: cada respuesta recibió una sola categoría mediante codificación analítica, respuesta por respuesta, y aquí se cuentan las respuestas por categoría."
+          original="«Proceso propuesto:», Formulario de Percepción sobre Transformación Digital. Pregunta abierta: cada respuesta se leyó y recibió una sola categoría (codificación analítica); aquí se cuentan las respuestas de cada categoría."
         />
       }
       items={d.catProceso}
@@ -126,7 +126,7 @@ export function CapituloDigital({
       pie={
         <Fuente
           id="m5-fuente-dig-dificultad"
-          original="«Dificultad percibida», Formulario de Percepción sobre Transformación Digital. Pregunta abierta con codificación analítica, respuesta por respuesta, que también lee el resto de lo que escribió la persona; cada respuesta puede tener varios tipos de dificultad. Porcentaje = respuestas con ese tipo ÷ total de respuestas."
+          original="«Dificultad percibida», Formulario de Percepción sobre Transformación Digital. Pregunta abierta: cada respuesta se leyó junto con lo demás que escribió la persona y recibió uno o más tipos de dificultad (codificación analítica). Porcentaje = respuestas con ese tipo ÷ total de respuestas."
         />
       }
       items={d.dificultades}

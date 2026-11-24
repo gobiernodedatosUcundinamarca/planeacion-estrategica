@@ -1,7 +1,7 @@
 "use client";
 
-import {TextoEditorial} from "@/components/editorial/texto-editorial";
-import { Layers, Tag } from "lucide-react";
+import {EtiquetaEditorial, LapizDeCatalogo, TextoDeCatalogo, TextoEditorial} from "@/components/editorial/texto-editorial";
+import { ArrowRight, Layers, MousePointerClick, Tag, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import type { ClusterComentarios } from "@/types/momento4";
@@ -11,6 +11,8 @@ import type { ClusterComentarios } from "@/types/momento4";
  *
  * Se pintan como botones y no como una lista: el conteo por sí solo invita a
  * preguntarse "¿cuáles son esos doce?", y la respuesta debe estar a un clic.
+ * Como las tarjetas no parecían clicables, la instrucción va escrita encima y
+ * cada botón cambia al pasar el puntero (borde, fondo, sombra y la acción).
  * Al elegir uno se filtra TODA la sección, no solo la lista de aportes, para
  * poder ver también quién los escribió y desde qué sede.
  */
@@ -19,7 +21,8 @@ export function ClasificacionComentarios({
   seleccionado,
   onSeleccionar,
   totalComentarios,
-  ayuda = "Elige uno para filtrar la sección.",
+  ayuda = "Haz clic en un tema para filtrar la sección; otro clic lo quita.",
+  accion = "Ver sus comentarios",
 }: {
   clusters: ClusterComentarios[];
   seleccionado: number | null;
@@ -27,6 +30,8 @@ export function ClasificacionComentarios({
   totalComentarios: number;
   /** Qué pasa al elegir un tema; cambia según la sección que lo use. */
   ayuda?: string;
+  /** Rótulo de la acción dentro de cada botón. */
+  accion?: string;
 }) {
   if (clusters.length === 0) {
     return (
@@ -37,12 +42,20 @@ export function ClasificacionComentarios({
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-        <Layers className="size-4 shrink-0 text-primary" aria-hidden />
-        <span>
-          <TextoEditorial id="f6ec7c00909f85616c35" original={"Los"}/> {formatNumero(totalComentarios)} <TextoEditorial id="292906f3df9b7f20aeb4" original={"comentarios se agrupan solos en"}/>{" "}
-          <strong className="font-medium text-foreground">{clusters.length} <TextoEditorial id="b85b36eab3831604a610" original={"temas"}/></strong> <TextoEditorial id="c837b8ab30885afc1ec6" original={"según las palabras que comparten."}/>{ayuda}
-        </span>
+      <div className="flex flex-col gap-1.5 text-sm text-muted-foreground">
+        <p className="flex flex-wrap items-center gap-2">
+          <Layers className="size-4 shrink-0 text-primary" aria-hidden />
+          <span>
+            <TextoEditorial id="f6ec7c00909f85616c35" original={"Los"}/> {formatNumero(totalComentarios)} <TextoEditorial id="292906f3df9b7f20aeb4" original={"comentarios se agrupan solos en"}/>{" "}
+            <strong className="font-medium text-foreground">{clusters.length} <TextoEditorial id="b85b36eab3831604a610" original={"temas"}/></strong> <TextoEditorial id="c837b8ab30885afc1ec6" original={"según las palabras que comparten."}/>
+          </span>
+        </p>
+        <p className="flex items-center gap-2 font-medium text-foreground">
+          <MousePointerClick className="size-4 shrink-0 text-primary" aria-hidden />
+          <TextoDeCatalogo texto={ayuda} />
+          <LapizDeCatalogo texto={accion} />
+          <LapizDeCatalogo texto="Quitar este filtro" />
+        </p>
       </div>
 
       <div className="grid grid-cols-3 gap-3">
@@ -59,10 +72,10 @@ export function ClasificacionComentarios({
               onClick={() => onSeleccionar(activo ? null : grupo.cluster)}
               aria-pressed={activo}
               className={cn(
-                "group flex flex-col gap-2 rounded-xl border px-4 py-3.5 text-left transition-colors",
+                "group flex cursor-pointer flex-col gap-2 rounded-xl border px-4 py-3.5 text-left shadow-xs outline-none transition-[border-color,background-color,box-shadow,translate] duration-200 focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transition-none",
                 activo
-                  ? "border-primary bg-primary/10"
-                  : "border-border/70 bg-card hover:border-primary/40 hover:bg-accent"
+                  ? "border-primary bg-primary/10 ring-1 ring-primary"
+                  : "border-border bg-card hover:-translate-y-0.5 hover:border-primary hover:bg-primary/5 hover:shadow-md motion-reduce:hover:translate-y-0"
               )}
             >
               <div className="flex items-baseline justify-between gap-2">
@@ -102,6 +115,28 @@ export function ClasificacionComentarios({
                   </span>
                 ))}
               </div>
+
+              {/* La acción escrita: el botón dice qué hace, y al pasar el puntero se subraya. */}
+              <span
+                className={cn(
+                  "mt-0.5 inline-flex items-center gap-1 text-xs font-medium text-primary underline-offset-2",
+                  !activo && "group-hover:underline"
+                )}
+              >
+                {/* EtiquetaEditorial no dibuja lápiz: un botón de edición dentro de este botón sería HTML inválido.
+                    Los lápices de estos rótulos van junto a la instrucción, fuera de los botones. */}
+                {activo ? (
+                  <>
+                    <X className="size-3" aria-hidden />
+                    <EtiquetaEditorial texto="Quitar este filtro" />
+                  </>
+                ) : (
+                  <>
+                    <EtiquetaEditorial texto={accion} />
+                    <ArrowRight className="size-3 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden />
+                  </>
+                )}
+              </span>
             </button>
           );
         })}

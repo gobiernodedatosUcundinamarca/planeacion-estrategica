@@ -5400,7 +5400,7 @@
     "elemento": "span"
   },
   "m5-dig-paso2-nota": {
-    "original": "Pregunta abierta: los tipos de dificultad son una clasificación de cada respuesta, que puede tener varios.",
+    "original": "Es una pregunta abierta; cada respuesta se clasificó en uno o más tipos de dificultad.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5555,7 +5555,7 @@
     "elemento": "span"
   },
   "m5-val-paso3-nota": {
-    "original": "En el mapa, cada celda es un componente; su color indica el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona.",
+    "original": "Elige una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -5855,12 +5855,12 @@
     "elemento": "prop"
   },
   "m5-aspectos-prioritarios-para-consolidar-el-medit": {
-    "original": "Temas de las respuestas",
+    "original": "Temas de las respuestas al Formulario Individual de Consolidación del MEDIT",
     "archivo": "components/momento5/relato/capitulo-medit.tsx",
     "elemento": "prop"
   },
   "m5-temas-presentes-en-cada-respuesta-individual-una": {
-    "original": "Respuestas individuales que tocan cada tema; una respuesta puede tocar varios. Elige un tema para leer sus respuestas, más abajo.",
+    "original": "Respuestas individuales que hacen referencia a cada tema; una misma respuesta puede referirse a varios. Elige un tema para leer sus respuestas más abajo.",
     "archivo": "components/momento5/relato/capitulo-medit.tsx",
     "elemento": "prop"
   },
@@ -5885,7 +5885,7 @@
     "elemento": "prop"
   },
   "m5-agrupacion-automatica-por-vocabulario-compartido": {
-    "original": "Agrupación automática por vocabulario compartido (TF-IDF y K-Means; el número de temas se elige por silueta). Agrupa por palabras, no por significado.",
+    "original": "Agrupación automática por vocabulario compartido (TF-IDF y K-Means; el número de temas se elige por silueta). Dos respuestas quedan en el mismo tema si usan palabras parecidas, aunque no digan lo mismo.",
     "archivo": "components/momento5/respuestas-abiertas.tsx",
     "elemento": "prop"
   },
@@ -5905,7 +5905,7 @@
     "elemento": "navegacion"
   },
   "m5-fuente-acu-matriz": {
-    "original": "cada ajuste registrado en Acuerdos Estratégicos del Equipo, contado según su «Transformación estratégica:» (filas) y su «Componente:» (columnas). Los dos indicadores cuentan los equipos que respondieron «SI» a «El equipo valida, sin ajustes adicionales, los demás componentes…» y los que describieron puntos en «El equipo no alcanzó acuerdo sobre uno o más componentes…». Cuando la transformación o el componente se escribieron de otra forma, se normalizaron y se indica con una nota.",
+    "original": "cada ajuste registrado en Acuerdos Estratégicos del Equipo, contado según su «Transformación estratégica:» (filas) y su «Componente:» (columnas). Los dos indicadores cuentan los equipos que respondieron «SI» a «El equipo valida, sin ajustes adicionales, los demás componentes de las dos transformaciones asignadas.» y los que describieron puntos en «El equipo no alcanzó acuerdo sobre uno o más componentes (identificar brevemente):». Cuando la transformación o el componente se escribieron de otra forma, se normalizaron y se indica con una nota.",
     "archivo": "components/momento5/acuerdos.tsx",
     "elemento": "span"
   },
@@ -5950,12 +5950,12 @@
     "elemento": "span"
   },
   "m5-fuente-dig-categoria": {
-    "original": "«Proceso propuesto:», Formulario de Percepción sobre Transformación Digital. Es una pregunta abierta: cada respuesta recibió una sola categoría mediante codificación analítica, respuesta por respuesta, y aquí se cuentan las respuestas por categoría.",
+    "original": "«Proceso propuesto:», Formulario de Percepción sobre Transformación Digital. Pregunta abierta: cada respuesta se leyó y recibió una sola categoría (codificación analítica); aquí se cuentan las respuestas de cada categoría.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
   "m5-fuente-dig-dificultad": {
-    "original": "«Dificultad percibida», Formulario de Percepción sobre Transformación Digital. Pregunta abierta con codificación analítica, respuesta por respuesta, que también lee el resto de lo que escribió la persona; cada respuesta puede tener varios tipos de dificultad. Porcentaje = respuestas con ese tipo ÷ total de respuestas.",
+    "original": "«Dificultad percibida», Formulario de Percepción sobre Transformación Digital. Pregunta abierta: cada respuesta se leyó junto con lo demás que escribió la persona y recibió uno o más tipos de dificultad (codificación analítica). Porcentaje = respuestas con ese tipo ÷ total de respuestas.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5970,7 +5970,7 @@
     "elemento": "span"
   },
   "m5-medit-entrada-nota": {
-    "original": "Los temas se asignan por palabras clave a las respuestas de las dos preguntas; una respuesta puede tener varios.",
+    "original": "Los temas se asignan con palabras clave a las respuestas de las dos preguntas.",
     "archivo": "components/momento5/relato/capitulo-medit.tsx",
     "elemento": "span"
   },
@@ -5995,7 +5995,7 @@
     "elemento": "span"
   },
   "m5-fuente-val-transformacion": {
-    "original": "secciones «3. Transformación: …» del Formulario Individual de Validación Estratégica. Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo.",
+    "original": "las cuatro secciones «3. Transformación:» del Formulario Individual de Validación Estratégica (UC Inteligente, UC Translocal, UC Emprendedora e Innovadora y UC para la Vida). Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -6030,13 +6030,48 @@
     "elemento": "span"
   },
   "m5-fuente-val-mapa": {
-    "original": "valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al … (si corresponde):» y «Justificación del ajuste al … (si corresponde):» de ese componente.",
+    "original": "valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» y «Justificación del ajuste al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» de ese componente.",
     "archivo": "components/momento5/validacion.tsx",
     "elemento": "span"
   },
   "m5-las-mismas-respuestas-agrupadas-en-objetivos-est": {
     "original": "Las mismas respuestas, agrupadas en objetivos estratégicos, ámbitos de transformación y resultados estratégicos.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
+    "elemento": "prop"
+  },
+  "clasificacion-ayuda-filtrar": {
+    "original": "Haz clic en un tema para filtrar la sección; otro clic lo quita.",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "prop"
+  },
+  "clasificacion-ayuda-respuestas": {
+    "original": "Haz clic en un tema para ver solo sus respuestas; otro clic vuelve a mostrarlas todas.",
+    "archivo": "components/charts/comentarios-por-tema.tsx",
+    "elemento": "prop"
+  },
+  "clasificacion-accion-comentarios": {
+    "original": "Ver sus comentarios",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "prop"
+  },
+  "clasificacion-accion-respuestas": {
+    "original": "Ver sus respuestas",
+    "archivo": "components/charts/comentarios-por-tema.tsx",
+    "elemento": "prop"
+  },
+  "clasificacion-quitar-tema": {
+    "original": "Quitar este filtro",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "sic": {
+    "original": "sic",
+    "archivo": "components/editorial/sic.tsx",
+    "elemento": "span"
+  },
+  "sic-explicacion": {
+    "original": "Así en el original: se transcribe sin corregir.",
+    "archivo": "components/editorial/sic.tsx",
     "elemento": "prop"
   }
 }

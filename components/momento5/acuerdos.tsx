@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { formatNumero } from "@/lib/formatters";
 import { pasoAjustes, validaDemasComponentes, type DerivadosMomento5 } from "@/lib/reglas/momento5";
 import { cn } from "@/lib/utils";
-import { EstadoVacio, Fuente, Medidor, TablaSimple, Tarjeta, estiloTramo } from "./piezas";
+import { EstadoVacio, Fuente, Literal, Medidor, TablaSimple, Tarjeta, estiloTramo } from "./piezas";
 
 type Filtro = { t: string; tipo: string | null } | null;
 
@@ -39,13 +39,20 @@ export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
       pie={
         <Fuente
           id="m5-fuente-acu-matriz"
-          original="cada ajuste registrado en Acuerdos Estratégicos del Equipo, contado según su «Transformación estratégica:» (filas) y su «Componente:» (columnas). Los dos indicadores cuentan los equipos que respondieron «SI» a «El equipo valida, sin ajustes adicionales, los demás componentes…» y los que describieron puntos en «El equipo no alcanzó acuerdo sobre uno o más componentes…». Cuando la transformación o el componente se escribieron de otra forma, se normalizaron y se indica con una nota."
+          original="cada ajuste registrado en Acuerdos Estratégicos del Equipo, contado según su «Transformación estratégica:» (filas) y su «Componente:» (columnas). Los dos indicadores cuentan los equipos que respondieron «SI» a «El equipo valida, sin ajustes adicionales, los demás componentes de las dos transformaciones asignadas.» y los que describieron puntos en «El equipo no alcanzó acuerdo sobre uno o más componentes (identificar brevemente):». Cuando la transformación o el componente se escribieron de otra forma, se normalizaron y se indica con una nota."
         />
       }
       tabla={
         <TablaSimple
           encabezados={["Equipo n.º", "Transformación estratégica", "Identificación del componente", "Componente", "Ajuste propuesto por el equipo", "Justificación del ajuste"]}
-          filas={d.ajustes.map((a) => [`${a.equipo}`, nombreT[a.t] ?? a.t, a.c, a.tipo, a.ajuste, a.justificacion ?? ""])}
+          filas={d.ajustes.map((a) => [
+            `${a.equipo}`,
+            nombreT[a.t] ?? a.t,
+            a.c,
+            a.tipo,
+            a.ajuste ? <Literal texto={a.ajuste} /> : "",
+            a.justificacion ? <Literal texto={a.justificacion} /> : "",
+          ])}
           alto="max-h-[560px]"
         />
       }
@@ -173,10 +180,10 @@ export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
                   <p className="font-semibold">
                     {nombreT[x.t] ?? (x.t || "—")}: {(x.tipo || "componente").toLowerCase()} {x.c}
                   </p>
-                  <p className="text-foreground">{x.ajuste || "—"}</p>
+                  <p className="text-foreground">{x.ajuste ? <Literal texto={x.ajuste} /> : "—"}</p>
                   {x.justificacion ? (
                     <p className="text-[var(--m5-suave)]">
-                      <TextoEditorial id="m5-justificacion" original="Justificación del ajuste:" /> {x.justificacion}
+                      <TextoEditorial id="m5-justificacion" original="Justificación del ajuste:" /> <Literal texto={x.justificacion} />
                     </p>
                   ) : null}
                   {x.nota ? (
@@ -191,7 +198,7 @@ export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
                   <strong className="m5-correccion">
                     <TextoEditorial id="m5-puntos-sin-consenso" original="El equipo no alcanzó acuerdo sobre uno o más componentes (identificar brevemente):" />
                   </strong>{" "}
-                  {a.desacuerdos}
+                  <Literal texto={a.desacuerdos} />
                 </p>
               ) : null}
             </article>

@@ -3,6 +3,7 @@
 import { useId, useState, type ReactNode } from "react";
 import { BarChart3, Table2 } from "lucide-react";
 import { TextoDeCatalogo, TextoEditorial } from "@/components/editorial/texto-editorial";
+import { Sic } from "@/components/editorial/sic";
 import { RankedBarChart } from "@/components/charts/ranked-bar-chart";
 import { FiltroOpciones, TODAS_LAS_OPCIONES } from "@/components/layout/filtro-opciones";
 import { Button } from "@/components/ui/button";
@@ -126,12 +127,25 @@ export function Fuente({ id, original }: { id: string; original: string }) {
   );
 }
 
-/** La misma fuente, como párrafo propio, para gráficas que no van en `Tarjeta`. */
+/** La misma fuente, como párrafo propio, para gráficas que no van en `Tarjeta`. Ocupa todo el ancho, como en las tarjetas. */
 export function LineaFuente({ id, original, className }: { id: string; original: string; className?: string }) {
   return (
-    <p className={cn("max-w-[70ch] text-xs text-[var(--m5-suave,var(--muted-foreground))]", className)}>
+    <p className={cn("w-full text-xs text-[var(--m5-suave,var(--muted-foreground))]", className)}>
       <Fuente id={id} original={original} />
     </p>
+  );
+}
+
+/**
+ * Respuesta escrita por un participante, transcrita sin corregir: el texto y
+ * «[sic]». Sin texto no devuelve nada, para que el «—» de la celda siga saliendo.
+ */
+export function Literal({ texto }: { texto: string | null | undefined }) {
+  if (!texto) return null;
+  return (
+    <>
+      {texto} <Sic />
+    </>
   );
 }
 
@@ -143,7 +157,8 @@ export function TablaSimple({
   alto = "max-h-[420px]",
 }: {
   encabezados: string[];
-  filas: (string | number)[][];
+  /** Las respuestas literales llegan como `<Literal>`; lo demás, como texto o número. */
+  filas: (string | number | ReactNode)[][];
   numericas?: number[];
   alto?: string;
 }) {

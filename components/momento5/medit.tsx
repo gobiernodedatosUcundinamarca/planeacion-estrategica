@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatNumero } from "@/lib/formatters";
 import { indicePorId, type DerivadosMomento5 } from "@/lib/reglas/momento5";
 import type { EquipoMomento5, MatrizEquipo, ResultadosMomento5 } from "@/types/momento5";
-import { EstadoVacio, FiltroCategoria, Fuente, TablaSimple, Tarjeta } from "./piezas";
+import { EstadoVacio, FiltroCategoria, Fuente, Literal, TablaSimple, Tarjeta } from "./piezas";
 
 /**
  * Las respuestas individuales sobre el MEDIT, completas. El tema lo controla el
@@ -60,14 +60,14 @@ export function VocesMedit({ d, tema, setTema }: { d: DerivadosMomento5; tema: s
         <div className="flex max-h-[470px] flex-col gap-3 overflow-y-auto pr-1" tabIndex={0} aria-label="Respuestas de los participantes">
           {voces.map((v) => (
             <article key={v.pid} className="flex flex-col gap-1 border-t border-[var(--m5-linea)] pt-3 text-sm">
-              <p className="text-foreground">{v.aspecto ?? "—"}</p>
+              <p className="text-foreground">{v.aspecto ? <Literal texto={v.aspecto} /> : "—"}</p>
               <p className="m5-nota">{[v.nombre, v.rol, v.sede].filter(Boolean).join(", ")}</p>
               {v.cambio ? (
                 <p className="text-[var(--m5-suave)]">
                   <b className="text-foreground">
                     <TextoEditorial id="m5-que-cambiar" original="¿Qué debería cambiar o mejorar en la Universidad?" />
                   </b>{" "}
-                  {v.cambio}
+                  <Literal texto={v.cambio} />
                 </p>
               ) : null}
             </article>
@@ -120,7 +120,9 @@ function ContenidoMatriz({
             {m[col.campo].length ? (
               <ol className="flex list-decimal flex-col gap-1.5 pl-5 text-xs text-foreground">
                 {m[col.campo].map((it, i) => (
-                  <li key={i}>{it}</li>
+                  <li key={i}>
+                    <Literal texto={it} />
+                  </li>
                 ))}
               </ol>
             ) : (
@@ -166,7 +168,10 @@ export function MatrizColaborativa({ d, datos }: { d: DerivadosMomento5; datos: 
       tabla={
         <TablaSimple
           encabezados={["Equipo", "¿Qué aspectos del MEDIT debemos consolidar?", "¿Qué cambios esperamos lograr?", "¿Cómo sabremos que los hemos logrado?"]}
-          filas={d.matriz.map((x) => [`${x.equipo}`, x.aspectos.join(" · "), x.cambios.join(" · "), x.indicadores.join(" · ")])}
+          filas={d.matriz.map((x) => [
+            `${x.equipo}`,
+            ...[x.aspectos, x.cambios, x.indicadores].map((puntos, i) => (puntos.length ? <Literal key={i} texto={puntos.join(" · ")} /> : "")),
+          ])}
           alto="max-h-[560px]"
         />
       }

@@ -5,7 +5,7 @@ import { formatNumero } from "@/lib/formatters";
 import type { DerivadosMomento5, FiltroEquipo } from "@/lib/reglas/momento5";
 import type { PreguntaAbiertaMomento5, ResultadosMomento5 } from "@/types/momento5";
 import { MatrizColaborativa } from "../medit";
-import { LineaFuente } from "../piezas";
+import { LineaFuente, Literal } from "../piezas";
 import { RespuestasAbiertas } from "../respuestas-abiertas";
 import { Capitulo, Clasificacion } from "./capitulo";
 
@@ -14,7 +14,10 @@ function Primero({ items }: { items: string[] }) {
   if (!items.length) return <span className="text-[var(--m5-suave)]">—</span>;
   return (
     <>
-      <span className="line-clamp-4">{items[0]}</span>
+      {/* Completo, sin recortar con puntos suspensivos: es una respuesta literal. */}
+      <span>
+        <Literal texto={items[0]} />
+      </span>
       {items.length > 1 ? (
         <span className="m5-nota mt-1 block">
           <TextoEditorial id="m5-matriz-y" original="y" /> {formatNumero(items.length - 1)}{" "}

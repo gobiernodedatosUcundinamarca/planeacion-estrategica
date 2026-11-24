@@ -11,7 +11,7 @@ import { coincideBusqueda } from "@/lib/buscar";
 import { formatNumero } from "@/lib/formatters";
 import type { DerivadosMomento5 } from "@/lib/reglas/momento5";
 import { cn } from "@/lib/utils";
-import { EstadoVacio, FiltroCategoria, Fuente, Tarjeta } from "./piezas";
+import { EstadoVacio, FiltroCategoria, Fuente, Literal, Tarjeta } from "./piezas";
 
 /**
  * Los procesos propuestos, uno por fila, con búsqueda y filas que se abren.
@@ -136,8 +136,8 @@ export function TablaProcesos({
                           </button>
                           {p.dependencia ? <span className="mt-0.5 block pl-[18px] text-muted-foreground">{p.dependencia}</span> : null}
                         </TableCell>
-                        <TableCell className="whitespace-normal break-words text-xs">{p.proceso ?? "—"}</TableCell>
-                        <TableCell className="whitespace-normal break-words text-xs">{p.dificultad ?? "—"}</TableCell>
+                        <TableCell className="whitespace-normal break-words text-xs">{p.proceso ? <Literal texto={p.proceso} /> : "—"}</TableCell>
+                        <TableCell className="whitespace-normal break-words text-xs">{p.dificultad ? <Literal texto={p.dificultad} /> : "—"}</TableCell>
                         <TableCell className="whitespace-normal break-words text-xs">
                           <span className="block">{nombreCat[p.cat] ?? (p.cat || "—")}</span>
                           <span className="block text-muted-foreground">{p.difs.map((x) => nombreDif[x] ?? x).join(" · ")}</span>
@@ -150,13 +150,13 @@ export function TablaProcesos({
                             <b className="block text-foreground">
                               <TextoEditorial id="m5-en-que-consiste" original="¿En qué consiste actualmente?" />
                             </b>
-                            {p.consiste ?? "—"}
+                            {p.consiste ? <Literal texto={p.consiste} /> : "—"}
                           </TableCell>
                           <TableCell colSpan={2} className="whitespace-normal break-words align-top text-xs">
                             <b className="block text-foreground">
                               <TextoEditorial id="m5-como-afecta" original="¿Cómo afecta el trabajo a los usuarios?" />
                             </b>
-                            {p.afectacion ?? "—"}
+                            {p.afectacion ? <Literal texto={p.afectacion} /> : "—"}
                           </TableCell>
                         </TableRow>
                       ) : null}

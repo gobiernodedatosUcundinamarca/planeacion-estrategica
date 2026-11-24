@@ -4,7 +4,7 @@ import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { validaDemasComponentes, type DerivadosMomento5, type DestacadosMomento5, type FiltroEquipo } from "@/lib/reglas/momento5";
 import type { PreguntaAbiertaMomento5, ResultadosMomento5 } from "@/types/momento5";
 import { AcuerdosEquipo } from "../acuerdos";
-import { LineaFuente } from "../piezas";
+import { LineaFuente, Literal } from "../piezas";
 import { RespuestasAbiertas } from "../respuestas-abiertas";
 import { Capitulo, Cifra, Clasificacion, Pregunta } from "./capitulo";
 import { Escenario } from "./escenario";
@@ -105,7 +105,9 @@ export function CapituloAcuerdos({
               <ul className="flex flex-col gap-4 border-l border-[var(--m5-correccion)] pl-4">
                 {destacados.conDesacuerdo.map((a) => (
                   <li key={a.equipo}>
-                    <p className="m5-texto line-clamp-5">{a.desacuerdos}</p>
+                    <p className="m5-texto">
+                      <Literal texto={a.desacuerdos} />
+                    </p>
                     <p className="m5-cita-autor">
                       <TextoEditorial id="m5-equipo" original="Equipo" /> {a.equipo}
                     </p>

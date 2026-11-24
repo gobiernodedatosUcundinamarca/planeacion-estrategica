@@ -3,6 +3,7 @@
 import {TextoEditorial, TextoDeCatalogo, EtiquetaEditorial, LapizDeCatalogo} from "@/components/editorial/texto-editorial";
 import { useId, useState } from "react";
 import { Quote } from "lucide-react";
+import { Sic } from "@/components/editorial/sic";
 import { Button } from "@/components/ui/button";
 import { formatNumero } from "@/lib/formatters";
 
@@ -21,7 +22,13 @@ const PASO = 6;
  * una selección): son la fuente de la nube de palabras y de los temas, y quien
  * lee debe poder comprobar de dónde salen.
  */
-export function ListaComentarios({ titulo, comentarios, delimitada = false }: { titulo: string; comentarios: Comentario[]; delimitada?: boolean }) {
+export function ListaComentarios({ titulo, comentarios, delimitada = false, sic = false }: {
+  titulo: string;
+  comentarios: Comentario[];
+  delimitada?: boolean;
+  /** Marca cada respuesta con «[sic]»: se transcribe sin corregir. */
+  sic?: boolean;
+}) {
   const [visibles, setVisibles] = useState(delimitada ? PASO * 3 : PASO);
   const tituloId = useId();
 
@@ -46,7 +53,15 @@ export function ListaComentarios({ titulo, comentarios, delimitada = false }: { 
           <li key={c.id} className="flex gap-2 rounded-lg border border-border/70 bg-card px-3 py-2.5 text-sm">
             <Quote className="mt-0.5 size-3.5 shrink-0 text-primary/60" aria-hidden />
             <div className="min-w-0">
-              <p className="text-foreground">{c.texto}</p>
+              <p className="text-foreground">
+                {c.texto}
+                {sic ? (
+                  <>
+                    {" "}
+                    <Sic />
+                  </>
+                ) : null}
+              </p>
               <p className="mt-1 text-[11px] text-muted-foreground">{c.detalle}</p>
             </div>
           </li>

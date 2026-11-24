@@ -27,11 +27,14 @@ export function ComentariosPorTema({
   tituloNube,
   palabrasIgnoradas = [],
   listaDelimitada = false,
+  sic = false,
 }: {
   temas: TemaComentarios[];
   comentarios: (Comentario & { tema: number | null })[];
   tituloLista: string;
   tituloNube: string;
+  /** Marca cada respuesta de la lista con «[sic]». */
+  sic?: boolean;
   /**
    * Palabras que no van en la nube: las que repite el enunciado de la pregunta
    * ("experiencia", "mejorar"…) y saldrían grandes sin decir nada. Es la misma
@@ -75,7 +78,8 @@ export function ComentariosPorTema({
           seleccionado={temaVigente}
           onSeleccionar={setTema}
           totalComentarios={comentarios.filter((c) => c.tema !== null).length}
-          ayuda="Elige uno para ver solo sus respuestas."
+          ayuda="Haz clic en un tema para ver solo sus respuestas; otro clic vuelve a mostrarlas todas."
+          accion="Ver sus respuestas"
         />
       ) : comentarios.length > 0 ? (
         <p className="flex items-start gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
@@ -94,7 +98,7 @@ export function ComentariosPorTema({
         />
       ) : null}
 
-      <ListaComentarios titulo={tituloLista} comentarios={visibles} delimitada={listaDelimitada} />
+      <ListaComentarios titulo={tituloLista} comentarios={visibles} delimitada={listaDelimitada} sic={sic} />
     </div>
   );
 }

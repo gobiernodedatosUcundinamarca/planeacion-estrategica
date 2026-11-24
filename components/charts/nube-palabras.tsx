@@ -115,7 +115,7 @@ export function NubePalabras({
         <div
           className="relative h-80 overflow-hidden rounded-lg"
           role="img"
-          aria-label={`Nube de palabras: $<TextoDeCatalogo texto={titulo}/>`}
+          aria-label={`Nube de palabras: ${titulo}`}
         >
           <div
             className="pointer-events-none absolute inset-0"

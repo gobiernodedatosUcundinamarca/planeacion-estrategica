@@ -18,6 +18,7 @@ import {
   EstadoVacio,
   Fuente,
   LeyendaValoracion,
+  Literal,
   TEXTO_AJUSTE,
   TEXTO_VALIDA,
   TablaSimple,
@@ -140,7 +141,7 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
       pie={
         <Fuente
           id="m5-fuente-val-mapa"
-          original="valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al … (si corresponde):» y «Justificación del ajuste al … (si corresponde):» de ese componente."
+          original="valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» y «Justificación del ajuste al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» de ese componente."
         />
       }
       tabla={
@@ -216,7 +217,7 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
                                 [ETIQUETA_AJUSTE, `${formatNumero(c.A)} · ${pct(c.pct)}`],
                                 [ETIQUETA_VALIDA, formatNumero(c.V)],
                               ]}
-                              nota={c.texto ? (c.texto.length > 180 ? `${c.texto.slice(0, 180)}…` : c.texto) : null}
+                              nota={c.texto}
                             />
                           </TooltipContent>
                         </Tooltip>
@@ -279,11 +280,15 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
                         {p.equipo ? ` · Equipo ${p.equipo}` : ""}
                       </p>
                       <p className="mt-1 text-foreground">
-                        {p.ajuste ?? <TextoEditorial id="m5-ajuste-sin-redactar" original="Marcó «Requiere ajuste» sin redactar el ajuste propuesto." />}
+                        {p.ajuste ? (
+                          <Literal texto={p.ajuste} />
+                        ) : (
+                          <TextoEditorial id="m5-ajuste-sin-redactar" original="Marcó «Requiere ajuste» sin redactar el ajuste propuesto." />
+                        )}
                       </p>
                       {p.justificacion ? (
                         <p className="mt-1 text-muted-foreground">
-                          <TextoEditorial id="m5-justificacion" original="Justificación del ajuste:" /> {p.justificacion}
+                          <TextoEditorial id="m5-justificacion" original="Justificación del ajuste:" /> <Literal texto={p.justificacion} />
                         </p>
                       ) : null}
                     </li>
