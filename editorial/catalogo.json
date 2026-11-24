@@ -6088,5 +6088,10 @@
     "original": "Haz clic en un formulario para ir a su sección; el que estás leyendo queda resaltado en verde.",
     "archivo": "components/momento5/panel-momento5.tsx",
     "elemento": "span"
+  },
+  "m5-matriz-ayuda-equipo": {
+    "original": "Haz clic en un equipo para ver su matriz.",
+    "archivo": "components/momento5/medit.tsx",
+    "elemento": "span"
   }
 }

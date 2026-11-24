@@ -37,7 +37,11 @@ export function RespuestasAbiertas({ preguntas, equipo }: { preguntas: PreguntaA
             className="h-auto w-full flex-wrap justify-start gap-x-4 gap-y-2 group-data-horizontal/tabs:h-auto"
           >
             {preguntas.map((p) => (
-              <TabsTrigger key={p.id} value={p.id} className="h-auto flex-none px-0 py-1 text-left whitespace-normal">
+              <TabsTrigger
+                key={p.id}
+                value={p.id}
+                className="h-auto flex-none cursor-pointer rounded-md px-2 py-1 text-left whitespace-normal not-data-active:hover:bg-[var(--m5-velo)]"
+              >
                 {p.pregunta}
               </TabsTrigger>
             ))}

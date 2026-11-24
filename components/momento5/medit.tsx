@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { X } from "lucide-react";
-import { TextoEditorial } from "@/components/editorial/texto-editorial";
+import { MousePointerClick, X } from "lucide-react";
+import { EtiquetaEditorial, LapizDeCatalogo, TextoEditorial } from "@/components/editorial/texto-editorial";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -178,10 +178,22 @@ export function MatrizColaborativa({ d, datos }: { d: DerivadosMomento5; datos: 
     >
       {d.eq === null && datos.matriz.length ? (
         <Tabs value={String(equipo)} onValueChange={(v) => setLocal(Number(v))}>
-          <TabsList variant="line" aria-label="Equipo de la matriz">
+          <p className="flex items-center gap-2 text-sm font-medium text-foreground">
+            <MousePointerClick className="size-4 shrink-0 text-primary" aria-hidden />
+            <TextoEditorial id="m5-matriz-ayuda-equipo" original="Haz clic en un equipo para ver su matriz." />
+            <LapizDeCatalogo texto="Eq." />
+          </p>
+          {/* Botones y no pestañas de línea: con solo el subrayado, «Eq. 1 … Eq. 8» no parecían
+              clicables. El activo va en verde, como el formulario activo del menú. El rótulo va
+              con EtiquetaEditorial (sin lápiz) para no meter un botón dentro de otro. */}
+          <TabsList aria-label="Equipo de la matriz" className="w-fit gap-1 p-1 group-data-horizontal/tabs:h-auto">
             {datos.matriz.map((x) => (
-              <TabsTrigger key={x.equipo} value={String(x.equipo)} className="px-2.5">
-                <TextoEditorial id="m5-eq-abreviado" original="Eq." /> {x.equipo}
+              <TabsTrigger
+                key={x.equipo}
+                value={String(x.equipo)}
+                className="h-8 flex-none cursor-pointer px-3 not-data-active:hover:bg-background not-data-active:hover:text-foreground data-active:bg-primary data-active:text-primary-foreground data-active:shadow-sm"
+              >
+                <EtiquetaEditorial texto="Eq." /> {x.equipo}
               </TabsTrigger>
             ))}
           </TabsList>
