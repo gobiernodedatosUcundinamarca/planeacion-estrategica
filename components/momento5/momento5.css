@@ -20,8 +20,8 @@
   /* Carril de BarraCreciente (piezas de la nota metodológica). */
   --nm-velo: var(--m5-velo);
   --m5-medianil: 2rem;
-  /* Barra fija del portal (4rem) + barra de la sección. */
-  --m5-sobre-plano: 12.5rem;
+  /* Barra fija del portal (4rem) + barra de la sección (~8rem, con la instrucción del menú). */
+  --m5-sobre-plano: 13.5rem;
 
   color: var(--m5-tinta);
   font-size: 1rem;
@@ -142,11 +142,18 @@
   display: flex;
   align-items: center;
 }
-.m5-plano > * {
-  width: 100%;
-  /* El mapa de componentes con sus propuestas puede ser más alto que la pantalla. */
-  max-height: 100%;
+/* Marco de la gráfica (AjustarAlPlano). Su scroll de respaldo recortaba lo que
+   sobresale del borde aunque sean 4 px, como el contorno de la celda elegida en
+   el mapa o el foco del teclado: 6 px de holgura alrededor, compensados con
+   margen negativo para que la gráfica no se mueva de su sitio. */
+.m5-plano-marco {
+  width: calc(100% + 12px);
+  margin: -6px;
+  max-height: calc(100% + 12px);
   overflow-y: auto;
+}
+.m5-plano-contenido {
+  padding: 6px;
 }
 /* Compacto (teléfono con el escritorio escalado, pantallas bajas o «reducir
    movimiento»): cada paso lleva su gráfico y no hay nada fijo. En el marco

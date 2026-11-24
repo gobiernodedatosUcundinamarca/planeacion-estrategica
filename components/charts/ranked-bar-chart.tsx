@@ -38,6 +38,21 @@ interface RankedBarChartProps {
 
 const ALTURA_LINEA = 12;
 const MAX_LINEAS = 6;
+const FUENTE_EJE = 11;
+
+let lienzo: CanvasRenderingContext2D | null | undefined;
+/**
+ * Ancho de una línea de etiqueta con la tipografía real del sitio. Antes el eje
+ * medía `truncarEn × 6` px y con Montserrat no alcanzaba: las etiquetas largas
+ * se cortaban por la izquierda. Sin canvas (servidor) se estima por lo alto.
+ */
+function anchoLinea(texto: string): number {
+  if (typeof document === "undefined") return texto.length * 7.2;
+  if (lienzo === undefined) lienzo = document.createElement("canvas").getContext("2d");
+  if (!lienzo) return texto.length * 7.2;
+  lienzo.font = `${FUENTE_EJE}px ${getComputedStyle(document.body).fontFamily || "sans-serif"}`;
+  return lienzo.measureText(texto).width;
+}
 
 // Envuelve el texto en varias líneas por palabra completa, en vez de cortarlo con "...".
 function envolverEtiqueta(texto: string, maxCaracteres: number, maxLineas = MAX_LINEAS): string[] {
@@ -133,11 +148,11 @@ export function RankedBarChart({
   const hayColapso = cuantasVisibles < ordenados.length;
   const visibles = hayColapso && !expandido ? ordenados.slice(0, cuantasVisibles) : ordenados;
 
-  const maxLineas = Math.max(
-    1,
-    ...visibles.map((d) => envolverEtiqueta(d.etiqueta, truncarEn).length)
-  );
+  const lineasEtiquetas = visibles.map((d) => envolverEtiqueta(d.etiqueta, truncarEn));
+  const maxLineas = Math.max(1, ...lineasEtiquetas.map((l) => l.length));
   const filaAltura = Math.max(alturaFila, maxLineas * ALTURA_LINEA + 16);
+  // El eje mide lo que ocupa la línea más ancha, más un respiro hasta las barras.
+  const anchoEje = Math.ceil(Math.max(24, ...lineasEtiquetas.flat().map(anchoLinea))) + 8;
 
   function barraRedondeada(props: BarShapeProps) {
     const { x, y, width, height, index } = props;
@@ -224,7 +239,7 @@ export function RankedBarChart({
               <YAxis
                 type="category"
                 dataKey="etiqueta"
-                width={truncarEn * 6}
+                width={anchoEje}
                 tickLine={false}
                 axisLine={false}
                 interval={0}

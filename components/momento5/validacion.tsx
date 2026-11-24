@@ -1,12 +1,13 @@
 "use client";
 
-import { useId, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
 import {
   BINS_AJUSTE,
   binAjuste,
+  enunciadoCompleto,
   porcentajesComplementarios,
   type ComponenteValorado,
   type DerivadosMomento5,
@@ -118,20 +119,43 @@ export function BarrasValoracion({ filas, leyenda = true }: { filas: FilaValorac
   );
 }
 
-const claveDe = (c: ComponenteValorado) => `${c.t}:${c.code}`;
+export const claveDe = (c: ComponenteValorado) => `${c.t}:${c.code}`;
 
-/** Mapa de calor: % de participantes que pidió ajustar cada objetivo, ámbito o resultado. */
-export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
-  const [sel, setSel] = useState<string | null>(null);
-  const idDetalle = useId();
-  const nombreT = Object.fromEntries(d.porT.map((t) => [t.t, t.nombre]));
+/**
+ * El componente que muestran el mapa y su detalle: el elegido o, si no hay
+ * elección (o el filtro de equipo la dejó fuera), el de más «Requiere ajuste».
+ */
+function componenteActual(d: DerivadosMomento5, elegido: string | null) {
   const visibles = Object.values(d.porComp)
     .flat()
     .filter((c) => c.total > 0);
   const masAjustado = visibles.reduce<ComponenteValorado | null>((m, c) => (!m || c.pct > m.pct ? c : m), null);
-  // Si el filtro de equipo deja fuera la celda elegida, vuelve al componente con más ajustes.
-  const actual = (sel ? visibles.find((c) => claveDe(c) === sel) : undefined) ?? masAjustado;
+  const actual = (elegido ? visibles.find((c) => claveDe(c) === elegido) : undefined) ?? masAjustado;
+  return { visibles, actual };
+}
+
+/**
+ * Mapa de calor: % de participantes que pidió ajustar cada objetivo, ámbito o
+ * resultado. Va en el plano fijo del relato, así que solo lleva el mapa: las
+ * propuestas de la celda elegida (`DetalleComponente`) van en la columna de
+ * texto, que crece con la página; dentro del plano no cabían y se cortaban.
+ */
+export function MapaComponentes({
+  d,
+  elegido,
+  onElegir,
+  idDetalle,
+}: {
+  d: DerivadosMomento5;
+  elegido: string | null;
+  onElegir: (clave: string) => void;
+  /** id de `DetalleComponente`, para que cada celda diga qué controla. */
+  idDetalle: string;
+}) {
+  const nombreT = Object.fromEntries(d.porT.map((t) => [t.t, t.nombre]));
+  const { visibles, actual } = componenteActual(d, elegido);
   const claveActual = actual ? claveDe(actual) : null;
+  const setSel = onElegir;
 
   return (
     <Tarjeta
@@ -217,7 +241,7 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
                                 [ETIQUETA_AJUSTE, `${formatNumero(c.A)} · ${pct(c.pct)}`],
                                 [ETIQUETA_VALIDA, formatNumero(c.V)],
                               ]}
-                              nota={c.texto}
+                              nota={enunciadoCompleto(c)}
                             />
                           </TooltipContent>
                         </Tooltip>
@@ -240,69 +264,83 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
               </span>
             ))}
           </div>
-
-          {actual ? (
-            <div id={idDetalle} aria-live="polite" className="flex flex-col gap-2 border border-border/70 bg-muted/30 p-3">
-              <p className="text-sm font-semibold text-foreground">
-                {nombreT[actual.t] ?? actual.t}: {actual.titulo}
-              </p>
-              {actual.texto ? (
-                <p className="text-xs text-muted-foreground">
-                  {actual.texto}
-                  {actual.truncado ? (
-                    <>
-                      {" "}
-                      <TextoEditorial id="m5-texto-recortado" original="(texto recortado a 200 caracteres en la exportación de Forms)" />
-                    </>
-                  ) : null}
-                </p>
-              ) : null}
-              <div className="flex flex-wrap gap-4 text-xs text-foreground">
-                <span className="flex items-center gap-1.5">
-                  <span className="size-2.5" style={COLOR_AJUSTE} aria-hidden />
-                  <TextoEditorial id="m5-leyenda-ajuste" original="Requiere ajuste" /> · <b>{formatNumero(actual.A)}</b> ({pct(actual.pct)})
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="size-2.5" style={COLOR_VALIDA} aria-hidden />
-                  <TextoEditorial id="m5-leyenda-valida" original="Se valida" /> · <b>{formatNumero(actual.V)}</b>
-                </span>
-              </div>
-              {actual.propuestas.length ? (
-                <ul
-                  className="flex max-h-[300px] flex-col gap-2 overflow-y-auto pr-1"
-                  tabIndex={0}
-                  aria-label="Propuestas de ajuste"
-                >
-                  {actual.propuestas.map((p, i) => (
-                    <li key={i} className="rounded-md border border-border/70 bg-card p-2.5 text-xs">
-                      <p className="font-semibold text-foreground">
-                        {p.nombre}
-                        {p.equipo ? ` · Equipo ${p.equipo}` : ""}
-                      </p>
-                      <p className="mt-1 text-foreground">
-                        {p.ajuste ? (
-                          <Literal texto={p.ajuste} />
-                        ) : (
-                          <TextoEditorial id="m5-ajuste-sin-redactar" original="Marcó «Requiere ajuste» sin redactar el ajuste propuesto." />
-                        )}
-                      </p>
-                      {p.justificacion ? (
-                        <p className="mt-1 text-muted-foreground">
-                          <TextoEditorial id="m5-justificacion" original="Justificación del ajuste:" /> <Literal texto={p.justificacion} />
-                        </p>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="text-xs text-muted-foreground">
-                  <TextoEditorial id="m5-sin-propuestas" original="Ningún participante marcó «Requiere ajuste» en este componente." />
-                </p>
-              )}
-            </div>
-          ) : null}
         </>
       )}
     </Tarjeta>
+  );
+}
+
+/**
+ * Lo que dijo cada participante sobre el componente elegido en el mapa: su
+ * texto, cuántos pidieron ajuste y las propuestas con su justificación. Si el
+ * componente es el mismo que ya presenta el paso (`textoYaVisible`), no se
+ * repite su texto.
+ */
+export function DetalleComponente({
+  d,
+  elegido,
+  id,
+  textoYaVisible,
+}: {
+  d: DerivadosMomento5;
+  elegido: string | null;
+  id: string;
+  textoYaVisible?: string | null;
+}) {
+  const nombreT = Object.fromEntries(d.porT.map((t) => [t.t, t.nombre]));
+  const { actual } = componenteActual(d, elegido);
+  if (!actual) return null;
+  // Solo el enunciado entero, y no si ya lo muestra el paso.
+  const enunciado = claveDe(actual) !== textoYaVisible ? enunciadoCompleto(actual) : null;
+
+  return (
+    <div id={id} aria-live="polite" className="flex flex-col gap-2 border border-border/70 bg-muted/30 p-3">
+      <p className="text-sm font-semibold text-foreground">
+        {nombreT[actual.t] ?? actual.t}: {actual.titulo}
+      </p>
+      {enunciado ? <p className="text-xs text-muted-foreground">{enunciado}</p> : null}
+      <div className="flex flex-wrap gap-4 text-xs text-foreground">
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5" style={COLOR_AJUSTE} aria-hidden />
+          <TextoEditorial id="m5-leyenda-ajuste" original="Requiere ajuste" /> · <b>{formatNumero(actual.A)}</b> ({pct(actual.pct)})
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5" style={COLOR_VALIDA} aria-hidden />
+          <TextoEditorial id="m5-leyenda-valida" original="Se valida" /> · <b>{formatNumero(actual.V)}</b>
+        </span>
+      </div>
+      {actual.propuestas.length ? (
+        <ul
+          className="flex max-h-[420px] flex-col gap-2 overflow-y-auto pr-1"
+          tabIndex={0}
+          aria-label="Propuestas de ajuste"
+        >
+          {actual.propuestas.map((p, i) => (
+            <li key={i} className="rounded-md border border-border/70 bg-card p-2.5 text-xs">
+              <p className="font-semibold text-foreground">
+                {p.nombre}
+                {p.equipo ? ` · Equipo ${p.equipo}` : ""}
+              </p>
+              <p className="mt-1 text-foreground">
+                {p.ajuste ? (
+                  <Literal texto={p.ajuste} />
+                ) : (
+                  <TextoEditorial id="m5-ajuste-sin-redactar" original="Marcó «Requiere ajuste» sin redactar el ajuste propuesto." />
+                )}
+              </p>
+              {p.justificacion ? (
+                <p className="mt-1 text-muted-foreground">
+                  <TextoEditorial id="m5-justificacion" original="Justificación del ajuste:" /> <Literal texto={p.justificacion} />
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-xs text-muted-foreground">
+          <TextoEditorial id="m5-sin-propuestas" original="Ningún participante marcó «Requiere ajuste» en este componente." />
+        </p>
+      )}
+    </div>
   );
 }

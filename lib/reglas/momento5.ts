@@ -39,6 +39,16 @@ export interface ComponenteValorado extends ComponentePlan {
   propuestas: PropuestaAjuste[];
 }
 
+/**
+ * El enunciado del componente solo si llegó entero. Microsoft Forms exporta los
+ * encabezados con un máximo de 200 caracteres y los objetivos y resultados
+ * largos llegan cortados («…», `truncado`). Un enunciado a medias no se
+ * muestra: sin el texto oficial completo, el componente se nombra por su rótulo.
+ */
+export function enunciadoCompleto(c: Pick<ComponentePlan, "texto" | "truncado">): string | null {
+  return c.texto && !c.truncado ? c.texto : null;
+}
+
 export interface ConteoCategoria {
   id: string;
   label: string;

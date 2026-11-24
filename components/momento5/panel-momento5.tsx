@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MotionConfig, useReducedMotion } from "framer-motion";
-import { X } from "lucide-react";
+import { MotionConfig, motion, useReducedMotion } from "framer-motion";
+import { ArrowRight, MousePointerClick, X } from "lucide-react";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { FiltroOpciones, TODAS_LAS_OPCIONES } from "@/components/layout/filtro-opciones";
 import { Button } from "@/components/ui/button";
@@ -89,13 +89,23 @@ export function PanelMomento5({ datos, abiertas }: { datos: ResultadosMomento5; 
         ref={barra}
         className="sticky top-16 z-40 -mx-2 flex items-end gap-10 border-b border-[var(--m5-linea)] bg-background px-2 pt-2 pb-3"
       >
-        {/* El nombre de cada formulario tal como lo vieron quienes respondieron, para que lo reconozcan. */}
-        <nav aria-label="Formularios" className="min-w-0 flex-1">
+        {/* El nombre de cada formulario tal como lo vieron quienes respondieron, para que lo reconozcan.
+            Antes el activo solo llevaba un filete gris de 2 px y no se notaba que el menú llevara a
+            ninguna parte: ahora lo dice una instrucción, cada nombre reacciona al puntero y el activo
+            va sobre un fondo verde que se desliza de un formulario a otro al recorrer la página. */}
+        <nav aria-label="Formularios" className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <p className="flex items-center gap-1.5 text-xs font-medium text-[var(--m5-tinta)]">
+            <MousePointerClick className="size-3.5 shrink-0 text-primary" aria-hidden />
+            <TextoEditorial
+              id="m5-menu-ayuda"
+              original="Haz clic en un formulario para ir a su sección; el que estás leyendo queda resaltado en verde."
+            />
+          </p>
           <ul className="flex items-start gap-10">
             {jornadas.map((j) => (
               <li key={j.fecha} className="flex flex-col gap-1">
-                <span className="text-xs text-[var(--m5-suave)]">{fechaLarga(j.fecha)}</span>
-                <div className="flex flex-col items-start gap-0.5">
+                <span className="pl-2 text-xs text-[var(--m5-suave)]">{fechaLarga(j.fecha)}</span>
+                <div className="flex flex-col items-start">
                   {j.formularios.map((f) => {
                     const activo = f.id === formulario;
                     return (
@@ -105,13 +115,29 @@ export function PanelMomento5({ datos, abiertas }: { datos: ResultadosMomento5; 
                         aria-current={activo ? "location" : undefined}
                         onClick={() => elegir(f.id)}
                         className={cn(
-                          "border-l-2 pl-2 text-left text-[13px] leading-snug font-semibold transition-colors",
+                          "group relative isolate flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-0.5 text-left text-[13px] leading-snug font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
                           activo
-                            ? "border-[var(--m5-tinta)] text-[var(--m5-tinta)]"
-                            : "border-transparent text-[var(--m5-suave)] hover:text-[var(--m5-tinta)]"
+                            ? "text-primary-foreground"
+                            : "text-[var(--m5-suave)] hover:bg-[var(--m5-velo)] hover:text-[var(--m5-tinta)]"
                         )}
                       >
+                        {/* Un solo fondo para todo el menú (layoutId): se desliza al formulario activo. */}
+                        {activo ? (
+                          <motion.span
+                            layoutId="m5-formulario-activo"
+                            className="absolute inset-0 -z-10 rounded-md bg-primary"
+                            transition={{ type: "spring", stiffness: 420, damping: 36 }}
+                            aria-hidden
+                          />
+                        ) : null}
                         {f.nombre}
+                        <ArrowRight
+                          className={cn(
+                            "size-3.5 shrink-0 transition-[opacity,translate] motion-reduce:transition-none",
+                            activo ? "hidden" : "-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                          )}
+                          aria-hidden
+                        />
                       </button>
                     );
                   })}

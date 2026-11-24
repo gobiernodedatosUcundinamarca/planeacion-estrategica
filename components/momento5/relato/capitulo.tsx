@@ -104,7 +104,7 @@ export function Capitulo({
 }) {
   return (
     // scroll-mt deja la sección justo bajo la barra fija, dentro del margen con que el menú marca el formulario actual.
-    <section id={id} aria-labelledby={`${id}-titulo`} className="m5-capitulo scroll-mt-48">
+    <section id={id} aria-labelledby={`${id}-titulo`} className="m5-capitulo scroll-mt-52">
       <div className="m5-reticula">
         <div className="col-span-10">
           <h2 id={`${id}-titulo`} className="m5-titular-2">

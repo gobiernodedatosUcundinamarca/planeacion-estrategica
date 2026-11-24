@@ -1,7 +1,9 @@
 "use client";
 
+import { useId, useState } from "react";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import {
+  enunciadoCompleto,
   porcentajesComplementarios,
   type ConformacionEquipo,
   type DerivadosMomento5,
@@ -11,7 +13,7 @@ import {
 import type { PreguntaAbiertaMomento5 } from "@/types/momento5";
 import { Fuente, TablaSimple, Tarjeta, pct } from "../piezas";
 import { RespuestasAbiertas } from "../respuestas-abiertas";
-import { BarrasValoracion, MapaComponentes } from "../validacion";
+import { BarrasValoracion, DetalleComponente, MapaComponentes, claveDe } from "../validacion";
 import { Capitulo, Cifra, Clasificacion, Porcentaje, Pregunta } from "./capitulo";
 import { EquiposAsignados } from "./equipos-asignados";
 import { Escenario } from "./escenario";
@@ -48,6 +50,9 @@ export function CapituloValidacion({
   abiertas: PreguntaAbiertaMomento5[];
   equipos: ConformacionEquipo[];
 }) {
+  // La celda del mapa (plano fijo) y sus propuestas (columna de texto) comparten la elección.
+  const [elegido, setElegido] = useState<string | null>(null);
+  const idDetalle = useId();
   const k = d.kpi;
   const tipo = destacados.tipoMasCorregido;
   const masT = destacados.transformacionMasCorregida;
@@ -117,18 +122,8 @@ export function CapituloValidacion({
         <Pregunta>
           {nombreT[foco.t] ?? foco.t}: {foco.titulo}
         </Pregunta>
-        {foco.texto ? (
-          <p className="m5-texto text-[var(--m5-suave)]">
-            {foco.texto}
-            {/* Los puntos suspensivos vienen de la exportación de Forms: se dice, igual que en el mapa. */}
-            {foco.truncado ? (
-              <>
-                {" "}
-                <TextoEditorial id="m5-texto-recortado" original="(texto recortado a 200 caracteres en la exportación de Forms)" />
-              </>
-            ) : null}
-          </p>
-        ) : null}
+        {/* Solo el enunciado entero: los que Forms cortó a 200 caracteres no se muestran a medias. */}
+        {enunciadoCompleto(foco) ? <p className="m5-texto text-[var(--m5-suave)]">{enunciadoCompleto(foco)}</p> : null}
         {opciones}
         <p className="m5-entradilla">
           <Cifra valor={foco.A} className="m5-correccion" /> <TextoEditorial id="m5-de" original="de" /> <Cifra valor={foco.total} />{" "}
@@ -139,9 +134,10 @@ export function CapituloValidacion({
         <p className="m5-nota">
           <TextoEditorial
             id="m5-val-paso3-nota"
-            original="Haz clic en una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada participante."
+            original="Haz clic en una celda del mapa para leer aquí debajo el «Ajuste propuesto» y la «Justificación del ajuste» de cada participante."
           />
         </p>
+        <DetalleComponente d={d} elegido={elegido} id={idDetalle} textoYaVisible={claveDe(foco)} />
       </>
     ) : (
       <SinDatos />
@@ -189,7 +185,7 @@ export function CapituloValidacion({
     >
       <BarrasValoracion filas={d.porTipoComp} />
     </Tarjeta>,
-    <MapaComponentes key="m" d={d} />,
+    <MapaComponentes key="m" d={d} elegido={elegido} onElegir={setElegido} idDetalle={idDetalle} />,
   ];
 
   return (

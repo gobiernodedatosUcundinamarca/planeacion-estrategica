@@ -9,6 +9,7 @@ import {
   conformacionEquipos,
   derivarMomento5,
   destacadosMomento5,
+  enunciadoCompleto,
   fechaCorta,
   fechaLarga,
   nombreFormularioDe,
@@ -173,6 +174,18 @@ test("los destacados del relato salen de las cifras y toleran equipos sin datos"
   assert.equal(citas.length, 2);
   assert.ok(citas.every((c) => c.temas.includes("APR") && c.aspecto));
   assert.deepEqual(citasDeTema([], "APR"), []);
+});
+
+test("un enunciado que Forms recortó no se muestra a medias", () => {
+  const componentes = Object.values(derivarMomento5(datos, null).porComp).flat();
+  const recortados = componentes.filter((c) => c.truncado);
+  // Caso documentado: la exportación corta a 200 caracteres 21 objetivos y resultados.
+  assert.equal(recortados.length, 21);
+  for (const c of recortados) assert.equal(enunciadoCompleto(c), null, `${c.t}:${c.code}`);
+  const enteros = componentes.filter((c) => !c.truncado && c.texto);
+  assert.ok(enteros.length > 0);
+  for (const c of enteros) assert.equal(enunciadoCompleto(c), c.texto);
+  for (const c of componentes) assert.ok(!enunciadoCompleto(c)?.includes("…"), `${c.t}:${c.code}`);
 });
 
 test("escalas, porcentajes y fechas", () => {

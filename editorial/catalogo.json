@@ -5555,7 +5555,7 @@
     "elemento": "span"
   },
   "m5-val-paso3-nota": {
-    "original": "Haz clic en una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada participante.",
+    "original": "Haz clic en una celda del mapa para leer aquí debajo el «Ajuste propuesto» y la «Justificación del ajuste» de cada participante.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -6082,6 +6082,11 @@
   "clasificacion-respuestas-se-agrupan": {
     "original": "respuestas se agrupan solas en",
     "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "m5-menu-ayuda": {
+    "original": "Haz clic en un formulario para ir a su sección; el que estás leyendo queda resaltado en verde.",
+    "archivo": "components/momento5/panel-momento5.tsx",
     "elemento": "span"
   }
 }
