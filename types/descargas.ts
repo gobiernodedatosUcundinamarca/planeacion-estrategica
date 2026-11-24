@@ -1,7 +1,8 @@
 /**
  * Descargas en Excel de cada sección del panel, y el registro con que se
  * auditan. Las descargas son públicas (cualquiera que vea la sección puede
- * bajar sus respuestas), así que todo lo que sale por aquí es anónimo.
+ * bajar sus respuestas), así que todo lo que sale por aquí es anónimo, salvo
+ * las secciones de `DESCARGAS_CON_DATOS_PERSONALES` (docs/decisions/0004).
  */
 
 /** Valor de una celda de una hoja de descarga. */
@@ -16,6 +17,8 @@ export interface HojaDescarga {
   filas: CeldaDescarga[][];
   /** Índices de columnas con fechas "aaaa-mm-dd", que se escriben como fecha real. */
   columnasFecha?: number[];
+  /** Índices de columnas con fecha y hora como número de serie de Excel. */
+  columnasFechaHora?: number[];
 }
 
 /** Cómo terminó una petición de descarga. Se guarda tal cual en el registro. */

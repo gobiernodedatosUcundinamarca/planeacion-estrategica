@@ -8,13 +8,14 @@ import { ETIQUETA_ROL } from "@/constants/marca";
 import { PREGUNTAS } from "@/constants/preguntas";
 import { ZONA_HORARIA } from "@/constants/admin";
 import {
-  AVISO_ANONIMATO,
   BYTES_MAXIMOS_DESCARGA,
+  DESCARGAS_CON_DATOS_PERSONALES,
   DIAS_REGISTRO_DESCARGAS,
   LIMITE_DESCARGAS_GLOBAL,
   LIMITE_DESCARGAS_POR_VISITANTE,
   VENTANA_GLOBAL_MINUTOS,
   VENTANA_VISITANTE_MINUTOS,
+  avisoDescarga,
   slugDeRuta,
 } from "@/lib/reglas/descargas";
 import { adscripcionesDe, etiquetaRol, unidadRegionalDe } from "@/lib/reglas/participacion";
@@ -37,6 +38,8 @@ import { getAportes } from "./aportesRepository";
 import { getRegistrosParticipacion } from "./participacionRepository";
 import { getVistaValoracionTerritorio } from "./valoracionTerritorioRepository";
 import { getVistaIaAdministrativos } from "./iaAdministrativosRepository";
+import { getFormulariosEnviadosMomento5, getResultadosMomento5 } from "./momento5Repository";
+import { hojasDescargaMomento5 } from "@/lib/reglas/momento5-descarga";
 
 /**
  * Descargas en Excel de cada sección del menú: las respuestas de la sección,
@@ -445,6 +448,9 @@ const CONSTRUCTORES: Record<string, Constructor> = {
     },
   ],
 
+  // Excepción a la regla de anonimato (docs/decisions/0004): los formularios tal como se enviaron.
+  "resultados-momento5": () => hojasDescargaMomento5(getResultadosMomento5().meta, getFormulariosEnviadosMomento5()),
+
   "ia-administrativos": async () => {
     const campos = Object.keys(PREGUNTAS_IA) as CampoIa[];
     return [
@@ -639,20 +645,24 @@ export async function generarDescarga(slug: string, ip: string): Promise<Descarg
 
 /**
  * Arma el Excel de una sección: sus hojas (si no llegaron ya construidas), sin
- * correos, con título y notas.
+ * correos, con título y notas. Las secciones con datos personales autorizados
+ * (`DESCARGAS_CON_DATOS_PERSONALES`) conservan los correos y llevan su propio aviso.
  */
-async function generarArchivo(slug: string, construidas: HojaDescarga[] | null): Promise<Buffer> {
-  const hojas = sinCorreos(construidas ?? (await CONSTRUCTORES[slug]()));
+export async function generarArchivo(slug: string, construidas: HojaDescarga[] | null): Promise<Buffer> {
+  const completas = construidas ?? (await CONSTRUCTORES[slug]());
+  const hojas = Object.hasOwn(DESCARGAS_CON_DATOS_PERSONALES, slug) ? completas : sinCorreos(completas);
   const titulo = tituloDe(slug);
   const totalFilas = hojas.reduce((suma, h) => suma + h.filas.length - 1, 0);
   return getDescargasDataSource().escribirExcel(
     hojas.map((h) => ({
       ...h,
-      titulo: hojas.length > 1 ? `${titulo} · ${h.nombre}` : titulo,
+      titulo: hojas.length > 1 ? `${titulo} · ${h.titulo || h.nombre}` : titulo,
       notas: [
         `Universidad de Cundinamarca · Planeación Estratégica 2027-2037 · ${formatNumeroSimple(h.filas.length - 1)} registros${hojas.length > 1 ? ` (de ${formatNumeroSimple(totalFilas)} en el archivo)` : ""}.`,
         `Generado el ${formatoGenerado.format(new Date())} con los datos vigentes en ese momento.`,
-        AVISO_ANONIMATO,
+        avisoDescarga(slug),
+        // Las notas propias de cada hoja (qué se excluyó) van después de las generales.
+        ...(h.notas ?? []),
       ],
     }))
   );

@@ -1,11 +1,16 @@
 import "server-only";
 import { preguntasAbiertasMomento5 } from "@/lib/reglas/momento5-abiertas";
-import type { ResultadosMomento5, VistaMomento5 } from "@/types/momento5";
-import { getMomento5DataSource } from "./datasource";
+import type { FormularioEnviadoMomento5, ResultadosMomento5, VistaMomento5 } from "@/types/momento5";
+import { getFormulariosMomento5DataSource, getMomento5DataSource } from "./datasource";
 
 /** Única puerta a los resultados del Momento 5 del CAI de Planeación Estratégica. */
 export function getResultadosMomento5(): ResultadosMomento5 {
   return getMomento5DataSource().getResultados();
+}
+
+/** Los cinco formularios tal como los exportó Forms, sin depurar: solo para la descarga. */
+export function getFormulariosEnviadosMomento5(): FormularioEnviadoMomento5[] {
+  return getFormulariosMomento5DataSource().getFormularios();
 }
 
 /**

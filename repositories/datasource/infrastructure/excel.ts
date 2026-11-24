@@ -62,6 +62,18 @@ export function leerPrimeraHoja(ruta: string): unknown[][] {
   return hojaAMatriz(leerLibro(ruta), null) ?? [];
 }
 
+/**
+ * Las celdas combinadas de una hoja (fila y columna de inicio y fin, desde 0).
+ * Una combinada solo guarda su valor en la primera celda: quien lea una fila de
+ * secciones las necesita para saber qué columnas cubre cada una.
+ */
+export function celdasCombinadas(
+  libro: XLSX.WorkBook,
+  nombreHoja: string | null
+): { s: { r: number; c: number }; e: { r: number; c: number } }[] {
+  return libro.Sheets[nombreHoja ?? libro.SheetNames[0]]?.["!merges"] ?? [];
+}
+
 /** Valor de una celda al escribir un libro. */
 export type CeldaSalida = string | number | null;
 
@@ -80,6 +92,12 @@ export interface HojaSalida {
    * texto, para que quien abra el archivo pueda ordenarlas y filtrarlas.
    */
   columnasFecha?: number[];
+  /**
+   * Índices de las columnas con fecha y hora como número de serie de Excel (la
+   * «Hora de inicio» de un envío de Forms). Se escriben con formato
+   * dd/mm/aaaa hh:mm para que no se lean como un número suelto.
+   */
+  columnasFechaHora?: number[];
 }
 
 /** Tope de ancho de columna, en caracteres: más allá, el texto se parte en líneas. */
@@ -117,6 +135,7 @@ export async function escribirLibro(hojas: HojaSalida[]): Promise<Buffer> {
     const [encabezados = [], ...datos] = hoja.filas;
     const totalColumnas = Math.max(1, encabezados.length, ...datos.map((f) => f.length));
     const fechas = new Set(hoja.columnasFecha ?? []);
+    const fechasHora = new Set(hoja.columnasFechaHora ?? []);
     const ws = libro.addWorksheet(hoja.nombre.slice(0, 31));
 
     let fila = 1;
@@ -142,7 +161,9 @@ export async function escribirLibro(hojas: HojaSalida[]): Promise<Buffer> {
     const anchos = Array.from({ length: totalColumnas }, (_, c) =>
       fechas.has(c)
         ? 12
-        : Math.min(
+        : fechasHora.has(c)
+          ? 17
+          : Math.min(
             ANCHO_MAXIMO_COLUMNA,
             Math.max(10, ...hoja.filas.map((f) => String(f[c] ?? "").length + 2))
           )
@@ -169,6 +190,7 @@ export async function escribirLibro(hojas: HojaSalida[]): Promise<Buffer> {
         const serial = fechas.has(c) && typeof valor === "string" ? isoAExcelSerial(valor) : null;
         celda.value = serial ?? valor;
         if (serial !== null) celda.numFmt = "dd/mm/yyyy";
+        else if (fechasHora.has(c) && typeof valor === "number") celda.numFmt = "dd/mm/yyyy hh:mm";
         celda.alignment = {
           vertical: "top",
           // Solo se parte en líneas lo que no cabe en el ancho máximo.

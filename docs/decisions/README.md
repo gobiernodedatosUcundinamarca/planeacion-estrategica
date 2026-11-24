@@ -10,6 +10,7 @@ correcciones menores.
 | [0001](0001-base-local-en-ejecutable.md) | Base de datos local en el ejecutable portable | Aceptada |
 | [0002](0002-fuentes-de-datos.md) | Archivos en vivo y Postgres solo para `/admin` | Aceptada |
 | [0003](0003-json-momento5.md) | JSON precalculado como fuente de «Resultados Momento 5 · CAI» | Aceptada |
+| [0004](0004-descarga-momento5-con-datos-personales.md) | Descarga del Momento 5 con los formularios tal como se enviaron | Aceptada |
 
 Plantilla `NNNN-titulo.md`: Fecha · Estado (Propuesta, Aceptada, Reemplazada por NNNN)
 · Decisión · Motivo · Consecuencias · Referencias verificables. Una decisión superada se

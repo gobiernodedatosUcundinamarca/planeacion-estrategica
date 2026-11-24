@@ -8,6 +8,7 @@ import { ExcelEncuestaDataSource } from "./excel-data-source";
 import { ExcelMetasDataSource } from "./excel-metas-source";
 import { ExcelNotaMetodologicaDataSource } from "./excel-nota-metodologica-source";
 import { JsonMomento5DataSource } from "./json-momento5-source";
+import { ExcelFormulariosMomento5DataSource } from "./excel-forms-momento5-source";
 import { ExcelConferencistasDataSource } from "./excel-conferencistas-source";
 import { ExcelValoracionesDataSource } from "./excel-valoraciones-source";
 import { ExcelCaiDataSource } from "./excel-cai-source";
@@ -26,6 +27,7 @@ import {
 import { PostgresDescargasDataSource } from "./postgres-descargas-source";
 import type {
   DescargasDataSource,
+  FormulariosMomento5DataSource,
   IaAdministrativosDataSource,
   Momento5DataSource,
   NotaMetodologicaDataSource,
@@ -70,6 +72,10 @@ export const getNotaMetodologicaDataSource = crearSingleton(
 );
 
 export const getMomento5DataSource = crearSingleton((): Momento5DataSource => new JsonMomento5DataSource());
+
+export const getFormulariosMomento5DataSource = crearSingleton(
+  (): FormulariosMomento5DataSource => new ExcelFormulariosMomento5DataSource()
+);
 
 export const getConferencistasDataSource = crearSingleton(() => new ExcelConferencistasDataSource());
 

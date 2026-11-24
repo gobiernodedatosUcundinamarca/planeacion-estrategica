@@ -2,7 +2,7 @@ import type { Persona, RolAsignado, RespuestaPregunta } from "@/types/encuesta";
 import type { ResultadoClasificacionDocumental, MetodoClasificacion, ResumenFuentesClasificacion } from "@/types/clasificacion-documental";
 import type { FilaMeta } from "@/types/metas";
 import type { NotaMetodologica } from "@/types/nota-metodologica";
-import type { ResultadosMomento5 } from "@/types/momento5";
+import type { FormularioEnviadoMomento5, ResultadosMomento5 } from "@/types/momento5";
 import type { ConferenciaCard } from "@/types/conferencistas";
 import type { ValoracionConferencista } from "@/types/valoraciones";
 import type { CaiData } from "@/types/cai";
@@ -73,6 +73,11 @@ export interface NotaMetodologicaDataSource {
 /** Contrato del origen de los resultados del Momento 5 del CAI (cinco formularios ya depurados). */
 export interface Momento5DataSource {
   getResultados(): ResultadosMomento5;
+}
+
+/** Contrato de las exportaciones de Forms del Momento 5, sin depurar (solo para la descarga). */
+export interface FormulariosMomento5DataSource {
+  getFormularios(): FormularioEnviadoMomento5[];
 }
 
 /**

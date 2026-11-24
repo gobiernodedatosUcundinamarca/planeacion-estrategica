@@ -43,3 +43,19 @@ export function slugDeRuta(ruta: string): string {
 /** Texto que acompaña a cada descarga pública: qué trae y qué no. */
 export const AVISO_ANONIMATO =
   "Datos anónimos: no incluye nombres, correos ni documentos. Donde hace falta distinguir personas se usa un seudónimo (Participante 001…).";
+
+/**
+ * Secciones cuya descarga lleva datos personales por decisión expresa de los
+ * responsables (docs/decisions/0004), con el aviso que la reemplaza. En ellas
+ * no se anonimiza ni se tapan los correos: el archivo es el de los formularios
+ * tal como se enviaron.
+ */
+export const DESCARGAS_CON_DATOS_PERSONALES: Readonly<Record<string, string>> = {
+  "resultados-momento5":
+    "Respuestas tal como se enviaron en Microsoft Forms, con el nombre y el correo de quien respondió. No incluye los envíos depurados; la hoja «Envíos excluidos» dice cuáles y por qué.",
+};
+
+/** El aviso de la descarga de una sección: el anónimo, salvo las excepciones de arriba. */
+export function avisoDescarga(slug: string): string {
+  return DESCARGAS_CON_DATOS_PERSONALES[slug] ?? AVISO_ANONIMATO;
+}

@@ -138,6 +138,28 @@ export interface ExclusionMomento5 {
   motivo: string;
 }
 
+/** Valor de una celda de la exportación de Forms, sin interpretar. */
+export type CeldaEnviada = string | number | null;
+
+/**
+ * Un formulario del Momento 5 tal como lo exportó Microsoft Forms
+ * (`data/forms_momento_5`): sus columnas y un envío por fila, sin depurar.
+ */
+export interface FormularioEnviadoMomento5 {
+  /** Nombre del archivo de la exportación, sin la extensión. */
+  archivo: string;
+  /**
+   * Encabezados de la tabla. Si la exportación agrupa columnas bajo una fila
+   * de sección (Validación: «3. Transformación: …»), la sección va delante.
+   */
+  encabezados: string[];
+  filas: CeldaEnviada[][];
+  /** Columna «ID» con que el análisis identifica cada envío; -1 si no la hay. */
+  columnaId: number;
+  /** Columnas «Hora de …»: fecha y hora como número de serie de Excel. */
+  columnasFechaHora: number[];
+}
+
 export interface EquipoMomento5 {
   equipo: number;
   transformaciones: TransformacionId[];

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { AlertTriangle, Download, FileSpreadsheet, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { AVISO_ANONIMATO, slugDeRuta } from "@/lib/reglas/descargas";
+import { avisoDescarga, slugDeRuta } from "@/lib/reglas/descargas";
 import { NAVEGACION } from "@/constants/navegacion";
 
 /**
@@ -63,7 +63,7 @@ export function DescargaExcel({ ruta, mencionarFormato = true }: { ruta: string;
           <div className="min-w-0 flex-1">
             <p className="font-heading text-sm font-semibold text-foreground"><TextoEditorial id="236a3b86da88daad9b8b" original={"Descargar los datos de esta sección"}/></p>
             <p className="text-xs text-muted-foreground">
-              {mencionarFormato ? <TextoEditorial id="8465b7ad7f5f774de865" original={"Excel con las respuestas de «"}/> : "Datos de «"}{titulo}». {AVISO_ANONIMATO}
+              {mencionarFormato ? <TextoEditorial id="8465b7ad7f5f774de865" original={"Excel con las respuestas de «"}/> : "Datos de «"}{titulo}». {avisoDescarga(seccion)}
             </p>
           </div>
           <Button type="button" onClick={descargar} disabled={descargando} className="shrink-0">

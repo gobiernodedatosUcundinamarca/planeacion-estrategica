@@ -2,6 +2,7 @@ import "@/components/momento5/momento5.css";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import type { Metadata } from "next";
 import { AlertTriangle } from "lucide-react";
+import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { NotasMomento5 } from "@/components/momento5/notas-momento5";
 import { PanelMomento5 } from "@/components/momento5/panel-momento5";
 import { TITULO_MOMENTO5 } from "@/lib/reglas/momento5";
@@ -55,6 +56,10 @@ export default function ResultadosMomento5Page() {
     <article className="m5 max-w-[72rem]">
       <PanelMomento5 datos={datos} abiertas={abiertas} />
       <NotasMomento5 meta={datos.meta} />
+      {/* Al final, después de lo que se depuró: el Excel trae los formularios sin esos envíos. */}
+      <div className="pb-16">
+        <DescargaExcel ruta="/resultados-momento5" />
+      </div>
     </article>
   );
 }
