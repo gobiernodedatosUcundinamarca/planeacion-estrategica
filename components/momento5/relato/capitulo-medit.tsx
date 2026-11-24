@@ -117,7 +117,7 @@ export function CapituloMedit({
           principal ? (
             <Ranking
               titulo="Temas de las respuestas al Formulario Individual de Consolidación del MEDIT"
-              descripcion="Respuestas individuales que hacen referencia a cada tema; una misma respuesta puede referirse a varios. Elige un tema para leer sus respuestas más abajo."
+              descripcion="Respuestas individuales que hacen referencia a cada tema; una misma respuesta puede referirse a varios. Haz clic en un tema para leer sus respuestas más abajo."
               items={d.temas}
               total={n}
               truncarEn={30}

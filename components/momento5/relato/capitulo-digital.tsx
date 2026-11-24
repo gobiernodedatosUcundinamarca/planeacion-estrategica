@@ -51,12 +51,12 @@ export function CapituloDigital({
         </Pregunta>
         <p className="m5-entradilla">
           <Cifra valor={n} />{" "}
-          <TextoEditorial id="m5-dig-paso1-a" original="personas propusieron un proceso de su dependencia o unidad académica. La categoría más frecuente es" />{" "}
+          <TextoEditorial id="m5-dig-paso1-a" original="participantes propusieron un proceso de su dependencia o unidad académica. La categoría más frecuente es" />{" "}
           <strong className="font-semibold">{categoria.label}</strong>, <TextoEditorial id="m5-dig-paso1-b" original="con" />{" "}
           <Cifra valor={categoria.value} /> <TextoEditorial id="m5-dig-paso1-c" original="propuestas." />
         </p>
         <p className="m5-nota">
-          <TextoEditorial id="m5-dig-paso1-nota" original="Elige una barra para ver solo esos procesos en la tabla, más abajo." />
+          <TextoEditorial id="m5-dig-paso1-nota" original="Haz clic en una barra para ver solo esos procesos en la tabla de más abajo." />
         </p>
       </>
     ) : (
@@ -74,7 +74,7 @@ export function CapituloDigital({
           <TextoEditorial id="m5-dig-paso2-c" original="respuestas." />
         </p>
         <p className="m5-nota">
-          <TextoEditorial id="m5-dig-paso2-nota" original="Es una pregunta abierta; cada respuesta se clasificó en uno o más tipos de dificultad." />
+          <TextoEditorial id="m5-dig-paso2-nota" original="Es una pregunta abierta: los tipos de dificultad salen de clasificar cada respuesta." />
         </p>
       </>
     ) : (
@@ -150,7 +150,7 @@ export function CapituloDigital({
         <Cuadricula total={n} ia={d.kpi.procesosIA} automatizacion={d.kpi.procesosAuto} />
         <div className="flex flex-col gap-4">
           <Medidor
-            etiqueta={<TextoEditorial id="m5-mencionan-ia" original="Mencionan IA, chatbot o agentes inteligentes" />}
+            etiqueta={<TextoEditorial id="m5-mencionan-ia" original="Mencionan IA, chatbots o agentes inteligentes" />}
             valor={d.kpi.procesosIA}
             total={n}
           />

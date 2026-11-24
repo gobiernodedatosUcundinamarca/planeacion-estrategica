@@ -35,7 +35,7 @@ export function AcuerdosEquipo({ d }: { d: DerivadosMomento5 }) {
   return (
     <Tarjeta
       titulo="Ajustes acordados por los equipos"
-      descripcion="Un registro por equipo, diligenciado por su relator(a). Las columnas son las opciones de «Componente:». Elige una celda para filtrar los ajustes."
+      descripcion="Un registro por equipo, diligenciado por su relator(a). Las columnas son las opciones de «Componente:». Haz clic en una celda para filtrar los ajustes."
       pie={
         <Fuente
           id="m5-fuente-acu-matriz"

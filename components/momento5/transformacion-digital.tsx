@@ -55,7 +55,7 @@ export function TablaProcesos({
     <div className="flex flex-col">
       <Tarjeta
         titulo="Procesos propuestos para transformación digital"
-        descripcion="Respuestas individuales. Elige una fila para leer «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?»."
+        descripcion="Respuestas individuales. Haz clic en una fila para leer «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?»."
         pie={
           <Fuente
             id="m5-fuente-dig-tabla"

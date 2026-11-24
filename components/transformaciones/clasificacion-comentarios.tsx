@@ -23,6 +23,7 @@ export function ClasificacionComentarios({
   totalComentarios,
   ayuda = "Haz clic en un tema para filtrar la sección; otro clic lo quita.",
   accion = "Ver sus comentarios",
+  unidad = "comentarios",
 }: {
   clusters: ClusterComentarios[];
   seleccionado: number | null;
@@ -32,6 +33,8 @@ export function ClasificacionComentarios({
   ayuda?: string;
   /** Rótulo de la acción dentro de cada botón. */
   accion?: string;
+  /** Cómo se llaman los textos agrupados en la sección, para que el conteo diga lo mismo que la lista. */
+  unidad?: "comentarios" | "respuestas";
 }) {
   if (clusters.length === 0) {
     return (
@@ -46,7 +49,16 @@ export function ClasificacionComentarios({
         <p className="flex flex-wrap items-center gap-2">
           <Layers className="size-4 shrink-0 text-primary" aria-hidden />
           <span>
-            <TextoEditorial id="f6ec7c00909f85616c35" original={"Los"}/> {formatNumero(totalComentarios)} <TextoEditorial id="292906f3df9b7f20aeb4" original={"comentarios se agrupan solos en"}/>{" "}
+            {unidad === "respuestas" ? (
+              <>
+                <TextoEditorial id="clasificacion-las" original="Las" /> {formatNumero(totalComentarios)}{" "}
+                <TextoEditorial id="clasificacion-respuestas-se-agrupan" original="respuestas se agrupan solas en" />{" "}
+              </>
+            ) : (
+              <>
+                <TextoEditorial id="f6ec7c00909f85616c35" original={"Los"}/> {formatNumero(totalComentarios)} <TextoEditorial id="292906f3df9b7f20aeb4" original={"comentarios se agrupan solos en"}/>{" "}
+              </>
+            )}
             <strong className="font-medium text-foreground">{clusters.length} <TextoEditorial id="b85b36eab3831604a610" original={"temas"}/></strong> <TextoEditorial id="c837b8ab30885afc1ec6" original={"según las palabras que comparten."}/>
           </span>
         </p>

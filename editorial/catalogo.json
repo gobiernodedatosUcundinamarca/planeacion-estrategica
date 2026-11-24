@@ -5360,7 +5360,7 @@
     "elemento": "span"
   },
   "m5-dig-paso1-a": {
-    "original": "personas propusieron un proceso de su dependencia o unidad académica. La categoría más frecuente es",
+    "original": "participantes propusieron un proceso de su dependencia o unidad académica. La categoría más frecuente es",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5375,7 +5375,7 @@
     "elemento": "span"
   },
   "m5-dig-paso1-nota": {
-    "original": "Elige una barra para ver solo esos procesos en la tabla, más abajo.",
+    "original": "Haz clic en una barra para ver solo esos procesos en la tabla de más abajo.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5400,7 +5400,7 @@
     "elemento": "span"
   },
   "m5-dig-paso2-nota": {
-    "original": "Es una pregunta abierta; cada respuesta se clasificó en uno o más tipos de dificultad.",
+    "original": "Es una pregunta abierta: los tipos de dificultad salen de clasificar cada respuesta.",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5420,7 +5420,7 @@
     "elemento": "span"
   },
   "m5-mencionan-ia": {
-    "original": "Mencionan IA, chatbot o agentes inteligentes",
+    "original": "Mencionan IA, chatbots o agentes inteligentes",
     "archivo": "components/momento5/relato/capitulo-digital.tsx",
     "elemento": "span"
   },
@@ -5555,7 +5555,7 @@
     "elemento": "span"
   },
   "m5-val-paso3-nota": {
-    "original": "Elige una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona.",
+    "original": "Haz clic en una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada participante.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -5760,7 +5760,7 @@
     "elemento": "prop"
   },
   "m5-cada-celda-es-un-objetivo-oe-ambito-a-o-resultad": {
-    "original": "Cada celda es un objetivo estratégico (OE), un ámbito (Á) o un resultado estratégico (R). El color y la cifra indican el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer sus propuestas.",
+    "original": "Cada celda es un objetivo estratégico (OE), un ámbito (Á) o un resultado estratégico (R). El color y la cifra indican el porcentaje de participantes que marcó «Requiere ajuste». Haz clic en una celda para leer sus propuestas.",
     "archivo": "components/momento5/validacion.tsx",
     "elemento": "prop"
   },
@@ -5780,7 +5780,7 @@
     "elemento": "prop"
   },
   "m5-registro-grupal-cada-equipo-consolido-mediante-s": {
-    "original": "Un registro por equipo, diligenciado por su relator(a). Las columnas son las opciones de «Componente:». Elige una celda para filtrar los ajustes.",
+    "original": "Un registro por equipo, diligenciado por su relator(a). Las columnas son las opciones de «Componente:». Haz clic en una celda para filtrar los ajustes.",
     "archivo": "components/momento5/acuerdos.tsx",
     "elemento": "prop"
   },
@@ -5845,7 +5845,7 @@
     "elemento": "prop"
   },
   "m5-respuestas-individuales-clic-en-una-fila-para-ve": {
-    "original": "Respuestas individuales. Elige una fila para leer «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?».",
+    "original": "Respuestas individuales. Haz clic en una fila para leer «¿En qué consiste actualmente?» y «¿Cómo afecta el trabajo a los usuarios?».",
     "archivo": "components/momento5/transformacion-digital.tsx",
     "elemento": "prop"
   },
@@ -5860,7 +5860,7 @@
     "elemento": "prop"
   },
   "m5-temas-presentes-en-cada-respuesta-individual-una": {
-    "original": "Respuestas individuales que hacen referencia a cada tema; una misma respuesta puede referirse a varios. Elige un tema para leer sus respuestas más abajo.",
+    "original": "Respuestas individuales que hacen referencia a cada tema; una misma respuesta puede referirse a varios. Haz clic en un tema para leer sus respuestas más abajo.",
     "archivo": "components/momento5/relato/capitulo-medit.tsx",
     "elemento": "prop"
   },
@@ -5995,7 +5995,7 @@
     "elemento": "span"
   },
   "m5-fuente-val-transformacion": {
-    "original": "las cuatro secciones «3. Transformación:» del Formulario Individual de Validación Estratégica (UC Inteligente, UC Translocal, UC Emprendedora e Innovadora y UC para la Vida). Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo.",
+    "original": "las cuatro secciones «3. Transformación:» del Formulario Individual de Validación Estratégica (UC Inteligente, UC Translocal, UC Emprendedora e Innovadora y UC para la Vida). Cada valoración es la respuesta de un participante a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada participante solo valoró las dos transformaciones de su equipo.",
     "archivo": "components/momento5/relato/capitulo-validacion.tsx",
     "elemento": "span"
   },
@@ -6015,7 +6015,7 @@
     "elemento": "span"
   },
   "m5-equipos-b": {
-    "original": "equipos; cada persona valoró las dos transformaciones asignadas a su equipo.",
+    "original": "equipos; cada participante valoró las dos transformaciones asignadas a su equipo.",
     "archivo": "components/momento5/relato/equipos-asignados.tsx",
     "elemento": "span"
   },
@@ -6030,7 +6030,7 @@
     "elemento": "span"
   },
   "m5-fuente-val-mapa": {
-    "original": "valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» y «Justificación del ajuste al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» de ese componente.",
+    "original": "valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ participantes que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» y «Justificación del ajuste al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» de ese componente.",
     "archivo": "components/momento5/validacion.tsx",
     "elemento": "span"
   },
@@ -6073,5 +6073,15 @@
     "original": "Así en el original: se transcribe sin corregir.",
     "archivo": "components/editorial/sic.tsx",
     "elemento": "prop"
+  },
+  "clasificacion-las": {
+    "original": "Las",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
+  },
+  "clasificacion-respuestas-se-agrupan": {
+    "original": "respuestas se agrupan solas en",
+    "archivo": "components/transformaciones/clasificacion-comentarios.tsx",
+    "elemento": "span"
   }
 }

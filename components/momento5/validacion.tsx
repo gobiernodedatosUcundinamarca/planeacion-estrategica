@@ -137,11 +137,11 @@ export function MapaComponentes({ d }: { d: DerivadosMomento5 }) {
     <Tarjeta
       className="col-span-7"
       titulo="«Requiere ajuste» por componente"
-      descripcion="Cada celda es un objetivo estratégico (OE), un ámbito (Á) o un resultado estratégico (R). El color y la cifra indican el porcentaje de participantes que marcó «Requiere ajuste». Elige una celda para leer sus propuestas."
+      descripcion="Cada celda es un objetivo estratégico (OE), un ámbito (Á) o un resultado estratégico (R). El color y la cifra indican el porcentaje de participantes que marcó «Requiere ajuste». Haz clic en una celda para leer sus propuestas."
       pie={
         <Fuente
           id="m5-fuente-val-mapa"
-          original="valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ personas que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» y «Justificación del ajuste al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» de ese componente."
+          original="valoración de cada componente en el Formulario Individual de Validación Estratégica. Porcentaje = respuestas «Requiere ajuste» ÷ participantes que valoraron ese componente. Las propuestas son las respuestas a «Ajuste propuesto al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» y «Justificación del ajuste al Objetivo Estratégico, Ámbito o Resultado Estratégico (si corresponde):» de ese componente."
         />
       }
       tabla={

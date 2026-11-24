@@ -92,9 +92,6 @@ export function CapituloValidacion({
             <TextoEditorial id="m5-val-paso1-f" original="de sus valoraciones." />
           </p>
         ) : null}
-        <p className="m5-nota">
-          <TextoEditorial id="m5-val-paso1-nota" original="Cada participante valoró las dos transformaciones asignadas a su equipo." />
-        </p>
       </>
     ) : (
       <SinDatos />
@@ -120,7 +117,18 @@ export function CapituloValidacion({
         <Pregunta>
           {nombreT[foco.t] ?? foco.t}: {foco.titulo}
         </Pregunta>
-        {foco.texto ? <p className="m5-texto text-[var(--m5-suave)]">{foco.texto}</p> : null}
+        {foco.texto ? (
+          <p className="m5-texto text-[var(--m5-suave)]">
+            {foco.texto}
+            {/* Los puntos suspensivos vienen de la exportación de Forms: se dice, igual que en el mapa. */}
+            {foco.truncado ? (
+              <>
+                {" "}
+                <TextoEditorial id="m5-texto-recortado" original="(texto recortado a 200 caracteres en la exportación de Forms)" />
+              </>
+            ) : null}
+          </p>
+        ) : null}
         {opciones}
         <p className="m5-entradilla">
           <Cifra valor={foco.A} className="m5-correccion" /> <TextoEditorial id="m5-de" original="de" /> <Cifra valor={foco.total} />{" "}
@@ -131,7 +139,7 @@ export function CapituloValidacion({
         <p className="m5-nota">
           <TextoEditorial
             id="m5-val-paso3-nota"
-            original="Elige una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada persona."
+            original="Haz clic en una celda del mapa para leer el «Ajuste propuesto» y la «Justificación del ajuste» de cada participante."
           />
         </p>
       </>
@@ -148,7 +156,7 @@ export function CapituloValidacion({
       pie={
         <Fuente
           id="m5-fuente-val-transformacion"
-          original="las cuatro secciones «3. Transformación:» del Formulario Individual de Validación Estratégica (UC Inteligente, UC Translocal, UC Emprendedora e Innovadora y UC para la Vida). Cada valoración es la respuesta de una persona a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada persona solo respondió las dos transformaciones de su equipo."
+          original="las cuatro secciones «3. Transformación:» del Formulario Individual de Validación Estratégica (UC Inteligente, UC Translocal, UC Emprendedora e Innovadora y UC para la Vida). Cada valoración es la respuesta de un participante a un componente (OBJETIVO ESTRATÉGICO, ÁMBITO o RESULTADO ESTRATÉGICO) con las opciones «Se valida» o «Requiere ajuste»; aquí se suman por transformación. Cada participante solo valoró las dos transformaciones de su equipo."
         />
       }
       tabla={

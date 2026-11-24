@@ -24,7 +24,7 @@ export function EquiposAsignados({ equipos, equipo }: { equipos: ConformacionEqu
         </Pregunta>
         <p className="m5-entradilla">
           <Cifra valor={personas} /> <TextoEditorial id="m5-equipos-a" original="participantes trabajaron en" /> <Cifra valor={equipos.length} />{" "}
-          <TextoEditorial id="m5-equipos-b" original="equipos; cada persona valoró las dos transformaciones asignadas a su equipo." />
+          <TextoEditorial id="m5-equipos-b" original="equipos; cada participante valoró las dos transformaciones asignadas a su equipo." />
         </p>
       </div>
       <ol className="grid grid-cols-4 gap-x-[var(--m5-medianil)] gap-y-10" aria-label="Integrantes de cada equipo">

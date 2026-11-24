@@ -80,6 +80,7 @@ export function ComentariosPorTema({
           totalComentarios={comentarios.filter((c) => c.tema !== null).length}
           ayuda="Haz clic en un tema para ver solo sus respuestas; otro clic vuelve a mostrarlas todas."
           accion="Ver sus respuestas"
+          unidad="respuestas"
         />
       ) : comentarios.length > 0 ? (
         <p className="flex items-start gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
@@ -94,7 +95,7 @@ export function ComentariosPorTema({
           palabras={palabras}
           totalRespuestas={visibles.length}
           titulo={tituloNube}
-          descripcion={`Palabras más frecuentes en las ${formatNumero(visibles.length)} respuestas con contenido del recorte.`}
+          descripcion={`Sobre las ${formatNumero(visibles.length)} respuestas con contenido del recorte.`}
         />
       ) : null}
 
