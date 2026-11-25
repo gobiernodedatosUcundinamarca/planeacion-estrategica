@@ -81,9 +81,7 @@ export function PanelMomento5({ datos, abiertas }: { datos: ResultadosMomento5; 
 
   return (
     <MotionConfig reducedMotion="user">
-      <h1 className="sr-only">
-        <TextoEditorial id="m5-titulo" original="Resultados de las actividades del 17 y 18 de noviembre de 2026" />
-      </h1>
+      {/* El título (h1) va en la portada, antes de este panel. */}
       {/* Fondo opaco: con transparencia, el texto de debajo se lee a través de la barra. */}
       <div
         ref={barra}

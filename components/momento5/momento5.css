@@ -95,6 +95,36 @@
   color: var(--m5-valida);
 }
 
+/* Portada: entrada sobria al cargar, una sola vez. Con CSS y no con framer-motion: así se
+   anima apenas se pinta la página, sin esperar al JavaScript; con framer-motion el HTML del
+   servidor llegaba invisible (opacidad 0) hasta hidratar. Misma curva que SUAVIZADO. */
+@keyframes m5-subir {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@keyframes m5-asentar {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+.m5-entra {
+  animation: m5-subir 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* Cada pieza, 90 ms después de la anterior (--paso: 0, 1, 2…). */
+  animation-delay: calc(0.15s + var(--paso, 0) * 0.09s);
+}
+.m5-asienta {
+  animation: m5-asentar 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .m5-entra,
+  .m5-asienta {
+    animation: none;
+  }
+}
+
 /* Capítulo: un filete lo abre y el blanco lo separa del anterior. */
 .m5-capitulo {
   border-top: 1px solid var(--m5-filete);

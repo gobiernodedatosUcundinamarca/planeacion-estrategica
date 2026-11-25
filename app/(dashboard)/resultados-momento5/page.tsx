@@ -5,6 +5,7 @@ import { AlertTriangle } from "lucide-react";
 import { DescargaExcel } from "@/components/layout/descarga-excel";
 import { NotasMomento5 } from "@/components/momento5/notas-momento5";
 import { PanelMomento5 } from "@/components/momento5/panel-momento5";
+import { PortadaMomento5 } from "@/components/momento5/portada-momento5";
 import { TITULO_MOMENTO5 } from "@/lib/reglas/momento5";
 import { getVistaMomento5 } from "@/repositories/momento5Repository";
 import type { PreguntaAbiertaMomento5, ResultadosMomento5 } from "@/types/momento5";
@@ -29,7 +30,7 @@ export default function ResultadosMomento5Page() {
 
   if (error || !datos || datos.participantes.length === 0) {
     return (
-      <div className="m5 flex max-w-[72rem] flex-col gap-6">
+      <div className="m5 flex flex-col gap-6">
         <h1 className="m5-titular-2">
           <TextoEditorial id="m5-titulo" original="Resultados de las actividades del 17 y 18 de noviembre de 2026" />
         </h1>
@@ -53,7 +54,14 @@ export default function ResultadosMomento5Page() {
   }
 
   return (
-    <article className="m5 max-w-[72rem]">
+    // Ancho completo, como las demás secciones: con un tope de 72rem la página quedaba pegada a la
+    // izquierda y dejaba un vacío a la derecha. Los textos largos ya limitan su propio ancho (ch).
+    <article className="m5">
+      <PortadaMomento5
+        formularios={datos.meta.formularios}
+        participantes={datos.participantes.length}
+        equipos={datos.equipos.length}
+      />
       <PanelMomento5 datos={datos} abiertas={abiertas} />
       <NotasMomento5 meta={datos.meta} />
       {/* Al final, después de lo que se depuró: el Excel trae los formularios sin esos envíos. */}

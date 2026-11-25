@@ -6093,5 +6093,45 @@
     "original": "Haz clic en un equipo para ver su matriz.",
     "archivo": "components/momento5/medit.tsx",
     "elemento": "span"
+  },
+  "m5-portada-etiqueta": {
+    "original": "Planeación Estratégica 2027-2037 · CAI",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-titulo": {
+    "original": "Momento 5",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-a": {
+    "original": "participantes, en",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-b": {
+    "original": "equipos, respondieron",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-c": {
+    "original": "formularios:",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-d": {
+    "original": "individuales y",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-e": {
+    "original": "por equipo.",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-boton": {
+    "original": "Empezar por el primer formulario",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
   }
 }
