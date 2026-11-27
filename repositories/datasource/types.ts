@@ -3,6 +3,8 @@ import type { ResultadoClasificacionDocumental, MetodoClasificacion, ResumenFuen
 import type { FilaMeta } from "@/types/metas";
 import type { NotaMetodologica } from "@/types/nota-metodologica";
 import type { FormularioEnviadoMomento5, ResultadosMomento5 } from "@/types/momento5";
+import type { Actividad2Momento5 } from "@/types/momento5-actividad2";
+import type { KahootMomento5 } from "@/types/momento5-kahoot";
 import type { ConferenciaCard } from "@/types/conferencistas";
 import type { ValoracionConferencista } from "@/types/valoraciones";
 import type { CaiData } from "@/types/cai";
@@ -73,6 +75,16 @@ export interface NotaMetodologicaDataSource {
 /** Contrato del origen de los resultados del Momento 5 del CAI (cinco formularios ya depurados). */
 export interface Momento5DataSource {
   getResultados(): ResultadosMomento5;
+}
+
+/** Contrato del reporte del Kahoot de la Actividad 3 del Momento 5 (null si no hay reporte). */
+export interface Momento5KahootDataSource {
+  getKahoot(): KahootMomento5 | null;
+}
+
+/** Contrato de la Actividad 2 del Momento 5 (fichas por mesa y Mentimeter, transcritas). */
+export interface Momento5Actividad2DataSource {
+  getActividad2(): Actividad2Momento5;
 }
 
 /** Contrato de las exportaciones de Forms del Momento 5, sin depurar (solo para la descarga). */

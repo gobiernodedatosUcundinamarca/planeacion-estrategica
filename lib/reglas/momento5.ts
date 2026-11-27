@@ -137,6 +137,23 @@ export function fechaLarga(iso: string): string {
   return fecha ? fechaLargaFmt.format(fecha) : iso;
 }
 
+/**
+ * Número de la actividad en que se aplicó cada formulario, como se nombra de
+ * cara al público: los del 17 son la Actividad 1 y los del 18, la Actividad 3.
+ * La Actividad 2 (también el 17, después de la 1) no tiene formularios de
+ * Forms: son las fichas por mesa y Mentimeter (`momento5-actividad2.ts`).
+ */
+const ACTIVIDAD_DE_FECHA: Record<string, number> = { "2026-11-17": 1, "2026-11-18": 3 };
+
+export function numeroActividad(iso: string): number | null {
+  return ACTIVIDAD_DE_FECHA[iso] ?? null;
+}
+
+export function nombreActividad(iso: string): string {
+  const n = numeroActividad(iso);
+  return n === null ? fechaLarga(iso) : `Actividad ${n}`;
+}
+
 /** «2026-11-17» → «17 nov.» (es-CO formatea «17 de nov.»; la tabla usa la forma compacta). */
 export function fechaCorta(iso: string): string {
   const fecha = fechaIso(iso);

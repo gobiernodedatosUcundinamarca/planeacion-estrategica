@@ -9,6 +9,8 @@ import { ExcelMetasDataSource } from "./excel-metas-source";
 import { ExcelNotaMetodologicaDataSource } from "./excel-nota-metodologica-source";
 import { JsonMomento5DataSource } from "./json-momento5-source";
 import { ExcelFormulariosMomento5DataSource } from "./excel-forms-momento5-source";
+import { ExcelMomento5Actividad2DataSource } from "./excel-momento5-actividad2-source";
+import { ExcelMomento5KahootDataSource } from "./excel-momento5-kahoot-source";
 import { ExcelConferencistasDataSource } from "./excel-conferencistas-source";
 import { ExcelValoracionesDataSource } from "./excel-valoraciones-source";
 import { ExcelCaiDataSource } from "./excel-cai-source";
@@ -30,6 +32,8 @@ import type {
   FormulariosMomento5DataSource,
   IaAdministrativosDataSource,
   Momento5DataSource,
+  Momento5Actividad2DataSource,
+  Momento5KahootDataSource,
   NotaMetodologicaDataSource,
   ValoracionTerritorioDataSource,
 } from "./types";
@@ -72,6 +76,14 @@ export const getNotaMetodologicaDataSource = crearSingleton(
 );
 
 export const getMomento5DataSource = crearSingleton((): Momento5DataSource => new JsonMomento5DataSource());
+
+export const getMomento5Actividad2DataSource = crearSingleton(
+  (): Momento5Actividad2DataSource => new ExcelMomento5Actividad2DataSource()
+);
+
+export const getMomento5KahootDataSource = crearSingleton(
+  (): Momento5KahootDataSource => new ExcelMomento5KahootDataSource()
+);
 
 export const getFormulariosMomento5DataSource = crearSingleton(
   (): FormulariosMomento5DataSource => new ExcelFormulariosMomento5DataSource()

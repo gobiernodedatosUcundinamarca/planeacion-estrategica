@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Contador } from "@/components/nota-metodologica/piezas";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { formatNumero, formatPorcentaje } from "@/lib/formatters";
-import { fechaLarga, type FiltroEquipo, type FormularioConValor } from "@/lib/reglas/momento5";
+import { nombreActividad, type FiltroEquipo, type FormularioConValor } from "@/lib/reglas/momento5";
 import { cn } from "@/lib/utils";
 
 /** Una cifra dentro de una frase: cuenta hasta su valor al entrar y se desliza al cambiar el filtro. */
@@ -41,7 +41,7 @@ function FichaFormulario({ formulario, equipo }: { formulario: FormularioConValo
   const grupal = formulario.tipo === "Grupal";
   return (
     <p className="m5-ficha">
-      {fechaLarga(formulario.fecha)}.{" "}
+      {nombreActividad(formulario.fecha)}.{" "}
       {grupal ? (
         <TextoEditorial id="m5-ficha-grupal" original="Un registro por equipo:" />
       ) : (
@@ -90,27 +90,33 @@ export function Pregunta({ children }: { children: ReactNode }) {
 /**
  * Un formulario: su nombre tal cual, como título (para que quien lo respondió
  * lo reconozca), la ficha y el contenido, que decide su propia composición.
+ * Los instrumentos de la Actividad 2 no son formularios de Forms: llegan con
+ * su propio `titulo` (el nombre del instrumento) y su propia `ficha`.
  */
 export function Capitulo({
   id,
   formulario,
   equipo,
+  titulo,
+  ficha,
   children,
 }: {
   id: string;
-  formulario: FormularioConValor | undefined;
+  formulario?: FormularioConValor;
   equipo: FiltroEquipo;
+  titulo?: string;
+  ficha?: ReactNode;
   children: ReactNode;
 }) {
   return (
-    // scroll-mt deja la sección justo bajo la barra fija, dentro del margen con que el menú marca el formulario actual.
-    <section id={id} aria-labelledby={`${id}-titulo`} className="m5-capitulo scroll-mt-52">
+    // scroll-mt deja la sección justo bajo la barra fija (su alto lo mide el panel), dentro del margen con que el menú marca el formulario actual.
+    <section id={id} aria-labelledby={`${id}-titulo`} className="m5-capitulo scroll-mt-[calc(var(--m5-sobre-plano)-0.5rem)]">
       <div className="m5-reticula">
         <div className="col-span-10">
           <h2 id={`${id}-titulo`} className="m5-titular-2">
-            {formulario?.nombre ?? id}
+            {titulo ?? formulario?.nombre ?? id}
           </h2>
-          {formulario ? <FichaFormulario formulario={formulario} equipo={equipo} /> : null}
+          {ficha ? <p className="m5-ficha">{ficha}</p> : formulario ? <FichaFormulario formulario={formulario} equipo={equipo} /> : null}
         </div>
       </div>
       {children}

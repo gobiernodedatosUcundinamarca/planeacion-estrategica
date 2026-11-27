@@ -3,13 +3,15 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 
 /**
- * Alto de ventana por debajo del cual el plano fijo no alcanza. El plano mide
- * el alto de la ventana menos 248 px (barras fijas, `--m5-sobre-plano`, y margen)
- * y las gráficas más altas (el mapa de componentes y los temas del MEDIT) miden
- * hasta ~600 px: con 760 px de ventana quedan 512, que `AjustarAlPlano` cubre sin
- * bajar de `ESCALA_MINIMA`. Con 620, el umbral anterior, se cortaban.
+ * Alto mínimo del plano fijo. El plano mide el alto de la ventana menos lo que
+ * queda encima (`--m5-sobre-plano`: barras fijas y aire) y 2rem de margen, y las
+ * gráficas más altas (el mapa de componentes y los temas del MEDIT) miden hasta
+ * ~600 px: con 512 px de plano `AjustarAlPlano` las cubre sin bajar de
+ * `ESCALA_MINIMA`. Con menos se cortaban.
  */
-const ALTO_MINIMO_PLANO = 760;
+const ALTO_MINIMO_PLANO = 512;
+/** Lo que hay sobre el plano si el panel aún no midió su barra: 13.5rem + 2rem (con 760 px de ventana quedan 512). */
+const SOBRE_PLANO_INICIAL = 248;
 const ESCALA_MINIMA = 0.85;
 /** Margen alrededor de la gráfica para que no se recorten contornos (debe coincidir con momento5.css). */
 const HOLGURA = 6;
@@ -19,15 +21,19 @@ const HOLGURA = 6;
  * (clase `forzar-escritorio`) y ahí `sticky` no se sostiene; en pantallas bajas
  * el plano fijo no cabe; con «reducir movimiento» no se anima el paso a paso.
  * En esos casos cada paso lleva su propio gráfico, uno debajo del otro.
+ *
+ * `sobrePlano`: píxeles por encima del plano más su margen inferior, según la
+ * barra medida por el panel (su alto cambia con el menú).
  */
-export function useCompacto() {
+export function useCompacto(sobrePlano: number | null = null) {
   const [compacto, setCompacto] = useState(false);
+  const encima = sobrePlano ?? SOBRE_PLANO_INICIAL;
   useEffect(() => {
     const movimiento = matchMedia("(prefers-reduced-motion: reduce)");
     const revisar = () =>
       setCompacto(
         document.documentElement.classList.contains("forzar-escritorio") ||
-          window.innerHeight < ALTO_MINIMO_PLANO ||
+          window.innerHeight - encima < ALTO_MINIMO_PLANO ||
           movimiento.matches
       );
     revisar();
@@ -37,7 +43,7 @@ export function useCompacto() {
       window.removeEventListener("resize", revisar);
       movimiento.removeEventListener("change", revisar);
     };
-  }, []);
+  }, [encima]);
   return compacto;
 }
 

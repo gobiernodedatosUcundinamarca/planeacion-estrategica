@@ -1,0 +1,29 @@
+Mesa 1
+Integrantes: William CastañedaMireya RinconLuis Miguel CastañedaJulieth MacaMilton BuitragoSegundo Cortes
+
+1. ¿Qué cambio esperamos observar? Una cultura institucional donde la toma de decisiones esté sustentada en datos confiables y orientada al logro de resultados estratégicos.
+
+2. ¿En quién o en qué se manifiesta? En los procesos académicos y administrativos de todas las sedes, programas y dependencias de la Universidad.
+
+3. ¿Cómo sabremos que ocurrió? Cuando las decisiones institucionales evidencien soporte técnico, trazabilidad, seguimiento de indicadores y cumplimiento efectivo de los resultados estratégicos definidos en el Plan Estratégico 2027-203
+
+Indicador
+Porcentaje de decisiones estratégicas sustentadas en información institucional validada
+
+Fórmula de cálculo
+(Decisiones soportadas en informes y tableros ÷ Total de decisiones estratégicas) × 100
+
+Desagregación (Multicampus, sede o programas)
+Alta dirección
+
+
+Medio de verificación
+Actas de Consejos, informes de gestión y tableros de control
+
+
+Periodicidad
+anual
+
+
+Responsable
+Vicerrectorías y secretaria general

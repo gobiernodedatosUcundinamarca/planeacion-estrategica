@@ -6,9 +6,12 @@ import { ArrowRight, MousePointerClick, X } from "lucide-react";
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
 import { FiltroOpciones, TODAS_LAS_OPCIONES } from "@/components/layout/filtro-opciones";
 import { Button } from "@/components/ui/button";
-import { derivarMomento5, fechaLarga, ordenAplicacion, type FiltroEquipo } from "@/lib/reglas/momento5";
+import { derivarMomento5, type FiltroEquipo } from "@/lib/reglas/momento5";
+import { gruposPorActividad } from "@/lib/reglas/momento5-actividad2";
 import { cn } from "@/lib/utils";
 import type { PreguntaAbiertaMomento5, ResultadosMomento5 } from "@/types/momento5";
+import type { Actividad2Momento5 } from "@/types/momento5-actividad2";
+import type { KahootMomento5 } from "@/types/momento5-kahoot";
 import { RelatoMomento5, SECCION_DE_FORMULARIO } from "./relato/relato-momento5";
 
 const etiquetaEquipo = (n: number) => `Equipo ${n}`;
@@ -54,26 +57,65 @@ function useFormularioActual(ids: string[], barra: React.RefObject<HTMLDivElemen
 }
 
 /**
+ * Fija `--m5-sobre-plano` (momento5.css) con el alto real de la barra: el
+ * plano fijo del relato y el destino de cada enlace del menú quedan justo
+ * debajo de ella. Con tres actividades y nombres largos la barra mide más que
+ * el valor fijo de antes y tapaba la parte de arriba de las gráficas. Se mide
+ * `offsetHeight` (sin la escala del escritorio), en las mismas unidades del CSS.
+ *
+ * Devuelve, en píxeles, lo que queda encima del plano más su margen inferior
+ * (2rem), para que el relato decida si el plano fijo cabe (`useCompacto`).
+ */
+function useSobrePlano(barra: React.RefObject<HTMLDivElement | null>): number | null {
+  const [encima, setEncima] = useState<number | null>(null);
+  useEffect(() => {
+    const el = barra.current;
+    const seccion = el?.closest<HTMLElement>(".m5");
+    if (!el || !seccion) return;
+    const fijar = () => {
+      const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+      // 4rem de la barra del portal (top-16) + la barra de la sección + 1.5rem de aire.
+      seccion.style.setProperty("--m5-sobre-plano", `calc(5.5rem + ${el.offsetHeight}px)`);
+      setEncima(Math.round(7.5 * rem + el.offsetHeight));
+    };
+    fijar();
+    const observador = new ResizeObserver(fijar);
+    observador.observe(el);
+    return () => observador.disconnect();
+  }, [barra]);
+  return encima;
+}
+
+/**
  * Resultados del Momento 5: los formularios uno tras otro, en el orden en que
  * se aplicaron, cada uno con su relato y su clasificación. El menú lleva a
  * cada formulario y marca el que se está leyendo. Las animaciones respetan
  * «reducir movimiento» del sistema.
  */
-export function PanelMomento5({ datos, abiertas }: { datos: ResultadosMomento5; abiertas: PreguntaAbiertaMomento5[] }) {
-  const formularios = ordenAplicacion(datos.meta.formularios).filter((f) => SECCION_DE_FORMULARIO[f.id]);
+export function PanelMomento5({
+  datos,
+  abiertas,
+  a2,
+  kahoot,
+}: {
+  datos: ResultadosMomento5;
+  abiertas: PreguntaAbiertaMomento5[];
+  a2: Actividad2Momento5 | null;
+  kahoot: KahootMomento5 | null;
+}) {
+  // Actividad 1, 2 y 3, en el orden de la jornada; solo lo que tiene sección.
+  const jornadas = gruposPorActividad(datos.meta.formularios, a2?.instrumentos ?? [], kahoot !== null)
+    .map((g) => ({ ...g, secciones: g.secciones.filter((s) => SECCION_DE_FORMULARIO[s.id]) }))
+    .filter((g) => g.secciones.length > 0);
   const [equipo, setEquipo] = useState<FiltroEquipo>(null);
   const d = useMemo(() => derivarMomento5(datos, equipo), [datos, equipo]);
   const reducido = useReducedMotion();
   const barra = useRef<HTMLDivElement>(null);
   const formulario = useFormularioActual(
-    formularios.map((f) => f.id),
+    jornadas.flatMap((j) => j.secciones.map((s) => s.id)),
     barra
   );
-
-  const jornadas = [...new Set(formularios.map((f) => f.fecha))].map((fecha) => ({
-    fecha,
-    formularios: formularios.filter((f) => f.fecha === fecha),
-  }));
+  const sobrePlano = useSobrePlano(barra);
 
   const elegir = (id: string) => {
     document.getElementById(SECCION_DE_FORMULARIO[id])?.scrollIntoView({ behavior: reducido ? "auto" : "smooth", block: "start" });
@@ -99,12 +141,16 @@ export function PanelMomento5({ datos, abiertas }: { datos: ResultadosMomento5; 
               original="Haz clic en un formulario para ir a su sección; el que estás leyendo queda resaltado en verde."
             />
           </p>
-          <ul className="flex items-start gap-10">
+          <ul className="flex items-start gap-6">
             {jornadas.map((j) => (
-              <li key={j.fecha} className="flex flex-col gap-1">
-                <span className="pl-2 text-xs text-[var(--m5-suave)]">{fechaLarga(j.fecha)}</span>
+              // Los nombres largos se parten en dos líneas en vez de empujar al filtro. La Actividad 2 tiene
+              // cuatro nombres y los más largos: su columna es más ancha para que la barra no crezca de más.
+              <li key={j.actividad} className={cn("flex min-w-0 flex-col gap-1", j.actividad === 2 ? "flex-[1.35]" : "flex-1")}>
+                <span className="pl-2 text-xs text-[var(--m5-suave)]">
+                  <TextoEditorial id="m5-menu-actividad" original="Actividad" /> {j.actividad}
+                </span>
                 <div className="flex flex-col items-start">
-                  {j.formularios.map((f) => {
+                  {j.secciones.map((f) => {
                     const activo = f.id === formulario;
                     return (
                       <button
@@ -113,7 +159,7 @@ export function PanelMomento5({ datos, abiertas }: { datos: ResultadosMomento5; 
                         aria-current={activo ? "location" : undefined}
                         onClick={() => elegir(f.id)}
                         className={cn(
-                          "group relative isolate flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-0.5 text-left text-[13px] leading-snug font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
+                          "group relative isolate flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-0.5 text-left text-[13px] leading-tight font-semibold outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
                           activo
                             ? "text-primary-foreground"
                             : "text-[var(--m5-suave)] hover:bg-[var(--m5-velo)] hover:text-[var(--m5-tinta)]"
@@ -162,7 +208,7 @@ export function PanelMomento5({ datos, abiertas }: { datos: ResultadosMomento5; 
         </div>
       </div>
 
-      <RelatoMomento5 d={d} datos={datos} abiertas={abiertas} equipo={equipo} />
+      <RelatoMomento5 d={d} datos={datos} abiertas={abiertas} equipo={equipo} a2={a2} kahoot={kahoot} sobrePlano={sobrePlano} />
     </MotionConfig>
   );
 }

@@ -8,6 +8,11 @@ Momento 5 del CAI Planeación Estratégica 2027-2037». Alimentan solo la descar
 Contienen nombres y correos de quienes respondieron, y la descarga los publica por decisión de
 los responsables (docs/decisions/0004).
 
+En la misma carpeta está el reporte del **Kahoot de Apropiación del MEDIT** (Actividad 3), un
+.xlsx de Kahoot (hojas `Overview`, `Participant Data`, `Quiz Details`). No es un formulario: la
+descarga lo ignora y lo lee su propio origen (`excel-momento5-kahoot-source.ts`), que lo reconoce
+por la hoja `Quiz Details`, no por el nombre. La página muestra solo conteos, sin apodos.
+
 ## Actualizar
 
 1. Reemplazar el .xlsx del formulario por la nueva exportación de Forms. El nombre puede variar

@@ -28,10 +28,13 @@ export function PortadaMomento5({
   formularios,
   participantes,
   equipos,
+  actividad2,
 }: {
   formularios: FormularioMomento5[];
   participantes: number;
   equipos: number;
+  /** Cifras de la Actividad 2; null si su archivo no se pudo leer. */
+  actividad2: { mesas: number; indicadores: number } | null;
 }) {
   const reducido = useReducedMotion();
   const orden = ordenAplicacion(formularios);
@@ -63,6 +66,16 @@ export function PortadaMomento5({
           <TextoEditorial id="m5-portada-c" original="formularios:" /> {formatNumero(individuales)}{" "}
           <TextoEditorial id="m5-portada-d" original="individuales y" /> {formatNumero(orden.length - individuales)}{" "}
           <TextoEditorial id="m5-portada-e" original="por equipo." />
+          {actividad2 ? (
+            <>
+              {" "}
+              <TextoEditorial id="m5-portada-a2-a" original="En la Actividad 2 los equipos trabajaron como mesas:" />{" "}
+              <span className="m5-cifra font-semibold text-foreground">{formatNumero(actividad2.mesas)}</span>{" "}
+              <TextoEditorial id="m5-portada-a2-b" original="fichas con" />{" "}
+              <span className="m5-cifra font-semibold text-foreground">{formatNumero(actividad2.indicadores)}</span>{" "}
+              <TextoEditorial id="m5-portada-a2-c" original="indicadores propuestos." />
+            </>
+          ) : null}
         </p>
         {primera ? (
           <div className="m5-entra flex items-center gap-2" style={paso(3)}>

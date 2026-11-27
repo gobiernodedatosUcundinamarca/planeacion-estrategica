@@ -13,9 +13,11 @@ const CARPETA = join(process.cwd(), "data", "forms_momento_5");
 const { meta } = normalizarResultadosMomento5(leerJson(join(process.cwd(), "data", "source-momento5-cai", "resultados.json")));
 const enviados = readdirSync(CARPETA)
   .filter((a) => a.endsWith(".xlsx"))
-  .map((a) => {
+  .flatMap((a) => {
     const libro = leerLibro(join(CARPETA, a));
-    return interpretarExportacionForms(basename(a, ".xlsx"), hojaAMatriz(libro, null) ?? [], celdasCombinadas(libro, null));
+    // El reporte del Kahoot comparte la carpeta pero no es un formulario de Forms.
+    if (libro.SheetNames.includes("Quiz Details")) return [];
+    return [interpretarExportacionForms(basename(a, ".xlsx"), hojaAMatriz(libro, null) ?? [], celdasCombinadas(libro, null))];
   });
 const hojas = hojasDescargaMomento5(meta, enviados);
 

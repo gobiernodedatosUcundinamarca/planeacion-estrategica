@@ -20,7 +20,8 @@
   /* Carril de BarraCreciente (piezas de la nota metodológica). */
   --nm-velo: var(--m5-velo);
   --m5-medianil: 2rem;
-  /* Barra fija del portal (4rem) + barra de la sección (~8rem, con la instrucción del menú). */
+  /* Barra fija del portal (4rem) + barra de la sección + aire. Valor inicial: el panel lo
+     reemplaza con el alto medido de la barra (`useSobrePlano`), que cambia con el menú. */
   --m5-sobre-plano: 13.5rem;
 
   color: var(--m5-tinta);
@@ -121,6 +122,32 @@
 @media (prefers-reduced-motion: reduce) {
   .m5-entra,
   .m5-asienta {
+    animation: none;
+  }
+}
+
+/* Nube de frases (NubeFrases): ocultas hasta que la nube llega a la vista; entonces
+   entran una tras otra (--paso), de la más grande a la más pequeña. */
+@keyframes m5-nube-entra {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+.m5-nube text {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.m5-nube[data-visible="false"] text {
+  opacity: 0;
+}
+.m5-nube[data-visible="true"] text {
+  animation: m5-nube-entra 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--paso, 0) * 0.025s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .m5-nube[data-visible] text {
+    opacity: 1;
     animation: none;
   }
 }

@@ -6133,5 +6133,310 @@
     "original": "Empezar por el primer formulario",
     "archivo": "components/momento5/portada-momento5.tsx",
     "elemento": "span"
+  },
+  "m5-a2-error": {
+    "original": "No se pudo cargar la Actividad 2; se muestran los formularios de las actividades 1 y 3.",
+    "archivo": "app/(dashboard)/resultados-momento5/page.tsx",
+    "elemento": "span"
+  },
+  "m5-menu-actividad": {
+    "original": "Actividad",
+    "archivo": "components/momento5/panel-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-a2-a": {
+    "original": "En la Actividad 2 los equipos trabajaron como mesas:",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-a2-b": {
+    "original": "fichas con",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-portada-a2-c": {
+    "original": "indicadores propuestos.",
+    "archivo": "components/momento5/portada-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-archivos-titulo": {
+    "original": "Actividad 2: archivos recibidos",
+    "archivo": "components/momento5/notas-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-archivos-entrada": {
+    "original": "Las fichas llegaron como presentaciones, PDF, texto e imágenes, y se pasaron a un solo libro de Excel.",
+    "archivo": "components/momento5/notas-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-archivos-archivo": {
+    "original": "Archivo",
+    "archivo": "components/momento5/notas-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-mesa": {
+    "original": "Mesa",
+    "archivo": "components/momento5/notas-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-archivos-uso": {
+    "original": "Uso",
+    "archivo": "components/momento5/notas-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-archivos-nota": {
+    "original": "Nota",
+    "archivo": "components/momento5/notas-momento5.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-actividad": {
+    "original": "Actividad 2.",
+    "archivo": "components/momento5/relato/capitulo-nube.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-ficha-frases": {
+    "original": "frases, sin nombre ni equipo.",
+    "archivo": "components/momento5/relato/capitulo-nube.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-nube-sin-filtro": {
+    "original": "Mentimeter no registra quién escribió cada frase: con el filtro de equipo se siguen mostrando todas.",
+    "archivo": "components/momento5/relato/capitulo-nube.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-fuente-nube": {
+    "original": "nube de Mentimeter de la Actividad 2, transcrita de la imagen. Mentimeter no entrega conteos: el tamaño de cada frase reproduce el de la imagen en tres niveles (grande, mediano y pequeño). Las frases van tal como se escribieron, también las que Mentimeter cortó al dibujarlas.",
+    "archivo": "components/momento5/relato/capitulo-nube.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-nube-omitida": {
+    "original": "Se omite",
+    "archivo": "components/momento5/relato/capitulo-nube.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-nube-vacia": {
+    "original": "No hay frases transcritas para este instrumento.",
+    "archivo": "components/momento5/relato/capitulo-nube.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso1-a": {
+    "original": "mesas, dos por transformación, diligenciaron la ficha.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso1-equipo": {
+    "original": "La mesa de este equipo trabajó",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso1-nota": {
+    "original": "Cada mesa es el equipo del mismo número en las demás actividades: los integrantes que anotan las fichas de las mesas 1, 3 y 8 son los de esos equipos.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-indicadores-propuestos": {
+    "original": "Indicadores propuestos",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso2-a": {
+    "original": "propusieron",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso2-nota": {
+    "original": "Cada casilla del gráfico es un indicador de la mesa.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso3-a": {
+    "original": "anuales,",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso3-b": {
+    "original": "semestrales",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso3-c": {
+    "original": "y",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso3-d": {
+    "original": "con otra periodicidad",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-paso3-nota": {
+    "original": "Cuenta la primera periodicidad que escribió la mesa: «Semestral (seguimiento) / Anual (resultado)» se cuenta como semestral.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-sin-ficha": {
+    "original": "Este equipo no tiene ficha del Reto 1.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-ficha-a": {
+    "original": "Una ficha por mesa:",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-ficha-b": {
+    "original": "indicadores.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-fuente-mapa": {
+    "original": "fichas del Reto 1, una por mesa, agrupadas por la transformación que trabajó cada una. Cada casilla es una fila de «Indicadores propuestos»; su color, lo que la mesa escribió en «Periodicidad».",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r1-propuesta": {
+    "original": "Propuesta MESA",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-fuente-propuesta": {
+    "original": "tabla «Propuesta MESA» de cada ficha del Reto 1, transcrita sin corregir. La Mesa 2 entregó cuatro archivos (dos idénticos) con el mismo contenido en distinta redacción: se publica el último que se guardó. Los archivos recibidos están al final de la página.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-fuente-indicadores": {
+    "original": "tabla «Indicadores propuestos» de cada ficha, transcrita sin corregir; los campos van tal como los escribió la mesa. La Mesa 3 entregó sus indicadores en texto, con los campos separados por punto y coma, en el orden de la tabla. La tabla de la Mesa 6 trae un indicador; los otros dos están en su respuesta a «¿Cómo sabremos que ocurrió?» y se incluyen con los campos que allí aparecen.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-fuente-cierres": {
+    "original": "última diapositiva de cada ficha del Reto 1. Se muestran las mesas que la diligenciaron.",
+    "archivo": "components/momento5/relato/capitulo-reto1.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r2-ficha": {
+    "original": "Registros recibidos:",
+    "archivo": "components/momento5/relato/capitulo-reto2.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r2-sin-registro": {
+    "original": "Este equipo no tiene registros del Reto 2.",
+    "archivo": "components/momento5/relato/capitulo-reto2.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-fuente-reto2": {
+    "original": "los dos archivos de la carpeta del Reto 2, transcritos sin corregir.",
+    "archivo": "components/momento5/relato/capitulo-reto2.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r2-registrado": {
+    "original": "Registrado por",
+    "archivo": "components/momento5/relato/capitulo-reto2.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r2-elemento": {
+    "original": "Elemento",
+    "archivo": "components/momento5/relato/capitulo-reto2.tsx",
+    "elemento": "span"
+  },
+  "m5-a2-r2-diligenciamiento": {
+    "original": "Diligenciamiento",
+    "archivo": "components/momento5/relato/capitulo-reto2.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-acierto": {
+    "original": "de acierto",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-promedio": {
+    "original": "en promedio por jugador",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-sin-responder": {
+    "original": "sin responder",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-correcta": {
+    "original": "· correcta",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso1-a": {
+    "original": "jugadores respondieron",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso1-b": {
+    "original": "preguntas y acertaron el",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-sin-filtro": {
+    "original": "Kahoot registra apodos, no equipos: con el filtro de equipo se siguen mostrando todos los jugadores.",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso2-titulo": {
+    "original": "Acierto por pregunta",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso2-a": {
+    "original": "La que más se acertó fue la",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso2-b": {
+    "original": "la que menos, la",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso3-titulo": {
+    "original": "Jugadores según sus aciertos",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso3-a": {
+    "original": "acertaron las cinco preguntas.",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-paso3-nota": {
+    "original": "Cada columna cuenta jugadores con ese número de preguntas acertadas, de 0 a 5.",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-ficha-actividad": {
+    "original": "Actividad 3. Juego en vivo:",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-ficha-a": {
+    "original": "jugadores,",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-ficha-b": {
+    "original": "preguntas.",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-fuente-grafico": {
+    "original": "reporte del juego exportado de Kahoot. Precisión: respuestas correctas ÷ (jugadores × preguntas); lo que no se respondió cuenta como no acertado. Acierto por pregunta y aciertos por jugador, tal como los calcula Kahoot; no se publica ningún apodo.",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-fuente-opciones": {
+    "original": "opciones de respuesta tal como las escribió el juego. Kahoot no exporta la clave: se toma como correcta la opción que eligieron los jugadores que acertaron las cinco preguntas, y coincide con los aciertos que informa Kahoot en cada pregunta.",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
+  },
+  "m5-kahoot-eje-aciertos": {
+    "original": "Preguntas acertadas",
+    "archivo": "components/momento5/relato/capitulo-kahoot.tsx",
+    "elemento": "span"
   }
 }

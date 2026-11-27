@@ -29,13 +29,13 @@ export class ExcelFormulariosMomento5DataSource implements FormulariosMomento5Da
             .map((a) => join(directorio, a))
         : [];
     this.cache = new CacheArchivo(rutas, () =>
-      rutas().map((ruta) => {
+      rutas().flatMap((ruta) => {
         const libro = leerLibro(ruta);
-        return interpretarExportacionForms(
-          basename(ruta, extname(ruta)),
-          hojaAMatriz(libro, null) ?? [],
-          celdasCombinadas(libro, null)
-        );
+        // El reporte del Kahoot comparte la carpeta pero no es un formulario: lo lee su propio origen.
+        if (libro.SheetNames.includes("Quiz Details")) return [];
+        return [
+          interpretarExportacionForms(basename(ruta, extname(ruta)), hojaAMatriz(libro, null) ?? [], celdasCombinadas(libro, null)),
+        ];
       })
     );
   }
