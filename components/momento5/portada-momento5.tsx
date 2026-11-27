@@ -10,7 +10,7 @@ import { ordenAplicacion } from "@/lib/reglas/momento5";
 import type { FormularioMomento5 } from "@/types/momento5";
 import { SECCION_DE_FORMULARIO } from "./relato/relato-momento5";
 
-const BOTON = "Empezar por el primer formulario";
+const BOTON = "Empezar";
 
 /** Orden de entrada de cada pieza del texto (`.m5-entra` en momento5.css). */
 const paso = (n: number) => ({ "--paso": n }) as CSSProperties;

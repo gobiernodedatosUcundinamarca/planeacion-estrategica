@@ -6130,7 +6130,7 @@
     "elemento": "span"
   },
   "m5-portada-boton": {
-    "original": "Empezar por el primer formulario",
+    "original": "Empezar",
     "archivo": "components/momento5/portada-momento5.tsx",
     "elemento": "span"
   },
