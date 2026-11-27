@@ -1,7 +1,6 @@
 "use client";
 
 import { TextoEditorial } from "@/components/editorial/texto-editorial";
-import { formatNumero } from "@/lib/formatters";
 import type { FiltroEquipo } from "@/lib/reglas/momento5";
 import type { InstrumentoActividad2, NubeActividad2 } from "@/types/momento5-actividad2";
 import { NubeFrases } from "../nube-frases";
@@ -25,17 +24,7 @@ export function CapituloNube({
 }) {
   const total = nube?.frases.length ?? 0;
   return (
-    <Capitulo
-      id={instrumento.id}
-      titulo={instrumento.nombre}
-      equipo={equipo}
-      ficha={
-        <>
-          {instrumento.instrumento} · <TextoEditorial id="m5-a2-actividad" original="Actividad 2." /> {instrumento.medio}:{" "}
-          <span className="m5-cifra">{formatNumero(total)}</span> <TextoEditorial id="m5-a2-ficha-frases" original="frases, sin nombre ni equipo." />
-        </>
-      }
-    >
+    <Capitulo id={instrumento.id} titulo={instrumento.nombre} equipo={equipo}>
       {nube && total ? (
         <div className="mt-10 flex flex-col gap-4">
           <Pregunta>{nube.pregunta}</Pregunta>

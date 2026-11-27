@@ -6194,11 +6194,6 @@
     "archivo": "components/momento5/relato/capitulo-nube.tsx",
     "elemento": "span"
   },
-  "m5-a2-ficha-frases": {
-    "original": "frases, sin nombre ni equipo.",
-    "archivo": "components/momento5/relato/capitulo-nube.tsx",
-    "elemento": "span"
-  },
   "m5-a2-nube-sin-filtro": {
     "original": "Mentimeter no registra quién escribió cada frase: con el filtro de equipo se siguen mostrando todas.",
     "archivo": "components/momento5/relato/capitulo-nube.tsx",
